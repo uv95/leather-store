@@ -1,0 +1,23 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.item {
+  @include main-block;
+  padding-bottom: $footer-length;
+  padding-top: $header-length;
+  margin: 6rem auto 0 auto;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    &__left {
+      width: 50%;
+      display: flex;
+    }
+    &__right {
+      width: 40%;
+    }
+  }
+}

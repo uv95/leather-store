@@ -1,0 +1,27 @@
+.slider {
+  display: flex;
+  overflow: hidden;
+
+  &-img {
+    width: 100%;
+    background-position: center;
+    transition: transform 0.5s;
+    object-fit: cover;
+  }
+}
+
+.leftArrow,
+.rightArrow {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 1.5rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.leftArrow {
+  left: 1.5rem;
+}
+.rightArrow {
+  right: 1.5rem;
+}

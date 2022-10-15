@@ -1,0 +1,81 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem 2rem 1rem;
+  border-bottom: 1px solid $color-grey--medium;
+
+  &:not(:first-of-type) {
+    padding-top: 2rem;
+  }
+
+  &__left {
+    display: flex;
+    gap: 2rem;
+    &-img {
+      width: 14rem;
+      height: 14rem;
+      object-fit: cover;
+    }
+    &__info {
+      font-size: 1.2rem;
+      color: $color-grey--dark;
+      position: relative;
+      &-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: black;
+      }
+
+      &__colors {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        & img {
+          @include colorBtn;
+          width: 3rem;
+          height: 3rem;
+        }
+        &-threads {
+          margin-left: 1rem;
+        }
+      }
+      &__qty {
+        color: black;
+        font-size: 1.5rem;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        &__counter {
+          display: flex;
+          &-cell {
+            @include cell;
+            &--num {
+              @include center;
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+        }
+        &-price {
+          font-weight: 700;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+  &__right {
+    &-remove {
+      & svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}

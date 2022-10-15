@@ -1,0 +1,51 @@
+@mixin main-block {
+  width: 100%;
+  max-width: 124rem;
+  padding: 0 2rem;
+}
+
+@mixin items-section--home {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+@mixin items-section--catalog {
+  display: grid;
+  grid-template-columns: repeat(3, 32rem);
+  gap: 2rem;
+  row-gap: 6rem;
+  justify-content: space-between;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin colorBtn {
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  border-radius: 50%;
+  object-fit: cover;
+
+  &:hover {
+    outline: 1px solid $color-grey--dark;
+    outline-offset: 3px;
+  }
+}
+
+@mixin cell {
+  background-color: $color-grey--medium;
+  width: 3rem;
+  @include center;
+  cursor: pointer;
+  transition: all 0.1s;
+
+  &:hover {
+    color: white;
+    background-color: $color-grey--dark;
+  }
+}

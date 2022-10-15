@@ -1,0 +1,25 @@
+@import '../../base-styles/variables.scss';
+@import '../../base-styles/mixins.scss';
+
+.catalog {
+  @include main-block;
+  margin: 4rem auto 0 auto;
+  padding-bottom: $footer-length;
+  padding-top: $header-length;
+
+  &__container {
+    margin-bottom: 4rem;
+
+    &__top {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      font-size: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    &__items {
+      @include items-section--catalog;
+    }
+  }
+}

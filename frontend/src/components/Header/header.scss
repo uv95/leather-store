@@ -1,0 +1,82 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.header {
+  font-size: 2rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: black;
+  border-bottom: 1.5px solid $color-grey--light;
+
+  &__container {
+    @include main-block;
+    margin: 0 auto;
+
+    &__admin {
+      max-width: 70%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: $header-length;
+
+      &--link {
+        color: $color-grey--dark !important;
+        &-active {
+          position: relative;
+          transition: all 0.2s;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            height: 1px;
+            width: 100%;
+            background-color: black;
+          }
+        }
+      }
+    }
+
+    &-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: $header-length;
+      color: black;
+
+      &__logo {
+        font-weight: 700;
+      }
+
+      &__nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: 2rem;
+        width: 9rem;
+        display: flex;
+        color: black;
+
+        &-shop {
+          margin-right: 10rem;
+
+          &:hover {
+            filter: invert(30%);
+          }
+        }
+        &-icon {
+          width: 2rem;
+          height: 2rem;
+          &:hover {
+            filter: invert(30%);
+          }
+        }
+      }
+    }
+  }
+}

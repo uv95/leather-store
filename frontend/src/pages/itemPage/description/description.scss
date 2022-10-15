@@ -1,0 +1,95 @@
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/mixins.scss';
+
+.item-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.item-price {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.colors {
+  display: flex;
+  margin-bottom: 3rem;
+  gap: 2.5rem;
+
+  &-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.5rem;
+    transition: all 0.1s;
+    &:hover {
+      border-color: $color-grey--dark;
+    }
+    &__img {
+      @include colorBtn;
+    }
+  }
+}
+
+.leather-type {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  &__radio {
+    display: flex;
+    &__box {
+      display: flex;
+      align-items: center;
+      &-input {
+        margin-right: 0.5rem;
+      }
+      &-label {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+}
+
+.item-tabs {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+
+  &--item {
+    position: relative;
+    color: $color-grey--dark;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      color: black;
+    }
+  }
+  & .tab-active {
+    color: black;
+    transition: all 0.2s;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      height: 1px;
+      width: 100%;
+      background-color: black;
+    }
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    &-item {
+    }
+  }
+}
+
+.item-btn {
+  margin: 3rem 0;
+}

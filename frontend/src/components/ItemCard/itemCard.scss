@@ -1,0 +1,29 @@
+.item-card {
+  width: 32rem;
+  &__img {
+    width: 100%;
+    height: 32rem;
+    overflow: hidden;
+    &--item {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  &__text {
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-between;
+    color: grey;
+
+    &--price {
+      color: black;
+    }
+  }
+}

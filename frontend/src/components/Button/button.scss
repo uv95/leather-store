@@ -1,0 +1,32 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.button {
+  font-size: 1.5rem;
+  width: 16rem;
+  height: 3rem;
+  @include center;
+  cursor: pointer;
+  transition: all 0.1s;
+  &:hover {
+    color: white;
+    background-color: $color-grey--dark;
+  }
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+.grey {
+  background-color: $color-grey--medium;
+}
+
+.big {
+  font-size: 2rem;
+  height: 5rem;
+  min-width: 16rem;
+  width: fit-content;
+  padding: 0 1rem;
+}
