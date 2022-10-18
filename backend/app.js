@@ -7,6 +7,9 @@ const hpp = require('hpp');
 
 const itemRouter = require('./routes/itemRouter');
 const userRouter = require('./routes/userRouter');
+const cartRouter = require('./routes/cartRouter');
+const orderRouter = require('./routes/orderRouter');
+const addressRouter = require('./routes/addressRouter');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -39,6 +42,8 @@ app.use(
 //ROUTES
 app.use('/items', itemRouter);
 app.use('/users', userRouter);
+app.use('/cart', cartRouter);
+app.use('/order', orderRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError('Страница не найдена', 404));

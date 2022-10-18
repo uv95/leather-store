@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  items: [{ type: mongoose.Schema.ObjectId, ref: 'CartItem' }],
+  cart: { type: mongoose.Schema.ObjectId, ref: 'Cart' },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    // required: [true, 'Пожалуйста, зарегистрируйтесь'],
+    required: true,
   },
   address: {
     type: mongoose.Schema.ObjectId,
@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    select: false,
+    // select: false,
   },
 });
 

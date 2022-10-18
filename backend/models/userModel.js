@@ -3,53 +3,79 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Имя обязательно'],
-    trim: true,
-    maxLength: [30, 'Имя должно содержать не более 30 символов'],
-  },
-  phoneNumber: {
-    type: Number,
-    required: [true, 'Номер телефона обязателен'],
-  },
-  email: {
-    type: String,
-    required: [true, 'Email обязателен'],
-    unique: true,
-    lowercase: true,
-    validate: [validator.isEmail, 'Введите правильный email'],
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
-  },
-  password: {
-    type: String,
-    required: [true, 'Пароль обязателен'],
-    minLength: 8,
-    select: false,
-  },
-  passwordConfirm: {
-    type: String,
-    required: [true, 'Подтвердите пароль'],
-    validate: {
-      validator: function (el) {
-        return el === this.password;
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Имя обязательно'],
+      trim: true,
+      maxLength: [30, 'Имя должно содержать не более 30 символов'],
+    },
+    phone: {
+      type: String,
+      validate: {
+        validator: function (num) {
+          return validator.isMobilePhone(num.toString(), 'ru-RU');
+        },
+        message: 'Введите номер телефона',
       },
-      message: 'Пароль не совпадает',
+
+      required: function () {
+        return this.role === 'user';
+      },
+    },
+    email: {
+      type: String,
+      required: [true, 'Email обязателен'],
+      unique: true,
+      lowercase: true,
+      validate: [validator.isEmail, 'Введите правильный email'],
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
+    password: {
+      type: String,
+      required: [true, 'Пароль обязателен'],
+      minLength: 8,
+      select: false,
+    },
+    passwordConfirm: {
+      type: String,
+      required: [true, 'Подтвердите пароль'],
+      validate: {
+        validator: function (el) {
+          return el === this.password;
+        },
+        message: 'Пароль не совпадает',
+      },
+    },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
     },
   },
-  passwordChangedAt: Date,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  active: {
-    type: Boolean,
-    default: true,
-    select: false,
-  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+userSchema.virtual('address', {
+  ref: 'Address',
+  foreignField: 'user',
+  localField: '_id',
+});
+userSchema.virtual('cart', {
+  ref: 'Cart',
+  foreignField: 'user',
+  localField: '_id',
 });
 
 userSchema.pre(/^find/, function (next) {

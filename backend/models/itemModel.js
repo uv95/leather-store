@@ -7,7 +7,7 @@ const itemSchema = new mongoose.Schema({
     required: [true, 'Название обязательно'],
     unique: true,
     trim: true,
-    minLength: [10, 'Слишком короткое название'],
+    // minLength: [10, 'Слишком короткое название'],
   },
   slug: String,
   type: {
