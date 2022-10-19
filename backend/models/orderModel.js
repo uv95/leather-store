@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  cart: { type: mongoose.Schema.ObjectId, ref: 'Cart' },
+  items: [
+    {
+      name: String,
+      colors: { leatherColor: String, threadsColor: String },
+      quantity: Number,
+      total: Number,
+    },
+  ],
+  total: Number,
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -15,8 +23,14 @@ const orderSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    // select: false,
   },
+});
+
+orderSchema.pre('save', function (next) {
+  this.total = this.items
+    .map((item) => item.total)
+    .reduce((prev, curr) => prev + curr, 0);
+  next();
 });
 
 const Order = mongoose.model('Order', orderSchema);

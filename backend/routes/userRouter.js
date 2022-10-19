@@ -2,8 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 const addressRouter = require('./addressRouter');
+const orderRouter = require('./orderRouter');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const orderController = require('../controllers/orderController');
 
 router.use('/:userId/address', addressRouter);
 
@@ -15,6 +17,11 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 router.use(authController.protect);
 
+router.get(
+  '/:userId/orders',
+  authController.restrictTo('user'),
+  orderController.getMyOrders
+);
 router.patch('/updateMyPassword', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getOneUser);
 router.patch('/updateMe', userController.updateMe);

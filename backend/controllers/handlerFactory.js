@@ -59,9 +59,12 @@ exports.getOne = (Model, populateOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, populateOptions) =>
   catchAsync(async (req, res, next) => {
-    const features = new APIFeatures(Model.find(), req.query)
+    const features = new APIFeatures(
+      Model.find().populate(populateOptions),
+      req.query
+    )
       .filter()
       .sort()
       .limitFields()

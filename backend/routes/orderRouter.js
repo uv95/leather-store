@@ -6,20 +6,16 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.use(authController.protect);
-router.use(authController.restrictTo('user'));
 
 router
   .route('/')
-  .get(orderController.getAllOrders)
-  .post(orderController.createOrder);
+  .get(authController.restrictTo('admin'), orderController.getAllOrders)
+  .post(authController.restrictTo('user'), orderController.createOrder);
 
 router
   .route('/:id')
   .get(orderController.getOneOrder)
-  .patch(
-    authController.restrictTo('user', 'admin'),
-    orderController.updateOrder
-  )
+  .patch(orderController.updateOrder)
   .delete(orderController.cancelOrder);
 
 module.exports = router;
