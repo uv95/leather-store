@@ -1,17 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './register.scss';
 import Button from '../../components/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { register } from '../../features/auth/authSlice';
 
-type Props = {};
+const Register = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    phone: '',
+  });
 
-const Register = (props: Props) => {
+  const { name, email, password, passwordConfirm, phone } = formData;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading } = useAppSelector((state) => state.auth);
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.value,
+    }));
+  };
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(register(formData))
+      .unwrap()
+      .then(() => navigate('/'))
+      .catch((error) => console.log(error, 'error'));
+  };
+
+  // if (isLoading) return <h1>Loading....</h1>;
+
   return (
     <div className="register">
       <div className="register__container">
         <h1 className="register__container__heading">Регистрация</h1>
-        <form className="register__container__form">
+        <form className="register__container__form" onSubmit={onSubmit}>
           <div className="register__container__form__box">
             <label
               htmlFor="name"
@@ -21,10 +54,13 @@ const Register = (props: Props) => {
             </label>
             <input
               id="name"
+              name="name"
               type="text"
               className="register__container__form__box-input"
               required
               placeholder="Имя"
+              value={name}
+              onChange={onChange}
             />
           </div>
           <div className="register__container__form__box">
@@ -36,10 +72,13 @@ const Register = (props: Props) => {
             </label>
             <input
               id="email"
+              name="email"
               type="email"
               className="register__container__form__box-input"
               required
               placeholder="E-mail"
+              value={email}
+              onChange={onChange}
             />
           </div>
 
@@ -52,44 +91,53 @@ const Register = (props: Props) => {
             </label>
             <input
               id="password"
+              name="password"
               type="password"
               className="register__container__form__box-input"
               required
               placeholder="Пароль"
+              value={password}
+              onChange={onChange}
             />
           </div>
           <div className="register__container__form__box">
             <label
-              htmlFor="password"
+              htmlFor="passwordConfirm"
               className="register__container__form__box-label"
             >
               Подтверждение пароля
             </label>
             <input
-              id="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
               type="password"
               className="register__container__form__box-input"
               required
               placeholder="Подтверждение пароля"
+              value={passwordConfirm}
+              onChange={onChange}
             />
           </div>
           <div className="register__container__form__box">
             <label
-              htmlFor="phoneNumber"
+              htmlFor="phone"
               className="register__container__form__box-label"
             >
               Телефон
             </label>
             <input
-              id="phoneNumber"
+              id="phone"
+              name="phone"
               type="text"
               className="register__container__form__box-input"
               required
               placeholder="Телефон"
+              value={phone}
+              onChange={onChange}
             />
           </div>
           <div className="register__container__form__bottom">
-            <Button onClick={() => {}} text="Зарегистрироваться" color="grey" />
+            <Button type="submit" text="Зарегистрироваться" color="grey" />
             <p>
               Уже зарегистрированы?{' '}
               <Link
