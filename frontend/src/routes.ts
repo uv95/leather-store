@@ -10,6 +10,7 @@ import {
   CONTACTS_ROUTE,
   STATISTICS_ROUTE,
   ITEMS_MANAGEMENT_ROUTE,
+  USER_PROFILE_ROUTE,
 } from './utils/consts';
 import Admin from './pages/AdminProfile/Admin/Admin';
 import Cart from './pages/Cart/Cart';
@@ -22,6 +23,7 @@ import NotFound from './pages/NotFound/NotFound';
 import Contacts from './pages/Contacts/Contacts';
 import Statistics from './pages/AdminProfile/Statistics/Statistics';
 import ItemsManagement from './pages/AdminProfile/ItemsManagement/ItemsManagement';
+import UserProfile from './pages/UserProfile/UserProfile';
 
 interface Routes {
   path: string;
@@ -30,6 +32,7 @@ interface Routes {
 
 export const authRoutes: Routes[] = [
   { path: ADMIN_ROUTE, Component: Admin },
+  { path: USER_PROFILE_ROUTE, Component: UserProfile },
   { path: STATISTICS_ROUTE, Component: Statistics },
   { path: ITEMS_MANAGEMENT_ROUTE, Component: ItemsManagement },
 ];

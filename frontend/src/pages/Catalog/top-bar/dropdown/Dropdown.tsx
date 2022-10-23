@@ -24,7 +24,10 @@ const Dropdown: React.FC<DropdownProps> = ({ open }) => {
           <div className="dropdown__content-left__title">Тип</div>
           <div className="dropdown__content-left__options">
             {productTypes.map((option) => (
-              <div className="dropdown__content-left__options--item">
+              <div
+                key={option}
+                className="dropdown__content-left__options--item"
+              >
                 {option}
               </div>
             ))}
@@ -34,7 +37,10 @@ const Dropdown: React.FC<DropdownProps> = ({ open }) => {
           <div className="dropdown__content-right__title">Сортировка</div>
           <div className="dropdown__content-right__options">
             {sortingOptions.map((option) => (
-              <div className="dropdown__content-right__options--item">
+              <div
+                key={option}
+                className="dropdown__content-right__options--item"
+              >
                 {option}
               </div>
             ))}

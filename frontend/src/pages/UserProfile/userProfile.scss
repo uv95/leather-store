@@ -1,0 +1,9 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.profile {
+  @include main-block;
+  margin: 4rem auto 0 auto;
+  padding-bottom: $footer-length;
+  padding-top: $header-length;
+}

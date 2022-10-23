@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './header.scss';
 import { Link, useLocation } from 'react-router-dom';
 import {
+  ADMIN_ROUTE,
   CART_ROUTE,
   CATALOG_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
+  USER_PROFILE_ROUTE,
 } from '../../utils/consts';
 import cart from '../../assets/icons/cart.svg';
 import user from '../../assets/icons/user.svg';
 import login from '../../assets/icons/sign-in.svg';
 import AdminHeader from './AdminHeader';
+import { useDefineRole } from '../../hooks/useDefineRole';
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const role = useDefineRole();
   const location = useLocation();
 
   return (
@@ -34,18 +38,25 @@ const Header = (props: Props) => {
               >
                 КАТАЛОГ
               </Link>
-              <Link to={LOGIN_ROUTE}>
-                <img
-                  src={login}
-                  className="header__container-inner__nav-icon"
-                  alt="login"
-                />
-                {/* <img
-                src={user}
-                className="header__container-inner__nav-icon"
-                alt="user_profile"
-              /> */}
-              </Link>
+              {!role ? (
+                <Link to={LOGIN_ROUTE}>
+                  <img
+                    src={login}
+                    className="header__container-inner__nav-icon"
+                    alt="login"
+                  />
+                </Link>
+              ) : role === 'user' ? (
+                <Link to={USER_PROFILE_ROUTE}>
+                  <img
+                    src={user}
+                    className="header__container-inner__nav-icon"
+                    alt="user_profile"
+                  />
+                </Link>
+              ) : (
+                <Link to={ADMIN_ROUTE}>ADMIN</Link>
+              )}
               <Link to={CART_ROUTE}>
                 <img
                   src={cart}

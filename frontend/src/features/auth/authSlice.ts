@@ -6,12 +6,7 @@ const userStr = localStorage.getItem('user');
 let user = null;
 if (userStr) user = JSON.parse(userStr);
 
-interface AuthState {
-  user: RegisterData | LoginData | null;
-  isLoading: boolean;
-}
-
-const initialState: AuthState = {
+const initialState = {
   user: user || null,
   isLoading: false,
 };
@@ -22,6 +17,8 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user);
     } catch (error) {
+      console.log(error);
+
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -33,6 +30,7 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(user);
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

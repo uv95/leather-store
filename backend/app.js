@@ -27,7 +27,7 @@ const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, //allow 100 requests from the same IP in 1h
   message: 'Too many requests from this IP, try again in an hour',
 });
-app.use('/api', limiter);
+app.use('/', limiter);
 
 app.use(express.json());
 
