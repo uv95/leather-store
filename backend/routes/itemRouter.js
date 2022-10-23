@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 const itemController = require('../controllers/itemController');
 const authController = require('../controllers/authController');
@@ -10,6 +9,8 @@ router
   .post(
     authController.protect,
     authController.restrictTo('admin'),
+    itemController.uploadImages,
+    itemController.resizeImages,
     itemController.createItem
   );
 
@@ -19,6 +20,8 @@ router
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
+    itemController.uploadImages,
+    itemController.resizeImages,
     itemController.updateItem
   )
   .delete(

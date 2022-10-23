@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 const addressRouter = require('./addressRouter');
-const orderRouter = require('./orderRouter');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const orderController = require('../controllers/orderController');
