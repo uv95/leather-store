@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './itemsManagement.scss';
 import Button from '../../../components/Button/Button';
 import Table from '../../../components/Table/Table';
 import AddItem from '../../../components/AddItem/AddItem';
 import AddType from '../../../components/AddType/AddType';
 
-type Props = {};
-
-const ItemsManagement = (props: Props) => {
+const ItemsManagement = () => {
   const [openAddItem, setOpenAddItem] = useState(false);
   const [openAddType, setOpenAddType] = useState(false);
 

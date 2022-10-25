@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './table.scss';
-import wallet from '../../assets/img/wallet-2.jpg';
 import { ReactComponent as Delete } from '../../assets/icons/trash.svg';
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { deleteItem, getAllItems } from '../../features/items/itemsSlice';
 
-type Props = {};
+const Table = () => {
+  const dispatch = useAppDispatch();
 
-const Table = (props: Props) => {
+  const { isLoading, items } = useAppSelector((state) => state.items);
+
+  useEffect(() => {
+    dispatch(getAllItems())
+      .unwrap()
+      .then((data) => console.log(data, 'data'))
+      .catch((error) => console.log(error, 'ERROR'));
+  }, [dispatch]);
+
+  const onDelete = (id: string) => {
+    dispatch(deleteItem(id))
+      .unwrap()
+      .then((data) => console.log(data, 'data'))
+      .catch((error) => console.log(error, 'ERROR'));
+  };
+
+  useEffect(() => {
+    console.log(isLoading, 'isLoading');
+  }, [isLoading]);
+
+  if (isLoading) return <h1>LOADING</h1>;
+
+  if (items.length === 0) return <h1>Товаров не найдено</h1>;
+
   return (
     <>
       <table className="table">
@@ -17,65 +42,36 @@ const Table = (props: Props) => {
             <th>Название</th>
             <th>Тип товара</th>
             <th>Цена</th>
-            <th>Куплено</th>
             <th>Добавлено</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="table-num">1</td>
-            <td className="table-img">
-              <img src={wallet} alt="" />
-            </td>
-            <td className="table-title">Wallet Crazy Horse</td>
-            <td className="table-type">Кошельки и картхолдеры</td>
-            <td className="table-price">$20</td>
-            <td className="table-bought">3</td>
-            <td className="table-added">6.06.2022</td>
-            <td className="table-actions">
-              <div className="table-actions__container">
-                <Edit />
-                <Delete />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td className="table-num">1</td>
-            <td className="table-img">
-              <img src={wallet} alt="" />
-            </td>
-            <td className="table-title">Wallet Crazy Horse</td>
-            <td className="table-type">Кошельки и картхолдеры</td>
-            <td className="table-price">$20</td>
-            <td className="table-bought">3</td>
-            <td className="table-added">6.06.2022</td>
-            <td className="table-actions">
-              <div className="table-actions__container">
-                <Edit />
-                <Delete />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td className="table-num">1</td>
-            <td className="table-img">
-              <img src={wallet} alt="" />
-            </td>
-            <td className="table-title">
-              Wallet Crazy Horsesfddfs dfsfdsfsdfdfds
-            </td>
-            <td className="table-type">Кошельки и картхолдеры</td>
-            <td className="table-price">$20</td>
-            <td className="table-bought">3</td>
-            <td className="table-added">6.06.2022</td>
-            <td className="table-actions">
-              <div className="table-actions__container">
-                <Edit />
-                <Delete />
-              </div>
-            </td>
-          </tr>
+          {items.map((item, i) => (
+            <tr key={item._id}>
+              <td className="table-num">{i + 1}</td>
+              <td className="table-img">
+                <img
+                  src={require(`../../assets/img/items/${item.imageCover}`)}
+                  alt="Фото товара"
+                />
+              </td>
+              <td className="table-title">{item.name}</td>
+              <td className="table-type">
+                {item.type.split('')[0].toUpperCase() + item.type.slice(1)}
+              </td>
+              <td className="table-price">{item.price} руб</td>
+              <td className="table-added">
+                {new Date(item.createdAt).toLocaleDateString()}
+              </td>
+              <td className="table-actions">
+                <div className="table-actions__container">
+                  <Edit />
+                  <Delete onClick={() => onDelete(item._id)} />
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

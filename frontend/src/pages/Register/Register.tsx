@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { register } from '../../features/auth/authSlice';
-import { useDefineRole } from '../../hooks/useDefineRole';
 
 const Register = () => {
   const [formData, setFormData] = useState({
