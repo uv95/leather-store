@@ -14,9 +14,10 @@ router
     itemController.createItem
   );
 
+router.route('/:slug').get(itemController.getOneItem);
+
 router
   .route('/:id')
-  .get(itemController.getOneItem)
   .patch(
     authController.protect,
     authController.restrictTo('admin'),

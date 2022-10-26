@@ -3,8 +3,13 @@ import './description.scss';
 import black from '../../../assets/img/black.jpg';
 import Button from '../../../components/Button/Button';
 import ChooseColor from '../../../components/ChooseColor/ChooseColor';
+import { ItemData } from '../../../features/items/itemsService';
 
-const Description: React.FC = () => {
+interface DescriptionProps {
+  item: ItemData;
+}
+
+const Description: React.FC<DescriptionProps> = ({ item }) => {
   const [currentTab, setCurrentTab] = useState<number>(1);
   const [openChooseLeatherColor, setOpenChooseLeatherColor] = useState(false);
   const [openChooseThreadsColor, setOpenChooseThreadsColor] = useState(false);
@@ -29,8 +34,8 @@ const Description: React.FC = () => {
           title="Выберите цвет ниток"
         />
       )}
-      <h1 className="item-title">Leather Wallet Crazy Horse</h1>
-      <p className="item-price">$20</p>
+      <h1 className="item-title">{item.name}</h1>
+      <p className="item-price">{item.price} руб</p>
       <div className="leather-type">
         <p>Тип кожи:</p>
         <div className="leather-type__radio">

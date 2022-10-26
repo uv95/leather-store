@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './slider.scss';
-import { ISlides } from './Image';
 import { ReactComponent as LeftArrow } from '../../../assets/icons/left.svg';
 import { ReactComponent as RightArrow } from '../../../assets/icons/right.svg';
+import { ISlides } from './Image';
 
 interface SliderProps {
   slides: ISlides[];
@@ -29,9 +29,10 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
       <div className="slider">
         {slides.map((slide, i) => (
           <img
+            key={slide.name}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            src={slide.url}
-            alt=""
+            src={slide.path}
+            alt="Фото товара"
             className="slider-img"
           />
         ))}

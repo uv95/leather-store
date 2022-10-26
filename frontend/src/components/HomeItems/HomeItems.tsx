@@ -19,7 +19,7 @@ const HomeItems = () => {
         </Link>
       </div>
       <div className="home-items__container">
-        {items.map((item) => (
+        {items?.map((item) => (
           <ItemCard key={item._id} item={item} />
         ))}
       </div>

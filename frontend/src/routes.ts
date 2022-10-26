@@ -51,14 +51,14 @@ export const publicRoutes: Routes[] = [
     path: REGISTRATION_ROUTE,
     Component: Register,
   },
-  {
-    path: ITEM_ROUTE,
-    Component: ItemPage,
-  },
   // {
-  //   path: ITEM_ROUTE + '/:id',
+  //   path: ITEM_ROUTE,
   //   Component: ItemPage,
   // },
+  {
+    path: ITEM_ROUTE + ':slug',
+    Component: ItemPage,
+  },
   {
     path: HOME_ROUTE,
     Component: Home,

@@ -2,17 +2,16 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import itemsService, { ItemData } from './itemsService';
 import { extractErrorMessage } from '../../utils/errorMessage';
-import { Action } from '@remix-run/router';
 
 interface IItems {
   item: ItemData | null;
-  items: ItemData[] | [];
+  items: ItemData[] | null;
   isLoading: boolean;
 }
 
 const initialState: IItems = {
   item: null,
-  items: [],
+  items: null,
   isLoading: false,
 };
 
@@ -41,6 +40,17 @@ export const getAllItems = createAsyncThunk(
     }
   }
 );
+export const getItem = createAsyncThunk(
+  '@@items/getOne',
+  async (slug: string, thunkAPI) => {
+    try {
+      return await itemsService.getItem(slug);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
 
 export const deleteItem = createAsyncThunk(
   '@@items/add',
@@ -63,9 +73,15 @@ export const itemsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(deleteItem.fulfilled, (state, action) => {
-        state.items = state.items.filter(
+        state.items = state.items!.filter(
           (item) => item._id !== action.meta.arg
         );
+      })
+      .addCase(getItem.fulfilled, (state, action) => {
+        state.item = action.payload.data.data;
+      })
+      .addCase(getAllItems.pending, (state) => {
+        state.items = null;
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;

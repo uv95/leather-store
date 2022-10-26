@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:5000/items/';
 export interface ItemData {
   _id: string;
   name: string;
+  slug: string;
   type: string;
   description: string;
   // price: number;
@@ -30,6 +31,12 @@ const getAllItems = async () => {
   return res.data;
 };
 
+const getItem = async (slug: string) => {
+  const res = await axios.get(API_URL + slug);
+  console.log(res.data);
+  return res.data;
+};
+
 const deleteItem = async (itemId: string, token: string) => {
   const config = {
     headers: {
@@ -43,6 +50,7 @@ const deleteItem = async (itemId: string, token: string) => {
 const itemsService = {
   addItem,
   getAllItems,
+  getItem,
   deleteItem,
 };
 

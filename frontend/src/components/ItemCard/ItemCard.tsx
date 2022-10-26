@@ -1,6 +1,8 @@
 import React from 'react';
 import './itemCard.scss';
 import { ItemData } from '../../features/items/itemsService';
+import { Link } from 'react-router-dom';
+import { ITEM_ROUTE } from '../../utils/consts';
 
 interface ItemCardProps {
   item: ItemData;
@@ -8,11 +10,11 @@ interface ItemCardProps {
 
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   return (
-    <div className="item-card">
+    <Link to={ITEM_ROUTE + item.slug} className="item-card">
       <div className="item-card__img">
         <img
           src={require(`../../assets/img/items/${item.imageCover}`)}
-          alt=""
+          alt="Фото товара"
           className="item-card__img--item"
         />
       </div>
@@ -20,7 +22,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
         <p className="item-card__text--name">{item.name}</p>
         <p className="item-card__text--price">{item.price} руб</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

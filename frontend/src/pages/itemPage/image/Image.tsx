@@ -1,21 +1,24 @@
 import React from 'react';
 import './image.scss';
 import Slider from './Slider';
-import wallet1 from '../../../assets/img/wallet-1.jpg';
-import wallet2 from '../../../assets/img/wallet-2.jpg';
-import wallet3 from '../../../assets/img/wallet-3.jpg';
+import { ItemData } from '../../../features/items/itemsService';
 
+interface ImageProps {
+  item: ItemData;
+}
 export interface ISlides {
-  url: string;
-  title: string;
+  path: any;
+  name: string;
 }
 
-const Image = () => {
-  const slides: ISlides[] = [
-    { url: wallet1, title: 'wallet' },
-    { url: wallet2, title: 'wallet' },
-    { url: wallet3, title: 'wallet' },
-  ];
+const Image: React.FC<ImageProps> = ({ item }) => {
+  const allItemImages = [item.imageCover, ...item.images];
+
+  const slides: ISlides[] = allItemImages.map((img) => ({
+    path: require(`../../../assets/img/items/${img}`),
+    name: img,
+  }));
+
   return (
     <>
       <div className="image">

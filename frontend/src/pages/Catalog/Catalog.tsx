@@ -21,7 +21,7 @@ const Catalog = () => {
           <View />
         </div>
         <div className="catalog__container__items">
-          {items.map((item) => (
+          {items?.map((item) => (
             <ItemCard key={item._id} item={item} />
           ))}
         </div>

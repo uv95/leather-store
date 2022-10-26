@@ -54,8 +54,21 @@ exports.resizeImages = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.getOneItem = catchAsync(async (req, res, next) => {
+  const doc = await Item.findOne({ slug: req.params.slug });
+  if (!doc) {
+    return next(new AppError('No document found with that id!', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: doc,
+    },
+  });
+});
+
 exports.getAllItems = factory.getAll(Item);
 exports.createItem = factory.createOne(Item);
-exports.getOneItem = factory.getOne(Item);
+// exports.getOneItem = factory.getOne(Item);
 exports.updateItem = factory.updateOne(Item);
 exports.deleteItem = factory.deleteOne(Item);
