@@ -6,10 +6,13 @@ import wallet2 from '../../assets/img/wallet-2.jpg';
 import wallet3 from '../../assets/img/wallet-3.jpg';
 import Filter from './top-bar/Filter';
 import View from './top-bar/View';
+import { useGetAllItems } from '../../hooks/useGetAllItems';
 
-type Props = {};
+const Catalog = () => {
+  const { isLoading, items } = useGetAllItems();
 
-const Catalog = (props: Props) => {
+  if (isLoading) return <h1>LOADING</h1>;
+
   return (
     <div className="catalog">
       <div className="catalog__container">
@@ -18,15 +21,9 @@ const Catalog = (props: Props) => {
           <View />
         </div>
         <div className="catalog__container__items">
-          <ItemCard img={wallet1} />
-          <ItemCard img={wallet2} />
-          <ItemCard img={wallet3} />
-          <ItemCard img={wallet3} />
-          <ItemCard img={wallet1} />
-          <ItemCard img={wallet2} />
-          <ItemCard img={wallet2} />
-          <ItemCard img={wallet3} />
-          <ItemCard img={wallet1} />
+          {items.map((item) => (
+            <ItemCard key={item._id} item={item} />
+          ))}
         </div>
       </div>
     </div>

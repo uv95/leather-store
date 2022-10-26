@@ -2,20 +2,14 @@ import React, { useEffect } from 'react';
 import './table.scss';
 import { ReactComponent as Delete } from '../../assets/icons/trash.svg';
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { deleteItem, getAllItems } from '../../features/items/itemsSlice';
+import { useAppDispatch } from '../../hooks';
+import { deleteItem } from '../../features/items/itemsSlice';
+import { useGetAllItems } from '../../hooks/useGetAllItems';
 
 const Table = () => {
   const dispatch = useAppDispatch();
 
-  const { isLoading, items } = useAppSelector((state) => state.items);
-
-  useEffect(() => {
-    dispatch(getAllItems())
-      .unwrap()
-      .then((data) => console.log(data, 'data'))
-      .catch((error) => console.log(error, 'ERROR'));
-  }, [dispatch]);
+  const { isLoading, items } = useGetAllItems();
 
   const onDelete = (id: string) => {
     dispatch(deleteItem(id))
@@ -23,10 +17,6 @@ const Table = () => {
       .then((data) => console.log(data, 'data'))
       .catch((error) => console.log(error, 'ERROR'));
   };
-
-  useEffect(() => {
-    console.log(isLoading, 'isLoading');
-  }, [isLoading]);
 
   if (isLoading) return <h1>LOADING</h1>;
 

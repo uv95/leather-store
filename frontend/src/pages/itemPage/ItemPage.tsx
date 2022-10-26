@@ -3,9 +3,7 @@ import './itemPage.scss';
 import Image from './image/Image';
 import Description from './description/Description';
 
-type Props = {};
-
-const ItemPage = (props: Props) => {
+const ItemPage = () => {
   return (
     <div className="item">
       <div className="item__container">

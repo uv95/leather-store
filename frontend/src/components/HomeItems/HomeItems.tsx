@@ -3,13 +3,13 @@ import './homeItems.scss';
 import { Link } from 'react-router-dom';
 import { CATALOG_ROUTE } from '../../utils/consts';
 import ItemCard from '../ItemCard/ItemCard';
-import wallet1 from '../../assets/img/wallet-1.jpg';
-import wallet2 from '../../assets/img/wallet-2.jpg';
-import wallet3 from '../../assets/img/wallet-3.jpg';
+import { useGetAllItems } from '../../hooks/useGetAllItems';
 
-type Props = {};
+const HomeItems = () => {
+  const { isLoading, items } = useGetAllItems();
 
-const HomeItems = (props: Props) => {
+  if (isLoading) return <h1>LOADING</h1>;
+
   return (
     <div className="home-items">
       <div className="home-items__heading">
@@ -19,9 +19,9 @@ const HomeItems = (props: Props) => {
         </Link>
       </div>
       <div className="home-items__container">
-        <ItemCard img={wallet1} />
-        <ItemCard img={wallet2} />
-        <ItemCard img={wallet3} />
+        {items.map((item) => (
+          <ItemCard key={item._id} item={item} />
+        ))}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.scss';
 import Banner from '../../components/Banner/Banner';
-import HomeItems from '../../components/HomeShop/HomeItems';
+import HomeItems from '../../components/HomeItems/HomeItems';
 import About from '../../components/About/About';
 import PaymentDelivery from '../../components/PaymentDelivery/PaymentDelivery';
 

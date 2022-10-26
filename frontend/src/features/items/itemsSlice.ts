@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import itemsService, { ItemData } from './itemsService';
 import { extractErrorMessage } from '../../utils/errorMessage';
+import { Action } from '@remix-run/router';
 
 interface IItems {
   item: ItemData | null;
@@ -61,12 +62,11 @@ export const itemsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // .addCase(deleteItem.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(deleteItem.fulfilled, (state) => {
-      //   state.isLoading = false;
-      // })
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          (item) => item._id !== action.meta.arg
+        );
+      })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;
       })
