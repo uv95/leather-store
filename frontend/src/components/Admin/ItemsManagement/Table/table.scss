@@ -1,0 +1,63 @@
+@import '../../../../base-styles/mixins.scss';
+@import '../../../../base-styles/variables.scss';
+
+.table {
+  width: 100%;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  border-collapse: collapse;
+
+  & thead {
+    height: 3rem;
+    & th {
+      border: 1px solid $color-grey--medium;
+      font-size: 1.5rem;
+    }
+  }
+
+  & tbody {
+    & tr {
+      height: 6rem;
+      & td {
+        text-align: center;
+        border: 1px solid $color-grey--medium;
+      }
+    }
+  }
+
+  &-price,
+  &-bought {
+    width: 8rem;
+  }
+  &-num {
+    width: 4rem;
+  }
+  &-actions {
+    min-width: 6rem;
+    padding: 0 1rem;
+    &__container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      & svg {
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+
+        &:hover {
+          filter: invert(30%);
+        }
+      }
+    }
+  }
+  &-img {
+    width: 10rem;
+    border: 0 !important;
+    & img {
+      width: 100%;
+      height: 6rem;
+      display: block;
+      object-fit: cover;
+    }
+  }
+}

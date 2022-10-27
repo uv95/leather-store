@@ -1,7 +1,7 @@
 import React from 'react';
 import './itemPage.scss';
-import Image from './image/Image';
-import Description from './description/Description';
+import Image from '../../components/ItemPage/Image/Image';
+import Description from '../../components/ItemPage/Description/Description';
 import { useGetItem } from '../../hooks/useGetItem';
 
 const ItemPage = () => {

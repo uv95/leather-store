@@ -6,4 +6,8 @@
   margin: 4rem auto 0 auto;
   padding-bottom: $footer-length;
   padding-top: $header-length;
+
+  &__heading {
+    @include heading;
+  }
 }

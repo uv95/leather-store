@@ -1,9 +1,9 @@
 import React from 'react';
 import './home.scss';
-import Banner from '../../components/Banner/Banner';
-import HomeItems from '../../components/HomeItems/HomeItems';
-import About from '../../components/About/About';
-import PaymentDelivery from '../../components/PaymentDelivery/PaymentDelivery';
+import Banner from '../../components/Home/Banner/Banner';
+import HomeItems from '../../components/Home/HomeItems/HomeItems';
+import About from '../../components/Home/About/About';
+import PaymentDelivery from '../../components/Home/PaymentDelivery/PaymentDelivery';
 
 type Props = {};
 

@@ -1,11 +1,8 @@
 import React from 'react';
 import './catalog.scss';
-import ItemCard from '../../components/ItemCard/ItemCard';
-import wallet1 from '../../assets/img/wallet-1.jpg';
-import wallet2 from '../../assets/img/wallet-2.jpg';
-import wallet3 from '../../assets/img/wallet-3.jpg';
-import Filter from './top-bar/Filter';
-import View from './top-bar/View';
+import ItemCard from '../../components/UI/ItemCard/ItemCard';
+import Filter from '../../components/Catalog/Filter';
+import View from '../../components/Catalog/View';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 
 const Catalog = () => {

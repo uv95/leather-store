@@ -12,7 +12,7 @@ import {
   ITEMS_MANAGEMENT_ROUTE,
   USER_PROFILE_ROUTE,
 } from './utils/consts';
-import Admin from './pages/AdminProfile/Admin/Admin';
+import Admin from './pages/Admin/Admin';
 import Cart from './pages/Cart/Cart';
 import Catalog from './pages/Catalog/Catalog';
 import Login from './pages/Login/Login';
@@ -21,8 +21,8 @@ import ItemPage from './pages/itemPage/ItemPage';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import Contacts from './pages/Contacts/Contacts';
-import Statistics from './pages/AdminProfile/Statistics/Statistics';
-import ItemsManagement from './pages/AdminProfile/ItemsManagement/ItemsManagement';
+import Statistics from './components/Admin/Statistics/Statistics';
+import ItemsManagement from './components/Admin/ItemsManagement/ItemsManagement';
 import UserProfile from './pages/UserProfile/UserProfile';
 
 interface Routes {
@@ -51,10 +51,6 @@ export const publicRoutes: Routes[] = [
     path: REGISTRATION_ROUTE,
     Component: Register,
   },
-  // {
-  //   path: ITEM_ROUTE,
-  //   Component: ItemPage,
-  // },
   {
     path: ITEM_ROUTE + ':slug',
     Component: ItemPage,

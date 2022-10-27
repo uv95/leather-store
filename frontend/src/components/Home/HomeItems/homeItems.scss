@@ -1,0 +1,26 @@
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/mixins.scss';
+
+.home-items {
+  @include main-block;
+  margin: 4rem auto;
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+    &-link {
+      color: $color-grey--dark !important;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: $color-grey--medium !important;
+      }
+    }
+  }
+  &__container {
+    @include items-section--home;
+    margin-top: 2rem;
+  }
+}

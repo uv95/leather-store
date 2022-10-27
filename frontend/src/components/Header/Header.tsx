@@ -47,23 +47,25 @@ const Header = (props: Props) => {
                   />
                 </Link>
               ) : role === 'user' ? (
-                <Link to={USER_PROFILE_ROUTE}>
-                  <img
-                    src={user}
-                    className="header__container-inner__nav-icon"
-                    alt="user_profile"
-                  />
-                </Link>
+                <>
+                  <Link to={USER_PROFILE_ROUTE}>
+                    <img
+                      src={user}
+                      className="header__container-inner__nav-icon"
+                      alt="user_profile"
+                    />
+                  </Link>
+                  <Link to={CART_ROUTE}>
+                    <img
+                      src={cart}
+                      className="header__container-inner__nav-icon"
+                      alt="cart"
+                    />
+                  </Link>
+                </>
               ) : (
                 <Link to={ADMIN_ROUTE}>ADMIN</Link>
               )}
-              <Link to={CART_ROUTE}>
-                <img
-                  src={cart}
-                  className="header__container-inner__nav-icon"
-                  alt="cart"
-                />
-              </Link>
             </div>
           </div>
         )}

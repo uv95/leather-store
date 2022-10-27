@@ -8,8 +8,7 @@
   padding-top: $header-length;
 
   &__heading {
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
+    @include heading;
   }
 
   &__container {

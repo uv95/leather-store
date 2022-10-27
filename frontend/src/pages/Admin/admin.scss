@@ -1,0 +1,20 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
+.admin {
+  @include main-block;
+  margin: 4rem auto 0 auto;
+  padding-bottom: $footer-length;
+  padding-top: $header-length;
+
+  &__header {
+    font-size: 2rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1.5px solid $color-grey--light;
+  }
+}

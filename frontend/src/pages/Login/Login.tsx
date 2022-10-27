@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './login.scss';
-import Button from '../../components/Button/Button';
+import Button from '../../components/UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
