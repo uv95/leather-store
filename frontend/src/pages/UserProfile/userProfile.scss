@@ -10,4 +10,21 @@
   &__heading {
     @include heading;
   }
+
+  &__container {
+    display: flex;
+    gap: 4rem;
+    margin-bottom: 4rem;
+
+    &__nav {
+      // margin-top: 1rem;
+    }
+
+    &__content {
+      background-color: $color-grey--light;
+      width: 100%;
+      padding: 2rem 4rem;
+      min-height: 30rem;
+    }
+  }
 }

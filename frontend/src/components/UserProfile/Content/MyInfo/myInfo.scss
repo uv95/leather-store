@@ -1,0 +1,52 @@
+@import '../../../../base-styles/mixins.scss';
+@import '../../../../base-styles/variables.scss';
+
+.info {
+  &__heading {
+    @include heading;
+  }
+
+  &__container {
+    &__section {
+      &-heading {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1rem;
+          left: 0;
+          height: 1px;
+          width: 100%;
+          background-color: $color-grey--medium;
+        }
+      }
+      &__input-box {
+        font-size: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 30rem;
+        text-align: left;
+        margin-bottom: 2rem;
+        & label {
+          text-align: left;
+          align-self: flex-start;
+        }
+        & input {
+          height: 4rem;
+        }
+      }
+
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  gap: 4rem;
+}

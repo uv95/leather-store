@@ -45,7 +45,7 @@ const Login = () => {
               htmlFor="email"
               className="login__container__form__box-label"
             >
-              E-mail
+              Email
             </label>
             <input
               id="email"

@@ -68,7 +68,7 @@ const Register = () => {
               htmlFor="email"
               className="register__container__form__box-label"
             >
-              E-mail
+              Email
             </label>
             <input
               id="email"

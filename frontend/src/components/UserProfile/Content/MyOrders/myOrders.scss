@@ -1,0 +1,14 @@
+@import '../../../../base-styles/mixins.scss';
+@import '../../../../base-styles/variables.scss';
+
+.orders {
+  &__heading {
+    @include heading;
+  }
+
+  &__container {
+    &-empty {
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import '../../../../base-styles/mixins.scss';
+@import '../../../../base-styles/variables.scss';
+
+.tab {
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+  width: 24rem;
+  font-size: 2rem;
+  cursor: pointer;
+  &.active {
+    color: inherit;
+    background-color: $color-grey--medium;
+    // font-weight: bold;
+  }
+
+  &-icon {
+    @include center;
+    & img {
+      width: 2rem;
+    }
+  }
+
+  &:hover:not(.active) {
+    filter: invert(30%);
+  }
+}
