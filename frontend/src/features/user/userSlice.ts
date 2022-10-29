@@ -2,8 +2,23 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import userService from './userService';
+import { IUpdatedData } from './userService';
 
-const initialState = {
+interface IUserState {
+  user: {
+    address: Object[] | [];
+    cart: Object[] | [];
+    email: string;
+    name: string;
+    phone: string;
+    role: string;
+  } | null;
+  users: Object[] | [];
+  isLoading: boolean;
+}
+
+const initialState: IUserState = {
+  user: null,
   users: [],
   isLoading: false,
 };
@@ -18,12 +33,25 @@ export const getMe = createAsyncThunk('@user/getMe', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
 });
+export const updateMe = createAsyncThunk(
+  '@user/updateMe',
+  async (updatedData: IUpdatedData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await userService.updateMe(token, updatedData);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
 export const getRole = createAsyncThunk(
   '@user/getRole',
   async (_, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
-      const role = state.auth.user.data.user.role;
+      const role = state.auth.user ? state.auth.user.data.user.role : null;
       return role;
     } catch (error) {
       console.log(error);
@@ -36,18 +64,30 @@ export const userSlice = createSlice({
   name: '@@user',
   initialState,
   reducers: {},
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(getRole.pending, (state) => {
-  //       state.isLoading = true;
-  //     })
-  //     .addCase(getRole.fulfilled, (state, action) => {
-  //       state.isLoading = false;
-  //     })
-  //     .addCase(getRole.rejected, (state) => {
-  //       state.isLoading = false;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getMe.pending, (state) => {
+        state.isLoading = true;
+        state.user = null;
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.data.data;
+      })
+      .addCase(getMe.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateMe.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateMe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = { ...state.user, ...action.payload.data.user };
+      })
+      .addCase(updateMe.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
 });
 
 export default userSlice.reducer;

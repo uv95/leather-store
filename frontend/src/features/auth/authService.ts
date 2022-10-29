@@ -15,12 +15,17 @@ export interface LoginData {
   password: string;
 }
 
+export interface UpdatedData {
+  passwordCurrent: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 const register = async (userData: RegisterData) => {
   const res = await axios.post(API_URL + 'signup', userData);
 
   if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
 
-  console.log('register', res.data);
   return res.data;
 };
 
@@ -29,16 +34,29 @@ const login = async (userData: LoginData) => {
 
   if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
 
-  console.log('login', res.data);
   return res.data;
 };
 
-const logout = () => localStorage.removeItem('user');
+const updatePassword = async (token: string, updatedData: UpdatedData) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const res = await axios.patch(
+    API_URL + 'updateMyPassword',
+    updatedData,
+    config
+  );
+
+  return res.data;
+};
 
 const authService = {
   register,
-  logout,
   login,
+  updatePassword,
 };
 
 export default authService;

@@ -21,7 +21,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       )
     );
   //2) update user document
-  const filteredBody = filterObj(req.body, 'name', 'email');
+  const filteredBody = filterObj(req.body, 'name', 'email', 'phone');
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
     runValidators: true,

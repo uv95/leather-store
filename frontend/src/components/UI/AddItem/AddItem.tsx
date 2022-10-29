@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import './addItem.scss';
 import Button from '../Button/Button';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { addItem } from '../../../features/items/itemsSlice';
 
 interface AddItemProps {
@@ -13,11 +13,6 @@ interface IFormData {
   type: string;
   description: string;
   price: string;
-}
-
-interface IForm extends IFormData {
-  images: File | FileList | null;
-  imageCover: File | null;
 }
 
 const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {

@@ -1,6 +1,8 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService, { RegisterData, LoginData } from './authService';
 import { extractErrorMessage } from '../../utils/errorMessage';
+import { UpdatedData } from './authService';
+import { RootState } from '../../store';
 
 const userStr = localStorage.getItem('user');
 let user = null;
@@ -36,16 +38,26 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAction<any>('@@auth/logout', () => {
-  authService.logout();
-  return {};
-});
+export const updatePassword = createAsyncThunk(
+  '@auth/updatePassword',
+  async (updatedData: UpdatedData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await authService.updatePassword(token, updatedData);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: '@@auth',
   initialState,
   reducers: {
     logout: (state) => {
+      localStorage.removeItem('user');
       state.user = null;
     },
   },
@@ -70,8 +82,20 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = { ...state.user, ...action.payload.data.user };
+      })
+      .addCase(updatePassword.rejected, (state) => {
+        state.isLoading = false;
+        // state.user=
       });
   },
 });
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

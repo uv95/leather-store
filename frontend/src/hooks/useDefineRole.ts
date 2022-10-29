@@ -8,12 +8,14 @@ export function useDefineRole() {
   const { isLoading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    !isLoading &&
+    if (!isLoading) {
       dispatch(getRole())
         .unwrap()
         .then((data) => {
-          setRole(data);
+          if (localStorage.getItem('user')) setRole(data);
+          if (!localStorage.getItem('user')) setRole('');
         });
+    }
   }, [dispatch, isLoading]);
 
   return role;
