@@ -5,7 +5,7 @@ import { getMe } from '../features/user/userSlice';
 export function useGetMe() {
   const dispatch = useAppDispatch();
 
-  const { user } = useAppSelector((state) => state.user);
+  const { user, isLoading } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getMe())
@@ -14,7 +14,7 @@ export function useGetMe() {
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch]);
 
-  return { user };
+  return { user, isLoading };
 }
 
 export default useGetMe;

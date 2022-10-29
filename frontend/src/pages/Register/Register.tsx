@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { register } from '../../features/auth/authSlice';
+import Input from '../../components/UI/Input/Input';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ const Register = () => {
       .catch((error) => console.log(error, 'error'));
   };
 
-  // if (isLoading) return <h1>Loading....</h1>;
+  if (isLoading) return <h1>Loading....</h1>;
 
   return (
     <div className="register">
@@ -46,94 +47,59 @@ const Register = () => {
         <h1 className="register__container__heading">Регистрация</h1>
         <form className="register__container__form" onSubmit={onSubmit}>
           <div className="register__container__form__box">
-            <label
-              htmlFor="name"
-              className="register__container__form__box-label"
-            >
-              Имя
-            </label>
-            <input
-              id="name"
+            <Input
               name="name"
+              label="Имя"
               type="text"
-              className="register__container__form__box-input"
-              required
-              placeholder="Имя"
               value={name}
               onChange={onChange}
+              placeholder="Имя"
+              required
             />
           </div>
           <div className="register__container__form__box">
-            <label
-              htmlFor="email"
-              className="register__container__form__box-label"
-            >
-              Email
-            </label>
-            <input
-              id="email"
+            <Input
               name="email"
+              label="Email"
               type="email"
-              className="register__container__form__box-input"
-              required
-              placeholder="E-mail"
               value={email}
               onChange={onChange}
+              placeholder="Email"
+              required
             />
           </div>
 
           <div className="register__container__form__box">
-            <label
-              htmlFor="password"
-              className="register__container__form__box-label"
-            >
-              Пароль
-            </label>
-            <input
-              id="password"
+            <Input
               name="password"
+              label="Пароль"
               type="password"
-              className="register__container__form__box-input"
-              required
-              placeholder="Пароль"
               value={password}
               onChange={onChange}
+              placeholder="Пароль"
+              required
             />
           </div>
           <div className="register__container__form__box">
-            <label
-              htmlFor="passwordConfirm"
-              className="register__container__form__box-label"
-            >
-              Подтверждение пароля
-            </label>
-            <input
-              id="passwordConfirm"
+            <Input
               name="passwordConfirm"
+              label="Подтверждение пароля"
               type="password"
-              className="register__container__form__box-input"
-              required
-              placeholder="Подтверждение пароля"
               value={passwordConfirm}
               onChange={onChange}
+              placeholder="Подтверждение пароля"
+              required
             />
           </div>
           <div className="register__container__form__box">
-            <label
-              htmlFor="phone"
-              className="register__container__form__box-label"
-            >
-              Телефон
-            </label>
-            <input
-              id="phone"
+            <Input
               name="phone"
+              label="Телефон"
               type="text"
-              className="register__container__form__box-input"
-              required
-              placeholder="Телефон"
               value={phone}
               onChange={onChange}
+              placeholder="Телефон"
+              required
             />
           </div>
           <div className="register__container__form__bottom">

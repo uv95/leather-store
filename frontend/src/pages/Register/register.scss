@@ -24,24 +24,7 @@
       font-size: 1.5rem;
 
       &__box {
-        display: flex;
-        flex-direction: column;
-        width: 30rem;
-        text-align: left;
-        margin-bottom: 2rem;
-        &-label {
-          text-align: left;
-          align-self: flex-start;
-          margin-bottom: 0.5rem;
-
-          &::after {
-            content: '*';
-            color: rgb(214, 0, 0);
-          }
-        }
-        &-input {
-          height: 3rem;
-        }
+        @include input-box;
       }
       &__bottom {
         display: flex;

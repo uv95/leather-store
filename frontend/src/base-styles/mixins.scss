@@ -53,3 +53,12 @@
     background-color: $color-grey--dark;
   }
 }
+
+@mixin input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 30rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}

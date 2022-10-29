@@ -3,12 +3,13 @@ import Button from '../../../UI/Button/Button';
 import './myInfo.scss';
 import { useGetMe } from '../../../../hooks/useGetMe';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useAppDispatch } from '../../../../hooks';
 import { updateMe } from '../../../../features/user/userSlice';
 import { updatePassword, logout } from '../../../../features/auth/authSlice';
+import Input from '../../../UI/Input/Input';
 
 const MyInfo = () => {
-  const { user } = useGetMe();
+  const { user, isLoading } = useGetMe();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -22,6 +23,8 @@ const MyInfo = () => {
     phone: user?.phone,
     email: user?.email,
   });
+
+  const { name, phone, email } = formData;
 
   const { passwordCurrent, password, passwordConfirm } = passwordData;
 
@@ -64,6 +67,8 @@ const MyInfo = () => {
     }));
   };
 
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <div className="info">
       <h1 className="info__heading">Мои данные</h1>
@@ -73,22 +78,20 @@ const MyInfo = () => {
             <h2 className="info__container__section-heading">Личные данные</h2>
             <div className="flex">
               <div className="info__container__section__input-box">
-                <label htmlFor="name">Имя</label>
-                <input
-                  type="text"
-                  id="name"
+                <Input
                   name="name"
-                  defaultValue={user?.name}
+                  label="Имя"
+                  type="text"
+                  value={name}
                   onChange={onChange}
                 />
               </div>
               <div className="info__container__section__input-box">
-                <label htmlFor="phone">Телефон</label>
-                <input
-                  type="text"
-                  id="phone"
+                <Input
                   name="phone"
-                  defaultValue={user?.phone}
+                  label="Телефон"
+                  type="text"
+                  value={phone}
                   onChange={onChange}
                 />
               </div>
@@ -97,12 +100,11 @@ const MyInfo = () => {
           <div className="info__container__section">
             <h2 className="info__container__section-heading">Email</h2>
             <div className="info__container__section__input-box">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
+              <Input
                 name="email"
-                defaultValue={user?.email}
+                label="Email"
+                type="email"
+                value={email}
                 onChange={onChange}
               />
             </div>
@@ -113,32 +115,29 @@ const MyInfo = () => {
           <div className="info__container__section">
             <h2 className="info__container__section-heading">Пароль</h2>
             <div className="info__container__section__input-box">
-              <label htmlFor="passwordCurrent">Старый пароль</label>
-              <input
-                type="password"
-                id="passwordCurrent"
+              <Input
                 name="passwordCurrent"
+                label="Старый пароль"
+                type="password"
                 value={passwordCurrent}
                 onChange={onNewPasswordChange}
               />
             </div>
             <div className="flex">
               <div className="info__container__section__input-box">
-                <label htmlFor="password">Новый пароль</label>
-                <input
-                  type="password"
-                  id="password"
+                <Input
                   name="password"
+                  label="Новый пароль"
+                  type="password"
                   value={password}
                   onChange={onNewPasswordChange}
                 />
               </div>
               <div className="info__container__section__input-box">
-                <label htmlFor="passwordConfirm">Подтвердите пароль</label>
-                <input
-                  type="password"
-                  id="passwordConfirm"
+                <Input
                   name="passwordConfirm"
+                  label="Подтвердите пароль"
+                  type="password"
                   value={passwordConfirm}
                   onChange={onNewPasswordChange}
                 />

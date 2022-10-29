@@ -4,6 +4,7 @@ import './addItem.scss';
 import Button from '../Button/Button';
 import { useAppDispatch } from '../../../hooks';
 import { addItem } from '../../../features/items/itemsSlice';
+import Input from '../Input/Input';
 
 interface AddItemProps {
   setOpenAddItem: (arg: boolean) => void;
@@ -79,15 +80,15 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
       <div className="add-item" onClick={(e) => e.stopPropagation()}>
         <h1 className="add-item-title">Добавить товар</h1>
         <form className="add-item__form" id="form" onSubmit={onSubmit}>
-          <div className="add-item__form__field">
-            <label htmlFor="type" className="add-item__form__field-label">
+          <div className="add-item__form__box">
+            <label htmlFor="type" className="add-item__form__box-label">
               Тип товара
             </label>
             <select
               onChange={onChange}
               name="type"
               id="type"
-              className="add-item__form__field-select"
+              className="add-item__form__box-select"
             >
               {typeOptions.map((option) => (
                 <option key={option} value={option}>
@@ -96,72 +97,53 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
               ))}
             </select>
           </div>
-          <div className="add-item__form__field">
-            <label htmlFor="name" className="add-item__form__field-label">
-              Название
-            </label>
-            <input
+          <div className="add-item__form__box">
+            <Input
+              name="name"
+              label="Название"
               type="text"
-              id="name"
-              required
-              className="add-item__form__field-input"
+              onChange={onChange}
               placeholder="Crazy Horse Кошелек"
-              onChange={onChange}
             />
           </div>
-          <div className="add-item__form__field">
-            <label htmlFor="price" className="add-item__form__field-label">
-              Цена
-            </label>
-            <input
+          <div className="add-item__form__box">
+            <Input
+              name="price"
+              label="Цена"
               type="number"
-              id="price"
-              required
-              className="add-item__form__field-input"
-              placeholder="1000"
               onChange={onChange}
+              placeholder="1000"
             />
           </div>
-          <div className="add-item__form__field">
-            <label
-              htmlFor="description"
-              className="add-item__form__field-label"
-            >
+          <div className="add-item__form__box">
+            <label htmlFor="description" className="add-item__form__box-label">
               Описание
             </label>
             <textarea
               id="description"
               name="description"
-              className="add-item__form__field-input"
+              className="add-item__form__box-input"
               placeholder="Введите описание товара"
               onChange={onChange}
             />
           </div>
-          <div className="add-item__form__field">
-            <label htmlFor="imageCover" className="add-item__form__field-label">
-              Основное изображение
-            </label>
-            <input
-              type="file"
-              id="imageCover"
+          <div className="add-item__form__box">
+            <Input
               name="imageCover"
-              className="add-item__form__field-input"
-              accept="image/jpeg, image/jpg"
+              label="Основное изображение"
+              type="file"
               onChange={onChange}
+              accept="image/jpeg, image/jpg"
             />
           </div>
-          <div className="add-item__form__field">
-            <label htmlFor="images" className="add-item__form__field-label">
-              Дополнительные изображения (не более 3)
-            </label>
-            <input
-              type="file"
-              id="images"
+          <div className="add-item__form__box">
+            <Input
               name="images"
-              multiple
-              className="add-item__form__field-input"
-              accept="image/jpeg, image/jpg"
+              label="Дополнительные изображения (не более 3)"
+              type="file"
               onChange={onChange}
+              accept="image/jpeg, image/jpg"
+              multiple
             />
           </div>
           <div className="add-item__form__btn">

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../features/auth/authSlice';
+import Input from '../../components/UI/Input/Input';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -41,38 +42,24 @@ const Login = () => {
         <h1 className="login__container__heading">Вход в личный кабинет</h1>
         <form className="login__container__form" onSubmit={onSubmit}>
           <div className="login__container__form__box">
-            <label
-              htmlFor="email"
-              className="login__container__form__box-label"
-            >
-              Email
-            </label>
-            <input
-              id="email"
+            <Input
               name="email"
+              label="Email"
               type="email"
-              className="login__container__form__box-input"
-              placeholder="E-mail"
               value={email}
               onChange={onChange}
+              placeholder="Email"
             />
           </div>
 
           <div className="login__container__form__box">
-            <label
-              htmlFor="password"
-              className="login__container__form__box-label"
-            >
-              Пароль
-            </label>
-            <input
-              id="password"
+            <Input
               name="password"
+              label="Пароль"
               type="password"
-              className="login__container__form__box-input"
-              placeholder="Пароль"
               value={password}
               onChange={onChange}
+              placeholder="Пароль"
             />
           </div>
           <div className="login__container__form__bottom">

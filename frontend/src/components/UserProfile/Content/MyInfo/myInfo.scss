@@ -24,24 +24,7 @@
       }
       &__input-box {
         font-size: 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 30rem;
-        text-align: left;
-        margin-bottom: 2rem;
-        & label {
-          text-align: left;
-          align-self: flex-start;
-        }
-        & input {
-          height: 4rem;
-          font-size: 2rem;
-          padding: 0 1rem;
-          box-shadow: inset 0 0 0 5rem #fff;
-          border-radius: 2px;
-          border: 1px solid $color-grey--dark;
-        }
+        @include input-box;
       }
     }
   }
