@@ -32,6 +32,7 @@ const Input: React.FC<InputProps> = (props) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
         accept={props.accept}
+        multiple={props.multiple}
       />
     </>
   );

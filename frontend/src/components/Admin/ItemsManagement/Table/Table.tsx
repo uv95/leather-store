@@ -20,7 +20,9 @@ const Table = () => {
 
   if (isLoading) return <h1>LOADING</h1>;
 
-  if (!items) return <h1>Товаров не найдено</h1>;
+  console.log(items);
+
+  if (!items.length) return <h1>Товаров не найдено</h1>;
 
   return (
     <>

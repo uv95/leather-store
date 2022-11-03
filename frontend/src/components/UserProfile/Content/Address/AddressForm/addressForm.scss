@@ -1,0 +1,13 @@
+@import '../../../../../base-styles/mixins.scss';
+@import '../../../../../base-styles/variables.scss';
+
+.address-form {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid $color-grey--medium;
+
+  &__input-box {
+    font-size: 2rem;
+    @include input-box;
+  }
+}

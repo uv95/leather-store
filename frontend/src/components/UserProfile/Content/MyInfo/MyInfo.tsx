@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../../UI/Button/Button';
 import './myInfo.scss';
 import { useGetMe } from '../../../../hooks/useGetMe';
@@ -19,14 +19,23 @@ const MyInfo = () => {
     passwordConfirm: '',
   });
   const [formData, setFormData] = useState({
-    name: user?.name,
-    phone: user?.phone,
-    email: user?.email,
+    name: '',
+    phone: '',
+    email: '',
   });
 
   const { name, phone, email } = formData;
 
   const { passwordCurrent, password, passwordConfirm } = passwordData;
+
+  useEffect(() => {
+    user &&
+      setFormData({
+        name: user.name,
+        phone: user.phone,
+        email: user.email,
+      });
+  }, [user]);
 
   //first form
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

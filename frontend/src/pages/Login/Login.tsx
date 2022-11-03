@@ -29,6 +29,7 @@ const Login = () => {
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('submit');
 
     dispatch(login(formData))
       .unwrap()

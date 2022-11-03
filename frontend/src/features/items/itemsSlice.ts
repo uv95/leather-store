@@ -5,13 +5,13 @@ import { extractErrorMessage } from '../../utils/errorMessage';
 
 interface IItems {
   item: ItemData | null;
-  items: ItemData[] | null;
+  items: ItemData[] | [];
   isLoading: boolean;
 }
 
 const initialState: IItems = {
   item: null,
-  items: null,
+  items: [],
   isLoading: false,
 };
 
@@ -53,7 +53,7 @@ export const getItem = createAsyncThunk(
 );
 
 export const deleteItem = createAsyncThunk(
-  '@@items/add',
+  '@@items/delete',
   async (itemId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -80,8 +80,11 @@ export const itemsSlice = createSlice({
       .addCase(getItem.fulfilled, (state, action) => {
         state.item = action.payload.data.data;
       })
+      .addCase(addItem.fulfilled, (state, action) => {
+        state.items = [...state.items, action.payload.data.data];
+      })
       .addCase(getAllItems.pending, (state) => {
-        state.items = null;
+        state.items = [];
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;

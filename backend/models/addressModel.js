@@ -10,7 +10,7 @@ const addressSchema = new mongoose.Schema({
     required: [true, 'Укажите полный адрес'],
   },
   zipcode: {
-    type: Number,
+    type: String,
     required: [true, 'Укажите индекс'],
   },
   user: {

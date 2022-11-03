@@ -26,17 +26,17 @@ router.get('/me', userController.getMe, userController.getOneUser);
 router.patch('/updateMe', userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 
-router.use(authController.restrictTo('admin'));
+// router.use(authController.restrictTo('admin'));
 
 router
   .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+  .get(authController.restrictTo('admin'), userController.getAllUsers)
+  .post(authController.restrictTo('admin'), userController.createUser);
 
 router
   .route('/:id')
-  .get(userController.getOneUser)
+  .get(authController.restrictTo('admin'), userController.getOneUser)
   .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .delete(authController.restrictTo('admin'), userController.deleteUser);
 
 module.exports = router;

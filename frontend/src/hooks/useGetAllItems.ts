@@ -10,7 +10,7 @@ export function useGetAllItems() {
   useEffect(() => {
     dispatch(getAllItems())
       .unwrap()
-      .then()
+      .then((data) => console.log(data, 'getallitems'))
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch]);
 

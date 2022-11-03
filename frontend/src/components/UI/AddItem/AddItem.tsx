@@ -147,7 +147,7 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
             />
           </div>
           <div className="add-item__form__btn">
-            <Button onClick={() => {}} text="Добавить" color="grey" />
+            <Button text="Добавить" color="grey" />
           </div>
         </form>
       </div>
