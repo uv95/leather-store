@@ -8,9 +8,15 @@ import { addressData } from '../../../../../features/address/addressService';
 
 interface AddressCardProps {
   address: addressData;
+  setEdit: (arg: boolean) => void;
+  setAddressId: (arg: string) => void;
 }
 
-const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
+const AddressCard: React.FC<AddressCardProps> = ({
+  address,
+  setEdit,
+  setAddressId,
+}) => {
   const dispatch = useAppDispatch();
 
   const onDelete = (id: string) => {
@@ -37,7 +43,14 @@ const AddressCard: React.FC<AddressCardProps> = ({ address }) => {
         </div>
       </div>
       <div className="address-card__left">
-        <img src={edit} alt="редактировать" />
+        <img
+          src={edit}
+          alt="редактировать"
+          onClick={() => {
+            setEdit(true);
+            setAddressId(address._id!);
+          }}
+        />
         <img src={trash} alt="удалить" onClick={() => onDelete(address._id!)} />
       </div>
     </div>

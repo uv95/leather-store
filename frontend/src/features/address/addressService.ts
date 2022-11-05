@@ -8,6 +8,11 @@ export interface addressData {
   address: string;
   zipcode: string;
 }
+export interface UpdatedAddress {
+  city?: string;
+  address?: string;
+  zipcode?: string;
+}
 
 const addAddress = async (addressData: addressData, token: string) => {
   const config = {
@@ -32,9 +37,14 @@ const getAllAddresses = async (token: string) => {
   return res.data;
 };
 
-const getAddress = async (addressId: string) => {
-  const res = await axios.get(API_URL + addressId);
-  console.log(res.data);
+const getAddress = async (addressId: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await axios.get(API_URL + addressId, config);
+  console.log(res.data, 'getAddress');
   return res.data;
 };
 
@@ -48,11 +58,26 @@ const deleteAddress = async (addressId: string, token: string) => {
   return res.data;
 };
 
+const updateAddress = async (
+  addressId: string,
+  updatedAddress: UpdatedAddress,
+  token: string
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await axios.patch(API_URL + addressId, updatedAddress, config);
+  return res.data;
+};
+
 const addressService = {
   addAddress,
   getAllAddresses,
   getAddress,
   deleteAddress,
+  updateAddress,
 };
 
 export default addressService;

@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './addressForm.scss';
 import Input from '../../../../UI/Input/Input';
 import Button from '../../../../UI/Button/Button';
-import { useAppDispatch } from '../../../../../hooks';
-import { addAddress } from '../../../../../features/address/addressSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../hooks';
+import {
+  addAddress,
+  updateAddress,
+} from '../../../../../features/address/addressSlice';
 
 interface AddressFormProps {
-  edit?: boolean;
+  edit: boolean;
   setOpenAddressForm: (arg: boolean) => void;
+  addressId: string;
+  setEdit: (arg: boolean) => void;
 }
 
 const AddressForm: React.FC<AddressFormProps> = ({
   edit,
   setOpenAddressForm,
+  addressId,
+  setEdit,
 }) => {
   const dispatch = useAppDispatch();
+
+  const { isLoading, address: currAddress } = useAppSelector(
+    (state) => state.address
+  );
 
   const [formData, setFormData] = useState({
     city: '',
@@ -23,16 +34,32 @@ const AddressForm: React.FC<AddressFormProps> = ({
   });
   const { city, address, zipcode } = formData;
 
+  useEffect(() => {
+    edit &&
+      currAddress &&
+      setFormData({
+        city: currAddress.city,
+        address: currAddress.address,
+        zipcode: currAddress.zipcode,
+      });
+  }, [edit, currAddress]);
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(addAddress(formData))
-      .unwrap()
-      .then((data) => {
-        console.log(data);
-        setOpenAddressForm(false);
-      })
-      .catch((error) => console.log(error, 'error'));
+    if (edit && addressId) {
+      dispatch(updateAddress({ addressId, updatedAddress: formData }))
+        .unwrap()
+        .then((_) => setOpenAddressForm(false))
+        .catch((error) => console.log(error, 'error'));
+
+      setEdit(false);
+    }
+    !edit &&
+      dispatch(addAddress(formData))
+        .unwrap()
+        .then((_) => setOpenAddressForm(false))
+        .catch((error) => console.log(error, 'error'));
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -43,6 +70,8 @@ const AddressForm: React.FC<AddressFormProps> = ({
     }));
   };
 
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <form className="address-form" onSubmit={onSubmit}>
       <div className="address-form__input-box">
@@ -51,7 +80,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
           label="Город"
           type="text"
           value={city}
-          required
+          required={!edit}
           onChange={onChange}
         />
       </div>
@@ -61,7 +90,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
           label="Полный адрес"
           type="text"
           value={address}
-          required
+          required={!edit}
           onChange={onChange}
         />
       </div>
@@ -71,11 +100,16 @@ const AddressForm: React.FC<AddressFormProps> = ({
           label="Индекс"
           type="text"
           value={zipcode}
-          required
+          required={!edit}
           onChange={onChange}
         />
       </div>
-      <Button type="submit" text="Добавить" color="black" big />
+      <Button
+        type="submit"
+        text={edit ? 'Сохранить' : 'Добавить'}
+        color="black"
+        big
+      />
     </form>
   );
 };

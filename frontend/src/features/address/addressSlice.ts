@@ -1,13 +1,17 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
+import { addressData, UpdatedAddress } from './addressService';
 import addressService from './addressService';
-import { addressData } from './addressService';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
 interface IAddresses {
   address: addressData | null;
   addresses: addressData[] | [];
   isLoading: boolean;
+}
+interface IUpdate {
+  addressId: string;
+  updatedAddress: UpdatedAddress;
 }
 
 const initialState: IAddresses = {
@@ -45,9 +49,11 @@ export const getAllAddresses = createAsyncThunk(
 );
 export const getAddress = createAsyncThunk(
   '@@addresses/getOne',
-  async (slug: string, thunkAPI) => {
+  async (addressId: string, thunkAPI) => {
     try {
-      return await addressService.getAddress(slug);
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await addressService.getAddress(addressId, token);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
@@ -62,6 +68,24 @@ export const deleteAddress = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
       return await addressService.deleteAddress(addressId, token);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
+export const updateAddress = createAsyncThunk(
+  '@@addresses/update',
+  async ({ addressId, updatedAddress }: IUpdate, thunkAPI) => {
+    // async (  thunkAPI, addressId: string, updatedAddress: UpdatedAddress) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await addressService.updateAddress(
+        addressId,
+        updatedAddress,
+        token
+      );
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
@@ -83,14 +107,19 @@ export const addressSlice = createSlice({
       .addCase(deleteAddress.rejected, (state) => {
         state.isLoading = false;
       })
+      .addCase(getAddress.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAddress.rejected, (state, action) => {
+        state.isLoading = false;
+        state.address = null;
+      })
       .addCase(getAddress.fulfilled, (state, action) => {
         state.address = action.payload.data.data;
       })
-
       .addCase(addAddress.fulfilled, (state, action) => {
         state.addresses = [...state.addresses, action.payload.data.data];
       })
-
       .addCase(getAllAddresses.pending, (state) => {
         state.addresses = [];
       })
@@ -100,13 +129,20 @@ export const addressSlice = createSlice({
       .addCase(getAllAddresses.rejected, (state) => {
         state.isLoading = false;
       })
+      .addCase(updateAddress.fulfilled, (state, action) => {
+        state.address = action.payload.data.data;
+        state.addresses = state.addresses.map((address) =>
+          address._id === action.payload.data.data._id
+            ? action.payload.data.data
+            : address
+        );
+      })
       .addMatcher(
         (action) => action.type.endsWith('/pending'),
         (state) => {
           state.isLoading = true;
         }
       )
-
       .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),
         (state) => {

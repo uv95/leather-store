@@ -52,6 +52,7 @@
 
       &__logo {
         font-weight: 700;
+        @include hover;
       }
 
       &__nav {
@@ -64,17 +65,12 @@
 
         &-shop {
           margin-right: 10rem;
-
-          &:hover {
-            filter: invert(30%);
-          }
+          @include hover;
         }
         &-icon {
           width: 2rem;
           height: 2rem;
-          &:hover {
-            filter: invert(30%);
-          }
+          @include hover;
         }
       }
     }

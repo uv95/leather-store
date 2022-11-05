@@ -43,10 +43,7 @@
         width: 2rem;
         height: 2rem;
         cursor: pointer;
-
-        &:hover {
-          filter: invert(30%);
-        }
+        @include hover;
       }
     }
   }

@@ -10,7 +10,7 @@ export function useGetAllAddresses() {
   useEffect(() => {
     dispatch(getAllAddresses())
       .unwrap()
-      .then((data) => console.log(data, 'getalladdresses'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch]);
 

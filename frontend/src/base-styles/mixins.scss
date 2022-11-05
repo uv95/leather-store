@@ -63,8 +63,8 @@
   margin-bottom: 2rem;
 }
 
-@mixin hover{
-  &:hover{
+@mixin hover {
+  &:hover {
     filter: invert(30%);
   }
 }
