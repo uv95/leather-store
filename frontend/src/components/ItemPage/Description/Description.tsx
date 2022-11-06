@@ -1,37 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './description.scss';
 import black from '../../../assets/img/black.jpg';
+import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
-import ChooseColor from '../../ChooseColor/ChooseColor';
 import { ItemData } from '../../../features/items/itemsService';
+import { useAddToCart } from '../../../hooks/useAddToCart';
+import Radio from '../../UI/Radio/Radio';
 
 interface DescriptionProps {
   item: ItemData;
 }
 
 const Description: React.FC<DescriptionProps> = ({ item }) => {
-  const [currentTab, setCurrentTab] = useState<number>(1);
-  const [openChooseLeatherColor, setOpenChooseLeatherColor] = useState(false);
-  const [openChooseThreadsColor, setOpenChooseThreadsColor] = useState(false);
+  const addItemToCart = useAddToCart();
 
-  const chooseLeatherColor = () => {
-    setOpenChooseLeatherColor(true);
+  const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
+  const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
+  const [leatherType, setLeatherType] = useState('crazyHorse');
+  const [colors, setColors] = useState({
+    leatherColor: 'черный',
+    threadsColor: 'черный',
+  });
+  const [cartItemData, setCartItemData] = useState({
+    itemId: item._id,
+    quantity: 1,
+    colors: {
+      leatherColor: colors.leatherColor,
+      threadsColor: colors.threadsColor,
+    },
+    leather: leatherType,
+  });
+
+  useEffect(() => {
+    setCartItemData((prev) => ({
+      ...prev,
+      colors: {
+        leatherColor: colors.leatherColor,
+        threadsColor: colors.threadsColor,
+      },
+      leather: leatherType,
+    }));
+  }, [colors, leatherType]);
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setLeatherType(target.name);
   };
-  const chooseThreadsColor = () => {
-    setOpenChooseThreadsColor(true);
-  };
+
   return (
     <>
-      {openChooseLeatherColor && (
-        <ChooseColor
-          setOpenChooseColor={setOpenChooseLeatherColor}
+      {openSelectLeatherColor && (
+        <SelectColor
+          setOpenSelectColor={setOpenSelectLeatherColor}
           title="Выберите цвет кожи"
+          type="leather"
+          setColors={setColors}
+          currColor={colors.leatherColor}
         />
       )}
-      {openChooseThreadsColor && (
-        <ChooseColor
-          setOpenChooseColor={setOpenChooseThreadsColor}
+      {openSelectThreadsColor && (
+        <SelectColor
+          setOpenSelectColor={setOpenSelectThreadsColor}
           title="Выберите цвет ниток"
+          type="threads"
+          setColors={setColors}
+          currColor={colors.threadsColor}
         />
       )}
       <h1 className="item-title">{item.name}</h1>
@@ -39,46 +72,24 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       <div className="leather-type">
         <p>Тип кожи:</p>
         <div className="leather-type__radio">
-          <div className="leather-type__radio__box">
-            <input
-              type="radio"
-              id="crazyHorse"
-              name="leatherType"
-              value="crazyHorse"
-              defaultChecked
-              className="leather-type__radio__box-input"
-            />
-            <label
-              htmlFor="crazyHorse"
-              className="leather-type__radio__box-label"
-            >
-              Crazy Horse
-            </label>
-          </div>
-          <div className="leather-type__radio__box">
-            <input
-              type="radio"
-              id="nappa"
-              name="leatherType"
-              value="nappa"
-              className="leather-type__radio__box-input"
-            />
-            <label htmlFor="nappa" className="leather-type__radio__box-label">
-              Nappa
-            </label>
-          </div>
-          <div className="leather-type__radio__box">
-            <input
-              type="radio"
-              id="pullUp"
-              name="leatherType"
-              value="pullUp"
-              className="leather-type__radio__box-input"
-            />
-            <label htmlFor="pullUp" className="leather-type__radio__box-label">
-              Pull Up
-            </label>
-          </div>
+          <Radio
+            label="Crazy Horse"
+            name="crazyHorse"
+            onChange={onChange}
+            checked={leatherType === 'crazyHorse'}
+          />
+          <Radio
+            label="Nappa"
+            name="nappa"
+            onChange={onChange}
+            checked={leatherType === 'nappa'}
+          />
+          <Radio
+            label="Pull Up"
+            name="pullUp"
+            onChange={onChange}
+            checked={leatherType === 'pullUp'}
+          />
         </div>
       </div>
       <div className="colors">
@@ -88,58 +99,32 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
             src={black}
             alt=""
             className="colors-btn__img"
-            onClick={chooseLeatherColor}
+            onClick={() => setOpenSelectLeatherColor(true)}
           />
         </div>
         <div className="colors-btn">
-          <p>Цвет ниток</p>
+          <p>Нитки</p>
           <img
             src={black}
             alt=""
             className="colors-btn__img"
-            onClick={chooseThreadsColor}
+            onClick={() => setOpenSelectThreadsColor(true)}
           />
         </div>
       </div>
-      <div className="item-tabs">
-        <p
-          className={`item-tabs--item ${currentTab === 1 && 'tab-active'}`}
-          onClick={() => setCurrentTab(1)}
-        >
-          ОПИСАНИЕ
-        </p>
-        <p
-          className={`item-tabs--item ${currentTab === 2 && 'tab-active'}`}
-          onClick={() => setCurrentTab(2)}
-        >
-          ДЕТАЛИ
-        </p>
+      <div className="item-desc">ОПИСАНИЕ</div>
+      <div className="item-desc-text">
+        {item.description} Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Et est, illum rerum tempora placeat natus hic quos ad quasi magnam
+        recusandae tenetur saepe. Consequatur, provident. Nostrum quos similique
+        veritatis saepe.
       </div>
-      <div className="item-tabs__text">
-        {currentTab === 1 && (
-          <div className="item-tabs__text-item">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            aperiam soluta harum repellat consequatur ut voluptatem impedit
-            neque doloribus deleniti accusamus quos commodi, saepe consectetur
-            ea mollitia labore at maiores.
-          </div>
-        )}
-        {currentTab === 2 && (
-          <div className="item-tabs__text-item">
-            <p>- Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
-            <p>
-              - In placeat fugit ducimus ipsam est dignissimos voluptatem amet
-              eaque quod mollitia optio animi.
-            </p>
-            <p>
-              - Praesentium, magnam non at cum doloremque, corrupti facilis.
-            </p>
-          </div>
-        )}
-      </div>
-      <div className="item-btn">
-        <Button onClick={() => {}} text="Заказать" color="black" big />
-      </div>
+      <Button
+        onClick={() => addItemToCart(cartItemData)}
+        text="В корзину"
+        color="black"
+        big
+      />
     </>
   );
 };

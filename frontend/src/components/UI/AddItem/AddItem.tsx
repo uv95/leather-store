@@ -7,7 +7,7 @@ import { addItem } from '../../../features/items/itemsSlice';
 import Input from '../Input/Input';
 
 interface AddItemProps {
-  setOpenAddItem: (arg: boolean) => void;
+  setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface IFormData {
   name: string;

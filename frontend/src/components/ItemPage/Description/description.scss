@@ -40,56 +40,26 @@
 
   &__radio {
     display: flex;
-    &__box {
+
+    &-input {
+      margin-right: 0.5rem;
+    }
+    & label {
+      margin-right: 1.5rem;
       display: flex;
       align-items: center;
-      &-input {
-        margin-right: 0.5rem;
-      }
-      &-label {
-        margin-right: 1.5rem;
-      }
     }
   }
 }
 
-.item-tabs {
+.item-desc {
   display: flex;
   gap: 2rem;
   margin-bottom: 2rem;
   font-size: 1.5rem;
 
-  &--item {
-    position: relative;
-    color: $color-grey--dark;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover {
-      color: black;
-    }
-  }
-  & .tab-active {
-    color: black;
-    transition: all 0.2s;
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      right: 0;
-      height: 1px;
-      width: 100%;
-      background-color: black;
-    }
-  }
-
-  &__text {
+  &-text {
     font-size: 1.5rem;
-    &-item {
-    }
+    margin-bottom: 3rem;
   }
-}
-
-.item-btn {
-  margin: 3rem 0;
 }

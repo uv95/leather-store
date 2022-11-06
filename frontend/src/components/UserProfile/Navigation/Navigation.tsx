@@ -7,7 +7,7 @@ import orders from '../../../assets/icons/orders.svg';
 
 interface NavigationProps {
   currentTab: string;
-  setCurrentTab: (arg: string) => void;
+  setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Navigation: React.FC<NavigationProps> = ({

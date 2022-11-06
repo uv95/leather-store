@@ -25,6 +25,12 @@ const cartSchema = new mongoose.Schema({
           required: true,
         },
       },
+      leather: {
+        enum: ['crazyHorse', 'nappa', 'pullUp'],
+        default: 'crazyHorse',
+        type: String,
+        required: true,
+      },
       price: {
         type: Number,
       },

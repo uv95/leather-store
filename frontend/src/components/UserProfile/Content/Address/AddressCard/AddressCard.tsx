@@ -8,8 +8,8 @@ import { addressData } from '../../../../../features/address/addressService';
 
 interface AddressCardProps {
   address: addressData;
-  setEdit: (arg: boolean) => void;
-  setAddressId: (arg: string) => void;
+  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddressId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AddressCard: React.FC<AddressCardProps> = ({

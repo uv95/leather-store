@@ -77,7 +77,6 @@ export const deleteAddress = createAsyncThunk(
 export const updateAddress = createAsyncThunk(
   '@@addresses/update',
   async ({ addressId, updatedAddress }: IUpdate, thunkAPI) => {
-    // async (  thunkAPI, addressId: string, updatedAddress: UpdatedAddress) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
@@ -104,14 +103,7 @@ export const addressSlice = createSlice({
           (address) => address._id !== action.meta.arg
         );
       })
-      .addCase(deleteAddress.rejected, (state) => {
-        state.isLoading = false;
-      })
-      .addCase(getAddress.pending, (state, action) => {
-        state.isLoading = true;
-      })
       .addCase(getAddress.rejected, (state, action) => {
-        state.isLoading = false;
         state.address = null;
       })
       .addCase(getAddress.fulfilled, (state, action) => {
@@ -125,9 +117,6 @@ export const addressSlice = createSlice({
       })
       .addCase(getAllAddresses.fulfilled, (state, action) => {
         state.addresses = action.payload.data.data;
-      })
-      .addCase(getAllAddresses.rejected, (state) => {
-        state.isLoading = false;
       })
       .addCase(updateAddress.fulfilled, (state, action) => {
         state.address = action.payload.data.data;
@@ -145,6 +134,12 @@ export const addressSlice = createSlice({
       )
       .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),
+        (state) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
         }

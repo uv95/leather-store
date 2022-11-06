@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './itemPage.scss';
 import Image from '../../components/ItemPage/Image/Image';
 import Description from '../../components/ItemPage/Description/Description';

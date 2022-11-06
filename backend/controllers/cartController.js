@@ -21,7 +21,7 @@ exports.getCart = catchAsync(async (req, res, next) => {
 });
 
 exports.createCart = catchAsync(async (req, res, next) => {
-  const { itemId, quantity, colors } = req.body;
+  const { itemId, quantity, colors, leather } = req.body;
   const cart = await Cart.findOne({ user: req.user.id });
   const item = await Item.findById(itemId);
 
@@ -53,7 +53,7 @@ exports.createCart = catchAsync(async (req, res, next) => {
         data: { data: cart },
       });
     } else {
-      cart.items.push({ itemId, name, quantity, price, colors });
+      cart.items.push({ itemId, name, quantity, price, colors, leather });
 
       await cart.save();
 
@@ -67,7 +67,7 @@ exports.createCart = catchAsync(async (req, res, next) => {
   if (!cart) {
     const newCart = await Cart.create({
       user: req.user.id,
-      items: [{ itemId, name, quantity, price, colors }],
+      items: [{ itemId, name, quantity, price, colors, leather }],
       total: quantity * price,
     });
 

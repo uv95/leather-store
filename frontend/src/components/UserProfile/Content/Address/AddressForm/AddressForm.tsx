@@ -10,9 +10,9 @@ import {
 
 interface AddressFormProps {
   edit: boolean;
-  setOpenAddressForm: (arg: boolean) => void;
+  setOpenAddressForm: React.Dispatch<React.SetStateAction<boolean>>;
   addressId: string;
-  setEdit: (arg: boolean) => void;
+  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddressForm: React.FC<AddressFormProps> = ({

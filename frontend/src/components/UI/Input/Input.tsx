@@ -11,6 +11,7 @@ interface InputProps {
   placeholder?: string;
   accept?: string;
   multiple?: boolean;
+  defaultChecked?: boolean;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -33,6 +34,7 @@ const Input: React.FC<InputProps> = (props) => {
         onChange={props.onChange}
         accept={props.accept}
         multiple={props.multiple}
+        defaultChecked={props.defaultChecked}
       />
     </>
   );
