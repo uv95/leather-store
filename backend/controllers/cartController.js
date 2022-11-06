@@ -9,10 +9,11 @@ exports.setUserId = (req, res, next) => {
 };
 
 exports.getCart = catchAsync(async (req, res, next) => {
-  const cart = await Cart.findOne({ user: req.user.id }).populate({
-    path: 'items.itemId',
-    select: 'name price',
-  });
+  const cart = await Cart.findOne({ user: req.user.id });
+  // const cart = await Cart.findOne({ user: req.user.id }).populate({
+  //   path: 'items.itemId',
+  //   select: 'name price',
+  // });
 
   res.status(200).json({
     status: 'success',

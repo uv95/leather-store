@@ -91,21 +91,19 @@ export const itemsSlice = createSlice({
       })
       .addCase(getAllItems.pending, (state) => {
         state.items = [];
+        state.isLoading = true;
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;
       })
-      .addCase(getAllItems.rejected, (state) => {
-        state.isLoading = false;
-      })
       .addMatcher(
-        (action) => action.type.endsWith('/pending'),
+        (action) => action.type.endsWith('/fulfilled'),
         (state) => {
-          state.isLoading = true;
+          state.isLoading = false;
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action) => action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
         }

@@ -80,13 +80,21 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // .addCase(deleteItemFromCart.fulfilled, (state, action) => {
-      //   state.cart = state.cart.filter(
-      //     (cartItem) => cartItem.itemId !== action.meta.arg
-      //   );
-      // })
+      .addCase(deleteItemFromCart.fulfilled, (state, action) => {
+        // if (state.cart)
+        //   state.cart.items = state.cart.items.filter(
+        //     (cartItem) => cartItem.itemId !== action.meta.arg
+        //   );
+        state.cart = action.payload.data.data;
+        console.log(action, 'REDUX');
+      })
+
       .addCase(emptyCart.rejected, (state) => {
         state.cart = null;
+      })
+      .addCase(getCart.pending, (state) => {
+        state.cart = null;
+        state.isLoading = true;
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
@@ -103,12 +111,6 @@ export const cartSlice = createSlice({
       //   );
       //   if (cartItem) cartItem.quantity -= 1;
       // })
-      .addMatcher(
-        (action) => action.type.endsWith('/pending'),
-        (state) => {
-          state.isLoading = true;
-        }
-      )
       .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),
         (state) => {

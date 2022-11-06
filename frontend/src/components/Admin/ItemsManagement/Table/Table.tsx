@@ -14,7 +14,7 @@ const Table = () => {
   const onDelete = (id: string) => {
     dispatch(deleteItem(id))
       .unwrap()
-      .then((data) => console.log(data, 'data'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
   };
 

@@ -3,10 +3,21 @@ import './cartItem.scss';
 import { ReactComponent as Delete } from '../../assets/icons/trash.svg';
 import black from '../../assets/img/black.jpg';
 import { ICartItem } from '../../types/data';
+import { useAppDispatch } from '../../hooks';
+import { deleteItemFromCart } from '../../features/cart/cartSlice';
 
 type CartItemProps = { item: ICartItem };
 
 const CartItem = ({ item }: CartItemProps) => {
+  const dispatch = useAppDispatch();
+
+  const onDelete = (id: string) => {
+    dispatch(deleteItemFromCart(id))
+      .unwrap()
+      .then()
+      .catch((error) => console.log(error, 'ERROR'));
+  };
+
   return (
     <div className="cart-item">
       <div className="cart-item__left">
@@ -41,7 +52,7 @@ const CartItem = ({ item }: CartItemProps) => {
       </div>
       <div className="cart-item__right">
         <div className="cart-item__right-remove">
-          <Delete />
+          <Delete onClick={() => onDelete(item.itemId)} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppDispatch } from '../hooks';
 import { addToCart } from '../features/cart/cartSlice';
 import { ICartItem } from '../types/data';
