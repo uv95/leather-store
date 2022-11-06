@@ -2,21 +2,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import cartService from './cartService';
-import { CartItem } from './cartService';
+import { ICartItem, ICartState } from '../../types/data';
 
-interface ICart {
-  cart: CartItem[] | [];
-  isLoading: boolean;
-}
-
-const initialState: ICart = {
-  cart: [],
+const initialState: ICartState = {
+  cart: null,
   isLoading: false,
 };
 
 export const addToCart = createAsyncThunk(
   '@@cart/add',
-  async (cartItem: CartItem, thunkAPI) => {
+  async (cartItem: ICartItem, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
@@ -85,29 +80,29 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(deleteItemFromCart.fulfilled, (state, action) => {
-        state.cart = state.cart.filter(
-          (cartItem) => cartItem.itemId !== action.meta.arg
-        );
-      })
+      // .addCase(deleteItemFromCart.fulfilled, (state, action) => {
+      //   state.cart = state.cart.filter(
+      //     (cartItem) => cartItem.itemId !== action.meta.arg
+      //   );
+      // })
       .addCase(emptyCart.rejected, (state) => {
-        state.cart = [];
+        state.cart = null;
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
       })
       .addCase(getCart.rejected, (state) => {
-        state.cart = [];
+        state.cart = null;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.cart = [...state.cart, action.payload.data.data];
+        state.cart = action.payload.data.data;
       })
-      .addCase(reduceQuantity.fulfilled, (state, action) => {
-        const cartItem = state.cart.find(
-          (item) => item.itemId === action.meta.arg
-        );
-        if (cartItem) cartItem.quantity -= 1;
-      })
+      // .addCase(reduceQuantity.fulfilled, (state, action) => {
+      //   const cartItem = state.cart.find(
+      //     (item) => item.itemId === action.meta.arg
+      //   );
+      //   if (cartItem) cartItem.quantity -= 1;
+      // })
       .addMatcher(
         (action) => action.type.endsWith('/pending'),
         (state) => {

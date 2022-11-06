@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import authService, { RegisterData, LoginData } from './authService';
+import authService from './authService';
 import { extractErrorMessage } from '../../utils/errorMessage';
-import { UpdatedData } from './authService';
+import { IRegister, ILogin, IUpdatedAuth } from '../../types/data';
 import { RootState } from '../../store';
 
 const userStr = localStorage.getItem('user');
@@ -15,7 +15,7 @@ const initialState = {
 
 export const register = createAsyncThunk(
   '@@auth/register',
-  async (user: RegisterData, thunkAPI) => {
+  async (user: IRegister, thunkAPI) => {
     try {
       return await authService.register(user);
     } catch (error) {
@@ -28,7 +28,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   '@@auth/login',
-  async (user: LoginData, thunkAPI) => {
+  async (user: ILogin, thunkAPI) => {
     try {
       return await authService.login(user);
     } catch (error) {
@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
 
 export const updatePassword = createAsyncThunk(
   '@auth/updatePassword',
-  async (updatedData: UpdatedData, thunkAPI) => {
+  async (updatedData: IUpdatedAuth, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;

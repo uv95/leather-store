@@ -14,23 +14,25 @@ const cartSchema = new mongoose.Schema({
       colors: {
         leatherColor: {
           type: String,
-          enum: ['черный', 'красный', 'синий'],
+          enum: ['Черный', 'Красный', 'Синий'],
           default: 'черный',
           required: true,
         },
         threadsColor: {
           type: String,
-          enum: ['черный', 'красный', 'синий'],
+          enum: ['Черный', 'Красный', 'Синий'],
           default: 'черный',
           required: true,
         },
       },
       leather: {
-        enum: ['crazyHorse', 'nappa', 'pullUp'],
-        default: 'crazyHorse',
+        enum: ['Crazy Horse', 'Nappa', 'Pull Up'],
+        default: 'Crazy Horse',
         type: String,
         required: true,
       },
+      imageCover: String,
+      images: [String],
       price: {
         type: Number,
       },

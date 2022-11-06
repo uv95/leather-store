@@ -1,20 +1,9 @@
 import axios from 'axios';
+import { IAddress } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/users/me/address/';
 
-export interface addressData {
-  _id?: string;
-  city: string;
-  address: string;
-  zipcode: string;
-}
-export interface UpdatedAddress {
-  city?: string;
-  address?: string;
-  zipcode?: string;
-}
-
-const addAddress = async (addressData: addressData, token: string) => {
+const addAddress = async (addressData: IAddress, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -60,7 +49,7 @@ const deleteAddress = async (addressId: string, token: string) => {
 
 const updateAddress = async (
   addressId: string,
-  updatedAddress: UpdatedAddress,
+  updatedAddress: Partial<IAddress>,
   token: string
 ) => {
   const config = {

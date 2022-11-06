@@ -1,18 +1,9 @@
 import axios from 'axios';
+import { ICartItem } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/cart/';
 
-export interface CartItem {
-  itemId: string;
-  quantity: number;
-  colors: {
-    leatherColor: string;
-    threadsColor: string;
-  };
-  leather: string;
-}
-
-const addToCart = async (cartItem: CartItem, token: string) => {
+const addToCart = async (cartItem: ICartItem, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

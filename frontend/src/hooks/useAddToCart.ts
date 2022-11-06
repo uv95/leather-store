@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch } from '../hooks';
 import { addToCart } from '../features/cart/cartSlice';
-import { CartItem } from '../features/cart/cartService';
+import { ICartItem } from '../types/data';
 
 export function useAddToCart() {
   const dispatch = useAppDispatch();
 
-  const addItemToCart = (item: CartItem) => {
+  const addItemToCart = (item: ICartItem) => {
     dispatch(addToCart(item))
       .unwrap()
-      .then((data) => console.log(data, 'addItemToCart'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
   };
 

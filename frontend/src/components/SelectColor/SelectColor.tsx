@@ -20,9 +20,8 @@ const SelectColor: React.FC<SelectColorProps> = ({
   setColors,
   currColor,
 }) => {
-  const [selected, setSelected] = useState('черный');
-  const leatherColors = ['черный', 'красный', 'синий'];
-  const threadsColors = ['черный', 'красный', 'синий'];
+  const leatherColors = ['Черный', 'Красный', 'Синий'];
+  const threadsColors = ['Черный', 'Красный', 'Синий'];
 
   return (
     <div className="background" onClick={() => setOpenSelectColor(false)}>

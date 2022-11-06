@@ -2,20 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import userService from './userService';
-import { IUpdatedData } from './userService';
-
-interface IUserState {
-  user: {
-    address: Object[] | [];
-    cart: Object[] | [];
-    email: string;
-    name: string;
-    phone: string;
-    role: string;
-  } | null;
-  users: Object[] | [];
-  isLoading: boolean;
-}
+import { IUpdatedUser, IUserState } from '../../types/data';
 
 const initialState: IUserState = {
   user: null,
@@ -35,7 +22,7 @@ export const getMe = createAsyncThunk('@user/getMe', async (_, thunkAPI) => {
 });
 export const updateMe = createAsyncThunk(
   '@user/updateMe',
-  async (updatedData: IUpdatedData, thunkAPI) => {
+  async (updatedData: IUpdatedUser, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;

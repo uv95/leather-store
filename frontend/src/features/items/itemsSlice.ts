@@ -1,15 +1,10 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import itemsService, { ItemData } from './itemsService';
+import itemsService from './itemsService';
+import { IItemsState } from '../../types/data';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
-interface IItems {
-  item: ItemData | null;
-  items: ItemData[] | [];
-  isLoading: boolean;
-}
-
-const initialState: IItems = {
+const initialState: IItemsState = {
   item: null,
   items: [],
   isLoading: false,
@@ -40,17 +35,28 @@ export const getAllItems = createAsyncThunk(
     }
   }
 );
-export const getItem = createAsyncThunk(
-  '@@items/getOne',
+export const getItemBySlug = createAsyncThunk(
+  '@@items/getBySlug',
   async (slug: string, thunkAPI) => {
     try {
-      return await itemsService.getItem(slug);
+      return await itemsService.getItemBySlug(slug);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
 );
+// export const getItemById = createAsyncThunk(
+//   '@@items/getById',
+//   async (id: string, thunkAPI) => {
+//     try {
+//       return await itemsService.getItemById(id);
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(extractErrorMessage(error));
+//     }
+//   }
+// );
 
 export const deleteItem = createAsyncThunk(
   '@@items/delete',
@@ -77,7 +83,7 @@ export const itemsSlice = createSlice({
           (item) => item._id !== action.meta.arg
         );
       })
-      .addCase(getItem.fulfilled, (state, action) => {
+      .addCase(getItemBySlug.fulfilled, (state, action) => {
         state.item = action.payload.data.data;
       })
       .addCase(addItem.fulfilled, (state, action) => {

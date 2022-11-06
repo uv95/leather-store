@@ -1,20 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { addressData, UpdatedAddress } from './addressService';
+import { IAddress, IAddressState, IUpdate } from '../../types/data';
 import addressService from './addressService';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
-interface IAddresses {
-  address: addressData | null;
-  addresses: addressData[] | [];
-  isLoading: boolean;
-}
-interface IUpdate {
-  addressId: string;
-  updatedAddress: UpdatedAddress;
-}
-
-const initialState: IAddresses = {
+const initialState: IAddressState = {
   address: null,
   addresses: [],
   isLoading: false,
@@ -22,7 +12,7 @@ const initialState: IAddresses = {
 
 export const addAddress = createAsyncThunk(
   '@@addresses/add',
-  async (addressData: addressData, thunkAPI) => {
+  async (addressData: IAddress, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;

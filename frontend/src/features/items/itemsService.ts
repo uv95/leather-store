@@ -2,19 +2,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/items/';
 
-export interface ItemData {
-  _id: string;
-  name: string;
-  slug: string;
-  type: string;
-  description: string;
-  // price: number;
-  price: string;
-  imageCover: string;
-  images: string[] | [];
-  createdAt: string;
-}
-
 const addItem = async (itemData: FormData, token: string) => {
   const config = {
     headers: {
@@ -31,11 +18,17 @@ const getAllItems = async () => {
   return res.data;
 };
 
-const getItem = async (slug: string) => {
+const getItemBySlug = async (slug: string) => {
   const res = await axios.get(API_URL + slug);
   console.log(res.data);
   return res.data;
 };
+
+// const getItemById = async (id: string) => {
+//   const res = await axios.get(API_URL + id);
+//   console.log(res.data);
+//   return res.data;
+// };
 
 const deleteItem = async (itemId: string, token: string) => {
   const config = {
@@ -50,8 +43,9 @@ const deleteItem = async (itemId: string, token: string) => {
 const itemsService = {
   addItem,
   getAllItems,
-  getItem,
+  getItemBySlug,
   deleteItem,
+  // getItemById,
 };
 
 export default itemsService;

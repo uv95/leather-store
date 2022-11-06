@@ -3,12 +3,12 @@ import './description.scss';
 import black from '../../../assets/img/black.jpg';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
-import { ItemData } from '../../../features/items/itemsService';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
+import { IItem } from '../../../types/data';
 
 interface DescriptionProps {
-  item: ItemData;
+  item: IItem;
 }
 
 const Description: React.FC<DescriptionProps> = ({ item }) => {
@@ -16,19 +16,23 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
-  const [leatherType, setLeatherType] = useState('crazyHorse');
+  const [leatherType, setLeatherType] = useState('Crazy Horse');
   const [colors, setColors] = useState({
-    leatherColor: 'черный',
-    threadsColor: 'черный',
+    leatherColor: 'Черный',
+    threadsColor: 'Черный',
   });
   const [cartItemData, setCartItemData] = useState({
     itemId: item._id,
+    name: item.name,
     quantity: 1,
     colors: {
       leatherColor: colors.leatherColor,
       threadsColor: colors.threadsColor,
     },
     leather: leatherType,
+    price: +item.price,
+    imageCover: item.imageCover,
+    images: item.images,
   });
 
   useEffect(() => {
@@ -73,22 +77,19 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
         <p>Тип кожи:</p>
         <div className="leather-type__radio">
           <Radio
-            label="Crazy Horse"
-            name="crazyHorse"
+            name="Crazy Horse"
             onChange={onChange}
-            checked={leatherType === 'crazyHorse'}
+            checked={leatherType === 'Crazy Horse'}
           />
           <Radio
-            label="Nappa"
-            name="nappa"
+            name="Nappa"
             onChange={onChange}
-            checked={leatherType === 'nappa'}
+            checked={leatherType === 'Nappa'}
           />
           <Radio
-            label="Pull Up"
-            name="pullUp"
+            name="Pull Up"
             onChange={onChange}
-            checked={leatherType === 'pullUp'}
+            checked={leatherType === 'Pull Up'}
           />
         </div>
       </div>

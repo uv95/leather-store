@@ -1,12 +1,7 @@
 import axios from 'axios';
+import { IUpdatedUser } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/users/';
-
-export interface IUpdatedData {
-  name?: string;
-  email?: string;
-  phone?: string;
-}
 
 const getMe = async (token: string) => {
   const config = {
@@ -20,7 +15,7 @@ const getMe = async (token: string) => {
   return res.data;
 };
 
-const updateMe = async (token: string, updatedData: IUpdatedData) => {
+const updateMe = async (token: string, updatedData: IUpdatedUser) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

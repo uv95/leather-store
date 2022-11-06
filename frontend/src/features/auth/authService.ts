@@ -1,27 +1,9 @@
 import axios from 'axios';
+import { IRegister, ILogin, IUpdatedAuth } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/users/';
 
-export interface RegisterData {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-  passwordConfirm: string;
-  role?: string;
-}
-export interface LoginData {
-  email: string;
-  password: string;
-}
-
-export interface UpdatedData {
-  passwordCurrent: string;
-  password: string;
-  passwordConfirm: string;
-}
-
-const register = async (userData: RegisterData) => {
+const register = async (userData: IRegister) => {
   const res = await axios.post(API_URL + 'signup', userData);
 
   if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
@@ -29,7 +11,7 @@ const register = async (userData: RegisterData) => {
   return res.data;
 };
 
-const login = async (userData: LoginData) => {
+const login = async (userData: ILogin) => {
   const res = await axios.post(API_URL + 'login', userData);
 
   if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
@@ -37,7 +19,7 @@ const login = async (userData: LoginData) => {
   return res.data;
 };
 
-const updatePassword = async (token: string, updatedData: UpdatedData) => {
+const updatePassword = async (token: string, updatedData: IUpdatedAuth) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

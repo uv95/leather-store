@@ -14,7 +14,8 @@ router
     itemController.createItem
   );
 
-router.route('/:slug').get(itemController.getOneItem);
+router.route('/:slug').get(itemController.getItemBySlug);
+// router.route('/:id').get(itemController.getItemById);
 
 router
   .route('/:id')

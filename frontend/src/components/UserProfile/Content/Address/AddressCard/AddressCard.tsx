@@ -4,10 +4,10 @@ import edit from '../../../../../assets/icons/edit.svg';
 import trash from '../../../../../assets/icons/trash.svg';
 import { useAppDispatch } from '../../../../../hooks';
 import { deleteAddress } from '../../../../../features/address/addressSlice';
-import { addressData } from '../../../../../features/address/addressService';
+import { IAddress } from '../../../../../types/data';
 
 interface AddressCardProps {
-  address: addressData;
+  address: IAddress;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
   setAddressId: React.Dispatch<React.SetStateAction<string>>;
 }

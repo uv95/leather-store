@@ -31,6 +31,8 @@ exports.createCart = catchAsync(async (req, res, next) => {
 
   const price = item.price;
   const name = item.name;
+  const imageCover = item.imageCover;
+  const images = item.images;
 
   if (cart) {
     //check if there is item in cart with the same ID and COLORS
@@ -53,7 +55,16 @@ exports.createCart = catchAsync(async (req, res, next) => {
         data: { data: cart },
       });
     } else {
-      cart.items.push({ itemId, name, quantity, price, colors, leather });
+      cart.items.push({
+        itemId,
+        name,
+        quantity,
+        price,
+        colors,
+        leather,
+        imageCover,
+        images,
+      });
 
       await cart.save();
 
@@ -67,7 +78,9 @@ exports.createCart = catchAsync(async (req, res, next) => {
   if (!cart) {
     const newCart = await Cart.create({
       user: req.user.id,
-      items: [{ itemId, name, quantity, price, colors, leather }],
+      items: [
+        { itemId, name, quantity, price, colors, leather, imageCover, images },
+      ],
       total: quantity * price,
     });
 

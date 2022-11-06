@@ -1,11 +1,11 @@
 import React from 'react';
 import './itemCard.scss';
-import { ItemData } from '../../../features/items/itemsService';
+import { IItem } from '../../../types/data';
 import { Link } from 'react-router-dom';
 import { ITEM_ROUTE } from '../../../utils/consts';
 
 interface ItemCardProps {
-  item: ItemData;
+  item: IItem;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
