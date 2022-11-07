@@ -9,15 +9,16 @@ import {
   LOGIN_ROUTE,
   USER_PROFILE_ROUTE,
 } from '../../utils/consts';
-import cart from '../../assets/icons/cart.svg';
+import cartIcon from '../../assets/icons/cart.svg';
 import user from '../../assets/icons/user.svg';
 import login from '../../assets/icons/sign-in.svg';
 import AdminHeader from './AdminHeader';
 import { useDefineRole } from '../../hooks/useDefineRole';
+import Badge from '../UI/Badge/Badge';
+import useGetCart from '../../hooks/useGetCart';
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
+  const { cart } = useGetCart();
   const role = useDefineRole();
   const location = useLocation();
 
@@ -57,10 +58,13 @@ const Header = (props: Props) => {
                   </Link>
                   <Link to={CART_ROUTE}>
                     <img
-                      src={cart}
+                      src={cartIcon}
                       className="header__container-inner__nav-icon"
                       alt="cart"
                     />
+                    {cart && cart.items.length !== 0 && (
+                      <Badge value={cart.totalQuantity} />
+                    )}
                   </Link>
                 </>
               ) : (

@@ -98,6 +98,6 @@ export interface ICartItem {
 }
 
 export interface ICartState {
-  cart: { items: ICartItem[]; total: number } | null;
+  cart: { items: ICartItem[]; total: number; totalQuantity: number } | null;
   isLoading: boolean;
 }

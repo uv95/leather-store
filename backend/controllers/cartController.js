@@ -84,6 +84,7 @@ exports.createCart = catchAsync(async (req, res, next) => {
         { itemId, name, quantity, price, colors, leather, imageCover, images },
       ],
       total: quantity * price,
+      quantity,
     });
 
     res.status(201).json({

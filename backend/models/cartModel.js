@@ -41,6 +41,11 @@ const cartSchema = new mongoose.Schema({
       },
     },
   ],
+  totalQuantity: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
   total: {
     type: Number,
     required: true,
@@ -60,6 +65,13 @@ cartSchema.pre('save', function (next) {
 cartSchema.pre('save', function (next) {
   this.total = this.items
     .map((item) => item.total)
+    .reduce((prev, curr) => prev + curr, 0);
+
+  next();
+});
+cartSchema.pre('save', function (next) {
+  this.totalQuantity = this.items
+    .map((item) => item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
 
   next();

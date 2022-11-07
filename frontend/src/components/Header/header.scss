@@ -63,6 +63,8 @@
         display: flex;
         color: black;
 
+        position: relative;
+
         &-shop {
           margin-right: 10rem;
           @include hover;
