@@ -117,12 +117,6 @@ export const addressSlice = createSlice({
         );
       })
       .addMatcher(
-        (action) => action.type.endsWith('/pending'),
-        (state) => {
-          state.isLoading = true;
-        }
-      )
-      .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),
         (state) => {
           state.isLoading = false;

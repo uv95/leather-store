@@ -3,20 +3,16 @@ import './cartItem.scss';
 import { ReactComponent as Delete } from '../../assets/icons/trash.svg';
 import black from '../../assets/img/black.jpg';
 import { ICartItem } from '../../types/data';
-import { useAppDispatch } from '../../hooks';
-import { deleteItemFromCart } from '../../features/cart/cartSlice';
+import { useAddToCart } from '../../hooks/useAddToCart';
+import { useReduceQuantity } from '../../hooks/useReduceQuantity';
+import { useDeleteCartItem } from '../../hooks/useDeleteCartItem';
 
 type CartItemProps = { item: ICartItem };
 
 const CartItem = ({ item }: CartItemProps) => {
-  const dispatch = useAppDispatch();
-
-  const onDelete = (id: string) => {
-    dispatch(deleteItemFromCart(id))
-      .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'ERROR'));
-  };
+  const addItemToCart = useAddToCart();
+  const deleteCartItem = useDeleteCartItem();
+  const reduceItemQuantity = useReduceQuantity();
 
   return (
     <div className="cart-item">
@@ -38,21 +34,31 @@ const CartItem = ({ item }: CartItemProps) => {
 
           <div className="cart-item__left__info__qty">
             <div className="cart-item__left__info__qty__counter">
-              <div className="cart-item__left__info__qty__counter-cell">-</div>
-              <div className="cart-item__left__info__qty__counter-cell--num">
-                1
+              <div
+                className="cart-item__left__info__qty__counter-cell"
+                onClick={() => reduceItemQuantity(item._id!)}
+              >
+                -
               </div>
-              <div className="cart-item__left__info__qty__counter-cell">+</div>
+              <div className="cart-item__left__info__qty__counter-cell--num">
+                {item.quantity}
+              </div>
+              <div
+                className="cart-item__left__info__qty__counter-cell"
+                onClick={() => addItemToCart(item)}
+              >
+                +
+              </div>
             </div>
             <p className="cart-item__left__info__qty-price">
-              {item.price} руб.
+              {item.price * item.quantity} руб.
             </p>
           </div>
         </div>
       </div>
       <div className="cart-item__right">
         <div className="cart-item__right-remove">
-          <Delete onClick={() => onDelete(item.itemId)} />
+          <Delete onClick={() => deleteCartItem(item._id!)} />
         </div>
       </div>
     </div>

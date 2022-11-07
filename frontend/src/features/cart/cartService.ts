@@ -36,24 +36,24 @@ const emptyCart = async (token: string) => {
   return res.data;
 };
 
-const deleteItemFromCart = async (itemId: string, token: string) => {
+const deleteItemFromCart = async (cartItemId: string, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const res = await axios.delete(API_URL + itemId, config);
+  const res = await axios.delete(API_URL + cartItemId, config);
   return res.data;
 };
 
-const reduceQuantity = async (itemId: string, token: string) => {
+const reduceQuantity = async (cartItemId: string, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   const res = await axios.delete(
-    API_URL + itemId + '/decreaseQuantity',
+    API_URL + cartItemId + '/reduceQuantity',
     config
   );
   return res.data;

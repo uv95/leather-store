@@ -13,7 +13,9 @@ router
   .post(cartController.setUserId, cartController.createCart)
   .delete(cartController.emptyCart);
 
-router.route('/:id').delete(cartController.deleteItem);
-router.route('/:id/decreaseQuantity').delete(cartController.decreaseQuantity);
+router.route('/:cartItemId').delete(cartController.deleteItem);
+router
+  .route('/:cartItemId/reduceQuantity')
+  .delete(cartController.reduceQuantity);
 
 module.exports = router;

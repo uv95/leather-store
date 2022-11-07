@@ -42,7 +42,8 @@ exports.createCart = catchAsync(async (req, res, next) => {
         item.itemId.toHexString() === itemId &&
         Object.values(item.colors).every(
           (color, i) => color === Object.values(colors)[i]
-        )
+        ) &&
+        item.leather === leather
     );
 
     if (itemIndex > -1) {
@@ -93,11 +94,11 @@ exports.createCart = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteItem = catchAsync(async (req, res, next) => {
-  const itemId = req.params.id;
+  const { cartItemId } = req.params;
 
   let cart = await Cart.findOne({ user: req.user.id });
   const itemIndex = cart.items.findIndex(
-    (item) => item.itemId.toHexString() === itemId
+    (item) => item._id.toHexString() === cartItemId
   );
 
   if (itemIndex > -1) {
@@ -116,14 +117,13 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.decreaseQuantity = catchAsync(async (req, res, next) => {
-  const cartItemId = req.params.id;
+exports.reduceQuantity = catchAsync(async (req, res, next) => {
+  const { cartItemId } = req.params;
 
   let cart = await Cart.findOne({ user: req.user.id });
   const itemIndex = cart.items.findIndex(
     (item) => item._id.toHexString() === cartItemId
   );
-  console.log(cart.items);
 
   if (itemIndex > -1) {
     let item = cart.items[itemIndex];

@@ -83,6 +83,7 @@ export interface IItemsState {
 //CART
 
 export interface ICartItem {
+  _id?: string;
   itemId: string;
   name: string;
   quantity: number;
