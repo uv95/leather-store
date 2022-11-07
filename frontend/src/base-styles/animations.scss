@@ -13,3 +13,12 @@
     transform: translateY(0);
   }
 }
+
+@keyframes down {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}

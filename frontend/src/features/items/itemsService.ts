@@ -20,15 +20,8 @@ const getAllItems = async () => {
 
 const getItemBySlug = async (slug: string) => {
   const res = await axios.get(API_URL + slug);
-  console.log(res.data);
   return res.data;
 };
-
-// const getItemById = async (id: string) => {
-//   const res = await axios.get(API_URL + id);
-//   console.log(res.data);
-//   return res.data;
-// };
 
 const deleteItem = async (itemId: string, token: string) => {
   const config = {
@@ -45,7 +38,6 @@ const itemsService = {
   getAllItems,
   getItemBySlug,
   deleteItem,
-  // getItemById,
 };
 
 export default itemsService;

@@ -8,51 +8,59 @@ import { IAddress } from '../../../../../types/data';
 
 interface AddressCardProps {
   address: IAddress;
-  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  setAddressId: React.Dispatch<React.SetStateAction<string>>;
+  setEdit?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddressId?: React.Dispatch<React.SetStateAction<string>>;
+  fromCart?: boolean;
+  active?: boolean;
+  onClick?: () => void;
 }
 
 const AddressCard: React.FC<AddressCardProps> = ({
   address,
   setEdit,
   setAddressId,
+  fromCart,
+  active,
+  onClick,
 }) => {
   const dispatch = useAppDispatch();
 
   const onDelete = (id: string) => {
     dispatch(deleteAddress(id))
       .unwrap()
-      .then((data) => console.log(data, 'data'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
   };
 
   return (
-    <div className="address-card">
-      <div className="address-card__right">
-        <div className="address-card__right__field">
-          <p className="address-card__right__field-name">Город:</p>
-          <p className="address-card__right__field-value">{address.city}</p>
-        </div>
-        <div className="address-card__right__field">
-          <p className="address-card__right__field-name">Индекс:</p>
-          <p className="address-card__right__field-value">{address.zipcode}</p>
-        </div>
-        <div className="address-card__right__field">
-          <p className="address-card__right__field-name">Полный адрес:</p>
-          <p className="address-card__right__field-value">{address.address}</p>
-        </div>
+    <div
+      className={`address-card ${active ? 'address-card-active' : ''}`}
+      onClick={onClick}
+    >
+      <div
+        className={`address-card__right ${
+          fromCart ? 'address-card__right-fromCart' : ''
+        }`}
+      >
+        {address.city}, {address.address}, {address.zipcode}
       </div>
-      <div className="address-card__left">
-        <img
-          src={edit}
-          alt="редактировать"
-          onClick={() => {
-            setEdit(true);
-            setAddressId(address._id!);
-          }}
-        />
-        <img src={trash} alt="удалить" onClick={() => onDelete(address._id!)} />
-      </div>
+      {!fromCart && (
+        <div className="address-card__left">
+          <img
+            src={edit}
+            alt="редактировать"
+            onClick={() => {
+              setEdit!(true);
+              setAddressId!(address._id!);
+            }}
+          />
+          <img
+            src={trash}
+            alt="удалить"
+            onClick={() => onDelete(address._id!)}
+          />
+        </div>
+      )}
     </div>
   );
 };

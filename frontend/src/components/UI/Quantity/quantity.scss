@@ -1,0 +1,14 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+
+.quantity {
+  display: flex;
+  &__cell {
+    @include cell;
+    &-num {
+      @include center;
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}

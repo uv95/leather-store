@@ -1,0 +1,21 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/animations.scss';
+
+.selectAddress {
+  background-color: $color-grey--light;
+  padding: 2rem;
+  animation: down 0.5s ease;
+  transform-origin: top center;
+  & h2 {
+    margin-bottom: 2rem;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    animation: up 0.8s ease;
+  }
+}

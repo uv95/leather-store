@@ -22,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <div className="nav">
-      {tabs.map((tab) => (
+      {tabs.map((tab, i) => (
         <Tab
           key={tab.text}
           text={tab.text}

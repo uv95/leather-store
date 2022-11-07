@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './cart.scss';
-import CartItem from '../../components/CartItem/CartItem';
+import CartItem from '../../components/Cart/CartItem/CartItem';
+import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import Button from '../../components/UI/Button/Button';
 import useGetCart from '../../hooks/useGetCart';
 
-type Props = {};
-
-const Cart = (props: Props) => {
+const Cart = () => {
   const { cart, isLoading } = useGetCart();
+  const [openSelectAddress, setOpenSelectAddress] = useState(false);
 
   if (isLoading) return <h1>LOADING</h1>;
 
@@ -26,12 +26,14 @@ const Cart = (props: Props) => {
             <p>{cart && cart.total} руб.</p>
           </div>
         </div>
+        {openSelectAddress && <SelectAddress />}
         <div className="cart__container__btn">
           <Button
-            onClick={() => {}}
-            text="Оформление заказа"
+            onClick={() => setOpenSelectAddress(true)}
+            text={openSelectAddress ? 'Заказать' : 'Оформление заказа'}
             color="black"
             big
+            animation={openSelectAddress}
           />
         </div>
       </div>

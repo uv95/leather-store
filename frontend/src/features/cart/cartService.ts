@@ -11,7 +11,6 @@ const addToCart = async (cartItem: ICartItem, token: string) => {
   };
 
   const res = await axios.post(API_URL, cartItem, config);
-  console.log(res.data);
   return res.data;
 };
 
@@ -22,7 +21,6 @@ const getCart = async (token: string) => {
     },
   };
   const res = await axios.get(API_URL, config);
-  console.log(res.data, 'getCart');
   return res.data;
 };
 

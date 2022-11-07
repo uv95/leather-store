@@ -10,7 +10,7 @@ interface TabProps {
 
 const Tab: React.FC<TabProps> = ({ text, onClick, active, icon }) => {
   return (
-    <div onClick={onClick} className={`tab ${active && 'active'}`}>
+    <div onClick={onClick} className={`tab ${active ? 'active' : ''}`}>
       <div className="tab-icon">
         <img src={icon} alt="icon" />
       </div>

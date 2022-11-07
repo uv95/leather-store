@@ -15,11 +15,12 @@ const Address = () => {
   const [addressId, setAddressId] = useState('');
   const dispatch = useAppDispatch();
 
+  //to get address data when clicking on Edit btn
   useEffect(() => {
     addressId &&
       dispatch(getAddress(addressId))
         .unwrap()
-        .then()
+        .then((data) => console.log(data))
         .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch, addressId]);
 
