@@ -1,13 +1,17 @@
 @import '../../../../../base-styles/mixins.scss';
 @import '../../../../../base-styles/variables.scss';
+@import '../../../../../base-styles/animations.scss';
 
 .address-form {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid $color-grey--medium;
+  animation: down 0.4s;
+  transform-origin: top center;
 
   &__input-box {
     font-size: 2rem;
     @include input-box;
+    animation: up 0.8s;
   }
 }

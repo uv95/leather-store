@@ -27,7 +27,7 @@
       border-color: $color-grey--dark;
     }
     &__img {
-      @include colorBtn;
+      @include colorBtnHover;
     }
   }
 }

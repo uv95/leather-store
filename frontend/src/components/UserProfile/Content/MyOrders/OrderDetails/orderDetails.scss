@@ -1,0 +1,72 @@
+@import '../../../../../base-styles/mixins.scss';
+@import '../../../../../base-styles/variables.scss';
+
+.orderDetails {
+  &__item {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+
+    &:first-of-type {
+      //     border-bottom: 1px solid $color-grey--medium;
+      border-top: 2px solid $color-grey--light;
+    }
+    &:not(:first-of-type) {
+      padding-top: 2rem;
+    }
+    &-left {
+      display: flex;
+      gap: 2rem;
+
+      &-img {
+        width: 14rem;
+        height: 14rem;
+        object-fit: cover;
+      }
+      &__info {
+        font-size: 1.2rem;
+        color: $color-grey--dark;
+        position: relative;
+        &-title {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+          color: black;
+        }
+
+        &-qty {
+          margin-top: 1rem;
+        }
+      }
+    }
+
+    &-right {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  &__bottom {
+    &-total {
+      background-color: #fff;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border-top: 2px solid $color-grey--light;
+      border-bottom: 2px solid $color-grey--light;
+
+      & p {
+        width: fit-content;
+        margin-left: auto;
+        font-weight: bold;
+      }
+    }
+    &-btns {
+      background-color: #fff;
+      padding: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: end;
+    }
+  }
+}

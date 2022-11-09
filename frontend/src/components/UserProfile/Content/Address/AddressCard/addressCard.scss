@@ -11,20 +11,26 @@
   height: 8rem;
 
   &-active {
-    outline: 3px solid $color-grey--dark;
-    // background-color: $color-grey--medium;
+    outline: 2px solid $color-grey--medium;
   }
 
+  &__fromCart {
+    cursor: pointer;
+    transition: all 0.2s;
+
+    & .address-card__right {
+      width: 100%;
+    }
+
+    &:not(.address-card-active):hover {
+      transform: scale(0.99);
+    }
+  }
   &__right {
     width: 85%;
     padding-right: 1rem;
     font-size: 2rem;
     padding: 0 2rem;
-
-    &-fromCart {
-      cursor: pointer;
-      width: 100%;
-    }
   }
   &__left {
     @include center;

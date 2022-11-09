@@ -28,20 +28,10 @@
     display: grid;
     grid-template-columns: repeat(2, 20rem);
     justify-content: space-between;
-    &-btn {
-      width: 10rem;
+    & button {
       place-self: end;
       margin-right: 1rem;
-      height: 3rem;
       grid-column: 2;
-      @include center;
-      background-color: $color-grey--medium;
-      cursor: pointer;
-
-      &:hover {
-        color: white;
-        background-color: $color-grey--dark;
-      }
     }
 
     &-left,

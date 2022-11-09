@@ -27,7 +27,7 @@ const Cart = () => {
                 ))}
               </div>
               <div className="cart__container__order__total">
-                <p>{cart.total} руб.</p>
+                <p>Итого: {cart.total} руб.</p>
               </div>
             </div>
             {openSelectAddress && <SelectAddress />}

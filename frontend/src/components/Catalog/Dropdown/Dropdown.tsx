@@ -1,5 +1,6 @@
 import React from 'react';
 import './dropdown.scss';
+import Button from '../../UI/Button/Button';
 
 interface DropdownProps {
   open: boolean;
@@ -46,7 +47,7 @@ const Dropdown: React.FC<DropdownProps> = ({ open }) => {
             ))}
           </div>
         </div>
-        <div className="dropdown__content-btn">Применить</div>
+        <Button text="Применить" color="gray" />
       </div>
     </div>
   );

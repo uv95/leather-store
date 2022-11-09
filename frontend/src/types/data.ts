@@ -13,7 +13,7 @@ export interface IAddressState {
   isLoading: boolean;
 }
 
-export interface IUpdate {
+export interface IUpdatedAddress {
   addressId: string;
   updatedAddress: Partial<IAddress>;
 }
@@ -100,4 +100,25 @@ export interface ICartItem {
 export interface ICartState {
   cart: { items: ICartItem[]; total: number; totalQuantity: number } | null;
   isLoading: boolean;
+}
+
+//ORDER
+
+export interface IOrder {
+  _id?: string;
+  items: ICartItem[];
+  user: string;
+  address: IAddress;
+  createdAt: Date;
+}
+
+export interface IOrderState {
+  order: IOrder | null;
+  orders: IOrder[] | [];
+  isLoading: boolean;
+}
+
+export interface IUpdatedOrder {
+  orderId: string;
+  updatedOrder: Partial<IOrder>;
 }

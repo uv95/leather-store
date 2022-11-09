@@ -24,6 +24,8 @@ const Address = () => {
         .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch, addressId]);
 
+  console.log(isLoading);
+
   if (isLoading) return <h1>Loading...</h1>;
 
   return (

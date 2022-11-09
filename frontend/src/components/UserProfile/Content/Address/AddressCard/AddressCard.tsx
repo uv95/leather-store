@@ -34,14 +34,12 @@ const AddressCard: React.FC<AddressCardProps> = ({
 
   return (
     <div
-      className={`address-card ${active ? 'address-card-active' : ''}`}
+      className={`address-card ${active ? 'address-card-active' : ''} ${
+        fromCart ? 'address-card__fromCart' : ''
+      }`}
       onClick={onClick}
     >
-      <div
-        className={`address-card__right ${
-          fromCart ? 'address-card__right-fromCart' : ''
-        }`}
-      >
+      <div className="address-card__right">
         {address.city}, {address.address}, {address.zipcode}
       </div>
       {!fromCart && (

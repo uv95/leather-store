@@ -46,23 +46,13 @@
       }
       &__qty {
         color: black;
-        font-size: 1.5rem;
         position: absolute;
         bottom: 0;
         display: flex;
         align-items: center;
         gap: 2rem;
-        &__counter {
-          display: flex;
-          &-cell {
-            @include cell;
-            &--num {
-              @include center;
-              width: 3rem;
-              height: 3rem;
-            }
-          }
-        }
+        min-width: 20rem;
+
         &-price {
           font-weight: 700;
           font-size: 2rem;

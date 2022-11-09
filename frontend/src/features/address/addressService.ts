@@ -11,7 +11,7 @@ const addAddress = async (addressData: IAddress, token: string) => {
   };
 
   const res = await axios.post(API_URL, addressData, config);
-  console.log(res.data);
+
   return res.data;
 };
 
@@ -33,7 +33,7 @@ const getAddress = async (addressId: string, token: string) => {
     },
   };
   const res = await axios.get(API_URL + addressId, config);
-  console.log(res.data, 'getAddress');
+
   return res.data;
 };
 

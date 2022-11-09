@@ -7,6 +7,7 @@ import { useAddToCart } from '../../../hooks/useAddToCart';
 import { useReduceQuantity } from '../../../hooks/useReduceQuantity';
 import { useDeleteCartItem } from '../../../hooks/useDeleteCartItem';
 import Quantity from '../../UI/Quantity/Quantity';
+import Colors from '../../UI/Colors/Colors';
 
 type CartItemProps = { item: ICartItem };
 
@@ -26,13 +27,7 @@ const CartItem = ({ item }: CartItemProps) => {
         <div className="cart-item__left__info">
           <h2 className="cart-item__left__info-title">{item.name}</h2>
           <p>Тип кожи: {item.leather}</p>
-          <div className="cart-item__left__info__colors">
-            <p>Цвет кожи:</p>
-            <img src={black} alt="color" />
-            <p className="cart-item__left__info__colors-threads">Цвет ниток:</p>
-            <img src={black} alt="color" />
-          </div>
-
+          <Colors leatherColor={black} threadsColor={black} />
           <div className="cart-item__left__info__qty">
             <Quantity
               reduce={() => reduceItemQuantity(item._id!)}

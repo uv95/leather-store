@@ -6,6 +6,7 @@ import Button from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
 import { IItem } from '../../../types/data';
+import Colors from '../../UI/Colors/Colors';
 
 interface DescriptionProps {
   item: IItem;
@@ -93,26 +94,13 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
           />
         </div>
       </div>
-      <div className="colors">
-        <div className="colors-btn">
-          <p>Цвет кожи</p>
-          <img
-            src={black}
-            alt=""
-            className="colors-btn__img"
-            onClick={() => setOpenSelectLeatherColor(true)}
-          />
-        </div>
-        <div className="colors-btn">
-          <p>Нитки</p>
-          <img
-            src={black}
-            alt=""
-            className="colors-btn__img"
-            onClick={() => setOpenSelectThreadsColor(true)}
-          />
-        </div>
-      </div>
+      <Colors
+        leatherColor={black}
+        threadsColor={black}
+        vertical
+        openSelectLeatherColor={() => setOpenSelectLeatherColor(true)}
+        openSelectThreadsColor={() => setOpenSelectThreadsColor(true)}
+      />
       <div className="item-desc">ОПИСАНИЕ</div>
       <div className="item-desc-text">
         {item.description} Lorem ipsum dolor sit amet consectetur adipisicing

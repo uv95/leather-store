@@ -31,9 +31,17 @@
 @mixin colorBtn {
   width: 4rem;
   height: 4rem;
-  cursor: pointer;
   border-radius: 50%;
   object-fit: cover;
+}
+
+@mixin colorBtnHover {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all 0.1s;
+  cursor: pointer;
 
   &:hover {
     outline: 1px solid $color-grey--dark;
@@ -64,6 +72,7 @@
 }
 
 @mixin hover {
+  cursor: pointer;
   &:hover {
     filter: invert(30%);
   }

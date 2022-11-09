@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { IAddress, IAddressState, IUpdate } from '../../types/data';
+import { IAddress, IAddressState, IUpdatedAddress } from '../../types/data';
 import addressService from './addressService';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
@@ -66,7 +66,7 @@ export const deleteAddress = createAsyncThunk(
 );
 export const updateAddress = createAsyncThunk(
   '@@addresses/update',
-  async ({ addressId, updatedAddress }: IUpdate, thunkAPI) => {
+  async ({ addressId, updatedAddress }: IUpdatedAddress, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
