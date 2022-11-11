@@ -1,9 +1,11 @@
 import React from 'react';
 import Tab from './Tab/Tab';
-import logout from '../../../assets/icons/logout.svg';
+import logoutsvg from '../../../assets/icons/logout.svg';
 import portrait from '../../../assets/icons/portrait.svg';
 import address from '../../../assets/icons/address.svg';
 import orders from '../../../assets/icons/orders.svg';
+import useLogout from '../../../hooks/useLogout';
+import { useAppDispatch } from '../../../hooks';
 
 interface NavigationProps {
   currentTab: string;
@@ -14,6 +16,9 @@ const Navigation: React.FC<NavigationProps> = ({
   setCurrentTab,
   currentTab,
 }) => {
+  const dispatch = useAppDispatch();
+  const logoutUser = useLogout();
+
   const tabs = [
     { text: 'Мои заказы', icon: orders },
     { text: 'Адреса доставки', icon: address },
@@ -33,9 +38,9 @@ const Navigation: React.FC<NavigationProps> = ({
       ))}
       <Tab
         text={'Выйти'}
-        onClick={() => setCurrentTab('Выйти')}
+        onClick={logoutUser}
         active={currentTab === 'Выйти'}
-        icon={logout}
+        icon={logoutsvg}
       />
     </div>
   );

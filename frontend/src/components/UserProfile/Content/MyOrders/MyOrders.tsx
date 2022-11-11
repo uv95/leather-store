@@ -10,10 +10,6 @@ const MyOrders = (props: Props) => {
   const { user } = useGetMe();
   const { isLoading, myOrders } = useGetMyOrders(user?._id!);
 
-  useEffect(() => {
-    console.log(myOrders, 'my orders');
-  }, [myOrders]);
-
   if (isLoading) return <h1>Loading...</h1>;
 
   return (

@@ -10,6 +10,7 @@ if (userStr) user = JSON.parse(userStr);
 
 const initialState = {
   user: user || null,
+  role: null,
   isLoading: false,
 };
 
@@ -60,6 +61,9 @@ export const authSlice = createSlice({
       localStorage.removeItem('user');
       state.user = null;
     },
+    setRole: (state, action) => {
+      state.role = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -96,6 +100,6 @@ export const authSlice = createSlice({
       });
   },
 });
-export const { logout } = authSlice.actions;
+export const { logout, setRole } = authSlice.actions;
 
 export default authSlice.reducer;

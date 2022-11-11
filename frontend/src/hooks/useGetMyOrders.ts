@@ -10,9 +10,8 @@ export function useGetMyOrders(userId: string) {
   useEffect(() => {
     dispatch(getMyOrders(userId))
       .unwrap()
-      .then((data) => console.log('get amy orders', data))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
-    console.log('first');
   }, [dispatch, userId]);
 
   // const getAllMyOrders = (userId: string) =>

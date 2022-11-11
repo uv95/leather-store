@@ -10,7 +10,7 @@ export function useGetMe() {
   useEffect(() => {
     dispatch(getMe())
       .unwrap()
-      .then()
+      .then((data) => console.log(data, 'GET ME'))
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch]);
 

@@ -10,12 +10,12 @@ export function useCreateOrder() {
   const createOrder = (order: IOrder) => {
     dispatch(addOrder(order))
       .unwrap()
-      .then((data) => console.log(data, 'ORDER'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
 
     dispatch(emptyCart())
       .unwrap()
-      .then((data) => console.log(data, 'empty cart'))
+      .then()
       .catch((error) => console.log(error, 'ERROR'));
   };
 
