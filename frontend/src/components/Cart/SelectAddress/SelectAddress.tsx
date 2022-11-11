@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import './selectAddress.scss';
 import AddressCard from '../../UserProfile/Content/Address/AddressCard/AddressCard';
 import { useGetAllAddresses } from '../../../hooks/useGetAllAddresses';
+import { IAddress } from '../../../types/data';
 
-type Props = {};
+type SelectAddressProps = {
+  setCurrentAddressIndex: React.Dispatch<React.SetStateAction<number>>;
+  currentAddressIndex: number;
+  addresses: IAddress[];
+};
 
-const SelectAddress = (props: Props) => {
-  const [currentAddress, setCurrentAddress] = useState(0);
-  const { isLoading, addresses } = useGetAllAddresses();
+const SelectAddress = ({
+  setCurrentAddressIndex,
+  currentAddressIndex,
+  addresses,
+}: SelectAddressProps) => {
+  const { isLoading } = useGetAllAddresses();
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -20,8 +28,8 @@ const SelectAddress = (props: Props) => {
             key={address._id}
             address={address}
             fromCart
-            active={i === currentAddress}
-            onClick={() => setCurrentAddress(i)}
+            active={i === currentAddressIndex}
+            onClick={() => setCurrentAddressIndex(i)}
           />
         ))}
       </div>

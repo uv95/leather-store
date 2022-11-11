@@ -49,6 +49,7 @@ export interface IUpdatedUser {
 
 export interface IUserState {
   user: {
+    _id?: string;
     address: IAddress[] | [];
     cart: Object[] | [];
     email: string;
@@ -98,7 +99,12 @@ export interface ICartItem {
 }
 
 export interface ICartState {
-  cart: { items: ICartItem[]; total: number; totalQuantity: number } | null;
+  cart: {
+    items: ICartItem[];
+    total: number;
+    totalQuantity: number;
+    user: string;
+  } | null;
   isLoading: boolean;
 }
 
@@ -108,13 +114,16 @@ export interface IOrder {
   _id?: string;
   items: ICartItem[];
   user: string;
-  address: IAddress;
-  createdAt: Date;
+  total: number;
+  addressId: string;
+  status: string;
+  createdAt?: Date;
 }
 
 export interface IOrderState {
   order: IOrder | null;
   orders: IOrder[] | [];
+  myOrders: IOrder[] | [];
   isLoading: boolean;
 }
 

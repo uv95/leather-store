@@ -12,6 +12,7 @@ export function useGetAllAddresses() {
       .unwrap()
       .then()
       .catch((error) => console.log(error, 'ERROR'));
+    console.log('get all addresses');
   }, [dispatch]);
 
   return { isLoading, addresses };

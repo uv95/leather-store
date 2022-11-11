@@ -33,7 +33,7 @@ const getMyOrders = async (userId: string, token: string) => {
     },
   };
 
-  const res = await axios.get(`http://localhost:5000/${userId}/order`, config);
+  const res = await axios.get(API_URL + `${userId}/myOrders`, config);
   return res.data;
 };
 

@@ -16,14 +16,16 @@ exports.getMyOrders = catchAsync(async (req, res, next) => {
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const user = req.user.id;
-  const addressId = req.body.address;
+  const addressId = req.body.addressId;
   const cart = await Cart.findOne({ user });
   const items = cart.items.map((item) => {
     return {
       quantity: item.quantity,
-      total: item.total,
       name: item.name,
+      leather: item.leather,
       colors: item.colors,
+      price: item.price,
+      imageCover: item.imageCover,
     };
   });
   const userAddresses = await Address.find({
@@ -33,7 +35,10 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   if (!cart) {
     return next(new AppError('No cart found!', 404));
   }
-  if (!userAddresses.some((address) => addressId === address.id)) {
+
+  if (
+    !userAddresses.some((address) => addressId === address._id.toHexString())
+  ) {
     return next(new AppError('No address found!', 404));
   }
 

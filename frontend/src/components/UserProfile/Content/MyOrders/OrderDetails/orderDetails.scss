@@ -1,13 +1,16 @@
 @import '../../../../../base-styles/mixins.scss';
 @import '../../../../../base-styles/variables.scss';
+@import '../../../../../base-styles/animations.scss';
 
 .orderDetails {
+  animation: down 0.5s ease;
+  transform-origin: top center;
+  background-color: #fff;
   &__item {
     padding: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
 
     &:first-of-type {
       //     border-bottom: 1px solid $color-grey--medium;
@@ -47,13 +50,16 @@
     }
   }
 
+  &__address {
+    padding: 2rem;
+    font-size: 2rem;
+  }
+
   &__bottom {
     &-total {
       background-color: #fff;
       font-size: 2rem;
       padding: 1rem 2rem;
-      border-top: 2px solid $color-grey--light;
-      border-bottom: 2px solid $color-grey--light;
 
       & p {
         width: fit-content;

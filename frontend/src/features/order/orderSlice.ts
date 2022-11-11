@@ -7,6 +7,7 @@ import { extractErrorMessage } from '../../utils/errorMessage';
 const initialState: IOrderState = {
   order: null,
   orders: [],
+  myOrders: [],
   isLoading: false,
 };
 
@@ -24,7 +25,7 @@ export const addOrder = createAsyncThunk(
   }
 );
 
-export const getAllOrderes = createAsyncThunk(
+export const getAllOrders = createAsyncThunk(
   '@@Orderes/getAll',
   async (_, thunkAPI) => {
     try {
@@ -37,6 +38,20 @@ export const getAllOrderes = createAsyncThunk(
     }
   }
 );
+export const getMyOrders = createAsyncThunk(
+  '@@Orderes/getMyOrders',
+  async (userId: string, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await orderService.getMyOrders(userId, token);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
+
 export const getOrder = createAsyncThunk(
   '@@Orderes/getOne',
   async (OrderId: string, thunkAPI) => {
@@ -85,11 +100,14 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(deleteOrder.fulfilled, (state, action) => {
+        state.myOrders = state.myOrders.filter(
+          (order) => order._id !== action.meta.arg
+        );
         state.orders = state.orders.filter(
           (order) => order._id !== action.meta.arg
         );
       })
-      .addCase(getOrder.rejected, (state, action) => {
+      .addCase(getOrder.rejected, (state) => {
         state.order = null;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
@@ -98,11 +116,17 @@ export const orderSlice = createSlice({
       .addCase(addOrder.fulfilled, (state, action) => {
         state.orders = [...state.orders, action.payload.data.data];
       })
-      .addCase(getAllOrderes.pending, (state) => {
+      .addCase(getAllOrders.pending, (state) => {
         state.orders = [];
       })
-      .addCase(getAllOrderes.fulfilled, (state, action) => {
+      .addCase(getAllOrders.fulfilled, (state, action) => {
         state.orders = action.payload.data.data;
+      })
+      .addCase(getMyOrders.pending, (state) => {
+        state.myOrders = [];
+      })
+      .addCase(getMyOrders.fulfilled, (state, action) => {
+        state.myOrders = action.payload.data.data;
       })
       .addCase(updateOrder.fulfilled, (state, action) => {
         state.order = action.payload.data.data;

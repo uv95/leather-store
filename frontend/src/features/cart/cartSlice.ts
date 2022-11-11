@@ -85,7 +85,9 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
         console.log(action);
       })
-
+      .addCase(emptyCart.fulfilled, (state) => {
+        state.cart = null;
+      })
       .addCase(emptyCart.rejected, (state) => {
         state.cart = null;
       })

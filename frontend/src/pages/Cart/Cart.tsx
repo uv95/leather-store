@@ -1,13 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cart.scss';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import Button from '../../components/UI/Button/Button';
 import useGetCart from '../../hooks/useGetCart';
+import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
+import { IOrder } from '../../types/data';
+import useCreateOrder from '../../hooks/useCreateOrder';
 
 const Cart = () => {
   const { cart, isLoading } = useGetCart();
+  const { addresses } = useGetAllAddresses();
+  const createOrder = useCreateOrder();
+
   const [openSelectAddress, setOpenSelectAddress] = useState(false);
+  const [currentAddressIndex, setCurrentAddressIndex] = useState(0);
+
+  const [cartData, setCartData] = useState<IOrder>({
+    items: [],
+    user: '',
+    addressId: '',
+    status: '',
+    total: 0,
+  });
+
+  useEffect(() => {
+    if (cart && addresses[currentAddressIndex])
+      setCartData({
+        items: cart.items,
+        user: cart.user,
+        addressId: addresses[currentAddressIndex]._id!,
+        status: 'Ожидает оплаты',
+        total: cart.total,
+      });
+  }, [cart, addresses, currentAddressIndex]);
 
   if (isLoading) return <h1>LOADING</h1>;
 
@@ -30,10 +56,20 @@ const Cart = () => {
                 <p>Итого: {cart.total} руб.</p>
               </div>
             </div>
-            {openSelectAddress && <SelectAddress />}
+            {openSelectAddress && (
+              <SelectAddress
+                setCurrentAddressIndex={setCurrentAddressIndex}
+                currentAddressIndex={currentAddressIndex}
+                addresses={addresses}
+              />
+            )}
             <div className="cart__container__btn">
               <Button
-                onClick={() => setOpenSelectAddress(true)}
+                onClick={() => {
+                  openSelectAddress
+                    ? createOrder(cartData)
+                    : setOpenSelectAddress(true);
+                }}
                 text={openSelectAddress ? 'Заказать' : 'Оформление заказа'}
                 color="black"
                 big
