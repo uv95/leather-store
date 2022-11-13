@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Ожидает оплаты', 'Принят', 'Отменен', 'Выполнен'],
+    enum: ['Ожидает оплаты', 'Принят', 'Выполнен'],
   },
   createdAt: {
     type: Date,

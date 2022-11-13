@@ -13,18 +13,25 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
   return (
     <div className="listItem">
       <div className={`listItem__card listItem__card--${bg}`}>
-        {data.map((el, i) => (
-          <div key={i} className="listItem__card__field">
-            <div
-              className={`listItem__card__field-content ${
-                el.style ? el.style : ''
-              }`}
-            >
-              {el.dataItem}
+        <div
+          className="listItem__card__main listItem__card__main"
+          style={{ gridTemplateColumns: `repeat(${data.length}, 1fr)` }}
+        >
+          {data.map((el, i) => (
+            <div key={i} className="listItem__card__main__field">
+              <div
+                className={`listItem__card__main__field-content ${
+                  el.style ? el.style : ''
+                }`}
+              >
+                {el.dataItem}
+              </div>
             </div>
-          </div>
-        ))}
-        <div className={`listItem__card--${bg}__openDetails`}>
+          ))}
+        </div>
+        <div
+          className={`listItem__card__openDetails listItem__card__openDetails--${bg}`}
+        >
           <img
             className={`listItem__card-icon listItem__card-icon--${
               openDetails ? 'open' : 'closed'

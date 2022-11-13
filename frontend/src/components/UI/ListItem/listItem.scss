@@ -5,10 +5,49 @@
 .listItem {
   &__card {
     display: flex;
-    justify-content: space-between;
-    padding: 0 0 0 2rem;
-    min-height: 10rem;
-    font-size: 1.7rem;
+    height: 10rem;
+    &__main {
+      width: 100%;
+      display: grid;
+      padding: 0 3rem;
+      font-size: 1.7rem;
+
+      &__field {
+        @include center;
+
+        &:first-of-type {
+          justify-self: start;
+        }
+        &:last-of-type {
+          justify-self: end;
+        }
+
+        &-content {
+          width: 100%;
+          @include center;
+        }
+      }
+    }
+    &--white {
+      background-color: white;
+    }
+    &--grey {
+      background-color: $color-grey--light;
+    }
+
+    &__openDetails {
+      width: 6rem;
+      height: inherit;
+      @include center;
+
+      &--white {
+        border-left: 2px solid $color-grey--light;
+      }
+      &--grey {
+        border-left: 2px solid white;
+      }
+    }
+
     &-icon {
       width: 2rem;
       height: 2rem;
@@ -21,33 +60,12 @@
         transform: rotate(90deg);
       }
     }
-    &__field {
-      @include center;
-
-      &-content {
-        width: 100%;
-        @include center;
-      }
-    }
 
     &--white,
     &--grey {
       &__openDetails {
         @include center;
         width: 6rem;
-      }
-    }
-
-    &--white {
-      background-color: white;
-      &__openDetails {
-        border-left: 2px solid $color-grey--light;
-      }
-    }
-    &--grey {
-      background-color: $color-grey--light;
-      &__openDetails {
-        border-left: 2px solid white;
       }
     }
   }

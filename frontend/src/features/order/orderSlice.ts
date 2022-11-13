@@ -54,11 +54,11 @@ export const getMyOrders = createAsyncThunk(
 
 export const getOrder = createAsyncThunk(
   '@@Orderes/getOne',
-  async (OrderId: string, thunkAPI) => {
+  async (orderId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
-      return await orderService.getOrder(OrderId, token);
+      return await orderService.getOrder(orderId, token);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
@@ -68,11 +68,11 @@ export const getOrder = createAsyncThunk(
 
 export const deleteOrder = createAsyncThunk(
   '@@Orderes/delete',
-  async (OrderId: string, thunkAPI) => {
+  async (orderId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
-      return await orderService.cancelOrder(OrderId, token);
+      return await orderService.cancelOrder(orderId, token);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));

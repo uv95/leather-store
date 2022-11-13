@@ -17,7 +17,7 @@ const Orders = (props: Props) => {
       {orders.map((order) => (
         <ListItem
           key={order._id}
-          Details={<OrderDetails />}
+          Details={<OrderDetails order={order} />}
           bg="grey"
           data={[
             {

@@ -1,0 +1,22 @@
+@import '../../../../base-styles/variables.scss';
+
+.changeStatus {
+  grid-column: 1/3;
+  height: 6rem;
+  display: flex;
+  justify-content: space-evenly;
+
+  & .status {
+    transition: all 0.2s;
+
+    &-inactive {
+      background-color: $color-grey--medium;
+    }
+
+    &:hover:not(.status-active) {
+      cursor: pointer;
+      transform: scale(0.99);
+      background-color: rgb(183, 183, 183);
+    }
+  }
+}

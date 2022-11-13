@@ -57,5 +57,5 @@ exports.createOrder = catchAsync(async (req, res, next) => {
 
 exports.getAllOrders = factory.getAll(Order, { path: 'address user' });
 exports.getOneOrder = factory.getOne(Order, { path: 'cart' });
-exports.updateOrder = factory.updateOne(Order);
+exports.updateOrder = factory.updateOne(Order, { path: 'address user' });
 exports.cancelOrder = factory.deleteOne(Order);

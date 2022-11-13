@@ -45,6 +45,7 @@ h2 {
 
 .status {
   font-size: 1.5rem;
+  height: 3rem;
   width: fit-content;
   padding: 0.5rem 1rem;
   @include center;
@@ -57,9 +58,9 @@ h2 {
   &-accepted {
     background-color: rgb(32, 67, 240);
   }
-  &-canceled {
-    background-color: rgb(240, 32, 32);
-  }
+  // &-canceled {
+  //   background-color: rgb(240, 32, 32);
+  // }
   &-completed {
     background-color: rgb(27, 199, 56);
   }

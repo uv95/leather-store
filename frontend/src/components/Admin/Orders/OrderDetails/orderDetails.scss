@@ -1,0 +1,61 @@
+@import '../../../../base-styles/variables.scss';
+@import '../../../../base-styles/mixins.scss';
+@import '../../../../base-styles/animations.scss';
+
+.orderDetails {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  &__items {
+    &__item {
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:first-of-type {
+        border-top: 2px solid $color-grey--light;
+      }
+      &:not(:first-of-type) {
+        padding-top: 2rem;
+      }
+      &-left {
+        display: flex;
+        gap: 2rem;
+
+        &-img {
+          width: 14rem;
+          height: 14rem;
+          object-fit: cover;
+        }
+        &__info {
+          font-size: 1.2rem;
+          color: $color-grey--dark;
+          position: relative;
+          &-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: black;
+          }
+
+          &-qty {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+  &__userInfo {
+    font-size: 2rem;
+    padding: 2rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 60%;
+
+    & span {
+      font-weight: normal;
+    }
+  }
+}
