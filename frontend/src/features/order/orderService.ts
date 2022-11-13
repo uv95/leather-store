@@ -11,7 +11,7 @@ const createOrder = async (orderData: IOrder, token: string) => {
   };
 
   const res = await axios.post(API_URL, orderData, config);
-  console.log(res.data);
+
   return res.data;
 };
 

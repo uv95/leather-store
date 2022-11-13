@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IUpdatedUser } from '../../types/data';
+import { IUser } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/users/';
 
@@ -15,7 +15,7 @@ const getMe = async (token: string) => {
   return res.data;
 };
 
-const updateMe = async (token: string, updatedData: IUpdatedUser) => {
+const updateMe = async (token: string, updatedData: Partial<IUser>) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -17,8 +17,10 @@
 @keyframes down {
   0% {
     transform: scaleY(0);
+    // max-height: 0;
   }
   100% {
     transform: scaleY(1);
+    // max-height: fit-content;
   }
 }

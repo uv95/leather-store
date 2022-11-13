@@ -14,7 +14,6 @@ export function useDefineRole() {
         .unwrap()
         .then((data) => {
           dispatch(setRole(data));
-          console.log(data, 'getRole');
         });
     }
   }, [dispatch, isLoading]);

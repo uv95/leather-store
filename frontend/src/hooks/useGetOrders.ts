@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { getMe } from '../features/user/userSlice';
+import { getAllOrders } from '../features/order/orderSlice';
 
-export function useGetMe() {
+export function useGetOrders() {
   const dispatch = useAppDispatch();
 
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  const { isLoading, orders } = useAppSelector((state) => state.order);
 
   useEffect(() => {
-    dispatch(getMe())
+    dispatch(getAllOrders())
       .unwrap()
       .then()
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch]);
 
-  return { user, isLoading };
+  return { isLoading, orders };
 }
 
-export default useGetMe;
+export default useGetOrders;

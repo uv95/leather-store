@@ -12,16 +12,11 @@
   background-color: #fff;
   z-index: 10;
 
-  &.open {
-    opacity: 1;
-    transform: translateY(0);
-    transition: 0.4s ease;
+  &--open {
+    @include animation-open;
   }
-  &.closed {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-2rem);
-    transition: 0.4s ease;
+  &--closed {
+    @include animation-closed(-1rem);
   }
 
   &__content {

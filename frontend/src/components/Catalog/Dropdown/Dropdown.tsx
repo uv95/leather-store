@@ -19,7 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({ open }) => {
     'По умолчанию',
   ];
   return (
-    <div className={`dropdown ${open ? 'open' : 'closed'}`}>
+    <div className={`dropdown dropdown--${open ? 'open' : 'closed'}`}>
       <div className="dropdown__content">
         <div className="dropdown__content-left">
           <div className="dropdown__content-left__title">Тип</div>

@@ -6,7 +6,9 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.getMyOrders = catchAsync(async (req, res, next) => {
-  const orders = await Order.find({ user: req.user.id });
+  const orders = await Order.find({ user: req.user.id }).populate({
+    path: 'address',
+  });
 
   res.status(200).json({
     status: 'success',
@@ -16,7 +18,7 @@ exports.getMyOrders = catchAsync(async (req, res, next) => {
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const user = req.user.id;
-  const addressId = req.body.addressId;
+  const address = req.body.address;
   const cart = await Cart.findOne({ user });
   const items = cart.items.map((item) => {
     return {
@@ -36,9 +38,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     return next(new AppError('No cart found!', 404));
   }
 
-  if (
-    !userAddresses.some((address) => addressId === address._id.toHexString())
-  ) {
+  if (!userAddresses.some((el) => address._id === el._id.toHexString())) {
     return next(new AppError('No address found!', 404));
   }
 
@@ -46,7 +46,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     ...req.body,
     user,
     items,
-    addressId,
+    address,
   });
 
   res.status(201).json({
@@ -55,7 +55,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllOrders = factory.getAll(Order, { path: 'address' });
+exports.getAllOrders = factory.getAll(Order, { path: 'address user' });
 exports.getOneOrder = factory.getOne(Order, { path: 'cart' });
 exports.updateOrder = factory.updateOne(Order);
 exports.cancelOrder = factory.deleteOne(Order);

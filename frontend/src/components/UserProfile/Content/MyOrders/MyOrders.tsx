@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './myOrders.scss';
-import OrderCard from './OrderCard/OrderCard';
+import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import useGetMyOrders from '../../../../hooks/useGetMyOrders';
 import useGetMe from '../../../../hooks/useGetMe';
+import ListItem from '../../../UI/ListItem/ListItem';
+import { statusStyles } from '../../../../utils/consts';
 
-type Props = {};
-
-const MyOrders = (props: Props) => {
+const MyOrders = () => {
   const { user } = useGetMe();
   const { isLoading, myOrders } = useGetMyOrders(user?._id!);
 
@@ -20,7 +20,28 @@ const MyOrders = (props: Props) => {
           <p className="orders__container-empty">Список заказов пуст.</p>
         )}
         {myOrders.map((order) => (
-          <OrderCard key={order._id} order={order} />
+          <ListItem
+            key={order._id}
+            Details={<MyOrderDetails order={order} />}
+            bg="white"
+            data={[
+              { dataItem: '№ ' + order._id?.slice(0, 6) },
+              {
+                dataItem:
+                  'Создан ' +
+                  new Date(order.createdAt!).toLocaleDateString('ru-RU', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                  }),
+              },
+              {
+                dataItem: order.status,
+                style: statusStyles.find(
+                  (status) => status.status === order.status
+                )?.style,
+              },
+            ]}
+          />
         ))}
       </div>
     </div>

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import userService from './userService';
-import { IUpdatedUser, IUserState } from '../../types/data';
+import { IUser, IUserState } from '../../types/data';
 
 const initialState: IUserState = {
   user: null,
@@ -22,7 +22,7 @@ export const getMe = createAsyncThunk('@user/getMe', async (_, thunkAPI) => {
 });
 export const updateMe = createAsyncThunk(
   '@user/updateMe',
-  async (updatedData: IUpdatedUser, thunkAPI) => {
+  async (updatedData: Partial<IUser>, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;

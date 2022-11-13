@@ -41,10 +41,10 @@ export interface IUpdatedAuth {
 
 //USER
 
-export interface IUpdatedUser {
-  name?: string;
-  email?: string;
-  phone?: string;
+export interface IUser {
+  name: string;
+  email: string;
+  phone: string;
 }
 
 export interface IUserState {
@@ -113,9 +113,9 @@ export interface ICartState {
 export interface IOrder {
   _id?: string;
   items: ICartItem[];
-  user: string;
+  user: IUser;
   total: number;
-  addressId: string;
+  address: IAddress;
   status: string;
   createdAt?: Date;
 }

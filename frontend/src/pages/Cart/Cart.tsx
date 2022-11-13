@@ -7,8 +7,10 @@ import useGetCart from '../../hooks/useGetCart';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 import { IOrder } from '../../types/data';
 import useCreateOrder from '../../hooks/useCreateOrder';
+import { useAppSelector } from '../../hooks';
 
 const Cart = () => {
+  const { user } = useAppSelector((state) => state.user);
   const { cart, isLoading } = useGetCart();
   const { addresses } = useGetAllAddresses();
   const createOrder = useCreateOrder();
@@ -18,22 +20,30 @@ const Cart = () => {
 
   const [cartData, setCartData] = useState<IOrder>({
     items: [],
-    user: '',
-    addressId: '',
+    user: {
+      name: '',
+      email: '',
+      phone: '',
+    },
+    address: {
+      city: '',
+      address: '',
+      zipcode: '',
+    },
     status: '',
     total: 0,
   });
 
   useEffect(() => {
-    if (cart && addresses[currentAddressIndex])
+    if (cart && user && addresses[currentAddressIndex])
       setCartData({
         items: cart.items,
-        user: cart.user,
-        addressId: addresses[currentAddressIndex]._id!,
+        user,
+        address: addresses[currentAddressIndex],
         status: 'Ожидает оплаты',
         total: cart.total,
       });
-  }, [cart, addresses, currentAddressIndex]);
+  }, [cart, addresses, currentAddressIndex, user]);
 
   if (isLoading) return <h1>LOADING</h1>;
 

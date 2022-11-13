@@ -77,3 +77,16 @@
     filter: invert(30%);
   }
 }
+
+@mixin animation-open {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 0.4s ease;
+}
+@mixin animation-closed($translateY) {
+  opacity: 0;
+  // display: none;
+  visibility: hidden;
+  transform: translateY($translateY);
+  transition: 0.4s ease;
+}

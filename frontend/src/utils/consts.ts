@@ -11,3 +11,10 @@ export const ITEM_ROUTE = '/catalog/';
 export const HOME_ROUTE = '/';
 export const CONTACTS_ROUTE = '/contacts';
 export const NOT_FOUND_ROUTE = '/not_found';
+
+export const statusStyles = [
+  { status: 'Ожидает оплаты', style: 'status status-waitsForPayment' },
+  { status: 'Принят', style: 'status status-accepted' },
+  { status: 'Отменен', style: 'status status-canceled' },
+  { status: 'Выполнен', style: 'status status-completed' },
+];

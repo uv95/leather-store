@@ -2,9 +2,7 @@
 @import '../../../../../base-styles/variables.scss';
 @import '../../../../../base-styles/animations.scss';
 
-.orderDetails {
-  animation: down 0.5s ease;
-  transform-origin: top center;
+.myOrderDetails {
   background-color: #fff;
   &__item {
     padding: 2rem;
@@ -13,7 +11,6 @@
     align-items: center;
 
     &:first-of-type {
-      //     border-bottom: 1px solid $color-grey--medium;
       border-top: 2px solid $color-grey--light;
     }
     &:not(:first-of-type) {
@@ -72,7 +69,7 @@
       padding: 2rem;
       display: flex;
       gap: 1rem;
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 }

@@ -14,12 +14,6 @@ export function useGetMyOrders(userId: string) {
       .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch, userId]);
 
-  // const getAllMyOrders = (userId: string) =>
-  //   dispatch(getMyOrders(userId))
-  //     .unwrap()
-  //     .then((data) => console.log('get amy orders', data))
-  //     .catch((error) => console.log(error, 'ERROR'));
-
   return { isLoading, myOrders };
 }
 

@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  addressId: {
+  address: {
     type: mongoose.Schema.ObjectId,
     ref: 'Address',
     required: [true, 'Пожалуйста, укажите адрес доставки'],

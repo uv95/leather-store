@@ -1,0 +1,64 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/animations.scss';
+
+.listItem {
+  &__card {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 0 2rem;
+    min-height: 10rem;
+    font-size: 1.7rem;
+    &-icon {
+      width: 2rem;
+      height: 2rem;
+      @include hover;
+      transition: all 0.2s;
+      &--open {
+        transform: rotate(270deg);
+      }
+      &--closed {
+        transform: rotate(90deg);
+      }
+    }
+    &__field {
+      @include center;
+
+      &-content {
+        width: 100%;
+        @include center;
+      }
+    }
+
+    &--white,
+    &--grey {
+      &__openDetails {
+        @include center;
+        width: 6rem;
+      }
+    }
+
+    &--white {
+      background-color: white;
+      &__openDetails {
+        border-left: 2px solid $color-grey--light;
+      }
+    }
+    &--grey {
+      background-color: $color-grey--light;
+      &__openDetails {
+        border-left: 2px solid white;
+      }
+    }
+  }
+  &__details {
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    &--open {
+      max-height: 90rem;
+    }
+    &--closed {
+      max-height: 0;
+    }
+  }
+}
