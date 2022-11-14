@@ -1,5 +1,16 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+
 .orders {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  &-heading {
+    @include heading;
+
+    &:last-of-type {
+      margin-top: 4rem;
+    }
+  }
 }

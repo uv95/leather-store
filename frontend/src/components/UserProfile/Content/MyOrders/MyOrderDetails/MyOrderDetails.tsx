@@ -47,13 +47,15 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
         <div className="myOrderDetails__bottom-total">
           <p>Итого: {order.total} руб.</p>
         </div>
-        <div className="myOrderDetails__bottom-btns">
-          <Button
-            text="Отменить заказ"
-            color="gray"
-            onClick={() => cancelOrder(order._id!)}
-          />
-        </div>
+        {order.status !== 'Выполнен' && (
+          <div className="myOrderDetails__bottom-btns">
+            <Button
+              text="Отменить заказ"
+              color="gray"
+              onClick={() => cancelOrder(order._id!)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

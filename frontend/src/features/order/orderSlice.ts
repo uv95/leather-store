@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { IOrder, IOrderState, IUpdatedOrder } from '../../types/data';
 import orderService from './orderService';
@@ -150,5 +154,33 @@ export const orderSlice = createSlice({
       );
   },
 });
+
+//SELECTORS
+
+export const selectActiveOrders = createSelector(
+  (state: RootState) => state.order,
+  (order) =>
+    order.orders.filter(
+      (order: IOrder) =>
+        order.status === 'Ожидает оплаты' || order.status === 'Принят'
+    )
+);
+export const selectMyActiveOrders = createSelector(
+  (state: RootState) => state.order,
+  (order) =>
+    order.myOrders.filter(
+      (order: IOrder) =>
+        order.status === 'Ожидает оплаты' || order.status === 'Принят'
+    )
+);
+export const selectFinishedOrders = createSelector(
+  (state: RootState) => state.order,
+  (order) => order.orders.filter((order: IOrder) => order.status === 'Выполнен')
+);
+export const selectMyFinishedOrders = createSelector(
+  (state: RootState) => state.order,
+  (order) =>
+    order.myOrders.filter((order: IOrder) => order.status === 'Выполнен')
+);
 
 export default orderSlice.reducer;
