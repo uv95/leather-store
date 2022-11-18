@@ -2,9 +2,7 @@
 @import '../../../base-styles/variables.scss';
 
 .orders {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  @include list;
 
   &-heading {
     @include heading;

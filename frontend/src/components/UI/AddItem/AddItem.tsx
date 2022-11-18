@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import { useAppDispatch } from '../../../hooks';
 import { addItem } from '../../../features/items/itemsSlice';
 import Input from '../Input/Input';
+import { typeOptions } from '../../../utils/consts';
 
 interface AddItemProps {
   setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,12 +19,6 @@ interface IFormData {
 
 const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
   const dispatch = useAppDispatch();
-
-  const typeOptions = [
-    'кошельки и картхолдеры',
-    'чехлы для очков',
-    'обложки на паспорт',
-  ];
 
   const [formData, setFormData] = useState<IFormData>({
     name: '',

@@ -63,7 +63,7 @@
         display: flex;
         color: black;
 
-        position: relative;
+        // position: relative;
 
         &-shop {
           margin-right: 10rem;
@@ -77,4 +77,11 @@
       }
     }
   }
+}
+
+.link-user {
+  position: relative;
+}
+.link-cart {
+  position: relative;
 }

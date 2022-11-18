@@ -14,7 +14,12 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
     <div className="listItem">
       <div className={`listItem__card listItem__card--${bg}`}>
         <div
-          className="listItem__card__main listItem__card__main"
+          //to place image without padding
+          className={`${
+            data[0].dataItem.imgPath
+              ? 'listItem__card__main listItem__card__main-noLeftPadding'
+              : 'listItem__card__main listItem__card__main'
+          }`}
           style={{ gridTemplateColumns: `repeat(${data.length}, 1fr)` }}
         >
           {data.map((el, i) => (
@@ -24,7 +29,11 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
                   el.style ? el.style : ''
                 }`}
               >
-                {el.dataItem}
+                {el.dataItem.imgPath ? (
+                  <img src={el.dataItem.imgPath} alt="фото товара" />
+                ) : (
+                  el.dataItem
+                )}
               </div>
             </div>
           ))}

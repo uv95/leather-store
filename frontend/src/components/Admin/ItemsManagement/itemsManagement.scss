@@ -1,19 +1,22 @@
 @import '../../../base-styles/mixins.scss';
 @import '../../../base-styles/variables.scss';
 
-.management {
+.items {
   @include main-block;
   margin: 4rem auto 0 auto;
   padding-bottom: $footer-length;
   padding-top: $header-length;
   position: relative;
 
-  &__buttons {
-    display: flex;
-    gap: 2rem;
+  & button {
+    margin-bottom: 4rem;
   }
 
   &-heading {
     @include heading;
+  }
+
+  &__container {
+    @include list;
   }
 }

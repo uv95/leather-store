@@ -81,6 +81,11 @@ export interface IItemsState {
   isLoading: boolean;
 }
 
+export interface IUpdatedItem {
+  itemId: string;
+  updatedItem: Partial<IItem>;
+}
+
 //CART
 
 export interface ICartItem {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './header.scss';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -16,11 +16,13 @@ import AdminHeader from './AdminHeader';
 import { useDefineRole } from '../../hooks/useDefineRole';
 import Badge from '../UI/Badge/Badge';
 import useGetCart from '../../hooks/useGetCart';
+import useGetMyOrders from '../../hooks/useGetMyOrders';
 
 const Header = () => {
   const { cart } = useGetCart();
   const role = useDefineRole();
   const location = useLocation();
+  const { myActiveOrders } = useGetMyOrders(cart?.user!);
 
   return (
     <header className="header">
@@ -49,17 +51,21 @@ const Header = () => {
                 </Link>
               ) : role === 'user' ? (
                 <>
-                  <Link to={USER_PROFILE_ROUTE}>
+                  <Link to={USER_PROFILE_ROUTE} className="link-user">
                     <img
                       src={user}
-                      className="header__container-inner__nav-icon"
+                      className="header__container-inner__nav-icon
+                     "
                       alt="user_profile"
                     />
+                    {myActiveOrders.length !== 0 && (
+                      <Badge value={myActiveOrders.length} />
+                    )}
                   </Link>
-                  <Link to={CART_ROUTE}>
+                  <Link to={CART_ROUTE} className="link-cart">
                     <img
                       src={cartIcon}
-                      className="header__container-inner__nav-icon"
+                      className="header__container-inner__nav-icon "
                       alt="cart"
                     />
                     {cart && cart.items.length !== 0 && (

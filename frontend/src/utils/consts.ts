@@ -17,3 +17,9 @@ export const statusStyles = [
   { status: 'Принят', style: 'status status-accepted' },
   { status: 'Выполнен', style: 'status status-completed' },
 ];
+
+export const typeOptions = [
+  'Кошельки и картхолдеры',
+  'Чехлы для очков',
+  'Обложки на паспорт',
+];

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import itemsService from './itemsService';
-import { IItemsState } from '../../types/data';
+import { IItemsState, IUpdatedItem } from '../../types/data';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
 const initialState: IItemsState = {
@@ -72,6 +72,20 @@ export const deleteItem = createAsyncThunk(
   }
 );
 
+export const updateItem = createAsyncThunk(
+  '@@items/update',
+  async ({ itemId, updatedItem }: IUpdatedItem, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await itemsService.updateItem(itemId, updatedItem, token);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
+
 export const itemsSlice = createSlice({
   name: '@@items',
   initialState,
@@ -95,6 +109,14 @@ export const itemsSlice = createSlice({
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;
+      })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        state.item = action.payload.data.data;
+        state.items = state.items.map((item) =>
+          item._id === action.payload.data.data._id
+            ? action.payload.data.data
+            : item
+        );
       })
       .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),

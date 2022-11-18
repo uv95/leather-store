@@ -3,6 +3,11 @@
   max-width: 124rem;
   padding: 0 2rem;
 }
+@mixin list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
 @mixin items-section--home {
   display: flex;

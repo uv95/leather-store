@@ -12,6 +12,10 @@
       padding: 0 3rem;
       font-size: 1.7rem;
 
+      &-noLeftPadding {
+        padding: 0 3rem 0 0;
+      }
+
       &__field {
         @include center;
 
@@ -25,6 +29,10 @@
         &-content {
           width: 100%;
           @include center;
+
+          & img {
+            height: 10rem;
+          }
         }
       }
     }
