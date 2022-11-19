@@ -3,7 +3,12 @@ import './filter_view.scss';
 import Dropdown from './Dropdown/Dropdown';
 import Button from '../../components/UI/Button/Button';
 
-const Filter = () => {
+type FilterProps = {
+  setSort: React.Dispatch<React.SetStateAction<string>>;
+  sort: string;
+};
+
+const Filter = ({ setSort, sort }: FilterProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -13,7 +18,7 @@ const Filter = () => {
         text="Фильтр и сортировка"
         color="grey"
       />
-      <Dropdown open={open} />
+      <Dropdown open={open} setSort={setSort} sort={sort} />
     </div>
   );
 };

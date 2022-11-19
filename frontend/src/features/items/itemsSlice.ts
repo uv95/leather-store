@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import itemsService from './itemsService';
 import { IItemsState, IUpdatedItem } from '../../types/data';
@@ -103,6 +107,9 @@ export const itemsSlice = createSlice({
       .addCase(addItem.fulfilled, (state, action) => {
         state.items = [...state.items, action.payload.data.data];
       })
+      .addCase(addItem.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getAllItems.pending, (state) => {
         state.items = [];
         state.isLoading = true;
@@ -132,5 +139,19 @@ export const itemsSlice = createSlice({
       );
   },
 });
+
+//SELECTORS
+
+export const selectVisibleItems = createSelector(
+  (state: RootState) => state.items.items,
+  (state: RootState) => state.filters,
+  (items, filters) => {
+    if (!filters.length) return items;
+    return items.filter((item) => {
+      const itemsFilters = ([] as string[]).concat(item.type);
+      return filters.some((filter: string) => itemsFilters.includes(filter));
+    });
+  }
+);
 
 export default itemsSlice.reducer;

@@ -3,6 +3,7 @@
 @import '../../../base-styles/animations.scss';
 
 .listItem {
+  width: 100%;
   &__card {
     display: flex;
     height: 10rem;

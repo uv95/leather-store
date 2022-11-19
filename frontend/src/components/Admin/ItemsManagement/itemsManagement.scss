@@ -18,5 +18,23 @@
 
   &__container {
     @include list;
+
+    &__item {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      height: 10rem;
+
+      &-delete {
+        @include center;
+        width: 8%;
+
+        & svg {
+          width: 2rem;
+          height: 2rem;
+          @include hover;
+        }
+      }
+    }
   }
 }

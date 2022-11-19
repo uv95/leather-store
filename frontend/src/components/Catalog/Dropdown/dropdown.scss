@@ -56,6 +56,10 @@
           &:hover {
             background-color: $color-grey--medium;
           }
+
+          &-active {
+            background-color: $color-grey--medium;
+          }
         }
       }
     }

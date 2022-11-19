@@ -6,6 +6,7 @@ import Input from '../../../UI/Input/Input';
 import Button from '../../../UI/Button/Button';
 import { useAppDispatch } from '../../../../hooks';
 import { updateItem } from '../../../../features/items/itemsSlice';
+import { deleteItem } from '../../../../features/items/itemsSlice';
 
 type ItemDetailsProps = { item: IItem };
 
@@ -23,6 +24,13 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
 
   const { name, type, description, price } = formData;
   // const { name, type, description, price, imageCover, images } = formData;
+
+  const onDelete = (id: string) => {
+    dispatch(deleteItem(id))
+      .unwrap()
+      .then()
+      .catch((error) => console.log(error, 'ERROR'));
+  };
 
   useEffect(() => {
     setFormData({
@@ -159,6 +167,12 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
           </div>
         </div> */}
         <Button text="Сохранить" color="black" big />
+        <p
+          className="itemDetails__form-delete"
+          onClick={() => onDelete(item._id)}
+        >
+          Удалить
+        </p>
       </form>
     </div>
   );
