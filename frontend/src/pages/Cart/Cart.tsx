@@ -8,6 +8,7 @@ import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 import { IOrder } from '../../types/data';
 import useCreateOrder from '../../hooks/useCreateOrder';
 import { useAppSelector } from '../../hooks';
+import Back from '../../components/UI/Back/Back';
 
 const Cart = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -49,6 +50,7 @@ const Cart = () => {
 
   return (
     <div className="cart">
+      <Back />
       <h1 className="cart__heading">Корзина</h1>
       <div className="cart__container">
         {(!cart || !cart.items.length) && (

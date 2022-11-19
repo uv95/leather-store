@@ -11,6 +11,7 @@ import {
   STATISTICS_ROUTE,
   ITEMS_MANAGEMENT_ROUTE,
   USER_PROFILE_ROUTE,
+  LEATHERS_ROUTE,
 } from './utils/consts';
 import Admin from './pages/Admin/Admin';
 import Cart from './pages/Cart/Cart';
@@ -24,6 +25,7 @@ import Contacts from './pages/Contacts/Contacts';
 import Statistics from './components/Admin/Statistics/Statistics';
 import ItemsManagement from './components/Admin/ItemsManagement/ItemsManagement';
 import UserProfile from './pages/UserProfile/UserProfile';
+import Leathers from './pages/Leathers/Leathers';
 
 interface Routes {
   path: string;
@@ -66,5 +68,9 @@ export const publicRoutes: Routes[] = [
   {
     path: NOT_FOUND_ROUTE,
     Component: NotFound,
+  },
+  {
+    path: LEATHERS_ROUTE,
+    Component: Leathers,
   },
 ];

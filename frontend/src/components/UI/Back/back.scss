@@ -1,0 +1,10 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+
+.back {
+  // text-align: center;
+  font-size: 1.5rem;
+  margin: 4rem 0;
+  color: $color-grey--dark;
+  @include hover;
+}

@@ -5,9 +5,10 @@
   @include main-block;
   padding-bottom: $footer-length;
   padding-top: $header-length;
-  margin: 6rem auto 0 auto;
+  margin: 0 auto;
 
   &__container {
+    margin-top: 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

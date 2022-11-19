@@ -7,6 +7,8 @@ import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
 import { IItem } from '../../../types/data';
 import Colors from '../../UI/Colors/Colors';
+import { useNavigate } from 'react-router-dom';
+import { LEATHERS_ROUTE } from '../../../utils/consts';
 
 interface DescriptionProps {
   item: IItem;
@@ -14,6 +16,7 @@ interface DescriptionProps {
 
 const Description: React.FC<DescriptionProps> = ({ item }) => {
   const addItemToCart = useAddToCart();
+  const navigate = useNavigate();
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
@@ -93,6 +96,12 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
             checked={leatherType === 'Pull Up'}
           />
         </div>
+        <p
+          className="leather-type-info"
+          onClick={() => navigate(LEATHERS_ROUTE)}
+        >
+          ?
+        </p>
       </div>
       <Colors
         leatherColor={black}
@@ -102,12 +111,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
         openSelectThreadsColor={() => setOpenSelectThreadsColor(true)}
       />
       <div className="item-desc">ОПИСАНИЕ</div>
-      <div className="item-desc-text">
-        {item.description} Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Et est, illum rerum tempora placeat natus hic quos ad quasi magnam
-        recusandae tenetur saepe. Consequatur, provident. Nostrum quos similique
-        veritatis saepe.
-      </div>
+      <div className="item-desc-text">{item.description}</div>
       <Button
         onClick={() => addItemToCart(cartItemData)}
         text="В корзину"

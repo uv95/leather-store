@@ -35,9 +35,24 @@
 .leather-type {
   font-size: 1.5rem;
   display: flex;
+  align-items: center;
   gap: 2rem;
   margin-bottom: 2rem;
 
+  &-info {
+    @include center;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: black;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-grey--dark;
+    }
+  }
   &__radio {
     display: flex;
 
