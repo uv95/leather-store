@@ -40,6 +40,7 @@ const ItemsManagement = () => {
           items.map((item) => (
             // <div className="items__container__item" key={item._id}>
             <ListItem
+              key={item._id}
               Details={<ItemDetails item={item} />}
               bg="grey"
               data={itemData(item)}

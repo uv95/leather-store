@@ -1,7 +1,6 @@
 import React from 'react';
 import './cartItem.scss';
 import { ReactComponent as Delete } from '../../../assets/icons/trash.svg';
-import black from '../../../assets/img/black.jpg';
 import { ICartItem } from '../../../types/data';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import { useReduceQuantity } from '../../../hooks/useReduceQuantity';
@@ -27,7 +26,10 @@ const CartItem = ({ item }: CartItemProps) => {
         <div className="cart-item__left__info">
           <h2 className="cart-item__left__info-title">{item.name}</h2>
           <p>Тип кожи: {item.leather}</p>
-          <Colors leatherColor={black} threadsColor={black} />
+          <Colors
+            leatherColor={item.colors.leatherColor}
+            threadsColor={item.colors.threadsColor}
+          />
           <div className="cart-item__left__info__qty">
             <Quantity
               reduce={() => reduceItemQuantity(item._id!)}

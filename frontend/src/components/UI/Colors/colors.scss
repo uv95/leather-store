@@ -12,10 +12,10 @@
       align-items: center;
       gap: 0.8rem;
       font-size: 1.5rem;
-      & p {
-      }
-      & img {
+      &--color {
         @include colorBtnHover;
+      }
+      & p {
       }
     }
   }
@@ -29,12 +29,13 @@
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      & p {
-      }
-      & img {
+
+      &--color {
         @include colorBtn;
         width: 3rem;
         height: 3rem;
+      }
+      & p {
       }
     }
   }

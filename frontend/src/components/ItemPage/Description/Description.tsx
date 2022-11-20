@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './description.scss';
-import black from '../../../assets/img/black.jpg';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
@@ -26,29 +25,35 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
     threadsColor: 'Черный',
   });
   const [cartItemData, setCartItemData] = useState({
-    itemId: item._id,
-    name: item.name,
+    itemId: '',
+    name: '',
     quantity: 1,
     colors: {
-      leatherColor: colors.leatherColor,
-      threadsColor: colors.threadsColor,
+      leatherColor: '',
+      threadsColor: '',
     },
-    leather: leatherType,
-    price: +item.price,
-    imageCover: item.imageCover,
+    leather: '',
+    price: 0,
+    imageCover: '',
     images: item.images,
   });
 
   useEffect(() => {
-    setCartItemData((prev) => ({
-      ...prev,
-      colors: {
-        leatherColor: colors.leatherColor,
-        threadsColor: colors.threadsColor,
-      },
-      leather: leatherType,
-    }));
-  }, [colors, leatherType]);
+    item &&
+      setCartItemData({
+        itemId: item._id,
+        name: item.name,
+        quantity: 1,
+        colors: {
+          leatherColor: colors.leatherColor,
+          threadsColor: colors.threadsColor,
+        },
+        leather: leatherType,
+        price: +item.price,
+        imageCover: item.imageCover,
+        images: item.images,
+      });
+  }, [item, colors, leatherType]);
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -104,8 +109,8 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
         </p>
       </div>
       <Colors
-        leatherColor={black}
-        threadsColor={black}
+        leatherColor={colors.leatherColor}
+        threadsColor={colors.threadsColor}
         vertical
         openSelectLeatherColor={() => setOpenSelectLeatherColor(true)}
         openSelectThreadsColor={() => setOpenSelectThreadsColor(true)}

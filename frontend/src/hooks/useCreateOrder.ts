@@ -10,7 +10,7 @@ export function useCreateOrder() {
   const createOrder = (order: IOrder) => {
     dispatch(addOrder(order))
       .unwrap()
-      .then()
+      .then((data) => console.log(data))
       .catch((error) => console.log(error, 'ERROR'));
 
     dispatch(emptyCart())

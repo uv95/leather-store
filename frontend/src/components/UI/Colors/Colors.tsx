@@ -1,5 +1,6 @@
 import React from 'react';
 import './colors.scss';
+import { colors } from '../../../utils/consts';
 
 type ColorsProps = {
   leatherColor: string;
@@ -20,15 +21,27 @@ const Colors = ({
     <div className={`colors-${vertical ? 'vertical' : 'horizontal'}`}>
       <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
         <p>Цвет кожи:</p>
-        <img
-          src={leatherColor}
-          alt="цвет кожи"
+        <div
+          className={`colors-${
+            vertical ? 'vertical' : 'horizontal'
+          }-item--color`}
+          style={{
+            backgroundColor: `${colors[leatherColor as keyof typeof colors]}`,
+          }}
           onClick={openSelectLeatherColor}
-        />
+        ></div>
       </div>
       <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
         <p>Нитки:</p>
-        <img src={threadsColor} alt="нитки" onClick={openSelectThreadsColor} />
+        <div
+          className={`colors-${
+            vertical ? 'vertical' : 'horizontal'
+          }-item--color`}
+          style={{
+            backgroundColor: `${colors[threadsColor as keyof typeof colors]}`,
+          }}
+          onClick={openSelectThreadsColor}
+        ></div>
       </div>
     </div>
   );

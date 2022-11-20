@@ -1,6 +1,5 @@
 import React from 'react';
 import './myOrderDetails.scss';
-import black from '../../../../../assets/img/black.jpg';
 import Colors from '../../../../UI/Colors/Colors';
 import Button from '../../../../UI/Button/Button';
 import { IOrder } from '../../../../../types/data';
@@ -26,7 +25,10 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
                 {item.name}
               </h2>
               <p>Тип кожи: {item.leather}</p>
-              <Colors leatherColor={black} threadsColor={black} />
+              <Colors
+                leatherColor={item.colors.leatherColor}
+                threadsColor={item.colors.threadsColor}
+              />
               <p className="myOrderDetails__item-left__info-qty">
                 Количество: {item.quantity}
               </p>

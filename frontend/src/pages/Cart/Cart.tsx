@@ -44,6 +44,8 @@ const Cart = () => {
         status: 'Ожидает оплаты',
         total: cart.total,
       });
+
+    console.log(cartData);
   }, [cart, addresses, currentAddressIndex, user]);
 
   if (isLoading) return <h1>LOADING</h1>;
