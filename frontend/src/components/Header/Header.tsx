@@ -17,12 +17,14 @@ import { useDefineRole } from '../../hooks/useDefineRole';
 import Badge from '../UI/Badge/Badge';
 import useGetCart from '../../hooks/useGetCart';
 import useGetMyOrders from '../../hooks/useGetMyOrders';
+import { useAppSelector } from '../../hooks';
 
 const Header = () => {
   const { cart } = useGetCart();
   const role = useDefineRole();
+  const { user: currentUser } = useAppSelector((state) => state.user);
   const location = useLocation();
-  const { myActiveOrders } = useGetMyOrders(cart?.user!);
+  const { myActiveOrders } = useGetMyOrders(currentUser?._id!);
 
   return (
     <header className="header">

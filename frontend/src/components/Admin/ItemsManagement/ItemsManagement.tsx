@@ -6,9 +6,12 @@ import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import { IItem } from '../../../types/data';
 import ListItem from '../../UI/ListItem/ListItem';
 import ItemDetails from './ItemDetails/ItemDetails';
+import Toast from '../../UI/Toast/Toast';
 
 const ItemsManagement = () => {
   const [openAddItem, setOpenAddItem] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [toastText, setToastText] = useState('');
   const { isLoading, items } = useGetAllItems();
   const itemData = (item: IItem) => [
     {
@@ -31,28 +34,44 @@ const ItemsManagement = () => {
   if (isLoading) return <h1>LOADING</h1>;
 
   return (
-    <div className="items">
-      <h1 className="items-heading">Товары</h1>
-      <Button onClick={addItem} text="Добавить товар" color="grey" />
-      <div className="items__container">
-        {(!items || !items.length) && <p>Товаров нет</p>}
-        {items.length &&
-          items.map((item) => (
-            // <div className="items__container__item" key={item._id}>
-            <ListItem
-              key={item._id}
-              Details={<ItemDetails item={item} />}
-              bg="grey"
-              data={itemData(item)}
-            />
-            //   <div className="items__container__item-delete">
-            //     <Delete onClick={() => onDelete(item._id)} />
-            //   </div>
-            // </div>
-          ))}
+    <>
+      {openToast && (
+        <Toast
+          text={toastText}
+          type="error"
+          opened={openToast}
+          setOpened={setOpenToast}
+        />
+      )}
+      <div className="items">
+        <h1 className="items-heading">Товары</h1>
+        <Button onClick={addItem} text="Добавить товар" color="grey" />
+        <div className="items__container">
+          {(!items || !items.length) && <p>Товаров нет</p>}
+          {items.length &&
+            items.map((item) => (
+              // <div className="items__container__item" key={item._id}>
+              <ListItem
+                key={item._id}
+                Details={<ItemDetails item={item} />}
+                bg="grey"
+                data={itemData(item)}
+              />
+              //   <div className="items__container__item-delete">
+              //     <Delete onClick={() => onDelete(item._id)} />
+              //   </div>
+              // </div>
+            ))}
+        </div>
+        {openAddItem && (
+          <AddItem
+            setOpenAddItem={setOpenAddItem}
+            setToastText={setToastText}
+            setOpenToast={setOpenToast}
+          />
+        )}
       </div>
-      {openAddItem && <AddItem setOpenAddItem={setOpenAddItem} />}
-    </div>
+    </>
   );
 };
 

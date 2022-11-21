@@ -1,0 +1,19 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/animations.scss';
+
+.toast {
+  min-height: 6rem;
+  width: 44rem;
+  @include center;
+  padding: 1rem 5rem 1rem 1rem;
+  color: white;
+  position: fixed;
+  top: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  right: -4rem;
+  z-index: 999;
+  font-size: 1.7rem;
+  animation: notification 4.1s ease-in-out;
+}

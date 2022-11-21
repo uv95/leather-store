@@ -16,7 +16,7 @@ const initialState: IOrderState = {
 };
 
 export const addOrder = createAsyncThunk(
-  '@@Orderes/add',
+  '@@orders/add',
   async (orderData: IOrder, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -30,7 +30,7 @@ export const addOrder = createAsyncThunk(
 );
 
 export const getAllOrders = createAsyncThunk(
-  '@@Orderes/getAll',
+  '@@orders/getAll',
   async (_, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -43,7 +43,7 @@ export const getAllOrders = createAsyncThunk(
   }
 );
 export const getMyOrders = createAsyncThunk(
-  '@@Orderes/getMyOrders',
+  '@@orders/getMyOrders',
   async (userId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -57,7 +57,7 @@ export const getMyOrders = createAsyncThunk(
 );
 
 export const getOrder = createAsyncThunk(
-  '@@Orderes/getOne',
+  '@@orders/getOne',
   async (orderId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -71,7 +71,7 @@ export const getOrder = createAsyncThunk(
 );
 
 export const deleteOrder = createAsyncThunk(
-  '@@Orderes/delete',
+  '@@orders/delete',
   async (orderId: string, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -84,7 +84,7 @@ export const deleteOrder = createAsyncThunk(
   }
 );
 export const updateOrder = createAsyncThunk(
-  '@@Orderes/update',
+  '@@orders/update',
   async ({ orderId, updatedOrder }: IUpdatedOrder, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
@@ -98,7 +98,7 @@ export const updateOrder = createAsyncThunk(
 );
 
 export const orderSlice = createSlice({
-  name: '@@Orderes',
+  name: '@@orders',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

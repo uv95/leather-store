@@ -33,6 +33,9 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   const userAddresses = await Address.find({
     user,
   });
+  console.log(items, 'ITEMS');
+  console.log(userAddresses, 'userAddresses');
+  console.log(address, 'address');
 
   if (!cart) {
     return next(new AppError('No cart found!', 404));
@@ -48,6 +51,8 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     items,
     address,
   });
+
+  console.log(newOrder, 'NEWORDER');
 
   res.status(201).json({
     status: 'success',
