@@ -5,7 +5,6 @@ import portrait from '../../../assets/icons/portrait.svg';
 import address from '../../../assets/icons/address.svg';
 import orders from '../../../assets/icons/orders.svg';
 import useLogout from '../../../hooks/useLogout';
-import { useAppDispatch } from '../../../hooks';
 
 interface NavigationProps {
   currentTab: string;
@@ -16,7 +15,6 @@ const Navigation: React.FC<NavigationProps> = ({
   setCurrentTab,
   currentTab,
 }) => {
-  const dispatch = useAppDispatch();
   const logoutUser = useLogout();
 
   const tabs = [

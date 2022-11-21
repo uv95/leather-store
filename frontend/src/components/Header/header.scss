@@ -17,28 +17,37 @@
     margin: 0 auto;
 
     &__admin {
-      max-width: 70%;
       margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      height: $header-length;
-
-      &--link {
-        color: $color-grey--dark !important;
-        &-active {
-          position: relative;
-          transition: all 0.2s;
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            height: 1px;
-            width: 100%;
-            background-color: black;
+      align-items: center;
+      &__links {
+        height: $header-length;
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &--link {
+          color: $color-grey--dark !important;
+          &-active {
+            position: relative;
+            transition: all 0.2s;
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: -5px;
+              right: 0;
+              height: 1px;
+              width: 100%;
+              background-color: black;
+            }
           }
         }
+      }
+
+      &-logout {
+        @include hover;
       }
     }
 
