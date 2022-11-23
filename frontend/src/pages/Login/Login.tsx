@@ -86,10 +86,7 @@ const Login = () => {
             <div className="login__container__form__bottom">
               <Button type="submit" text="Войти" color="grey" />
               <Link to={''}>Забыли пароль?</Link>
-              <Link
-                to={REGISTRATION_ROUTE}
-                className="login__container__form__bottom-register"
-              >
+              <Link to={REGISTRATION_ROUTE} className="redLink">
                 Зарегистрироваться
               </Link>
             </div>

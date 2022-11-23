@@ -8,6 +8,7 @@ interface ButtonProps {
   big?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   animation?: boolean;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,14 +18,16 @@ const Button: React.FC<ButtonProps> = ({
   big,
   type,
   animation,
+  disabled,
 }) => {
   return (
     <button
       type={type}
       className={`button ${color === 'black' ? 'black' : 'grey'} ${
         big && 'big'
-      } ${animation && 'animated'}`}
+      } ${animation && 'animated'} ${disabled ? `${color}-disabled` : ''}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>

@@ -7,6 +7,11 @@
   padding-bottom: $footer-length;
   padding-top: $header-length;
 
+  &__modal {
+    font-size: 2rem;
+    text-align: center;
+  }
+
   &__heading {
     @include heading;
   }

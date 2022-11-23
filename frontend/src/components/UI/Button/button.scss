@@ -18,10 +18,25 @@
 .black {
   background-color: black;
   color: white;
+  &-disabled {
+    cursor: auto;
+    background-color: $color-grey--dark;
+    &:hover {
+      background-color: $color-grey--dark;
+    }
+  }
 }
 
 .grey {
   background-color: $color-grey--medium;
+
+  &-disabled {
+    cursor: auto;
+    background-color: $color-grey--dark;
+    &:hover {
+      background-color: $color-grey--dark;
+    }
+  }
 }
 
 .big {

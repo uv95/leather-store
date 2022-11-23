@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './itemsManagement.scss';
 import Button from '../../UI/Button/Button';
-import AddItem from '../../UI/AddItem/AddItem';
+import AddItem from './AddItem/AddItem';
 import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import { IItem } from '../../../types/data';
 import ListItem from '../../UI/ListItem/ListItem';
 import ItemDetails from './ItemDetails/ItemDetails';
 import Toast from '../../UI/Toast/Toast';
+import Modal from '../../UI/Modal/Modal';
 
 const ItemsManagement = () => {
-  const [openAddItem, setOpenAddItem] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const [toastText, setToastText] = useState('');
   const { isLoading, items } = useGetAllItems();
@@ -27,10 +28,6 @@ const ItemsManagement = () => {
     },
   ];
 
-  const addItem = () => {
-    setOpenAddItem(true);
-  };
-
   if (isLoading) return <h1>LOADING</h1>;
 
   return (
@@ -45,7 +42,11 @@ const ItemsManagement = () => {
       )}
       <div className="items">
         <h1 className="items-heading">Товары</h1>
-        <Button onClick={addItem} text="Добавить товар" color="grey" />
+        <Button
+          onClick={() => setOpenModal(true)}
+          text="Добавить товар"
+          color="grey"
+        />
         <div className="items__container">
           {(!items || !items.length) && <p>Товаров нет</p>}
           {items.length &&
@@ -63,11 +64,16 @@ const ItemsManagement = () => {
               // </div>
             ))}
         </div>
-        {openAddItem && (
-          <AddItem
-            setOpenAddItem={setOpenAddItem}
-            setToastText={setToastText}
-            setOpenToast={setOpenToast}
+        {openModal && (
+          <Modal
+            setOpen={setOpenModal}
+            Content={
+              <AddItem
+                setOpenAddItem={setOpenModal}
+                setToastText={setToastText}
+                setOpenToast={setOpenToast}
+              />
+            }
           />
         )}
       </div>

@@ -123,7 +123,7 @@ const Register = () => {
                 Уже зарегистрированы?{' '}
                 <Link
                   to={LOGIN_ROUTE}
-                  className="register__container__form__bottom-login"
+                  className="redLink"
                 >
                   Войти
                 </Link>

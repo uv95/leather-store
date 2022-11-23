@@ -35,6 +35,13 @@ a {
     color: black;
     transition: all 0.1s;
   }
+
+  &.redLink {
+    color: rgb(99, 1, 29) !important;
+    &:hover {
+      color: rgb(146, 0, 41) !important;
+    }
+  }
 }
 
 h2 {
