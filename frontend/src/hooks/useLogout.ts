@@ -9,7 +9,7 @@ export function useGetMe() {
 
   const logoutUser = () => {
     dispatch(logout());
-    dispatch(setRole(null));
+    dispatch(setRole(''));
     navigate('/');
   };
 

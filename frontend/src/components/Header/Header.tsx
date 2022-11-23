@@ -13,18 +13,19 @@ import cartIcon from '../../assets/icons/cart.svg';
 import user from '../../assets/icons/user.svg';
 import login from '../../assets/icons/sign-in.svg';
 import AdminHeader from './AdminHeader';
-import { useDefineRole } from '../../hooks/useDefineRole';
 import Badge from '../UI/Badge/Badge';
-import useGetCart from '../../hooks/useGetCart';
 import useGetMyOrders from '../../hooks/useGetMyOrders';
 import { useAppSelector } from '../../hooks';
+import useGetMe from '../../hooks/useGetMe';
+import useGetCart from '../../hooks/useGetCart';
 
 const Header = () => {
-  const { cart } = useGetCart();
-  const role = useDefineRole();
-  const { user: currentUser } = useAppSelector((state) => state.user);
-  const location = useLocation();
+  const role = useAppSelector((state) => state.auth.role);
+  const { user: currentUser } = useGetMe();
   const { myActiveOrders } = useGetMyOrders(currentUser?._id!);
+  const { cart } = useGetCart();
+
+  const location = useLocation();
 
   return (
     <header className="header">
@@ -70,7 +71,7 @@ const Header = () => {
                       className="header__container-inner__nav-icon "
                       alt="cart"
                     />
-                    {cart && cart.items.length !== 0 && (
+                    {cart && cart?.items.length !== 0 && (
                       <Badge value={cart.totalQuantity} />
                     )}
                   </Link>

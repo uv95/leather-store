@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import userService from './userService';
@@ -27,19 +27,6 @@ export const updateMe = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
       return await userService.updateMe(token, updatedData);
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
-  }
-);
-export const getRole = createAsyncThunk(
-  '@user/getRole',
-  async (_, thunkAPI) => {
-    try {
-      const state = thunkAPI.getState() as RootState;
-      const role = state.auth.user ? state.auth.user.data.user.role : null;
-      return role;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));

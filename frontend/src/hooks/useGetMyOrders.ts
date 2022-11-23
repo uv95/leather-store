@@ -5,11 +5,10 @@ import {
   selectMyActiveOrders,
   selectMyFinishedOrders,
 } from '../features/order/orderSlice';
-import { useDefineRole } from '../hooks/useDefineRole';
 
 export function useGetMyOrders(userId: string) {
   const dispatch = useAppDispatch();
-  const role = useDefineRole();
+  const role = useAppSelector((state) => state.auth.role);
 
   const { isLoading, myOrders } = useAppSelector((state) => state.order);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);

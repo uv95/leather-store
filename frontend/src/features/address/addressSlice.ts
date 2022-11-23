@@ -104,6 +104,7 @@ export const addressSlice = createSlice({
       })
       .addCase(getAllAddresses.pending, (state) => {
         state.addresses = [];
+        state.isLoading = true;
       })
       .addCase(getAllAddresses.fulfilled, (state, action) => {
         state.addresses = action.payload.data.data;

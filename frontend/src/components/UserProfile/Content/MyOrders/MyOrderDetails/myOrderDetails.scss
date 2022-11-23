@@ -4,6 +4,19 @@
 
 .myOrderDetails {
   background-color: #fff;
+
+  &__modal {
+    font-size: 2rem;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+
+    &__buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
   &__item {
     padding: 2rem;
     display: flex;

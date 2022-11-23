@@ -51,7 +51,7 @@ export interface IUserState {
   user: {
     _id?: string;
     address: IAddress[] | [];
-    cart: Object[] | [];
+    cart: ICart;
     email: string;
     name: string;
     phone: string;
@@ -103,13 +103,15 @@ export interface ICartItem {
   price: number;
 }
 
+interface ICart {
+  items: ICartItem[];
+  total: number;
+  totalQuantity: number;
+  user: string;
+}
+
 export interface ICartState {
-  cart: {
-    items: ICartItem[];
-    total: number;
-    totalQuantity: number;
-    user: string;
-  } | null;
+  cart: ICart | null;
   isLoading: boolean;
 }
 

@@ -10,7 +10,7 @@ if (userStr) user = JSON.parse(userStr);
 
 const initialState = {
   user: user || null,
-  role: null,
+  role: user.data.user.role || '',
   isLoading: false,
 };
 
@@ -60,6 +60,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       localStorage.removeItem('user');
       state.user = null;
+      state.role = '';
     },
     setRole: (state, action) => {
       state.role = action.payload;
@@ -73,15 +74,18 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoading = false;
+        state.role = action.payload.data.user.role;
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
       })
       .addCase(login.pending, (state, action) => {
+        state.user = null;
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.role = action.payload.data.user.role;
         state.isLoading = false;
       })
       .addCase(login.rejected, (state) => {

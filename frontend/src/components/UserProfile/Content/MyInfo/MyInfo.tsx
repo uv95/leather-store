@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../../UI/Button/Button';
 import './myInfo.scss';
-import { useGetMe } from '../../../../hooks/useGetMe';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { updateMe } from '../../../../features/user/userSlice';
 import { updatePassword, logout } from '../../../../features/auth/authSlice';
 import Input from '../../../UI/Input/Input';
 
 const MyInfo = () => {
-  const { user, isLoading } = useGetMe();
+  const { user, isLoading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

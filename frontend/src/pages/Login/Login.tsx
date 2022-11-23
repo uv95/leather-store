@@ -20,9 +20,6 @@ const Login = () => {
   const [openToast, setOpenToast] = useState(false);
   const [toastText, setToastText] = useState('');
 
-  const { role } = useAppSelector((state) => state.auth);
-  const { isLoading } = useAppSelector((state) => state.auth);
-
   const { email, password } = formData;
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
