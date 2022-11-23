@@ -48,8 +48,10 @@ const ItemsManagement = () => {
           color="grey"
         />
         <div className="items__container">
-          {(!items || !items.length) && <p>Товаров нет</p>}
-          {items.length &&
+          {(!items || !items.length) && (
+            <p className="items__container-empty">Товаров нет</p>
+          )}
+          {items.length !== 0 &&
             items.map((item) => (
               // <div className="items__container__item" key={item._id}>
               <ListItem

@@ -18,6 +18,11 @@
 
   &__container {
     @include list;
+    padding-bottom: 2rem;
+
+    &-empty {
+      font-size: 2rem;
+    }
 
     &__item {
       display: flex;

@@ -31,7 +31,9 @@ const Orders = (props: Props) => {
 
   return (
     <div className="orders">
-      <h1 className="orders-heading">Активные</h1>
+      {activeOrders.length !== 0 && (
+        <h1 className="orders-heading">Активные</h1>
+      )}
       {activeOrders.map((order) => (
         <ListItem
           key={order._id}
@@ -40,7 +42,9 @@ const Orders = (props: Props) => {
           data={orderData(order)}
         />
       ))}
-      <h1 className="orders-heading">Выполненные</h1>
+      {finishedOrders.length !== 0 && (
+        <h1 className="orders-heading">Выполненные</h1>
+      )}
       {finishedOrders.map((order) => (
         <ListItem
           key={order._id}
