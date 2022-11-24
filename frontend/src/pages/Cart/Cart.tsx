@@ -8,6 +8,7 @@ import useGetCart from '../../hooks/useGetCart';
 import useCreateOrder from '../../hooks/useCreateOrder';
 import Back from '../../components/UI/Back/Back';
 import Modal from '../../components/UI/Modal/Modal';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { IOrder } from '../../types/data';
 import { USER_PROFILE_ROUTE } from '../../utils/consts';
 import { useAppSelector } from '../../hooks';
@@ -50,8 +51,6 @@ const Cart = () => {
       });
   }, [cart, addresses, currentAddressIndex, user]);
 
-  if (isLoading) return <h1>LOADING</h1>;
-
   return (
     <>
       {openModal && (
@@ -71,10 +70,11 @@ const Cart = () => {
         <Back />
         <h1 className="cart__heading">Корзина</h1>
         <div className="cart__container">
-          {(!cart || !cart.items.length) && (
+          {isLoading ? (
+            <Spinner />
+          ) : !cart || !cart.items.length ? (
             <p className="cart__container-empty">Корзина пуста</p>
-          )}
-          {cart && cart.items.length !== 0 && (
+          ) : (
             <>
               <div className="cart__container__order">
                 <div className="cart__container__order__items">

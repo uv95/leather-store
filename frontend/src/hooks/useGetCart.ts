@@ -6,13 +6,15 @@ export function useGetCart() {
   const dispatch = useAppDispatch();
 
   const { isLoading, cart } = useAppSelector((state) => state.cart);
+  const role = useAppSelector((state) => state.auth.role);
 
   useEffect(() => {
-    dispatch(getCart())
-      .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'ERROR'));
-  }, [dispatch]);
+    role !== '' &&
+      dispatch(getCart())
+        .unwrap()
+        .then()
+        .catch((error) => console.log(error, 'ERROR'));
+  }, [dispatch, role]);
 
   return { isLoading, cart };
 }

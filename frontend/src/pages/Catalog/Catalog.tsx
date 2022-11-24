@@ -6,6 +6,7 @@ import Filter from '../../components/Catalog/Filter';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
 import Pagination from '../../components/UI/Pagination/Pagination';
+import Spinner from '../../components/UI/Spinner/Spinner';
 // import View from '../../components/Catalog/View';
 
 const Catalog = () => {
@@ -13,11 +14,9 @@ const Catalog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const [maxPages] = useState(
-    items.length && Math.ceil(items.length / itemsPerPage)
+    items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1
   );
   const [sort, setSort] = useState('По умолчанию');
-
-  if (isLoading) return <h1>LOADING</h1>;
 
   return (
     <>
@@ -28,28 +27,32 @@ const Catalog = () => {
             {/* <View /> */}
             <FiltersPanel sort={sort} setSort={setSort} />
           </div>
-          <div className="catalog__container__items">
-            {sort === 'По умолчанию'
-              ? items
-                  .slice(
-                    itemsPerPage * (currentPage - 1),
-                    itemsPerPage * currentPage
-                  )
-                  .map((item) => <ItemCard key={item._id} item={item} />)
-              : [...items]
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="catalog__container__items">
+              {sort === 'По умолчанию'
+                ? items
+                    .slice(
+                      itemsPerPage * (currentPage - 1),
+                      itemsPerPage * currentPage
+                    )
+                    .map((item) => <ItemCard key={item._id} item={item} />)
+                : [...items]
 
-                  .sort((a, b) => {
-                    if (+a.price === +b.price) return 0;
-                    return sort === 'Цена по убыванию'
-                      ? +b.price - +a.price
-                      : +a.price - +b.price;
-                  })
-                  .slice(
-                    itemsPerPage * (currentPage - 1),
-                    itemsPerPage * currentPage
-                  )
-                  .map((item) => <ItemCard key={item._id} item={item} />)}
-          </div>
+                    .sort((a, b) => {
+                      if (+a.price === +b.price) return 0;
+                      return sort === 'Цена по убыванию'
+                        ? +b.price - +a.price
+                        : +a.price - +b.price;
+                    })
+                    .slice(
+                      itemsPerPage * (currentPage - 1),
+                      itemsPerPage * currentPage
+                    )
+                    .map((item) => <ItemCard key={item._id} item={item} />)}
+            </div>
+          )}
         </div>
         <Pagination
           maxPages={maxPages}

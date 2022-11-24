@@ -4,6 +4,10 @@
 .orders {
   @include list;
 
+  & .spinner {
+    height: 24rem;
+  }
+
   &-heading {
     @include heading;
 

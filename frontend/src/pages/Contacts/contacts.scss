@@ -1,2 +1,19 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
 
+.contacts {
+  @include main-block;
+  padding-bottom: $footer-length;
+  padding-top: $header-length;
+  margin: 4rem auto 0 auto;
+  &__container {
+    font-size: 2rem;
 
+    &-heading {
+      @include heading;
+    }
+    & p {
+      width: 40rem;
+    }
+  }
+}

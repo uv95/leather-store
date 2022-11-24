@@ -2,6 +2,7 @@ import React from 'react';
 import './myOrders.scss';
 import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import ListItem from '../../../UI/ListItem/ListItem';
+import Spinner from '../../../UI/Spinner/Spinner';
 import { statusStyles } from '../../../../utils/consts';
 import { IOrder } from '../../../../types/data';
 import { useAppSelector } from '../../../../hooks';
@@ -32,7 +33,7 @@ const MyOrders = () => {
     },
   ];
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="orders">

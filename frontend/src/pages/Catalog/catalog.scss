@@ -8,7 +8,12 @@
   padding-top: $header-length;
 
   &__container {
+    min-height: 40rem;
     margin-bottom: 4rem;
+
+    & .spinner {
+      height: 24rem;
+    }
 
     &__top {
       display: flex;

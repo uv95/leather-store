@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './itemsManagement.scss';
 import Button from '../../UI/Button/Button';
 import AddItem from './AddItem/AddItem';
@@ -8,6 +8,7 @@ import ListItem from '../../UI/ListItem/ListItem';
 import ItemDetails from './ItemDetails/ItemDetails';
 import Toast from '../../UI/Toast/Toast';
 import Modal from '../../UI/Modal/Modal';
+import Spinner from '../../UI/Spinner/Spinner';
 
 const ItemsManagement = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -28,8 +29,6 @@ const ItemsManagement = () => {
     },
   ];
 
-  if (isLoading) return <h1>LOADING</h1>;
-
   return (
     <>
       {openToast && (
@@ -48,23 +47,29 @@ const ItemsManagement = () => {
           color="grey"
         />
         <div className="items__container">
-          {(!items || !items.length) && (
-            <p className="items__container-empty">Товаров нет</p>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              {(!items || !items.length) && (
+                <p className="items__container-empty">Товаров нет</p>
+              )}
+              {items.length !== 0 &&
+                items.map((item) => (
+                  // <div className="items__container__item" key={item._id}>
+                  <ListItem
+                    key={item._id}
+                    Details={<ItemDetails item={item} />}
+                    bg="grey"
+                    data={itemData(item)}
+                  />
+                  //   <div className="items__container__item-delete">
+                  //     <Delete onClick={() => onDelete(item._id)} />
+                  //   </div>
+                  // </div>
+                ))}
+            </>
           )}
-          {items.length !== 0 &&
-            items.map((item) => (
-              // <div className="items__container__item" key={item._id}>
-              <ListItem
-                key={item._id}
-                Details={<ItemDetails item={item} />}
-                bg="grey"
-                data={itemData(item)}
-              />
-              //   <div className="items__container__item-delete">
-              //     <Delete onClick={() => onDelete(item._id)} />
-              //   </div>
-              // </div>
-            ))}
         </div>
         {openModal && (
           <Modal

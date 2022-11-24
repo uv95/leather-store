@@ -1,6 +1,7 @@
 import React from 'react';
 import './selectAddress.scss';
 import AddressCard from '../../UserProfile/Content/Address/AddressCard/AddressCard';
+import Spinner from '../../UI/Spinner/Spinner';
 import { useGetAllAddresses } from '../../../hooks/useGetAllAddresses';
 import { IAddress } from '../../../types/data';
 import { Link } from 'react-router-dom';
@@ -19,24 +20,26 @@ const SelectAddress = ({
 }: SelectAddressProps) => {
   const { isLoading } = useGetAllAddresses();
 
-  if (isLoading) return <h1>Loading...</h1>;
-
   return (
     <div className="selectAddress">
       {addresses.length ? (
         <>
           <h2>Выберите адрес</h2>
-          <div className="selectAddress__container">
-            {addresses?.map((address, i) => (
-              <AddressCard
-                key={address._id}
-                address={address}
-                fromCart
-                active={i === currentAddressIndex}
-                onClick={() => setCurrentAddressIndex(i)}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="selectAddress__container">
+              {addresses?.map((address, i) => (
+                <AddressCard
+                  key={address._id}
+                  address={address}
+                  fromCart
+                  active={i === currentAddressIndex}
+                  onClick={() => setCurrentAddressIndex(i)}
+                />
+              ))}
+            </div>
+          )}
         </>
       ) : (
         <p className="addAddress">

@@ -10,7 +10,7 @@ if (userStr) user = JSON.parse(userStr);
 
 const initialState = {
   user: user || null,
-  role: user.data.user.role || '',
+  role: user?.data.user.role || '',
   isLoading: false,
 };
 

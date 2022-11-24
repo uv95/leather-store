@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../../UI/Button/Button';
+import Spinner from '../../../UI/Spinner/Spinner';
 import './myInfo.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
@@ -75,7 +76,7 @@ const MyInfo = () => {
     }));
   };
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="info">

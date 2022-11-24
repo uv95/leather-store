@@ -101,6 +101,10 @@ export const itemsSlice = createSlice({
           (item) => item._id !== action.meta.arg
         );
       })
+      .addCase(getItemBySlug.pending, (state) => {
+        state.isLoading = true;
+        state.item = null;
+      })
       .addCase(getItemBySlug.fulfilled, (state, action) => {
         state.item = action.payload.data.data;
       })
