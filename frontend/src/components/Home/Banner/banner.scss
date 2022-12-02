@@ -1,6 +1,18 @@
-.banner {
-  height: 40rem;
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
 
+.banner {
+  height: 36rem;
+
+  @include max1000 {
+    height: 28rem;
+  }
+  @include max700 {
+    height: 22rem;
+  }
+  @include max500 {
+    display: none;
+  }
   &__img {
     object-fit: cover;
     width: 100%;

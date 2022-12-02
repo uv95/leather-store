@@ -1,9 +1,22 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+
 .item-card {
   width: 32rem;
+  @include max400 {
+    width: 100%;
+  }
+
   &__img {
     width: 100%;
     height: 32rem;
     overflow: hidden;
+    @include max400 {
+      height: 28rem;
+    }
+    @include max300 {
+      height: 24rem;
+    }
     &--item {
       object-fit: cover;
       width: 100%;
@@ -24,6 +37,10 @@
 
     &--price {
       color: black;
+    }
+
+    @include max400 {
+      padding: 0 2rem;
     }
   }
 }

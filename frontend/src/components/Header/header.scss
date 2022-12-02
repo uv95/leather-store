@@ -62,17 +62,28 @@
       &__logo {
         font-weight: 700;
         @include hover;
+        @include max400 {
+          display: none;
+        }
       }
 
       &__nav {
         display: flex;
         justify-content: flex-end;
-        gap: 2rem;
+        gap: 12rem;
         width: 9rem;
         display: flex;
         color: black;
+
+        @include max500 {
+          gap: 3rem;
+        }
+        @include max400 {
+          width: 100%;
+          justify-content: space-between;
+          gap: 0;
+        }
         &-shop {
-          margin-right: 10rem;
           @include hover;
         }
         &-icon {

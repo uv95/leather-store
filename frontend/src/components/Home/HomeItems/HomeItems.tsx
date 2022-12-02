@@ -22,7 +22,7 @@ const HomeItems = () => {
           <Spinner />
         ) : (
           items
-            ?.slice(0, 3)
+            ?.slice(0, 4)
             .map((item) => <ItemCard key={item._id} item={item} />)
         )}
       </div>

@@ -24,7 +24,7 @@
 @mixin items-section--home {
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
 }
 @mixin items-section--catalog {

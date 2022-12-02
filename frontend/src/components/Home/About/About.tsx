@@ -9,11 +9,11 @@ const About = (props: Props) => {
     <div className="about">
       <div className="about__container">
         <div className="about__container__img">
-          <img src={anna} alt="" className="about__container__img--item" />
+          <img src={anna} alt="Anna" />
         </div>
 
         <div className="about__container__text">
-          <h4>Обо мне</h4>
+          <h3>Обо мне</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, quasi
             harum! Maiores nisi sequi corporis ab voluptatibus vel officiis amet

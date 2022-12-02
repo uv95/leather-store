@@ -22,5 +22,15 @@
   &__container {
     @include items-section--home;
     margin-top: 2rem;
+
+    @include max1000 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;
+    }
+
+    @include max700 {
+      @include list;
+    }
   }
 }

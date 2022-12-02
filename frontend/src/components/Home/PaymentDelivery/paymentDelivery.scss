@@ -1,10 +1,22 @@
+@import '../../../base-styles/mixins.scss';
+@import '../../../base-styles/variables.scss';
+
 .pd {
   margin: 5rem 0;
 
   &__container {
     width: 50%;
     margin: 0 auto;
-    // padding: 0 20rem;
+    @include max700 {
+      width: 70%;
+    }
+    @include max500 {
+      width: 80%;
+    }
+    @include max300 {
+      padding: 1rem;
+      width: 100%;
+    }
 
     &__heading {
       //   text-align: center;
