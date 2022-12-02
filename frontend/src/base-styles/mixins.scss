@@ -2,11 +2,23 @@
   width: 100%;
   max-width: 124rem;
   padding: 0 2rem;
+
+  @include max500 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
 @mixin list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+@mixin header-footer {
+  padding-bottom: $footer-height;
+  padding-top: $header-height;
+  @include max400 {
+    padding-bottom: $footer-height-l;
+  }
 }
 
 @mixin items-section--home {
@@ -30,7 +42,13 @@
 }
 @mixin heading {
   font-size: 3rem;
-  margin-bottom: 4rem;
+  margin-bottom: $length-l;
+  @include max1000 {
+    margin-bottom: $length-m;
+  }
+  @include max500 {
+    margin-bottom: $length-s;
+  }
 }
 
 @mixin colorBtn {
@@ -70,7 +88,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 30rem;
+  width: 100%;
+  max-width: 30rem;
   text-align: left;
   margin-bottom: 2rem;
 }
@@ -93,4 +112,42 @@
   visibility: hidden;
   transform: translateY($translateY);
   transition: 0.4s ease;
+}
+
+//MEDIA
+
+@mixin max1000 {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+@mixin max900 {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+@mixin max800 {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+@mixin max700 {
+  @media (max-width: 700px) {
+    @content;
+  }
+}
+@mixin max500 {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+@mixin max400 {
+  @media (max-width: 400px) {
+    @content;
+  }
+}
+@mixin max300 {
+  @media (max-width: 300px) {
+    @content;
+  }
 }

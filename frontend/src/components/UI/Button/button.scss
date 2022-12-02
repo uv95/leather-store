@@ -3,7 +3,10 @@
 
 .button {
   font-size: 1.5rem;
-  width: 16rem;
+  padding: 0 1rem;
+  width: fit-content;
+  max-width: 16rem;
+  min-width: 12rem;
   height: 3rem;
   @include center;
   cursor: pointer;
@@ -12,6 +15,13 @@
   &:hover {
     color: white;
     background-color: $color-grey--dark;
+  }
+
+  @include max500 {
+    min-width: 8rem;
+  }
+  @include max300 {
+    min-width: 6rem;
   }
 }
 

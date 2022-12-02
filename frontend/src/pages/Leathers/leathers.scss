@@ -3,8 +3,7 @@
 
 .leathers {
   margin: 0 auto;
-  padding-bottom: $footer-length;
-  padding-top: $header-length;
+  @include header-footer;
 
   &-heading {
     @include main-block;

@@ -4,8 +4,7 @@
 .cart {
   @include main-block;
   margin: 0 auto;
-  padding-bottom: $footer-length;
-  padding-top: $header-length;
+  @include header-footer;
 
   &__modal {
     font-size: 2rem;

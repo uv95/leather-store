@@ -4,15 +4,22 @@
 .background {
   background-color: $color-grey--transparent;
   min-width: 100%;
+  max-width: 130%;
   height: 110%;
   position: absolute;
   top: -10%;
   left: 0;
   z-index: 99;
+
+  @include max300 {
+    // min-width: 150% !important;
+    // height: 140% !important;
+  }
 }
 
 .modal {
-  width: 60rem;
+  width: 80%;
+  max-width: 60rem;
   margin-top: 3rem;
   background-color: white;
   box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.13);
@@ -22,4 +29,33 @@
   transform: translate(-50%, -30%);
   font-size: 1.5rem;
   padding: 2rem;
+
+  &__content {
+    font-size: 2rem;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+
+    &__buttons {
+      padding: 0 4rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+
+      @include max400 {
+        padding: 0 2rem;
+      }
+      @include max300 {
+        padding: 0rem;
+      }
+    }
+
+    @include max700 {
+      width: 100%;
+    }
+  }
+
+  @include max500 {
+    padding: 1rem;
+  }
 }

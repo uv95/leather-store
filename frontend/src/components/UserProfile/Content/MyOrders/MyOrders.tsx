@@ -17,7 +17,7 @@ const MyOrders = () => {
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
 
   const orderData = (order: IOrder) => [
-    { dataItem: '№ ' + order._id?.slice(0, 6) },
+    { dataItem: '№ ' + order._id?.slice(0, 8) },
     {
       dataItem:
         'Создан ' +

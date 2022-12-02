@@ -121,10 +121,7 @@ const Register = () => {
               <Button type="submit" text="Зарегистрироваться" color="grey" />
               <p>
                 Уже зарегистрированы?{' '}
-                <Link
-                  to={LOGIN_ROUTE}
-                  className="redLink"
-                >
+                <Link to={LOGIN_ROUTE} className="redLink">
                   Войти
                 </Link>
               </p>

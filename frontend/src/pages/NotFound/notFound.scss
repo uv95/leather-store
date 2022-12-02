@@ -1,4 +1,18 @@
+@import '../../base-styles/mixins.scss';
+@import '../../base-styles/variables.scss';
+
 .not-found {
-  margin-top: 10rem;
-  background-color: rgb(168, 246, 168);
+  @include main-block;
+  @include center;
+  flex-direction: column;
+  margin: 4rem auto 0 auto;
+  @include header-footer;
+
+  & h1 {
+    font-size: 15rem;
+  }
+
+  & p {
+    font-size: 3rem;
+  }
 }

@@ -5,8 +5,7 @@
 .register {
   @include main-block;
   margin: 4rem auto 0 auto;
-  padding-bottom: $footer-length;
-  padding-top: $header-length;
+  @include header-footer;
 
   &__container {
     margin: 0 auto;

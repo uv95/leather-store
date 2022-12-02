@@ -2,6 +2,7 @@
 @import '../../../base-styles/variables.scss';
 
 .orders {
+  padding-bottom: 2rem;
   @include list;
 
   & .spinner {
@@ -12,7 +13,13 @@
     @include heading;
 
     &:last-of-type {
-      margin-top: 4rem;
+      margin-top: $length-l;
+      @include max1000 {
+        margin-top: $length-m;
+      }
+      @include max500 {
+        margin-top: $length-s;
+      }
     }
   }
 }

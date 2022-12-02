@@ -19,9 +19,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
                 className="orderDetails__items__item-left-img"
               />
               <div className="orderDetails__items__item-left__info">
-                <h2 className="orderDetails__items__item-left__info-title">
-                  {item.name}
-                </h2>
+                <h3>{item.name}</h3>
                 <p>Тип кожи: {item.leather}</p>
                 <Colors
                   leatherColor={item.colors.leatherColor}
@@ -40,22 +38,22 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
       </div>
 
       <div className="orderDetails__userInfo">
-        <p>
+        <h3>
           Адрес доставки:{' '}
           <span>
             {order.address.city}, {order.address.address},
             {order.address.zipcode}
           </span>
-        </p>
-        <p>
+        </h3>
+        <h3>
           Клиент: <span>{order.user.name}</span>
-        </p>
-        <p>
+        </h3>
+        <h3>
           Контакты:{' '}
           <span>
             {order.user.email}, {order.user.phone}
           </span>
-        </p>
+        </h3>
       </div>
       <ChangeStatus currentStatus={order.status} orderId={order._id!} />
     </div>

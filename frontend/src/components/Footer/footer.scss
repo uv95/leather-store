@@ -1,10 +1,11 @@
 @import '../../base-styles/variables.scss';
+@import '../../base-styles/mixins.scss';
 
 .footer {
   background-color: $color-grey--light;
   position: absolute;
   bottom: 0;
-  height: $footer-length;
+  height: $footer-height;
   width: 100%;
   padding: 3rem 2rem;
   font-size: 1.5rem;
@@ -21,12 +22,21 @@
         display: flex;
         align-items: center;
         gap: 2rem;
+        @include max400 {
+          @include list;
+          margin-bottom: 1rem;
+          align-items: flex-start;
+        }
       }
       &__social {
         &--img {
           width: 3rem;
           height: 3rem;
         }
+      }
+
+      @include max400 {
+        align-items: flex-start;
       }
     }
 
@@ -35,5 +45,9 @@
       color: $color-grey--dark;
       font-size: 1.2rem;
     }
+  }
+
+  @include max400 {
+    height: $footer-height-l;
   }
 }

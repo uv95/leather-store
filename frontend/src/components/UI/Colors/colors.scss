@@ -38,5 +38,10 @@
       & p {
       }
     }
+
+    @include max300 {
+      @include list;
+      gap: 1rem;
+    }
   }
 }

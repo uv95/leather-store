@@ -3,8 +3,8 @@
 
 .contacts {
   @include main-block;
-  padding-bottom: $footer-length;
-  padding-top: $header-length;
+  @include header-footer;
+
   margin: 4rem auto 0 auto;
   &__container {
     font-size: 2rem;

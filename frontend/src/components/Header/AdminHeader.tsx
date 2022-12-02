@@ -11,13 +11,22 @@ import useLogout from '../../hooks/useLogout';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 
-type Props = {};
-
-const AdminHeader = (props: Props) => {
+const AdminHeader = () => {
   const location = useLocation();
   const path = location.pathname;
   const logoutUser = useLogout();
+  const tabs = [
+    { text: 'Заказы', route: ADMIN_ROUTE },
+    { text: 'Товары', route: ITEMS_MANAGEMENT_ROUTE },
+    { text: 'Статистика', route: STATISTICS_ROUTE },
+    { text: 'На главную', route: HOME_ROUTE },
+  ];
 
+  const [currentTab, setCurrentTab] = useState({
+    text: 'Заказы',
+    route: ADMIN_ROUTE,
+  });
+  const [openMenu, setOpenMenu] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -26,9 +35,9 @@ const AdminHeader = (props: Props) => {
         <Modal
           setOpen={setOpenModal}
           Content={
-            <div className="myOrderDetails__modal">
+            <>
               <p>Вы действительно хотите выйти?</p>
-              <div className="myOrderDetails__modal__buttons">
+              <div className="modal__content__buttons">
                 <Button
                   text="Да"
                   color="grey"
@@ -43,54 +52,61 @@ const AdminHeader = (props: Props) => {
                   onClick={() => setOpenModal(false)}
                 />
               </div>
-            </div>
+            </>
           }
         />
       )}
       <div className="header__container__admin">
-        <div className="header__container__admin__links">
+        {tabs.map((tab) => (
           <Link
-            to={ADMIN_ROUTE}
+            key={tab.text}
+            to={tab.route}
             className={`${
-              ADMIN_ROUTE === path
-                ? 'header__container__admin__links--link-active'
-                : 'header__container__admin__links--link'
+              tab.route === path
+                ? 'header__container__admin-link-active'
+                : 'header__container__admin-link'
             }`}
           >
-            Заказы
+            {tab.text}
           </Link>
-          <Link
-            to={ITEMS_MANAGEMENT_ROUTE}
-            className={`${
-              ITEMS_MANAGEMENT_ROUTE === path
-                ? 'header__container__admin__links--link-active'
-                : 'header__container__admin__links--link'
-            }`}
-          >
-            Управление товарами
-          </Link>
-          <Link
-            to={STATISTICS_ROUTE}
-            className={`${
-              STATISTICS_ROUTE === path
-                ? 'header__container__admin__links--link-active'
-                : 'header__container__admin__links--link'
-            }`}
-          >
-            Статистика
-          </Link>
-          <Link
-            to={HOME_ROUTE}
-            className="header__container__admin__links--link"
-          >
-            На главную
-          </Link>
-        </div>
+        ))}
         <div
           onClick={() => setOpenModal(true)}
-          className="header__container__admin-logout"
+          className="header__container__admin-link"
         >
           Выйти
+        </div>
+      </div>
+      <div className="mobile">
+        <Link to={currentTab.route} onClick={() => setOpenMenu(!openMenu)}>
+          {currentTab.text}
+        </Link>
+        <div
+          className={`mobile__menu mobile__menu--${
+            openMenu ? 'open' : 'closed'
+          }`}
+        >
+          {tabs
+            .filter((tab) => tab.text !== currentTab.text)
+            .map((tab) => (
+              <Link
+                key={tab.text}
+                to={tab.route}
+                className=" mobile__menu-link"
+                onClick={() => {
+                  setCurrentTab(tab);
+                  setOpenMenu(false);
+                }}
+              >
+                {tab.text}
+              </Link>
+            ))}
+          <div
+            onClick={() => setOpenModal(true)}
+            className=" mobile__menu-link"
+          >
+            Выйти
+          </div>
         </div>
       </div>
     </>

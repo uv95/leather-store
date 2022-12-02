@@ -65,7 +65,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
   return (
     <div className="itemDetails">
       <form className="itemDetails__form" id="form" onSubmit={onSubmit}>
-        <div className="itemDetails__form__gridGroup">
+        <div className="itemDetails__form__section">
           <div className="itemDetails__form__box">
             <Input
               name="name"
@@ -95,7 +95,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             </select>
           </div>
         </div>
-        <div className="itemDetails__form__gridGroup">
+        <div className="itemDetails__form__section">
           <div className="itemDetails__form__box">
             <Input
               name="price"
@@ -145,7 +145,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             </div>
           ))}
         </div> 
-        <div className="itemDetails__form__gridGroup">
+        <div className="itemDetails__form__section">
           <div className="itemDetails__form__box">
             <Input
               name="imageCover"

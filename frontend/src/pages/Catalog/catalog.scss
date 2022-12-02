@@ -4,8 +4,8 @@
 .catalog {
   @include main-block;
   margin: 4rem auto 0 auto;
-  padding-bottom: $footer-length + 8rem;
-  padding-top: $header-length;
+  padding-bottom: $footer-height + 8rem;
+  padding-top: $header-height;
 
   &__container {
     min-height: 40rem;

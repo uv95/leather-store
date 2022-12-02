@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './filter_view.scss';
 import Dropdown from './Dropdown/Dropdown';
-import Button from '../../components/UI/Button/Button';
+import Button from '../UI/Button/Button';
 
 type FilterProps = {
   setSort: React.Dispatch<React.SetStateAction<string>>;

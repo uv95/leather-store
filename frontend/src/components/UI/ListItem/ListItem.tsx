@@ -17,7 +17,7 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
           //to place image without padding
           className={`${
             data[0].dataItem.imgPath
-              ? 'listItem__card__main listItem__card__main-noLeftPadding'
+              ? 'listItem__card__main listItem__card__main-withImage'
               : 'listItem__card__main listItem__card__main'
           }`}
           style={{ gridTemplateColumns: `repeat(${data.length}, 1fr)` }}
@@ -29,8 +29,8 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
                   el.style ? el.style : ''
                 }`}
               >
-                {el.dataItem.imgPath ? (
-                  <img src={el.dataItem.imgPath} alt="фото товара" />
+                {el.dataItem?.imgPath ? (
+                  <img src={el.dataItem?.imgPath} alt="фото товара" />
                 ) : (
                   el.dataItem
                 )}
@@ -38,9 +38,7 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
             </div>
           ))}
         </div>
-        <div
-          className={`listItem__card__openDetails listItem__card__openDetails--${bg}`}
-        >
+        <div className={`listItem__card__arrow listItem__card__arrow--${bg}`}>
           <img
             className={`listItem__card-icon listItem__card-icon--${
               openDetails ? 'open' : 'closed'

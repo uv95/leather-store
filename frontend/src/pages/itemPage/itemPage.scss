@@ -3,8 +3,8 @@
 
 .item {
   @include main-block;
-  padding-bottom: $footer-length;
-  padding-top: $header-length;
+  @include header-footer;
+
   margin: 0 auto;
 
   &__container {

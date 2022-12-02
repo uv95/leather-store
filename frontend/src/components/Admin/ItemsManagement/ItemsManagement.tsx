@@ -21,7 +21,7 @@ const ItemsManagement = () => {
         imgPath: require(`../../../assets/img/items/${item.imageCover}`),
       },
     },
-    { dataItem: 'ID: ' + item._id.slice(0, 6) },
+    { dataItem: 'ID: ' + item._id.slice(0, 8) },
     { dataItem: item.name },
     { dataItem: item.type.split('')[0].toUpperCase() + item.type.slice(1) },
     {

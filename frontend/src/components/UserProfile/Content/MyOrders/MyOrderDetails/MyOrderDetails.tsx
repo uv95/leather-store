@@ -18,9 +18,9 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
         <Modal
           setOpen={setOpenModal}
           Content={
-            <div className="myOrderDetails__modal">
+            <>
               <p>Вы действительно хотите отменить заказ?</p>
-              <div className="myOrderDetails__modal__buttons">
+              <div className="modal__content__buttons">
                 <Button
                   text="Да"
                   color="grey"
@@ -35,7 +35,7 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
                   onClick={() => setOpenModal(false)}
                 />
               </div>
-            </div>
+            </>
           }
         />
       )}

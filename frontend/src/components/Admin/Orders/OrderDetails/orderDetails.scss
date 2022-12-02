@@ -4,11 +4,11 @@
 
 .orderDetails {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  gap: $length-l;
   &__items {
     &__item {
-      padding: 2rem;
+      padding: 2rem 0 2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -18,23 +18,29 @@
       }
       &:not(:first-of-type) {
         padding-top: 2rem;
+        @include max500 {
+          padding-top: 1rem;
+        }
       }
       &-left {
         display: flex;
-        gap: 2rem;
+        gap: $length-m;
 
         &-img {
-          width: 14rem;
-          height: 14rem;
+          width: 36%;
+          height: 100%;
           object-fit: cover;
+          @include max500 {
+            width: 30%;
+          }
         }
         &__info {
           font-size: 1.2rem;
           color: $color-grey--dark;
           position: relative;
-          &-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+
+          & h3 {
+            margin-bottom: $length-s;
             color: black;
           }
 
@@ -42,20 +48,51 @@
             margin-top: 1rem;
           }
         }
+        @include max800 {
+          display: block;
+        }
+        @include max500 {
+          display: flex;
+        }
       }
+      @include max500 {
+        padding: 1rem 0 0 0;
+      }
+    }
+    @include max800 {
+      grid-column: 1/3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @include max500 {
+      @include list;
     }
   }
   &__userInfo {
     font-size: 2rem;
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 0;
     font-weight: bold;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 60%;
+    width: 100%;
 
     & span {
       font-weight: normal;
     }
+    @include max800 {
+      grid-row: 2;
+      grid-column: 1/3;
+    }
+  }
+
+  @include max1000 {
+    gap: $length-m;
+  }
+  @include max800 {
+    grid-template-columns: 3fr 2fr;
+  }
+  @include max700 {
+    gap: $length-s;
   }
 }
