@@ -6,11 +6,12 @@ import { ITEM_ROUTE } from '../../../utils/consts';
 
 interface ItemCardProps {
   item: IItem;
+  open?: boolean;
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ item, open }) => {
   return (
-    <Link to={ITEM_ROUTE + item.slug} className="item-card">
+    <Link to={!open ? ITEM_ROUTE + item.slug : ''} className="item-card">
       <div className="item-card__img">
         <img
           src={require(`../../../assets/img/items/${item.imageCover}`)}

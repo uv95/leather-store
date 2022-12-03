@@ -3,7 +3,6 @@
 
 .admin {
   @include main-block;
-  margin: 4rem auto 0 auto;
   @include header-footer;
 
   &__header {

@@ -11,6 +11,10 @@
   left: 50%;
   transform: translateX(-50%);
 
+  @include max400 {
+    bottom: $footer-height-l + 4rem;
+  }
+
   &-item {
     width: 3rem;
     height: 3rem;

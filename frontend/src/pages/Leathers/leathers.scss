@@ -7,8 +7,6 @@
 
   &-heading {
     @include main-block;
-    margin: 0 auto;
-
     & h1 {
       @include heading;
     }
@@ -20,11 +18,25 @@
       &:first-of-type {
         padding-top: 0;
       }
+      @include max700 {
+        &:first-of-type,
+        &:last-of-type {
+          & .leathers__container__leather__content {
+            flex-direction: column-reverse;
+          }
+        }
+      }
+
       &__content {
         max-width: 124rem;
         display: flex;
         gap: 6rem;
         margin: 4rem auto;
+
+        @include max700 {
+          @include list;
+          align-items: center;
+        }
 
         &-text {
           font-size: 2rem;
@@ -34,8 +46,13 @@
         }
 
         &-img {
-          width: 42rem;
-          height: 42rem;
+          max-width: 42rem;
+          width: 46%;
+          height: 100%;
+
+          @include max700 {
+            width: 100%;
+          }
         }
       }
 

@@ -40,7 +40,7 @@ const Header = () => {
             <div className="header__container-inner__nav">
               <Link
                 to={CATALOG_ROUTE}
-                className="header__container-inner__nav-shop"
+                className="header__container-inner__nav-catalog"
               >
                 КАТАЛОГ
               </Link>

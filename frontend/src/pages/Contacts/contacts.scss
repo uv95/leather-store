@@ -4,8 +4,6 @@
 .contacts {
   @include main-block;
   @include header-footer;
-
-  margin: 4rem auto 0 auto;
   &__container {
     font-size: 2rem;
 

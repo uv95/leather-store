@@ -3,7 +3,7 @@
 
 .cart {
   @include main-block;
-  margin: 0 auto;
+  margin-top: -2rem;
   @include header-footer;
 
   &__modal {

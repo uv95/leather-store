@@ -6,11 +6,11 @@ import Button from '../UI/Button/Button';
 type FilterProps = {
   setSort: React.Dispatch<React.SetStateAction<string>>;
   sort: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
 };
 
-const Filter = ({ setSort, sort }: FilterProps) => {
-  const [open, setOpen] = useState(false);
-
+const Filter = ({ setSort, sort, setOpen, open }: FilterProps) => {
   return (
     <div className="filter">
       <Button

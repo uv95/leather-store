@@ -4,8 +4,7 @@
 .item {
   @include main-block;
   @include header-footer;
-
-  margin: 0 auto;
+  margin-top: -2rem;
 
   &__container {
     margin-top: 4rem;

@@ -3,9 +3,14 @@
 
 .catalog {
   @include main-block;
-  margin: 4rem auto 0 auto;
   padding-bottom: $footer-height + 8rem;
   padding-top: $header-height;
+
+  @include max500 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+  }
 
   &__container {
     min-height: 40rem;
@@ -20,11 +25,24 @@
       align-items: center;
       gap: 4rem;
       font-size: 1.5rem;
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
     }
 
     &__items {
       @include items-section--catalog;
+
+      @include max1000 {
+        gap: 1rem;
+        row-gap: 4rem;
+      }
+      @include max700 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include max400 {
+        @include list;
+        align-items: center;
+        margin-bottom: 12rem;
+      }
     }
   }
 }

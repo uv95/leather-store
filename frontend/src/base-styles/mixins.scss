@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 124rem;
   padding: 0 2rem;
-
+  margin: 4rem auto 0 auto;
   @include max500 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -29,7 +29,7 @@
 }
 @mixin items-section--catalog {
   display: grid;
-  grid-template-columns: repeat(3, 32rem);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   row-gap: 6rem;
   justify-content: space-between;
@@ -41,7 +41,6 @@
   align-items: center;
 }
 @mixin heading {
-  font-size: 3rem;
   margin-bottom: $length-l;
   @include max1000 {
     margin-bottom: $length-m;
@@ -133,6 +132,11 @@
 }
 @mixin max700 {
   @media (max-width: 700px) {
+    @content;
+  }
+}
+@mixin max600 {
+  @media (max-width: 600px) {
     @content;
   }
 }

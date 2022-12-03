@@ -4,12 +4,11 @@
 
 .register {
   @include main-block;
-  margin: 4rem auto 0 auto;
   @include header-footer;
 
   &__container {
     margin: 0 auto;
-    width: 50rem;
+    width: 80%;
     text-align: center;
     font-size: 1.5rem;
     animation: up 0.5s ease;
