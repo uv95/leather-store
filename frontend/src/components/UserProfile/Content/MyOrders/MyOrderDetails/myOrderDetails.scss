@@ -9,7 +9,16 @@
     padding: 2rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
+    @include max400 {
+      padding: 1rem;
+    }
+
+    @include max300 {
+      @include list;
+      padding: 0.5rem;
+      gap: 1rem;
+    }
 
     &:first-of-type {
       border-top: 2px solid $color-grey--light;
@@ -21,10 +30,19 @@
       display: flex;
       gap: 2rem;
 
+      @include max400 {
+        @include list;
+        gap: 1rem;
+      }
+
       &-img {
-        width: 14rem;
-        height: 14rem;
+        width: 25%;
+        height: 100%;
         object-fit: cover;
+
+        @include max400 {
+          width: 60%;
+        }
       }
       &__info {
         font-size: 1.2rem;
@@ -43,17 +61,36 @@
     }
 
     &-right {
-      font-size: 2rem;
+      margin-top: 0.5rem;
+      min-width: fit-content;
       font-weight: bold;
+
+      @include max700 {
+        align-self: end;
+      }
+      @include max300 {
+        align-self: start;
+      }
     }
   }
 
   &__address {
     padding: 2rem;
-    font-size: 2rem;
+    @include max400 {
+      padding: 1rem;
+    }
+    @include max300 {
+      padding: 1rem 0.5rem;
+    }
   }
 
   &__bottom {
+    @include max300 {
+      @include list;
+      @include center;
+      gap: 0rem;
+      margin-top: 1rem;
+    }
     &-total {
       background-color: #fff;
       font-size: 2rem;
@@ -71,6 +108,13 @@
       display: flex;
       gap: 1rem;
       justify-content: flex-end;
+
+      @include max400 {
+        padding: 1rem;
+      }
+      @include max300 {
+        padding: 1rem 0.5rem;
+      }
     }
   }
 }

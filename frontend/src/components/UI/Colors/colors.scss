@@ -25,6 +25,13 @@
     display: flex;
     gap: 1.5rem;
 
+    &.fromMyOrders {
+      @include max800 {
+        @include list;
+        gap: 0.5rem;
+      }
+    }
+
     &-item {
       display: flex;
       align-items: center;

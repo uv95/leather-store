@@ -10,11 +10,6 @@
   top: -10%;
   left: 0;
   z-index: 99;
-
-  @include max300 {
-    // min-width: 150% !important;
-    // height: 140% !important;
-  }
 }
 
 .modal {

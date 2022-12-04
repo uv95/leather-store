@@ -6,9 +6,10 @@ type ListItemProps = {
   data: { dataItem: any; style?: string }[];
   bg: string;
   Details: JSX.Element;
+  myOrder?: boolean;
 };
 
-const ListItem = ({ data, bg, Details }: ListItemProps) => {
+const ListItem = ({ data, bg, Details, myOrder }: ListItemProps) => {
   const [openDetails, setOpenDetails] = useState(false);
   return (
     <div className="listItem">
@@ -19,15 +20,20 @@ const ListItem = ({ data, bg, Details }: ListItemProps) => {
             data[0].dataItem.imgPath
               ? 'listItem__card__main listItem__card__main-withImage'
               : 'listItem__card__main listItem__card__main'
-          }`}
+          }  ${myOrder ? 'myOrder' : ''}`}
           style={{ gridTemplateColumns: `repeat(${data.length}, 1fr)` }}
         >
           {data.map((el, i) => (
-            <div key={i} className="listItem__card__main__field">
+            <div
+              key={i}
+              className={`listItem__card__main__field ${
+                myOrder ? 'myOrder' : ''
+              }`}
+            >
               <div
                 className={`listItem__card__main__field-content ${
                   el.style ? el.style : ''
-                }`}
+                }  ${myOrder ? 'myOrder' : ''}`}
               >
                 {el.dataItem?.imgPath ? (
                   <img src={el.dataItem?.imgPath} alt="фото товара" />

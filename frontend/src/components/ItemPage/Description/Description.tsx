@@ -85,28 +85,30 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       <div className="leather-type">
         <p>Тип кожи:</p>
         <div className="leather-type__radio">
-          <Radio
-            name="Crazy Horse"
-            onChange={onChange}
-            checked={leatherType === 'Crazy Horse'}
-          />
-          <Radio
-            name="Nappa"
-            onChange={onChange}
-            checked={leatherType === 'Nappa'}
-          />
-          <Radio
-            name="Pull Up"
-            onChange={onChange}
-            checked={leatherType === 'Pull Up'}
-          />
+          <div className="leather-type__radio__options">
+            <Radio
+              name="Crazy Horse"
+              onChange={onChange}
+              checked={leatherType === 'Crazy Horse'}
+            />
+            <Radio
+              name="Nappa"
+              onChange={onChange}
+              checked={leatherType === 'Nappa'}
+            />
+            <Radio
+              name="Pull Up"
+              onChange={onChange}
+              checked={leatherType === 'Pull Up'}
+            />
+          </div>
+          <div
+            className="leather-type-info"
+            onClick={() => navigate(LEATHERS_ROUTE)}
+          >
+            ?
+          </div>
         </div>
-        <p
-          className="leather-type-info"
-          onClick={() => navigate(LEATHERS_ROUTE)}
-        >
-          ?
-        </p>
       </div>
       <Colors
         leatherColor={colors.leatherColor}

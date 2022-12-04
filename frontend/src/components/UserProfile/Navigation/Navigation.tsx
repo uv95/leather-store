@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Tab from './Tab/Tab';
 import logoutsvg from '../../../assets/icons/logout.svg';
 import portrait from '../../../assets/icons/portrait.svg';
-import address from '../../../assets/icons/address.svg';
+import location from '../../../assets/icons/location.svg';
 import orders from '../../../assets/icons/orders.svg';
 import useLogout from '../../../hooks/useLogout';
 import Modal from '../../UI/Modal/Modal';
@@ -22,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
   const tabs = [
     { text: 'Мои заказы', icon: orders },
-    { text: 'Адреса доставки', icon: address },
+    { text: 'Адреса доставки', icon: location },
     { text: 'Мои данные', icon: portrait },
   ];
 
@@ -32,9 +32,9 @@ const Navigation: React.FC<NavigationProps> = ({
         <Modal
           setOpen={setOpenModal}
           Content={
-            <div className="myOrderDetails__modal">
+            <>
               <p>Вы действительно хотите выйти?</p>
-              <div className="myOrderDetails__modal__buttons">
+              <div className="modal__content__buttons">
                 <Button
                   text="Да"
                   color="grey"
@@ -49,7 +49,7 @@ const Navigation: React.FC<NavigationProps> = ({
                   onClick={() => setOpenModal(false)}
                 />
               </div>
-            </div>
+            </>
           }
         />
       )}

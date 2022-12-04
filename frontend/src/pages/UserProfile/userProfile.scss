@@ -14,8 +14,17 @@
     gap: 4rem;
     margin-bottom: 4rem;
 
-    &__nav {
-      // margin-top: 1rem;
+    @include max1000 {
+      gap: 2rem;
+    }
+    @include max800 {
+      gap: 1rem;
+    }
+    @include max700 {
+      @include list;
+    }
+    @include max500 {
+      gap: 0.5rem;
     }
 
     &__content {
@@ -23,6 +32,29 @@
       width: 100%;
       padding: 2rem 4rem;
       min-height: 30rem;
+
+      @include max1000 {
+        padding: 2rem;
+      }
+      @include max800 {
+        padding: 1rem;
+      }
+      @include max400 {
+        padding: 0.5rem;
+      }
     }
+  }
+}
+
+.nav {
+  @include max700 {
+    display: flex;
+    justify-content: space-between;
+  }
+  @include max500 {
+    justify-content: space-evenly;
+  }
+  @include max400 {
+    justify-content: space-between;
   }
 }

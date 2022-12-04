@@ -6,6 +6,7 @@ type ColorsProps = {
   leatherColor: string;
   threadsColor: string;
   vertical?: boolean;
+  fromMyOrders?: boolean;
   openSelectLeatherColor?: () => void;
   openSelectThreadsColor?: () => void;
 };
@@ -14,11 +15,16 @@ const Colors = ({
   leatherColor,
   threadsColor,
   vertical,
+  fromMyOrders,
   openSelectLeatherColor,
   openSelectThreadsColor,
 }: ColorsProps) => {
   return (
-    <div className={`colors-${vertical ? 'vertical' : 'horizontal'}`}>
+    <div
+      className={`colors-${vertical ? 'vertical' : 'horizontal '} ${
+        fromMyOrders ? 'fromMyOrders' : ''
+      }`}
+    >
       <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
         <p>Цвет кожи:</p>
         <div

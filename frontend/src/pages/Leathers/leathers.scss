@@ -2,11 +2,13 @@
 @import '../../base-styles/mixins.scss';
 
 .leathers {
-  margin: 0 auto;
+  // margin: 0 auto;
+  @include main-block;
   @include header-footer;
+  margin-top: 2rem;
 
   &-heading {
-    @include main-block;
+    // @include main-block;
     & h1 {
       @include heading;
     }
@@ -14,7 +16,7 @@
 
   &__container {
     &__leather {
-      padding: 3rem 2rem;
+      padding: 4rem 2rem;
       &:first-of-type {
         padding-top: 0;
       }

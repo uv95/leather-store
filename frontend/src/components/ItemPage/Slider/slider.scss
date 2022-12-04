@@ -1,3 +1,6 @@
+@import '../../../base-styles/variables.scss';
+@import '../../../base-styles/mixins.scss';
+
 .slider {
   display: flex;
   overflow: hidden;
@@ -15,6 +18,7 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+  background-color: rgba(255, 255, 255, 0.194);
   width: 1.5rem;
   cursor: pointer;
   z-index: 2;

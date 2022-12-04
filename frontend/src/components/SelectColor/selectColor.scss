@@ -16,12 +16,23 @@
   margin-top: 3rem;
   background-color: white;
   box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.13);
-  position: absolute;
+  position: fixed;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   padding: 1rem 2rem;
+
+  @include max900 {
+    margin-top: 0rem;
+  }
+  @include max800 {
+    width: 90%;
+    top: 50%;
+  }
+  @include max400 {
+    padding: 1rem;
+  }
 
   &-title {
     font-size: 2.5rem;
@@ -34,17 +45,43 @@
     grid-template-columns: repeat(3, 1fr);
     // place-items: center;
     row-gap: 1.5rem;
+
+    @include max800 {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 1rem;
+    }
+    @include max300 {
+      @include list;
+      gap: 0.5rem;
+    }
     &__box {
       display: flex;
       align-items: center;
       gap: 1.5rem;
-      font-size: 1.7rem;
       padding: 1rem 4rem;
       cursor: pointer;
+
+      @include max700 {
+        gap: 1rem;
+        padding: 1rem 2rem;
+      }
+      @include max500 {
+        padding: 0.5rem;
+      }
+
       &:not(.color__container__box-checked):hover {
         background-color: $color-grey--light;
-
         outline: 0;
+      }
+
+      &-text {
+        font-size: 2rem;
+        @include max500 {
+          font-size: 1.7rem;
+        }
+        @include max300 {
+          font-size: 2rem;
+        }
       }
 
       &-checked {
@@ -58,6 +95,15 @@
         width: 7rem;
         height: 7rem;
         transition: all 0.2s;
+
+        @include max500 {
+          width: 4rem;
+          height: 4rem;
+        }
+        @include max400 {
+          width: 3rem;
+          height: 3rem;
+        }
       }
     }
   }

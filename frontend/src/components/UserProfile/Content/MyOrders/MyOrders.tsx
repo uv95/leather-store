@@ -51,6 +51,7 @@ const MyOrders = () => {
             Details={<MyOrderDetails order={order} />}
             bg="white"
             data={orderData(order)}
+            myOrder
           />
         ))}
         {myFinishedOrders.length !== 0 && (
@@ -62,6 +63,7 @@ const MyOrders = () => {
             Details={<MyOrderDetails order={order} />}
             bg="white"
             data={orderData(order)}
+            myOrder
           />
         ))}
       </div>

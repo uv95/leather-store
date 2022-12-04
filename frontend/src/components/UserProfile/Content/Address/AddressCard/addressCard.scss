@@ -8,7 +8,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 8rem;
+  height: fit-content;
+  min-height: 8rem;
+  @include max500 {
+    padding: 0.5rem 0;
+  }
 
   &-active {
     outline: 2px solid $color-grey--medium;
@@ -31,18 +35,30 @@
     padding-right: 1rem;
     font-size: 2rem;
     padding: 0 2rem;
+
+    @include max500 {
+      font-size: 1.7rem;
+      padding: 0 1rem;
+    }
   }
   &__left {
     @include center;
-    gap: 1rem;
-    width: 15%;
-    padding-left: 1rem;
+    gap: 2rem;
+    width: fit-content;
+    padding: 0 2rem;
+    @include max500 {
+      padding: 0 1rem;
+    }
 
     & img {
       width: 2rem;
       height: 2rem;
       cursor: pointer;
       @include hover;
+      @include max500 {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
     }
   }
 }

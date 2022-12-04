@@ -56,22 +56,23 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
                 <Colors
                   leatherColor={item.colors.leatherColor}
                   threadsColor={item.colors.threadsColor}
+                  fromMyOrders
                 />
                 <p className="myOrderDetails__item-left__info-qty">
                   Количество: {item.quantity}
                 </p>
               </div>
             </div>
-            <div className="myOrderDetails__item-right">
+            <p className="myOrderDetails__item-right">
               {item.price * item.quantity} руб.
-            </div>
+            </p>
           </div>
         ))}
 
-        <div className="myOrderDetails__address">
+        <p className="myOrderDetails__address">
           Адрес доставки: {order.address.city}, {order.address.address},
           {order.address.zipcode}
-        </div>
+        </p>
 
         <div className="myOrderDetails__bottom">
           <div className="myOrderDetails__bottom-total">

@@ -5,6 +5,12 @@
   &__top {
     display: flex;
     justify-content: space-between;
+
+    @include max500 {
+      @include list;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
   }
   &__heading {
     @include heading;

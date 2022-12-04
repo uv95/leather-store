@@ -8,6 +8,17 @@
   width: 24rem;
   font-size: 2rem;
   cursor: pointer;
+  @include max1000 {
+    width: 22rem;
+  }
+  @include max900 {
+    gap: 1rem;
+    width: 20rem;
+  }
+  @include max800 {
+    width: fit-content;
+    margin-bottom: 1rem;
+  }
   &.active {
     color: inherit;
     background-color: $color-grey--medium;
@@ -18,6 +29,34 @@
     @include center;
     & img {
       width: 2rem;
+      @include max800 {
+        width: 2.5rem;
+      }
+      @include max300 {
+        width: 2rem;
+      }
+    }
+    @include max700 {
+      display: none;
+    }
+    @include max500 {
+      display: block;
+      height: 2.5rem;
+    }
+    @include max300 {
+      height: 2rem;
+    }
+  }
+
+  &-text {
+    @include max800 {
+      display: none;
+    }
+    @include max700 {
+      display: inline-block;
+    }
+    @include max500 {
+      display: none;
     }
   }
 
