@@ -45,7 +45,7 @@
 
   @include max500 {
     @include list;
-    align-items: start;
+    align-items: flex-start;
   }
 
   &-info {
@@ -78,7 +78,7 @@
 
       @include max300 {
         @include list;
-        align-items: start;
+        align-items: flex-start;
       }
 
       &-input {

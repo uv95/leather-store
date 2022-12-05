@@ -3,8 +3,8 @@
 
 .cart {
   @include main-block;
-  margin-top: -2rem;
   @include header-footer;
+  margin-top: 2rem;
 
   &__modal {
     font-size: 2rem;
@@ -38,6 +38,10 @@
         & p {
           width: fit-content;
           margin-left: auto;
+          font-size: 2rem;
+          @include max400 {
+            margin: 0 auto;
+          }
         }
       }
     }

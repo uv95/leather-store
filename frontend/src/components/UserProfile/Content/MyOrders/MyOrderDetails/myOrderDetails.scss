@@ -9,7 +9,7 @@
     padding: 2rem;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     @include max400 {
       padding: 1rem;
     }
@@ -66,10 +66,10 @@
       font-weight: bold;
 
       @include max700 {
-        align-self: end;
+        align-self: flex-end;
       }
       @include max300 {
-        align-self: start;
+        align-self: flex-start;
       }
     }
   }

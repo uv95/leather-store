@@ -25,6 +25,11 @@
     display: flex;
     gap: 1.5rem;
 
+    @include max400 {
+      @include list;
+      gap: 0.5rem;
+    }
+
     &.fromMyOrders {
       @include max800 {
         @include list;

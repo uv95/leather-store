@@ -55,6 +55,10 @@
   min-width: 16rem;
   width: fit-content;
   padding: 0 1rem;
+  @include max300 {
+    min-width: none;
+    font-size: 1.5rem;
+  }
 }
 
 .animated {

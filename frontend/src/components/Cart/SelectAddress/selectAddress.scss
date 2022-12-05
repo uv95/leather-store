@@ -7,6 +7,12 @@
   padding: 2rem;
   animation: down 0.5s ease;
   transform-origin: top center;
+  @include max500 {
+    padding: 1rem;
+  }
+  @include max300 {
+    padding: 1rem 0.5rem;
+  }
   & h2 {
     margin-bottom: 2rem;
   }
@@ -21,6 +27,10 @@
     column-gap: 2rem;
     row-gap: 2rem;
     animation: up 0.8s ease;
+
+    @include max700 {
+      @include list;
+    }
   }
 }
 

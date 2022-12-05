@@ -160,3 +160,8 @@
     @content;
   }
 }
+@mixin max200 {
+  @media (max-width: 200px) {
+    @content;
+  }
+}

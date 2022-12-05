@@ -7,6 +7,7 @@ import { useReduceQuantity } from '../../../hooks/useReduceQuantity';
 import { useDeleteCartItem } from '../../../hooks/useDeleteCartItem';
 import Quantity from '../../UI/Quantity/Quantity';
 import Colors from '../../UI/Colors/Colors';
+import Button from '../../UI/Button/Button';
 
 type CartItemProps = { item: ICartItem };
 
@@ -45,6 +46,11 @@ const CartItem = ({ item }: CartItemProps) => {
       <div className="cart-item__right">
         <div className="cart-item__right-remove">
           <Delete onClick={() => deleteCartItem(item._id!)} />
+          <Button
+            onClick={() => deleteCartItem(item._id!)}
+            text="Удалить"
+            color="black"
+          />
         </div>
       </div>
     </div>

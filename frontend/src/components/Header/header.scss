@@ -59,6 +59,10 @@
       height: $header-height;
       color: black;
 
+      @include max700 {
+        padding-right: 1rem;
+      }
+
       &__logo {
         font-weight: 700;
         @include hover;
