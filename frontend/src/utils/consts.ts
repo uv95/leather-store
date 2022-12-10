@@ -37,3 +37,5 @@ export const colors = {
   // Розовый: '#fe87fe',
   Хаки: '#474c21',
 };
+
+export const BASE_URL = 'https://leather-store.netlify.app/';

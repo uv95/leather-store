@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { ICart, ICartItem } from '../../types/data';
+import { BASE_URL } from '../../utils/consts';
 
-const API_URL = 'http://localhost:5000/cart/';
+// const API_URL = 'http://localhost:5000/cart/';
+const API_URL = BASE_URL + 'cart/';
 
 const addToCart = async (cartItem: ICartItem, token: string) => {
   const config = {

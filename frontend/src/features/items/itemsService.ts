@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { IItem } from '../../types/data';
+import { BASE_URL } from '../../utils/consts';
 
-const API_URL = 'http://localhost:5000/items/';
+// const API_URL = 'http://localhost:5000/items/';
+const API_URL = BASE_URL + 'items/';
 
 const addItem = async (itemData: FormData, token: string) => {
   const config = {
