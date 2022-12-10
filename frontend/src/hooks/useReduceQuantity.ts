@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppDispatch } from '../hooks';
 import { reduceQuantity, reduceQuantityLS } from '../features/cart/cartSlice';
 import useGetMe from './useGetMe';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './selectColor.scss';
 import { colors } from '../../utils/consts';
 import Button from '../UI/Button/Button';

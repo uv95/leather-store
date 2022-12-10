@@ -4,11 +4,10 @@ import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
-import { IItem, ICart, ICartItem } from '../../../types/data';
+import { IItem, ICartItem } from '../../../types/data';
 import Colors from '../../UI/Colors/Colors';
 import { useNavigate } from 'react-router-dom';
 import { LEATHERS_ROUTE } from '../../../utils/consts';
-import useGetMe from '../../../hooks/useGetMe';
 import { useAppSelector } from '../../../hooks';
 
 interface DescriptionProps {

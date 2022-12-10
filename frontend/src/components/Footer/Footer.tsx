@@ -9,9 +9,7 @@ import {
 } from '../../utils/consts';
 import ig from '../../assets/icons/instagram-512.svg';
 
-type Props = {};
-
-function Footer({}: Props) {
+function Footer() {
   return (
     <div className="footer">
       <div className="footer__container">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './filter_view.scss';
 import Dropdown from './Dropdown/Dropdown';
 import Button from '../UI/Button/Button';

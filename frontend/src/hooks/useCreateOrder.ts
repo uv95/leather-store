@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addOrder, getMyOrders } from '../features/order/orderSlice';
 import { IOrder } from '../types/data';

@@ -14,7 +14,7 @@ const Toast = ({ text, type, opened, setOpened }: Props) => {
     setTimeout(() => {
       setOpened(false);
     }, 4000);
-  }, []);
+  }, [setOpened]);
 
   return ReactDOM.createPortal(
     <div

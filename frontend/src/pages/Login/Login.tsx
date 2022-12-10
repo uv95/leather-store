@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../features/auth/authSlice';
-import { getMe } from '../../features/user/userSlice';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
 import { updateCart } from '../../features/cart/cartSlice';

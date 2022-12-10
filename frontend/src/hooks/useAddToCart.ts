@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addToCart, addToCartLS } from '../features/cart/cartSlice';
 import { ICartItem } from '../types/data';
@@ -8,7 +7,7 @@ export function useAddToCart() {
   const { user } = useAppSelector((state) => state.auth);
 
   const addItemToCart = (item: ICartItem) => {
-   if (user) {
+    if (user) {
       dispatch(addToCart(item))
         .unwrap()
         .then()

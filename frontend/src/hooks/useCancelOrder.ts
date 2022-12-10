@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppDispatch } from '../hooks';
 import { deleteOrder } from '../features/order/orderSlice';
 
