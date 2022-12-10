@@ -9,7 +9,7 @@ import useCreateOrder from '../../hooks/useCreateOrder';
 import Back from '../../components/UI/Back/Back';
 import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import { IOrder } from '../../types/data';
+import { ICartItem, IOrder } from '../../types/data';
 import { USER_PROFILE_ROUTE } from '../../utils/consts';
 import { useAppSelector } from '../../hooks';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
@@ -23,7 +23,6 @@ const Cart = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openSelectAddress, setOpenSelectAddress] = useState(false);
   const [currentAddressIndex, setCurrentAddressIndex] = useState(0);
-
   const [cartData, setCartData] = useState<IOrder>({
     items: [],
     user: {
@@ -78,7 +77,7 @@ const Cart = () => {
             <>
               <div className="cart__container__order">
                 <div className="cart__container__order__items">
-                  {cart.items.map((item, i) => (
+                  {cart.items.map((item: ICartItem, i: number) => (
                     <CartItem key={i} item={item} />
                   ))}
                 </div>

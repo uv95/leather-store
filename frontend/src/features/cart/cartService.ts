@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ICartItem } from '../../types/data';
+import { ICart, ICartItem } from '../../types/data';
 
 const API_URL = 'http://localhost:5000/cart/';
 
@@ -21,6 +21,17 @@ const getCart = async (token: string) => {
     },
   };
   const res = await axios.get(API_URL, config);
+  return res.data;
+};
+
+const updateCart = async (updatedCart: Partial<ICart>, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await axios.patch(API_URL, updatedCart, config);
+  console.log(res.data, 'updateCart');
   return res.data;
 };
 
@@ -63,6 +74,7 @@ const cartService = {
   emptyCart,
   deleteItemFromCart,
   reduceQuantity,
+  updateCart,
 };
 
 export default cartService;

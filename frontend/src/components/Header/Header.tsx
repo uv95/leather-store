@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-        {location.pathname.startsWith('/admin') ? (
+        {location.pathname.startsWith('/admin') && role === 'admin' ? (
           <AdminHeader />
         ) : (
           <div className="header__container-inner">
@@ -45,13 +45,25 @@ const Header = () => {
                 КАТАЛОГ
               </Link>
               {!role ? (
-                <Link to={LOGIN_ROUTE}>
-                  <img
-                    src={login}
-                    className="header__container-inner__nav-icon"
-                    alt="login"
-                  />
-                </Link>
+                <>
+                  <Link to={LOGIN_ROUTE}>
+                    <img
+                      src={login}
+                      className="header__container-inner__nav-icon"
+                      alt="login"
+                    />
+                  </Link>
+                  <Link to={CART_ROUTE} className="link-cart">
+                    <img
+                      src={cartIcon}
+                      className="header__container-inner__nav-icon "
+                      alt="cart"
+                    />
+                    {cart && cart?.items.length !== 0 && (
+                      <Badge value={cart.totalQuantity} />
+                    )}
+                  </Link>
+                </>
               ) : role === 'user' ? (
                 <>
                   <Link to={USER_PROFILE_ROUTE} className="link-user">

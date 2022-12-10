@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { register } from '../../features/auth/authSlice';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
+import { updateCart } from '../../features/cart/cartSlice';
+import { ICartItem } from '../../types/data';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +40,27 @@ const Register = () => {
 
     dispatch(register(formData))
       .unwrap()
-      .then(() => navigate('/'))
+      .then((data) => {
+        JSON.parse(localStorage.getItem('cart')!)
+          ? dispatch(
+              updateCart({
+                ...JSON.parse(localStorage.getItem('cart')!),
+                items: JSON.parse(localStorage.getItem('cart')!).items.map(
+                  (item: ICartItem) => {
+                    delete item._id;
+                    return item;
+                  }
+                ),
+                user: data.data.user._id,
+              })
+            )
+              .unwrap()
+              .then((_) => {
+                localStorage.removeItem('cart');
+                navigate('/');
+              })
+          : navigate(-1);
+      })
       .catch((error) => {
         setToastText(error.split(':')[2 || 1]);
         setOpenToast(true);

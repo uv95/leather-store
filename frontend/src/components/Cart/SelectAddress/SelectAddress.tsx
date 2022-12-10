@@ -5,7 +5,8 @@ import Spinner from '../../UI/Spinner/Spinner';
 import { useGetAllAddresses } from '../../../hooks/useGetAllAddresses';
 import { IAddress } from '../../../types/data';
 import { Link } from 'react-router-dom';
-import { USER_PROFILE_ROUTE } from '../../../utils/consts';
+import { LOGIN_ROUTE, USER_PROFILE_ROUTE } from '../../../utils/consts';
+import { useAppSelector } from '../../../hooks';
 
 type SelectAddressProps = {
   setCurrentAddressIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -19,6 +20,7 @@ const SelectAddress = ({
   addresses,
 }: SelectAddressProps) => {
   const { isLoading } = useGetAllAddresses();
+  const { user } = useAppSelector((state) => state.auth);
 
   return (
     <div className="selectAddress">
@@ -44,7 +46,10 @@ const SelectAddress = ({
       ) : (
         <p className="addAddress">
           Пожалуйста, добавьте адрес в{' '}
-          <Link className="redLink" to={USER_PROFILE_ROUTE}>
+          <Link
+            className="redLink"
+            to={user ? USER_PROFILE_ROUTE : LOGIN_ROUTE}
+          >
             личном кабинете.
           </Link>
         </p>

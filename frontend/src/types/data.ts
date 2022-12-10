@@ -90,6 +90,7 @@ export interface IUpdatedItem {
 
 export interface ICartItem {
   _id?: string;
+  total?: number;
   itemId: string;
   name: string;
   quantity: number;
@@ -103,7 +104,7 @@ export interface ICartItem {
   price: number;
 }
 
-interface ICart {
+export interface ICart {
   items: ICartItem[];
   total: number;
   totalQuantity: number;

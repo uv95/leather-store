@@ -32,11 +32,14 @@ interface Routes {
   Component: React.FC;
 }
 
-export const authRoutes: Routes[] = [
+export const adminRoutes: Routes[] = [
   { path: ADMIN_ROUTE, Component: Admin },
   { path: USER_PROFILE_ROUTE, Component: UserProfile },
   { path: STATISTICS_ROUTE, Component: Statistics },
   { path: ITEMS_MANAGEMENT_ROUTE, Component: ItemsManagement },
+];
+export const userRoutes: Routes[] = [
+  { path: USER_PROFILE_ROUTE, Component: UserProfile },
 ];
 
 export const publicRoutes: Routes[] = [

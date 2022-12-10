@@ -1,14 +1,20 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useAppSelector } from '../hooks';
 import NotFound from '../pages/NotFound/NotFound';
-import { authRoutes, publicRoutes } from '../routes';
+import { adminRoutes, userRoutes, publicRoutes } from '../routes';
 
 const Router: React.FC = () => {
-  const isAuth = true;
+  const role = useAppSelector((state) => state.auth.role);
+
   return (
     <Routes>
-      {isAuth &&
-        authRoutes.map(({ path, Component }) => (
+      {role === 'admin' &&
+        adminRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+      {role === 'user' &&
+        userRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
       {publicRoutes.map(({ path, Component }) => (

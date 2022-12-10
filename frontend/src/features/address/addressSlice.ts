@@ -18,7 +18,6 @@ export const addAddress = createAsyncThunk(
       const { token } = state.auth.user;
       return await addressService.addAddress(addressData, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -32,7 +31,6 @@ export const getAllAddresses = createAsyncThunk(
       const { token } = state.auth.user;
       return await addressService.getAllAddresses(token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -45,7 +43,6 @@ export const getAddress = createAsyncThunk(
       const { token } = state.auth.user;
       return await addressService.getAddress(addressId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -59,7 +56,6 @@ export const deleteAddress = createAsyncThunk(
       const { token } = state.auth.user;
       return await addressService.deleteAddress(addressId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -76,7 +72,6 @@ export const updateAddress = createAsyncThunk(
         token
       );
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

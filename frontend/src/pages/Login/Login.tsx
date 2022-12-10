@@ -8,6 +8,8 @@ import { login } from '../../features/auth/authSlice';
 import { getMe } from '../../features/user/userSlice';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
+import { updateCart } from '../../features/cart/cartSlice';
+import { ICartItem } from '../../types/data';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -34,11 +36,29 @@ const Login = () => {
 
     dispatch(login(formData))
       .unwrap()
-      .then(() =>
-        dispatch(getMe())
-          .unwrap()
-          .then((_) => navigate('/'))
-      )
+      .then((data) => {
+        if (data.data.user.role === 'user')
+          JSON.parse(localStorage.getItem('cart')!)
+            ? dispatch(
+                updateCart({
+                  ...JSON.parse(localStorage.getItem('cart')!),
+                  items: JSON.parse(localStorage.getItem('cart')!).items.map(
+                    (item: ICartItem) => {
+                      delete item._id;
+                      return item;
+                    }
+                  ),
+                  user: data.data.user._id,
+                })
+              )
+                .unwrap()
+                .then((_) => {
+                  localStorage.removeItem('cart');
+                  navigate('/');
+                })
+            : navigate('/');
+        if (data.data.user.role === 'admin') navigate('/admin');
+      })
       .catch((error) => {
         setToastText(error);
         setOpenToast(true);

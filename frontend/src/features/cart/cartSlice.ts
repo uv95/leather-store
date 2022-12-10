@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { extractErrorMessage } from '../../utils/errorMessage';
 import cartService from './cartService';
-import { ICartItem, ICartState } from '../../types/data';
+import { ICart, ICartItem, ICartState } from '../../types/data';
 
 const initialState: ICartState = {
   cart: null,
@@ -34,6 +34,20 @@ export const getCart = createAsyncThunk('@@cart/get', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
 });
+
+export const updateCart = createAsyncThunk(
+  '@@cart/update',
+  async (updatedCart: Partial<ICart>, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const { token } = state.auth.user;
+      return await cartService.updateCart(updatedCart, token);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
 
 export const emptyCart = createAsyncThunk(
   '@@cart/emptyCart',
@@ -78,18 +92,99 @@ export const reduceQuantity = createAsyncThunk(
 export const cartSlice = createSlice({
   name: '@@cart',
   initialState,
-  reducers: {},
+  reducers: {
+    //if user not loggged in (LS - LocalStorage)
+    addToCartLS: (state, action) => {
+      if (state.cart) {
+        //check if there is item in cart with the same ID and COLORS (same logic as in cartController)
+        const itemIndex = state.cart.items.findIndex(
+          (item) =>
+            item.itemId === action.payload.itemId &&
+            Object.values(item.colors).every(
+              (color, i) => color === Object.values(action.payload.colors)[i]
+            ) &&
+            item.leather === action.payload.leather
+        );
+
+        if (itemIndex > -1) {
+          let product = state.cart.items[itemIndex];
+          product.quantity += 1;
+          if (product.total) product.total += product.price;
+          state.cart.items[itemIndex] = product;
+          state.cart.totalQuantity += 1;
+          state.cart.total += product.price;
+        } else {
+          state.cart.items.push(action.payload);
+          state.cart.totalQuantity += 1;
+          state.cart.total += action.payload.price;
+        }
+      }
+      if (!state.cart)
+        state.cart = {
+          user: '',
+          items: [action.payload],
+          total: action.payload.price,
+          totalQuantity: 1,
+        };
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+    },
+
+    getCartLS: (state) => {
+      state.cart = JSON.parse(localStorage.getItem('cart')!);
+    },
+
+    deleteItemFromCartLS: (state, action) => {
+      if (state.cart) {
+        const itemIndex = state.cart.items.findIndex(
+          (item) => item._id === action.payload
+        );
+
+        if (itemIndex > -1) {
+          let item = state.cart.items[itemIndex];
+          if (item.total && item.total < 0) item.total = 0;
+          state.cart.items.splice(itemIndex, 1);
+          state.cart.total -= item.price * item.quantity;
+          state.cart.totalQuantity -= item.quantity;
+        }
+        if (!state.cart.items.length) {
+          state.cart.total = 0;
+          state.cart.totalQuantity = 0;
+        }
+        localStorage.setItem('cart', JSON.stringify(state.cart));
+      }
+    },
+
+    reduceQuantityLS: (state, action) => {
+      if (state.cart) {
+        const itemIndex = state.cart.items.findIndex(
+          (item) => item._id === action.payload
+        );
+
+        if (itemIndex > -1) {
+          let item = state.cart.items[itemIndex];
+          if (item.total && item.total < 0) item.total = 0;
+          item.quantity -= 1;
+          state.cart.total -= item.price;
+          state.cart.totalQuantity -= 1;
+          if (item.quantity === 0) state.cart.items.splice(itemIndex, 1);
+        }
+        localStorage.setItem('cart', JSON.stringify(state.cart));
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(deleteItemFromCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
-        console.log(action);
       })
       .addCase(emptyCart.fulfilled, (state) => {
         state.cart = null;
       })
       .addCase(emptyCart.rejected, (state) => {
         state.cart = null;
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        state.cart = action.payload.data.data;
       })
       .addCase(getCart.pending, (state) => {
         state.cart = null;
@@ -105,12 +200,6 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
       })
       .addCase(reduceQuantity.fulfilled, (state, action) => {
-        let cartItem;
-        if (state.cart)
-          cartItem = state.cart.items.find(
-            (item) => item._id === action.meta.arg
-          );
-        if (cartItem) cartItem.quantity -= 1;
         state.cart = action.payload.data.data;
       })
       .addMatcher(
@@ -127,5 +216,12 @@ export const cartSlice = createSlice({
       );
   },
 });
+
+export const {
+  addToCartLS,
+  getCartLS,
+  deleteItemFromCartLS,
+  reduceQuantityLS,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

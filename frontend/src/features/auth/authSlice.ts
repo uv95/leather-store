@@ -21,7 +21,6 @@ export const register = createAsyncThunk(
       return await authService.register(user);
     } catch (error) {
       console.log(error);
-
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -100,7 +99,6 @@ export const authSlice = createSlice({
       })
       .addCase(updatePassword.rejected, (state) => {
         state.isLoading = false;
-        // state.user=
       });
   },
 });

@@ -6,12 +6,20 @@
   @include center;
   flex-direction: column;
   @include header-footer;
+  text-align: center;
 
   & h1 {
     font-size: 15rem;
+
+    @include max400 {
+      font-size: 10rem;
+    }
   }
 
   & p {
     font-size: 3rem;
+    @include max400 {
+      font-size: 2.5rem;
+    }
   }
 }

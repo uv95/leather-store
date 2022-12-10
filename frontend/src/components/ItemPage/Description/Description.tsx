@@ -4,10 +4,12 @@ import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
-import { IItem } from '../../../types/data';
+import { IItem, ICart, ICartItem } from '../../../types/data';
 import Colors from '../../UI/Colors/Colors';
 import { useNavigate } from 'react-router-dom';
 import { LEATHERS_ROUTE } from '../../../utils/consts';
+import useGetMe from '../../../hooks/useGetMe';
+import { useAppSelector } from '../../../hooks';
 
 interface DescriptionProps {
   item: IItem;
@@ -16,15 +18,18 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ item }) => {
   const addItemToCart = useAddToCart();
   const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
+
   const [leatherType, setLeatherType] = useState('Crazy Horse');
   const [colors, setColors] = useState({
     leatherColor: 'Черный',
     threadsColor: 'Черный',
   });
-  const [cartItemData, setCartItemData] = useState({
+  const [cartItemData, setCartItemData] = useState<ICartItem>({
+    _id: '',
     itemId: '',
     name: '',
     quantity: 1,
@@ -41,6 +46,8 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
   useEffect(() => {
     item &&
       setCartItemData({
+        ...(!user && { _id: Date.now().toString() }),
+        ...(!user && { total: +item.price }),
         itemId: item._id,
         name: item.name,
         quantity: 1,
@@ -53,7 +60,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
         imageCover: item.imageCover,
         images: item.images,
       });
-  }, [item, colors, leatherType]);
+  }, [item, colors, leatherType, user]);
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;

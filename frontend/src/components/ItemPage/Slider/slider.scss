@@ -7,9 +7,7 @@
 
   &-img {
     width: 100%;
-    // background-position: center;
     transition: transform 0.5s;
-    // object-fit: cover;
   }
 }
 
@@ -18,14 +16,24 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  background-color: rgba(255, 255, 255, 0.194);
-  width: 1.5rem;
+  width: 8rem;
+  padding: 3rem;
+  height: 100%;
   cursor: pointer;
   z-index: 2;
+
+  @include max400 {
+    width: 6rem;
+    padding: 2rem;
+  }
+  @include max300 {
+    width: 6rem;
+    padding: 2.2rem;
+  }
 }
 .leftArrow {
-  left: 1.5rem;
+  left: -1rem;
 }
 .rightArrow {
-  right: 1.5rem;
+  right: -1rem;
 }

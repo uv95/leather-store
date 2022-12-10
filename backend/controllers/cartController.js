@@ -94,6 +94,37 @@ exports.createCart = catchAsync(async (req, res, next) => {
   }
 });
 
+exports.replaceCart = catchAsync(async (req, res, next) => {
+  const cart = await Cart.findOne({ user: req.user.id });
+  if (!cart) {
+    const newCart = await Cart.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: { data: newCart },
+    });
+  }
+  if (cart) {
+    const updatedCart = await Cart.findOneAndUpdate(
+      { user: req.user.id },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!updatedCart) next(new AppError('No cart found!', 404));
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: updatedCart,
+      },
+    });
+  }
+});
+
 exports.deleteItem = catchAsync(async (req, res, next) => {
   const { cartItemId } = req.params;
 
@@ -104,7 +135,7 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
 
   if (itemIndex > -1) {
     let item = cart.items[itemIndex];
-    item.total -= item.price;
+    item.total -= item.price; ///
     if (item.total < 0) item.total = 0;
     cart.items.splice(itemIndex, 1);
     cart = await cart.save();

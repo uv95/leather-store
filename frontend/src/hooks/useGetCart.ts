@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { getCart } from '../features/cart/cartSlice';
+import { getCart, getCartLS } from '../features/cart/cartSlice';
 
 export function useGetCart() {
   const dispatch = useAppDispatch();
-
   const { isLoading, cart } = useAppSelector((state) => state.cart);
-  const role = useAppSelector((state) => state.auth.role);
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    role !== '' &&
+    if (user)
       dispatch(getCart())
         .unwrap()
         .then()
         .catch((error) => console.log(error, 'ERROR'));
-  }, [dispatch, role]);
+    if (!user) dispatch(getCartLS());
+  }, [dispatch, user]);
 
   return { isLoading, cart };
 }
