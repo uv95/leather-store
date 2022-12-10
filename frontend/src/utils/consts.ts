@@ -38,5 +38,10 @@ export const colors = {
   Хаки: '#474c21',
 };
 
-export const BASE_URL = 'https://leather-store.netlify.app/';
-// export const BASE_URL = 'http://localhost:5000/';
+// export const BASE_URL = 'https://leather-store.netlify.app/';
+export const BASE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/'
+    : 'https://leather-store.netlify.app/';
+
+console.log(process.env);

@@ -10,7 +10,6 @@ const itemRouter = require('./routes/itemRouter');
 const userRouter = require('./routes/userRouter');
 const cartRouter = require('./routes/cartRouter');
 const orderRouter = require('./routes/orderRouter');
-const addressRouter = require('./routes/addressRouter');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
