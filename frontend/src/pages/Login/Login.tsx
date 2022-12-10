@@ -3,7 +3,7 @@ import './login.scss';
 import Button from '../../components/UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { login } from '../../features/auth/authSlice';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
