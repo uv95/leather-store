@@ -1,6 +1,6 @@
 # Leather Store
 
-An online leather store with mock data built with **MERN** stack and **Typescript**. 
+An online leather store with mock data built with **MERN** stack, **Typescript** for frontend and **Javascript** for backend. 
 ##
 ### Functionality:
 - register, login, changing password and user data;
@@ -10,7 +10,7 @@ An online leather store with mock data built with **MERN** stack and **Typescrip
 - saving cart state when user logs in after adding items to cart;
 - filtering and sorting items;
 
-It also contains animations, sliders, pagination, toasts. 
+It also contains animations, sliders, pagination, toasts and custom hooks. 
 
 ##
 ### What I used:
