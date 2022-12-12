@@ -9,11 +9,12 @@ type Props = {
 
 const Modal = ({ setOpen, Content }: Props) => {
   return ReactDOM.createPortal(
-    <div className="background" onClick={() => setOpen(false)}>
+    <>
+      <div className="modal-background" onClick={() => setOpen(false)}></div>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal__content">{Content}</div>
       </div>
-    </div>,
+    </>,
     document.getElementById('root') as HTMLElement
   );
 };
