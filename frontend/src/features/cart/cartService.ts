@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ICart, ICartItem } from '../../types/data';
+import { ICart, ICartItem, IQuantity } from '../../types/data';
 import { BASE_URL } from '../../utils/consts';
 
 // const API_URL = 'http://localhost:5000/cart/';
@@ -33,7 +33,6 @@ const updateCart = async (updatedCart: Partial<ICart>, token: string) => {
     },
   };
   const res = await axios.patch(API_URL, updatedCart, config);
-  console.log(res.data, 'updateCart');
   return res.data;
 };
 
@@ -57,14 +56,19 @@ const deleteItemFromCart = async (cartItemId: string, token: string) => {
   return res.data;
 };
 
-const reduceQuantity = async (cartItemId: string, token: string) => {
+const changeQuantity = async (
+  cartItemId: string,
+  quantity: IQuantity,
+  token: string
+) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const res = await axios.delete(
-    API_URL + cartItemId + '/reduceQuantity',
+  const res = await axios.post(
+    API_URL + cartItemId + '/changeQuantity',
+    quantity,
     config
   );
   return res.data;
@@ -75,8 +79,8 @@ const cartService = {
   getCart,
   emptyCart,
   deleteItemFromCart,
-  reduceQuantity,
   updateCart,
+  changeQuantity,
 };
 
 export default cartService;

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import './cart.scss';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import Button from '../../components/UI/Button/Button';
-import useGetCart from '../../hooks/useGetCart';
 import useCreateOrder from '../../hooks/useCreateOrder';
 import Back from '../../components/UI/Back/Back';
 import Modal from '../../components/UI/Modal/Modal';
@@ -15,8 +14,8 @@ import { useAppSelector } from '../../hooks';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 
 const Cart = () => {
-  const { user } = useAppSelector((state) => state.user);
-  const { cart, isLoading } = useGetCart();
+  const { user } = useAppSelector((state) => state.auth);
+  const { isLoading, cart } = useAppSelector((state) => state.cart);
   const { addresses } = useGetAllAddresses();
   const createOrder = useCreateOrder();
 
@@ -39,7 +38,7 @@ const Cart = () => {
     total: 0,
   });
 
-  useEffect(() => {
+  const setCart = useCallback(() => {
     if (cart && user && addresses[currentAddressIndex])
       setCartData({
         items: cart.items,
@@ -77,8 +76,8 @@ const Cart = () => {
             <>
               <div className="cart__container__order">
                 <div className="cart__container__order__items">
-                  {cart.items.map((item: ICartItem, i: number) => (
-                    <CartItem key={i} item={item} />
+                  {cart.items.map((item: ICartItem) => (
+                    <CartItem key={item._id} item={item} />
                   ))}
                 </div>
                 <div className="cart__container__order__total">
@@ -89,7 +88,6 @@ const Cart = () => {
                 <SelectAddress
                   setCurrentAddressIndex={setCurrentAddressIndex}
                   currentAddressIndex={currentAddressIndex}
-                  addresses={addresses}
                 />
               )}
               <div className="cart__container__btn">
@@ -98,7 +96,11 @@ const Cart = () => {
                     if (openSelectAddress) {
                       createOrder(cartData);
                       setOpenModal(true);
-                    } else setOpenSelectAddress(true);
+                    } else {
+                      console.log('here');
+                      setCart();
+                      setOpenSelectAddress(true);
+                    }
                   }}
                   text={openSelectAddress ? 'Заказать' : 'Оформление заказа'}
                   color="black"

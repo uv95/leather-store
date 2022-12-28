@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getCart, getCartLS } from '../features/cart/cartSlice';
 
-export function useGetCart() {
+const useGetCart = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, cart } = useAppSelector((state) => state.cart);
+  const { cart } = useAppSelector((state) => state.cart);
   const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export function useGetCart() {
     if (!user) dispatch(getCartLS());
   }, [dispatch, user]);
 
-  return { isLoading, cart };
-}
+  return { cart };
+};
 
 export default useGetCart;

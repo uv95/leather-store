@@ -10,21 +10,18 @@ import {
   USER_PROFILE_ROUTE,
 } from '../../utils/consts';
 import cartIcon from '../../assets/icons/cart.svg';
-import user from '../../assets/icons/user.svg';
+import userIcon from '../../assets/icons/user.svg';
 import login from '../../assets/icons/sign-in.svg';
 import AdminHeader from './AdminHeader';
 import Badge from '../UI/Badge/Badge';
 import useGetMyOrders from '../../hooks/useGetMyOrders';
 import { useAppSelector } from '../../hooks';
-import useGetMe from '../../hooks/useGetMe';
 import useGetCart from '../../hooks/useGetCart';
 
 const Header = () => {
-  const role = useAppSelector((state) => state.auth.role);
-  const { user: currentUser } = useGetMe();
-  const { myActiveOrders } = useGetMyOrders(currentUser?._id!);
+  const { role, user } = useAppSelector((state) => state.auth);
+  const { myActiveOrders } = useGetMyOrders(user?.data.user.id);
   const { cart } = useGetCart();
-
   const location = useLocation();
 
   return (
@@ -44,52 +41,42 @@ const Header = () => {
               >
                 КАТАЛОГ
               </Link>
-              {!role ? (
-                <>
-                  <Link to={LOGIN_ROUTE}>
+              <Link
+                to={
+                  !role
+                    ? LOGIN_ROUTE
+                    : role === 'user'
+                    ? USER_PROFILE_ROUTE
+                    : ADMIN_ROUTE
+                }
+                className={role === 'user' ? 'link-user' : ''}
+              >
+                {role === 'admin' ? (
+                  'ADMIN'
+                ) : (
+                  <>
                     <img
-                      src={login}
+                      src={!role ? login : userIcon}
                       className="header__container-inner__nav-icon"
-                      alt="login"
+                      alt={role ? 'login' : 'user_profile'}
                     />
-                  </Link>
-                  <Link to={CART_ROUTE} className="link-cart">
-                    <img
-                      src={cartIcon}
-                      className="header__container-inner__nav-icon "
-                      alt="cart"
-                    />
-                    {cart && cart?.items.length !== 0 && (
-                      <Badge value={cart.totalQuantity} />
-                    )}
-                  </Link>
-                </>
-              ) : role === 'user' ? (
-                <>
-                  <Link to={USER_PROFILE_ROUTE} className="link-user">
-                    <img
-                      src={user}
-                      className="header__container-inner__nav-icon
-                     "
-                      alt="user_profile"
-                    />
-                    {myActiveOrders.length !== 0 && (
+                    {role && myActiveOrders.length !== 0 && (
                       <Badge value={myActiveOrders.length} />
                     )}
-                  </Link>
-                  <Link to={CART_ROUTE} className="link-cart">
-                    <img
-                      src={cartIcon}
-                      className="header__container-inner__nav-icon "
-                      alt="cart"
-                    />
-                    {cart && cart?.items.length !== 0 && (
-                      <Badge value={cart.totalQuantity} />
-                    )}
-                  </Link>
-                </>
-              ) : (
-                <Link to={ADMIN_ROUTE}>ADMIN</Link>
+                  </>
+                )}
+              </Link>
+              {role !== 'admin' && (
+                <Link to={CART_ROUTE} className="link-cart">
+                  <img
+                    src={cartIcon}
+                    className="header__container-inner__nav-icon "
+                    alt="cart"
+                  />
+                  {cart && cart?.items.length !== 0 && (
+                    <Badge value={cart.totalQuantity} />
+                  )}
+                </Link>
               )}
             </div>
           </div>

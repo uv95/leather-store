@@ -110,6 +110,13 @@ export interface ICart {
   totalQuantity: number;
   user: string;
 }
+export interface IUpdatedQuantity {
+  cartItemId: string;
+  quantity: IQuantity;
+}
+export interface IQuantity {
+  quantity: number;
+}
 
 export interface ICartState {
   cart: ICart | null;

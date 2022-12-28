@@ -2,8 +2,6 @@ import React from 'react';
 import './selectAddress.scss';
 import AddressCard from '../../UserProfile/Content/Address/AddressCard/AddressCard';
 import Spinner from '../../UI/Spinner/Spinner';
-import { useGetAllAddresses } from '../../../hooks/useGetAllAddresses';
-import { IAddress } from '../../../types/data';
 import { Link } from 'react-router-dom';
 import { LOGIN_ROUTE, USER_PROFILE_ROUTE } from '../../../utils/consts';
 import { useAppSelector } from '../../../hooks';
@@ -11,15 +9,13 @@ import { useAppSelector } from '../../../hooks';
 type SelectAddressProps = {
   setCurrentAddressIndex: React.Dispatch<React.SetStateAction<number>>;
   currentAddressIndex: number;
-  addresses: IAddress[];
 };
 
 const SelectAddress = ({
   setCurrentAddressIndex,
   currentAddressIndex,
-  addresses,
 }: SelectAddressProps) => {
-  const { isLoading } = useGetAllAddresses();
+  const { addresses, isLoading } = useAppSelector((state) => state.address);
   const { user } = useAppSelector((state) => state.auth);
 
   return (

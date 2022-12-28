@@ -119,6 +119,7 @@ export const orderSlice = createSlice({
       })
       .addCase(addOrder.fulfilled, (state, action) => {
         state.orders = [...state.orders, action.payload.data.data];
+        state.myOrders = [...state.myOrders, action.payload.data.data];
       })
       .addCase(getAllOrders.pending, (state) => {
         state.orders = [];

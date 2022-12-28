@@ -13,7 +13,6 @@ export function useGetMyOrders(userId: string) {
   const { isLoading, myOrders } = useAppSelector((state) => state.order);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
-
   useEffect(() => {
     role === 'user' &&
       userId &&

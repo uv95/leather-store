@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getMe } from '../features/user/userSlice';
 
 export function useGetMe() {
   const dispatch = useAppDispatch();
-
   const { user, isLoading } = useAppSelector((state) => state.user);
   const role = useAppSelector((state) => state.auth.role);
 

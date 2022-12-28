@@ -43,7 +43,7 @@ const MyInfo = () => {
 
     dispatch(updateMe(formData))
       .unwrap()
-      .then((data) => console.log(data))
+      .then()
       .catch((error) => console.log(error, 'error'));
   };
 

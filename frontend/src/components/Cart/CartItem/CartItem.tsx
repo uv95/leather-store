@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './cartItem.scss';
 import { ReactComponent as Delete } from '../../../assets/icons/trash.svg';
 import { ICartItem } from '../../../types/data';
-import { useAddToCart } from '../../../hooks/useAddToCart';
-import { useReduceQuantity } from '../../../hooks/useReduceQuantity';
 import { useDeleteCartItem } from '../../../hooks/useDeleteCartItem';
 import Quantity from '../../UI/Quantity/Quantity';
 import Colors from '../../UI/Colors/Colors';
 import Button from '../../UI/Button/Button';
+import { useChangeQuantity } from '../../../hooks/useChangeQuantity';
 
-type CartItemProps = { item: ICartItem };
+type CartItemProps = {
+  item: ICartItem;
+};
 
-const CartItem = ({ item }: CartItemProps) => {
-  const addItemToCart = useAddToCart();
+const CartItem = React.memo(({ item }: CartItemProps) => {
   const deleteCartItem = useDeleteCartItem();
-  const reduceItemQuantity = useReduceQuantity();
+  const changeItemQuantity = useChangeQuantity();
+
+  const [quantity, setQuantity] = useState(item.quantity);
+  const increaseQuantity = useCallback(
+    (id: string) => {
+      setQuantity(quantity + 1);
+      changeItemQuantity(id, { quantity: quantity + 1 });
+    },
+    [quantity, changeItemQuantity]
+  );
+
+  const reduceQuantity = useCallback(
+    (id: string) => {
+      if (quantity === 1) {
+        deleteCartItem(id);
+        return;
+      }
+      setQuantity(quantity - 1);
+      changeItemQuantity(id, { quantity: quantity - 1 });
+    },
+    [quantity, changeItemQuantity, deleteCartItem]
+  );
 
   return (
     <div className="cart-item">
@@ -33,12 +54,12 @@ const CartItem = ({ item }: CartItemProps) => {
           />
           <div className="cart-item__left__info__qty">
             <Quantity
-              reduce={() => reduceItemQuantity(item._id!)}
-              increase={() => addItemToCart(item)}
-              quantity={item.quantity}
+              reduce={() => reduceQuantity(item._id!)}
+              increase={() => increaseQuantity(item._id!)}
+              quantity={quantity}
             />
             <p className="cart-item__left__info__qty-price">
-              {item.price * item.quantity} руб.
+              {item.price * quantity} руб.
             </p>
           </div>
         </div>
@@ -55,6 +76,6 @@ const CartItem = ({ item }: CartItemProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default CartItem;

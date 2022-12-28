@@ -2,7 +2,7 @@ import { useAppDispatch } from '../hooks';
 import { logout, setRole } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
-export function useGetMe() {
+export function useLogout() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -15,4 +15,4 @@ export function useGetMe() {
   return logoutUser;
 }
 
-export default useGetMe;
+export default useLogout;

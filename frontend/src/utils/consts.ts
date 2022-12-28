@@ -7,7 +7,6 @@ export const REGISTRATION_ROUTE = '/registration';
 export const CATALOG_ROUTE = '/catalog';
 export const CART_ROUTE = '/cart';
 export const ITEM_ROUTE = '/catalog/';
-// export const ITEM_ROUTE = '/item';
 export const HOME_ROUTE = '/';
 export const CONTACTS_ROUTE = '/contacts';
 export const NOT_FOUND_ROUTE = '/not_found';
@@ -38,4 +37,5 @@ export const colors = {
   Хаки: '#474c21',
 };
 
-export const BASE_URL = 'http://localhost:5000/';
+// export const BASE_URL = 'http://localhost:5000/';
+export const BASE_URL = 'https://leather-store-server.onrender.com/';

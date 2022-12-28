@@ -1,13 +1,12 @@
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import {
   deleteItemFromCart,
   deleteItemFromCartLS,
 } from '../features/cart/cartSlice';
-import useGetMe from './useGetMe';
 
 export function useDeleteCartItem() {
   const dispatch = useAppDispatch();
-  const { user } = useGetMe();
+  const { user } = useAppSelector((state) => state.auth);
 
   const deleteCartItem = (cartItemId: string) => {
     if (user)
