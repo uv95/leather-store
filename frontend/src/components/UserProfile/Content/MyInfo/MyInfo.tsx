@@ -23,7 +23,6 @@ const MyInfo = () => {
     phone: '',
     email: '',
   });
-
   const { name, phone, email } = formData;
 
   const { passwordCurrent, password, passwordConfirm } = passwordData;

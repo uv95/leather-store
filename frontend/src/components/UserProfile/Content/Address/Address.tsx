@@ -4,12 +4,11 @@ import AddressForm from './AddressForm/AddressForm';
 import AddressCard from './AddressCard/AddressCard';
 import Spinner from '../../../UI/Spinner/Spinner';
 import './address.scss';
-import { useGetAllAddresses } from '../../../../hooks/useGetAllAddresses';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { getAddress } from '../../../../features/address/addressSlice';
 
 const Address = () => {
-  const { isLoading, addresses } = useGetAllAddresses();
+  const { isLoading, addresses } = useAppSelector((state) => state.address);
 
   const [openAddressForm, setOpenAddressForm] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -21,11 +20,9 @@ const Address = () => {
     addressId &&
       dispatch(getAddress(addressId))
         .unwrap()
-        .then((data) => console.log(data))
+        .then()
         .catch((error) => console.log(error, 'ERROR'));
   }, [dispatch, addressId]);
-
-  // if (isLoading) return <Spinner />;
 
   return (
     <>

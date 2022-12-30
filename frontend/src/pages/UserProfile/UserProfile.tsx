@@ -4,11 +4,15 @@ import Navigation from '../../components/UserProfile/Navigation/Navigation';
 import Address from '../../components/UserProfile/Content/Address/Address';
 import MyInfo from '../../components/UserProfile/Content/MyInfo/MyInfo';
 import MyOrders from '../../components/UserProfile/Content/MyOrders/MyOrders';
+import useGetAllAddresses from '../../hooks/useGetAllAddresses';
+import useGetMe from '../../hooks/useGetMe';
 
-type Props = {};
+const UserProfile = () => {
+  useGetAllAddresses();
+  useGetMe();
 
-const UserProfile = (props: Props) => {
   const [currentTab, setCurrentTab] = useState('Мои заказы');
+
   return (
     <div className="profile">
       <h1 className="profile__heading">Личный кабинет</h1>

@@ -146,3 +146,10 @@ export interface IUpdatedOrder {
   orderId: string;
   updatedOrder: Partial<IOrder>;
 }
+
+//FILTER
+
+export interface IFilterState {
+  filters: string[];
+  sort: string;
+}

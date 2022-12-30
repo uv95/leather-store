@@ -4,6 +4,14 @@
 .filter {
   position: relative;
   min-width: 20rem;
+
+  &-background {
+    min-width: 100vw;
+    min-height: 150vh;
+    position: fixed;
+    top: -10%;
+    left: 0;
+  }
 }
 
 .view {

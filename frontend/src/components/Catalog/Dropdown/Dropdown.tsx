@@ -5,18 +5,16 @@ import {
   addFilter,
   clearFilter,
   removeFilter,
+  setSort,
 } from '../../../features/filters/filtersSlice';
 
 interface DropdownProps {
   open: boolean;
-  setSort: React.Dispatch<React.SetStateAction<string>>;
-  sort: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ open, setSort, sort }) => {
+const Dropdown: React.FC<DropdownProps> = ({ open }) => {
   const dispatch = useAppDispatch();
-
-  const filters = useAppSelector((state) => state.filters);
+  const { filters, sort } = useAppSelector((state) => state.filters);
 
   const productTypes: string[] = [
     'Кошельки и картхолдеры',
@@ -76,7 +74,7 @@ const Dropdown: React.FC<DropdownProps> = ({ open, setSort, sort }) => {
                     ? 'dropdown__content-right__options--item-active'
                     : ''
                 } dropdown__content-right__options--item`}
-                onClick={() => setSort(option)}
+                onClick={() => dispatch(setSort(option))}
               >
                 {option}
               </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './myOrders.scss';
 import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import ListItem from '../../../UI/ListItem/ListItem';
@@ -16,22 +16,24 @@ const MyOrders = () => {
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
 
-  const orderData = (order: IOrder) => [
-    { dataItem: '№ ' + order._id?.slice(0, 8) },
-    {
-      dataItem:
-        'Создан ' +
-        new Date(order.createdAt!).toLocaleDateString('ru-RU', {
-          hour: 'numeric',
-          minute: 'numeric',
-        }),
-    },
-    {
-      dataItem: order.status,
-      style: statusStyles.find((status) => status.status === order.status)
-        ?.style,
-    },
-  ];
+  const orderData = useCallback((order: IOrder) => {
+    return [
+      { dataItem: '№ ' + order._id?.slice(0, 8) },
+      {
+        dataItem:
+          'Создан ' +
+          new Date(order.createdAt!).toLocaleDateString('ru-RU', {
+            hour: 'numeric',
+            minute: 'numeric',
+          }),
+      },
+      {
+        dataItem: order.status,
+        style: statusStyles.find((status) => status.status === order.status)
+          ?.style,
+      },
+    ];
+  }, []);
 
   if (isLoading) return <Spinner />;
 

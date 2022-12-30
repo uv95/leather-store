@@ -8,7 +8,7 @@ import Modal from '../../../../UI/Modal/Modal';
 
 type MyOrderDetailsProps = { order: IOrder };
 
-const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
+const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
   const [openModal, setOpenModal] = useState(false);
   const cancelOrder = useCancelOrder();
 
@@ -91,6 +91,6 @@ const MyOrderDetails = ({ order }: MyOrderDetailsProps) => {
       </div>
     </>
   );
-};
+});
 
 export default MyOrderDetails;

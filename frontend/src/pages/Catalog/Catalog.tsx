@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './catalog.scss';
 import ItemCard from '../../components/UI/ItemCard/ItemCard';
 import Filter from '../../components/Catalog/Filter';
-// import View from '../../components/Catalog/View';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
 import Pagination from '../../components/UI/Pagination/Pagination';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import { useAppSelector } from '../../hooks';
 // import View from '../../components/Catalog/View';
 
 const Catalog = () => {
@@ -16,34 +16,17 @@ const Catalog = () => {
   const [maxPages] = useState(
     items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1
   );
-  const [sort, setSort] = useState('По умолчанию');
-  const [open, setOpen] = useState(false);
+  const { sort } = useAppSelector((state) => state.filters);
 
   return (
     <>
       <div className="catalog">
-        <div
-          className="catalog__container"
-          onClick={(e) => {
-            const target = e.target as HTMLElement;
-            if (
-              open &&
-              !target.className.split('_').includes('dropdown') &&
-              !target.className.split('_').includes('options--item')
-            )
-              setOpen(false);
-          }}
-        >
+        <div className="catalog__container">
           <div className="catalog__container__top">
-            <Filter
-              setSort={setSort}
-              sort={sort}
-              setOpen={setOpen}
-              open={open}
-            />
+            <Filter />
             {/* <View /> */}
           </div>
-          <FiltersPanel sort={sort} setSort={setSort} />
+          <FiltersPanel />
           {isLoading ? (
             <Spinner />
           ) : (
@@ -54,9 +37,7 @@ const Catalog = () => {
                       itemsPerPage * (currentPage - 1),
                       itemsPerPage * currentPage
                     )
-                    .map((item) => (
-                      <ItemCard open={open} key={item._id} item={item} />
-                    ))
+                    .map((item) => <ItemCard key={item._id} item={item} />)
                 : [...items]
 
                     .sort((a, b) => {
@@ -69,9 +50,7 @@ const Catalog = () => {
                       itemsPerPage * (currentPage - 1),
                       itemsPerPage * currentPage
                     )
-                    .map((item) => (
-                      <ItemCard open={open} key={item._id} item={item} />
-                    ))}
+                    .map((item) => <ItemCard key={item._id} item={item} />)}
             </div>
           )}
         </div>

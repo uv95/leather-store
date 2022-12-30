@@ -1,16 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './filter_view.scss';
 import Dropdown from './Dropdown/Dropdown';
 import Button from '../UI/Button/Button';
 
-type FilterProps = {
-  setSort: React.Dispatch<React.SetStateAction<string>>;
-  sort: string;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
-};
-
-const Filter = ({ setSort, sort, setOpen, open }: FilterProps) => {
+const Filter = () => {
+  const [open, setOpen] = useState(false);
   return (
     <div className="filter">
       <Button
@@ -18,7 +12,15 @@ const Filter = ({ setSort, sort, setOpen, open }: FilterProps) => {
         text="Фильтр и сортировка"
         color="grey"
       />
-      <Dropdown open={open} setSort={setSort} sort={sort} />
+      {open && (
+        <>
+          <div
+            className="filter-background"
+            onClick={() => setOpen(false)}
+          ></div>
+          <Dropdown open={open} />{' '}
+        </>
+      )}
     </div>
   );
 };

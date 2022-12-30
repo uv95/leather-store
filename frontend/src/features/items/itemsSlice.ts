@@ -148,7 +148,7 @@ export const itemsSlice = createSlice({
 
 export const selectVisibleItems = createSelector(
   (state: RootState) => state.items.items,
-  (state: RootState) => state.filters,
+  (state: RootState) => state.filters.filters,
   (items, filters) => {
     if (!filters.length) return items;
     return items.filter((item) => {

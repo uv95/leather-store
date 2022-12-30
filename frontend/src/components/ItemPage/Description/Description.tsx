@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import './description.scss';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
-import { IItem, ICartItem } from '../../../types/data';
+import { IItem } from '../../../types/data';
 import Colors from '../../UI/Colors/Colors';
 import { useNavigate } from 'react-router-dom';
 import { LEATHERS_ROUTE } from '../../../utils/consts';
@@ -27,38 +27,23 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
     leatherColor: 'Черный',
     threadsColor: 'Черный',
   });
-  const [cartItemData, setCartItemData] = useState<ICartItem>({
-    _id: '',
-    itemId: '',
-    name: '',
-    quantity: 1,
-    colors: {
-      leatherColor: '',
-      threadsColor: '',
-    },
-    leather: '',
-    price: 0,
-    imageCover: '',
-    images: item.images,
-  });
 
-  useEffect(() => {
-    item &&
-      setCartItemData({
-        ...(!user && { _id: Date.now().toString() }),
-        ...(!user && { total: +item.price }),
-        itemId: item._id,
-        name: item.name,
-        quantity: 1,
-        colors: {
-          leatherColor: colors.leatherColor,
-          threadsColor: colors.threadsColor,
-        },
-        leather: leatherType,
-        price: +item.price,
-        imageCover: item.imageCover,
-        images: item.images,
-      });
+  const itemData = useMemo(() => {
+    return {
+      ...(!user && { _id: Date.now().toString() }),
+      ...(!user && { total: +item.price }),
+      itemId: item._id,
+      name: item.name,
+      quantity: 1,
+      colors: {
+        leatherColor: colors.leatherColor,
+        threadsColor: colors.threadsColor,
+      },
+      leather: leatherType,
+      price: +item.price,
+      imageCover: item.imageCover,
+      images: item.images,
+    };
   }, [item, colors, leatherType, user]);
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -126,7 +111,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       <div className="item-desc">ОПИСАНИЕ</div>
       <div className="item-desc-text">{item.description}</div>
       <Button
-        onClick={() => addItemToCart(cartItemData)}
+        onClick={() => addItemToCart(itemData)}
         text="В корзину"
         color="black"
         big

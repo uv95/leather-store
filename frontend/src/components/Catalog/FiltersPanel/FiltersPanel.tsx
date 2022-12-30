@@ -1,15 +1,10 @@
 import React from 'react';
 import './filtersPanel.scss';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { removeFilter } from '../../../features/filters/filtersSlice';
+import { removeFilter, setSort } from '../../../features/filters/filtersSlice';
 
-type FiltersPanelProps = {
-  sort: string;
-  setSort: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const FiltersPanel = ({ sort, setSort }: FiltersPanelProps) => {
-  const filters = useAppSelector((state) => state.filters);
+const FiltersPanel = () => {
+  const { filters, sort } = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
 
   return (
@@ -23,7 +18,7 @@ const FiltersPanel = ({ sort, setSort }: FiltersPanelProps) => {
                 onClick={() => {
                   filter === 'Цена по возрастанию' ||
                   filter === 'Цена по убыванию'
-                    ? setSort('По умолчанию')
+                    ? dispatch(setSort('По умолчанию'))
                     : dispatch(removeFilter(filter));
                 }}
               >
