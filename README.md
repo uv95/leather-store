@@ -1,6 +1,7 @@
 # Leather Store
 
 An online leather store with mock data built with **MERN** stack, **Typescript** for frontend and **Javascript** for backend. 
+Server is here: https://leather-store-server.onrender.com/
 ##
 ### Functionality:
 - register, login, changing password and user data;
