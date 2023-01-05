@@ -1,9 +1,13 @@
 # Leather Store
 
-An online leather store with mock data built with **MERN** stack, **Typescript** for frontend and **Javascript** for backend. 
-Server is here: https://leather-store-server.onrender.com/
+An online leather store with mock data built with **MERN** stack, **Typescript** for frontend and **Javascript** for backend.
+
+Check the website here: https://leather-store.netlify.app/
+
 ##
+
 ### Functionality:
+
 - register, login, changing password and user data;
 - different actions allowed for users and admins;
 - CRUD operations with items, orders, user addresses, cart;
@@ -11,10 +15,12 @@ Server is here: https://leather-store-server.onrender.com/
 - saving cart state when user logs in after adding items to cart;
 - filtering and sorting items;
 
-It also contains animations, sliders, pagination, toasts and custom hooks. 
+It also contains animations, sliders, pagination, toasts and custom hooks.
 
 ##
+
 ### What I used:
+
 - Typescript
 - React
 - Redux Toolkit
@@ -27,7 +33,6 @@ It also contains animations, sliders, pagination, toasts and custom hooks.
 ##
 
 <img width="900" alt="Screenshot 2022-12-10 at 10 13 50" src="https://user-images.githubusercontent.com/104245869/206891189-79021812-c2ca-431f-8a4f-b9121b893327.png">
-
 
 <img width="900" alt="Screenshot 2022-12-10 at 10 14 03" src="https://user-images.githubusercontent.com/104245869/206891206-1c749951-475a-4cd9-9ada-8591f80e18ef.png">
 <img width="900" alt="Screenshot 2022-12-10 at 10 14 46" src="https://user-images.githubusercontent.com/104245869/206891216-b715a1e4-4560-4b52-8dff-8647dd187df7.png">
