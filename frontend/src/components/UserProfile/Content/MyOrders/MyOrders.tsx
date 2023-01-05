@@ -1,18 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './myOrders.scss';
 import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import ListItem from '../../../UI/ListItem/ListItem';
 import Spinner from '../../../UI/Spinner/Spinner';
 import { statusStyles } from '../../../../utils/consts';
 import { IOrder } from '../../../../types/data';
-import { useAppSelector } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
+  getMyOrders,
   selectMyActiveOrders,
   selectMyFinishedOrders,
 } from '../../../../features/order/orderSlice';
 
 const MyOrders = () => {
+  const dispatch = useAppDispatch();
   const { isLoading, myOrders } = useAppSelector((state) => state.order);
+  const { user } = useAppSelector((state) => state.auth);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
 
@@ -34,6 +37,14 @@ const MyOrders = () => {
       },
     ];
   }, []);
+
+  useEffect(() => {
+    if (myOrders.some((order) => typeof order.address === 'string'))
+      dispatch(getMyOrders(user._id))
+        .unwrap()
+        .then()
+        .catch((error) => console.log(error, 'ERROR'));
+  }, [dispatch, user, myOrders]);
 
   if (isLoading) return <Spinner />;
 

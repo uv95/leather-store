@@ -13,6 +13,7 @@ const initialState: IOrderState = {
   orders: [],
   myOrders: [],
   isLoading: false,
+  status: 'idle',
 };
 
 export const addOrder = createAsyncThunk(
@@ -117,9 +118,14 @@ export const orderSlice = createSlice({
       .addCase(getOrder.fulfilled, (state, action) => {
         state.order = action.payload.data.data;
       })
+      .addCase(addOrder.pending, (state) => {
+        state.status = 'pending';
+        state.isLoading = true;
+      })
       .addCase(addOrder.fulfilled, (state, action) => {
         state.orders = [...state.orders, action.payload.data.data];
         state.myOrders = [...state.myOrders, action.payload.data.data];
+        state.status = 'success';
       })
       .addCase(getAllOrders.pending, (state) => {
         state.orders = [];
@@ -152,6 +158,7 @@ export const orderSlice = createSlice({
         (action) => action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
+          state.status = 'rejected';
         }
       );
   },

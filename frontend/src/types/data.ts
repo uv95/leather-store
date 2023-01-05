@@ -140,6 +140,7 @@ export interface IOrderState {
   orders: IOrder[] | [];
   myOrders: IOrder[] | [];
   isLoading: boolean;
+  status: 'idle' | 'rejected' | 'success' | 'pending';
 }
 
 export interface IUpdatedOrder {

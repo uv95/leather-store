@@ -16,6 +16,9 @@ import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 const Cart = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { isLoading, cart } = useAppSelector((state) => state.cart);
+  const { isLoading: isOrderLoading, status } = useAppSelector(
+    (state) => state.order
+  );
   const { addresses } = useGetAllAddresses();
   const createOrder = useCreateOrder();
 
@@ -55,12 +58,21 @@ const Cart = () => {
         <Modal
           setOpen={setOpenModal}
           Content={
-            <p className="cart__modal">
-              Заказ создан! Перейти в{' '}
-              <Link className="redLink" to={USER_PROFILE_ROUTE}>
-                личный кабинет.
-              </Link>
-            </p>
+            isOrderLoading && cart?.items.length ? (
+              <p className="cart__modal">Оформляем заказ...</p>
+            ) : status === 'rejected' ? (
+              <p className="cart__modal">
+                Произошла ошибка! Пожалуйста, перезагрузите страницу и
+                попробуйте снова.
+              </p>
+            ) : (
+              <p className="cart__modal">
+                Заказ создан! Перейти в{' '}
+                <Link className="redLink" to={USER_PROFILE_ROUTE}>
+                  личный кабинет.
+                </Link>
+              </p>
+            )
           }
         />
       )}
@@ -97,7 +109,6 @@ const Cart = () => {
                       createOrder(cartData);
                       setOpenModal(true);
                     } else {
-                      console.log('here');
                       setCart();
                       setOpenSelectAddress(true);
                     }
