@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './catalog.scss';
 import ItemCard from '../../components/UI/ItemCard/ItemCard';
 import Filter from '../../components/Catalog/Filter';
@@ -13,9 +13,14 @@ const Catalog = () => {
   const { isLoading, items } = useGetAllItems();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
-  const [maxPages] = useState(
-    items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1
-  );
+  const [maxPages, setMaxPages] = useState(1);
+
+  useEffect(() => {
+    setMaxPages(
+      items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1
+    );
+  }, [items, itemsPerPage]);
+
   const { sort } = useAppSelector((state) => state.filters);
 
   return (
@@ -39,7 +44,6 @@ const Catalog = () => {
                     )
                     .map((item) => <ItemCard key={item._id} item={item} />)
                 : [...items]
-
                     .sort((a, b) => {
                       if (+a.price === +b.price) return 0;
                       return sort === 'Цена по убыванию'
@@ -54,11 +58,13 @@ const Catalog = () => {
             </div>
           )}
         </div>
-        <Pagination
-          maxPages={maxPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {items.length && (
+          <Pagination
+            maxPages={maxPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </div>
     </>
   );

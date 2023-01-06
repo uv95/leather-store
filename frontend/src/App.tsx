@@ -5,12 +5,14 @@ import Footer from './components/Footer/Footer';
 import Router from './components/Router';
 import { Provider } from 'react-redux';
 import store from './store';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <main>
+          <ScrollToTop />
           <Header />
           <Router />
           <Footer />

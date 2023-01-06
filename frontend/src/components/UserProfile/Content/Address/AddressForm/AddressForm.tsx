@@ -87,7 +87,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       <div className="address-form__input-box">
         <Input
           name="address"
-          label="Полный адрес"
+          label="Улица, дом, квартира"
           type="text"
           value={address}
           required={!edit}
