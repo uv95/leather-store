@@ -14,7 +14,7 @@ const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
       <div className="item-card__img">
         <img
           src={require(`../../../assets/img/items/${item.imageCover}`)}
-          alt="Product photo"
+          alt={item.name}
           className="item-card__img--item"
         />
       </div>

@@ -42,7 +42,7 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
       <div className="cart-item__left">
         <img
           src={require(`../../../assets/img/items/${item.imageCover}`)}
-          alt="Product photo"
+          alt={item.name || ''}
           className="cart-item__left-img"
         />
         <div className="cart-item__left__info">
