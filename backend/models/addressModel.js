@@ -3,20 +3,20 @@ const mongoose = require('mongoose');
 const addressSchema = new mongoose.Schema({
   city: {
     type: String,
-    required: [true, 'Укажите город'],
+    required: [true, 'Please specify a city'],
   },
   address: {
     type: String,
-    required: [true, 'Укажите полный адрес'],
+    required: [true, 'Please provide the full address'],
   },
   zipcode: {
     type: String,
-    required: [true, 'Укажите индекс'],
+    required: [true, 'Please provide a postal code'],
   },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    required: [true, 'Адрес должен принадлежать пользователю'],
+    required: [true, 'Address must belong to the user'],
   },
 });
 

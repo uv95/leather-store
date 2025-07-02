@@ -22,11 +22,11 @@ const orderSchema = new mongoose.Schema({
   address: {
     type: mongoose.Schema.ObjectId,
     ref: 'Address',
-    required: [true, 'Пожалуйста, укажите адрес доставки'],
+    required: [true, 'Please provide a delivery address'],
   },
   status: {
     type: String,
-    enum: ['Ожидает оплаты', 'Принят', 'Выполнен'],
+    enum: ['Awaiting payment', 'Accepted', 'Completed'],
   },
   createdAt: {
     type: Date,

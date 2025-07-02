@@ -4,35 +4,31 @@ const slugify = require('slugify');
 const itemSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Название обязательно'],
+    required: [true, 'Name is required'],
     unique: true,
     trim: true,
-    // minLength: [10, 'Слишком короткое название'],
+    // minLength: [10, 'Name is too short'],
   },
   slug: String,
   type: {
     type: String,
-    required: [true, 'Необходимо указать тип товара'],
+    required: [true, 'Type is required'],
     enum: {
-      values: [
-        'Кошельки и картхолдеры',
-        'Чехлы для очков',
-        'Обложки на паспорт',
-      ],
-      message: 'Укажите существующий тип товара',
+      values: ['Wallets and cardholders', 'Eyeglass cases', 'Passport covers'],
+      message: 'Please specify an existing item type',
     },
   },
   description: {
     type: String,
-    required: [true, 'Описание обязательно'],
+    required: [true, 'Description is required'],
   },
   price: {
     type: Number,
-    required: [true, 'Цена обязательна'],
+    required: [true, 'Price is required'],
   },
   imageCover: {
     type: String,
-    required: [true, 'Товар должен иметь обложку'],
+    required: [true, 'Item must have a cover image'],
   },
   images: [String],
   createdAt: {

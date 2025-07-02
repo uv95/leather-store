@@ -48,7 +48,7 @@ app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 
 app.all('*', (req, res, next) => {
-  next(new AppError('Страница не найдена', 404));
+  next(new AppError('Page not found', 404));
 });
 
 app.use(globalErrorHandler);

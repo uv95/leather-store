@@ -54,12 +54,12 @@ exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new AppError('Введите пароль и email', 400));
+    return next(new AppError('Please enter password and email', 400));
 
   const user = await User.findOne({ email }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password)))
-    return next(new AppError('Email или пароль указаны неверно', 401));
+    return next(new AppError('Email or password is incorrect', 401));
 
   createSendToken(user, 200, res);
 });
@@ -73,16 +73,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   )
     token = req.headers.authorization.split(' ')[1];
 
-  if (!token) return next(new AppError('Вы не авторизованы', 401));
+  if (!token) return next(new AppError('You are not authorized', 401));
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const currentUser = await User.findById(decoded.id);
-  if (!currentUser)
-    return next(new AppError('Пользователь не существует', 401));
+  if (!currentUser) return next(new AppError('User does not exist', 401));
 
   if (currentUser.changedPasswordAfter(decoded.iat))
-    return next(new AppError('Пароль был изменен. Авторизуйтесь заново ', 401));
+    return next(new AppError('Password was changed. Please log in again', 401));
 
   req.user = currentUser;
   next();
@@ -92,15 +91,16 @@ exports.restrictTo =
   (...roles) =>
   (req, res, next) => {
     if (!roles.includes(req.user.role))
-      return next(new AppError('Вы не можете выполнять это действие', 403));
+      return next(
+        new AppError('You are not allowed to perform this action', 403)
+      );
 
     next();
   };
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  if (!user)
-    return next(new AppError('Пользователя с таким email не существует', 404));
+  if (!user) return next(new AppError('No user with this email exists', 404));
 
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
@@ -127,9 +127,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(
-      new AppError('Ошибка при отправке email. Попробойте еще раз', 500)
-    );
+    return next(new AppError('Error sending email. Please try again', 500));
   }
 });
 
@@ -144,7 +142,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     passwordResetExpires: { $gt: Date.now() },
   });
 
-  if (!user) return next(new AppError('Токен недействителен', 400));
+  if (!user) return next(new AppError('Token is invalid', 400));
 
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
@@ -160,7 +158,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+password');
   //2) check if posted password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password)))
-    return next(new AppError('Неверный пароль', 401));
+    return next(new AppError('Incorrect password', 401));
   //3)update password if so
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;

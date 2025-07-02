@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Имя обязательно'],
+      required: [true, 'Name is required'],
       trim: true,
-      maxLength: [30, 'Имя должно содержать не более 30 символов'],
+      maxLength: [30, 'Name must be at most 30 characters'],
     },
     phone: {
       type: String,
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
         validator: function (num) {
           return validator.isMobilePhone(num.toString(), 'ru-RU');
         },
-        message: 'Номер телефона указан неверно',
+        message: 'Invalid phone number',
       },
 
       required: function () {
@@ -26,10 +26,10 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, 'Email обязателен'],
+      required: [true, 'Email is required'],
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Введите правильный email'],
+      validate: [validator.isEmail, 'Enter a valid email'],
     },
     role: {
       type: String,
@@ -38,18 +38,18 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Пароль обязателен'],
-      minLength: [8, 'Пароль должен содержать минимум 8 символов!'],
+      required: [true, 'Password is required'],
+      minLength: [8, 'Password must be at least 8 characters!'],
       select: false,
     },
     passwordConfirm: {
       type: String,
-      required: [true, 'Подтвердите пароль'],
+      required: [true, 'Please confirm your password'],
       validate: {
         validator: function (el) {
           return el === this.password;
         },
-        message: 'Пароль не совпадает',
+        message: 'Passwords do not match',
       },
     },
     passwordChangedAt: Date,
