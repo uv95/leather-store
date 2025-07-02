@@ -9,25 +9,22 @@ const FiltersPanel = () => {
 
   return (
     <div className="filtersPanel">
-      {(sort === 'По умолчанию' ? filters : [...filters, sort]).map(
-        (filter) => (
-          <div className="filtersPanel__item" key={filter}>
-            <div className="filtersPanel__item-cell">
-              {filter}
-              <span
-                onClick={() => {
-                  filter === 'Цена по возрастанию' ||
-                  filter === 'Цена по убыванию'
-                    ? dispatch(setSort('По умолчанию'))
-                    : dispatch(removeFilter(filter));
-                }}
-              >
-                &#9587;
-              </span>
-            </div>
+      {(sort === 'Default' ? filters : [...filters, sort]).map((filter) => (
+        <div className="filtersPanel__item" key={filter}>
+          <div className="filtersPanel__item-cell">
+            {filter}
+            <span
+              onClick={() => {
+                filter === 'Price ascending' || filter === 'Price descending'
+                  ? dispatch(setSort('Default'))
+                  : dispatch(removeFilter(filter));
+              }}
+            >
+              &#9587;
+            </span>
           </div>
-        )
-      )}
+        </div>
+      ))}
     </div>
   );
 };

@@ -25,7 +25,7 @@ const ItemsManagement = () => {
     { dataItem: item.name },
     { dataItem: item.type.split('')[0].toUpperCase() + item.type.slice(1) },
     {
-      dataItem: item.price + ' руб.',
+      dataItem: item.price + ' RUB',
     },
   ];
 
@@ -40,10 +40,10 @@ const ItemsManagement = () => {
         />
       )}
       <div className="items">
-        <h1 className="items-heading">Товары</h1>
+        <h1 className="items-heading">Items</h1>
         <Button
           onClick={() => setOpenModal(true)}
-          text="Добавить товар"
+          text="Add item"
           color="grey"
         />
         <div className="items__container">
@@ -52,7 +52,7 @@ const ItemsManagement = () => {
           ) : (
             <>
               {(!items || !items.length) && (
-                <p className="items__container-empty">Товаров нет</p>
+                <p className="items__container-empty">No items</p>
               )}
               {items.length !== 0 &&
                 items.map((item) => (

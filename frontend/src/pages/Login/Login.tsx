@@ -76,7 +76,7 @@ const Login = () => {
       )}
       <div className="login">
         <div className="login__container">
-          <h1 className="login__container__heading">Вход в личный кабинет</h1>
+          <h1 className="login__container__heading">Login to your account</h1>
           <form className="login__container__form" onSubmit={onSubmit}>
             <div className="login__container__form__box">
               <Input
@@ -92,18 +92,18 @@ const Login = () => {
             <div className="login__container__form__box">
               <Input
                 name="password"
-                label="Пароль"
+                label="Password"
                 type="password"
                 value={password}
                 onChange={onChange}
-                placeholder="Пароль"
+                placeholder="Password"
               />
             </div>
             <div className="login__container__form__bottom">
-              <Button type="submit" text="Войти" color="grey" />
-              <Link to={''}>Забыли пароль?</Link>
+              <Button type="submit" text="Login" color="grey" />
+              <Link to={''}>Forgot password?</Link>
               <Link to={REGISTRATION_ROUTE} className="redLink">
-                Зарегистрироваться
+                Register
               </Link>
             </div>
           </form>

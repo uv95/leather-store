@@ -19,10 +19,10 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
           setOpen={setOpenModal}
           Content={
             <>
-              <p>Вы действительно хотите отменить заказ?</p>
+              <p>Are you sure you want to cancel the order?</p>
               <div className="modal__content__buttons">
                 <Button
-                  text="Да"
+                  text="Yes"
                   color="grey"
                   onClick={() => {
                     cancelOrder(order._id!);
@@ -30,7 +30,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
                   }}
                 />
                 <Button
-                  text="Нет"
+                  text="No"
                   color="grey"
                   onClick={() => setOpenModal(false)}
                 />
@@ -45,43 +45,43 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
             <div className="myOrderDetails__item-left">
               <img
                 src={require(`../../../../../assets/img/items/${item.imageCover}`)}
-                alt="Фото товара"
+                alt="Product photo"
                 className="myOrderDetails__item-left-img"
               />
               <div className="myOrderDetails__item-left__info">
                 <h2 className="myOrderDetails__item-left__info-title">
                   {item.name}
                 </h2>
-                <p>Тип кожи: {item.leather}</p>
+                <p>Leather type: {item.leather}</p>
                 <Colors
                   leatherColor={item.colors.leatherColor}
                   threadsColor={item.colors.threadsColor}
                   fromMyOrders
                 />
                 <p className="myOrderDetails__item-left__info-qty">
-                  Количество: {item.quantity}
+                  Quantity: {item.quantity}
                 </p>
               </div>
             </div>
             <p className="myOrderDetails__item-right">
-              {item.price * item.quantity} руб.
+              {item.price * item.quantity} RUB
             </p>
           </div>
         ))}
 
         <p className="myOrderDetails__address">
-          Адрес доставки: {order.address.city}, {order.address.address},
+          Delivery address: {order.address.city}, {order.address.address},
           {order.address.zipcode}
         </p>
 
         <div className="myOrderDetails__bottom">
           <div className="myOrderDetails__bottom-total">
-            <p>Итого: {order.total} руб.</p>
+            <p>Total: {order.total} RUB</p>
           </div>
-          {order.status !== 'Выполнен' && (
+          {order.status !== 'Completed' && (
             <div className="myOrderDetails__bottom-btns">
               <Button
-                text="Отменить заказ"
+                text="Cancel order"
                 color="gray"
                 onClick={() => setOpenModal(true)}
               />

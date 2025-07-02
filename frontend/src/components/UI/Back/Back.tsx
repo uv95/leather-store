@@ -9,7 +9,7 @@ const Back = (props: Props) => {
 
   return (
     <div className="back" onClick={() => navigate(-1)}>
-      Назад
+      Back
     </div>
   );
 };

@@ -16,14 +16,14 @@ const AdminHeader = () => {
   const path = location.pathname;
   const logoutUser = useLogout();
   const tabs = [
-    { text: 'Заказы', route: ADMIN_ROUTE },
-    { text: 'Товары', route: ITEMS_MANAGEMENT_ROUTE },
-    { text: 'Статистика', route: STATISTICS_ROUTE },
-    { text: 'На главную', route: HOME_ROUTE },
+    { text: 'Orders', route: ADMIN_ROUTE },
+    { text: 'Items', route: ITEMS_MANAGEMENT_ROUTE },
+    { text: 'Statistics', route: STATISTICS_ROUTE },
+    { text: 'Home', route: HOME_ROUTE },
   ];
 
   const [currentTab, setCurrentTab] = useState({
-    text: 'Заказы',
+    text: 'Orders',
     route: ADMIN_ROUTE,
   });
   const [openMenu, setOpenMenu] = useState(false);
@@ -36,10 +36,10 @@ const AdminHeader = () => {
           setOpen={setOpenModal}
           Content={
             <>
-              <p>Вы действительно хотите выйти?</p>
+              <p>Are you sure you want to log out?</p>
               <div className="modal__content__buttons">
                 <Button
-                  text="Да"
+                  text="Yes"
                   color="grey"
                   onClick={() => {
                     logoutUser();
@@ -47,7 +47,7 @@ const AdminHeader = () => {
                   }}
                 />
                 <Button
-                  text="Нет"
+                  text="No"
                   color="grey"
                   onClick={() => setOpenModal(false)}
                 />
@@ -74,7 +74,7 @@ const AdminHeader = () => {
           onClick={() => setOpenModal(true)}
           className="header__container__admin-link"
         >
-          Выйти
+          Log out
         </div>
       </div>
       <div className="mobile">
@@ -105,7 +105,7 @@ const AdminHeader = () => {
             onClick={() => setOpenModal(true)}
             className=" mobile__menu-link"
           >
-            Выйти
+            Log out
           </div>
         </div>
       </div>

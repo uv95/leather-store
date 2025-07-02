@@ -46,7 +46,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
         <div className="address-card__left">
           <img
             src={edit}
-            alt="редактировать"
+            alt="edit"
             onClick={() => {
               setEdit!(true);
               setAddressId!(address._id!);
@@ -54,7 +54,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
           />
           <img
             src={trash}
-            alt="удалить"
+            alt="delete"
             onClick={() => onDelete(address._id!)}
           />
         </div>

@@ -42,12 +42,12 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
       <div className="cart-item__left">
         <img
           src={require(`../../../assets/img/items/${item.imageCover}`)}
-          alt="Фото товара"
+          alt="Product photo"
           className="cart-item__left-img"
         />
         <div className="cart-item__left__info">
           <h2 className="cart-item__left__info-title">{item.name}</h2>
-          <p>Тип кожи: {item.leather}</p>
+          <p>Leather type: {item.leather}</p>
           <Colors
             leatherColor={item.colors.leatherColor}
             threadsColor={item.colors.threadsColor}

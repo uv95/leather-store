@@ -29,6 +29,12 @@
     }
 
     &__items {
+      &-empty {
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 4rem;
+      }
+
       @include items-section--catalog;
 
       @include max1000 {

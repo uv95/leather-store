@@ -30,17 +30,17 @@ const Address = () => {
       {!isLoading && (
         <div className="address">
           <div className="address__top">
-            <h1 className="address__heading">Адреса доставки</h1>
+            <h1 className="address__heading">Delivery Addresses</h1>
             <Button
               onClick={() => setOpenAddressForm(!openAddressForm)}
-              text="Добавить адрес"
+              text="Add address"
               color="black"
               big
             />
           </div>
           <div className="address__container">
             {!addresses?.length && (
-              <p className="address__container-empty">Список адресов пуст.</p>
+              <p className="address__container-empty">Address list is empty.</p>
             )}
             {(openAddressForm || edit) && (
               <AddressForm

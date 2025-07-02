@@ -24,7 +24,7 @@ const MyOrders = () => {
       { dataItem: '№ ' + order._id?.slice(0, 8) },
       {
         dataItem:
-          'Создан ' +
+          'Created ' +
           new Date(order.createdAt!).toLocaleDateString('ru-RU', {
             hour: 'numeric',
             minute: 'numeric',
@@ -50,13 +50,13 @@ const MyOrders = () => {
 
   return (
     <div className="orders">
-      <h1 className="orders__heading">Мои заказы</h1>
+      <h1 className="orders__heading">My Orders</h1>
       <div className="orders__container">
         {!myOrders.length && (
-          <p className="orders__container-empty">Список заказов пуст.</p>
+          <p className="orders__container-empty">Order list is empty.</p>
         )}
         {myActiveOrders.length !== 0 && (
-          <h1 className="orders__orders__container-heading">Активные</h1>
+          <h1 className="orders__orders__container-heading">Active</h1>
         )}
         {myActiveOrders.map((order) => (
           <ListItem
@@ -68,7 +68,7 @@ const MyOrders = () => {
           />
         ))}
         {myFinishedOrders.length !== 0 && (
-          <h1 className="orders__orders__container-heading">Выполненные</h1>
+          <h1 className="orders__orders__container-heading">Completed</h1>
         )}
         {myFinishedOrders.map((order) => (
           <ListItem

@@ -12,9 +12,9 @@ const HomeItems = () => {
   return (
     <div className="home-items">
       <div className="home-items__heading">
-        <h4>Магазин</h4>
+        <h4>Store</h4>
         <Link to={CATALOG_ROUTE} className="home-items__heading-link">
-          Смотреть все
+          View all
         </Link>
       </div>
       <div className="home-items__container">

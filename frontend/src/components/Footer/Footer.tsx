@@ -15,10 +15,10 @@ function Footer() {
       <div className="footer__container">
         <div className="footer__container__top">
           <nav className="footer__container__top__nav">
-            <Link to={HOME_ROUTE}>Главная</Link>
-            <Link to={CATALOG_ROUTE}>Каталог</Link>
-            <Link to={LEATHERS_ROUTE}>Типы кожи</Link>
-            <Link to={CONTACTS_ROUTE}>Контакты</Link>
+            <Link to={HOME_ROUTE}>Home</Link>
+            <Link to={CATALOG_ROUTE}>Catalog</Link>
+            <Link to={LEATHERS_ROUTE}>Types of leather</Link>
+            <Link to={CONTACTS_ROUTE}>Contacts</Link>
           </nav>
           <div className="footer__container__top__social">
             {/* todo: IG link */}
@@ -32,7 +32,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer__container__bottom">
-          <p>2022 Все права защищены</p>
+          <p>2022 All rights reserved</p>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
 import Pagination from '../../components/UI/Pagination/Pagination';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { useAppSelector } from '../../hooks';
+import { IItem } from '../../types/data';
 // import View from '../../components/Catalog/View';
 
 const Catalog = () => {
@@ -35,39 +36,55 @@ const Catalog = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <div className="catalog__container__items">
-              {sort === 'По умолчанию'
-                ? items
-                    .slice(
-                      itemsPerPage * (currentPage - 1),
-                      itemsPerPage * currentPage
-                    )
-                    .map((item) => <ItemCard key={item._id} item={item} />)
-                : [...items]
-                    .sort((a, b) => {
-                      if (+a.price === +b.price) return 0;
-                      return sort === 'Цена по убыванию'
-                        ? +b.price - +a.price
-                        : +a.price - +b.price;
-                    })
-                    .slice(
-                      itemsPerPage * (currentPage - 1),
-                      itemsPerPage * currentPage
-                    )
-                    .map((item) => <ItemCard key={item._id} item={item} />)}
-            </div>
+            <CatalogItems
+              items={items}
+              sort={sort}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+            />
           )}
         </div>
-        {items.length && (
+        {items.length ? (
           <Pagination
             maxPages={maxPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-        )}
+        ) : null}
       </div>
     </>
   );
 };
 
 export default Catalog;
+
+function CatalogItems(props: {
+  items: IItem[];
+  sort: string;
+  itemsPerPage: number;
+  currentPage: number;
+}) {
+  const { items, sort, itemsPerPage, currentPage } = props;
+
+  if (!items.length) {
+    return <p className="catalog__container__items-empty">No items found</p>;
+  }
+
+  return (
+    <div className="catalog__container__items">
+      {sort === 'Default'
+        ? items
+            .slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage)
+            .map((item) => <ItemCard key={item._id} item={item} />)
+        : [...items]
+            .sort((a, b) => {
+              if (+a.price === +b.price) return 0;
+              return sort === 'Price descending'
+                ? +b.price - +a.price
+                : +a.price - +b.price;
+            })
+            .slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage)
+            .map((item) => <ItemCard key={item._id} item={item} />)}
+    </div>
+  );
+}

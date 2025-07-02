@@ -6,7 +6,7 @@ type Props = {};
 const Statistics = (props: Props) => {
   return (
     <div className="stats">
-      <h1>В разработке</h1>
+      <h1>In development</h1>
     </div>
   );
 };

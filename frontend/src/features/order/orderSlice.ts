@@ -171,7 +171,7 @@ export const selectActiveOrders = createSelector(
   (order) =>
     order.orders.filter(
       (order: IOrder) =>
-        order.status === 'Ожидает оплаты' || order.status === 'Принят'
+        order.status === 'Awaiting payment' || order.status === 'Accepted'
     )
 );
 export const selectMyActiveOrders = createSelector(
@@ -179,17 +179,18 @@ export const selectMyActiveOrders = createSelector(
   (order) =>
     order.myOrders.filter(
       (order: IOrder) =>
-        order.status === 'Ожидает оплаты' || order.status === 'Принят'
+        order.status === 'Awaiting payment' || order.status === 'Accepted'
     )
 );
 export const selectFinishedOrders = createSelector(
   (state: RootState) => state.order,
-  (order) => order.orders.filter((order: IOrder) => order.status === 'Выполнен')
+  (order) =>
+    order.orders.filter((order: IOrder) => order.status === 'Completed')
 );
 export const selectMyFinishedOrders = createSelector(
   (state: RootState) => state.order,
   (order) =>
-    order.myOrders.filter((order: IOrder) => order.status === 'Выполнен')
+    order.myOrders.filter((order: IOrder) => order.status === 'Completed')
 );
 
 export default orderSlice.reducer;

@@ -32,7 +32,7 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
             key={slide.name}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             src={slide.path}
-            alt="Фото товара"
+            alt="Product photo"
             className="slider-img"
           />
         ))}

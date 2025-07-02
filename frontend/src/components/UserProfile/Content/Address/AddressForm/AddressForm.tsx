@@ -77,7 +77,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       <div className="address-form__input-box">
         <Input
           name="city"
-          label="Город"
+          label="City"
           type="text"
           value={city}
           required={!edit}
@@ -87,7 +87,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       <div className="address-form__input-box">
         <Input
           name="address"
-          label="Улица, дом, квартира"
+          label="Street, house, apartment"
           type="text"
           value={address}
           required={!edit}
@@ -97,19 +97,14 @@ const AddressForm: React.FC<AddressFormProps> = ({
       <div className="address-form__input-box">
         <Input
           name="zipcode"
-          label="Индекс"
+          label="Postal code"
           type="text"
           value={zipcode}
           required={!edit}
           onChange={onChange}
         />
       </div>
-      <Button
-        type="submit"
-        text={edit ? 'Сохранить' : 'Добавить'}
-        color="black"
-        big
-      />
+      <Button type="submit" text={edit ? 'Save' : 'Add'} color="black" big />
     </form>
   );
 };

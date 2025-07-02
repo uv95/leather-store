@@ -11,19 +11,19 @@ const UserProfile = () => {
   useGetAllAddresses();
   useGetMe();
 
-  const [currentTab, setCurrentTab] = useState('Мои заказы');
+  const [currentTab, setCurrentTab] = useState('My Orders');
 
   return (
     <div className="profile">
-      <h1 className="profile__heading">Личный кабинет</h1>
+      <h1 className="profile__heading">Account</h1>
       <div className="profile__container">
         <div className="profile__container__nav">
           <Navigation setCurrentTab={setCurrentTab} currentTab={currentTab} />
         </div>
         <div className="profile__container__content">
-          {currentTab === 'Мои заказы' && <MyOrders />}
-          {currentTab === 'Адреса доставки' && <Address />}
-          {currentTab === 'Мои данные' && <MyInfo />}
+          {currentTab === 'My Orders' && <MyOrders />}
+          {currentTab === 'Delivery Addresses' && <Address />}
+          {currentTab === 'My Info' && <MyInfo />}
         </div>
       </div>
     </div>

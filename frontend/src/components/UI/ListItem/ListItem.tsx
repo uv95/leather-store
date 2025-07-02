@@ -36,7 +36,7 @@ const ListItem = ({ data, bg, Details, myOrder }: ListItemProps) => {
                 }  ${myOrder ? 'myOrder' : ''}`}
               >
                 {el.dataItem?.imgPath ? (
-                  <img src={el.dataItem?.imgPath} alt="фото товара" />
+                  <img src={el.dataItem?.imgPath} alt="product photo" />
                 ) : (
                   el.dataItem
                 )}

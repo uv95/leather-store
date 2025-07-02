@@ -19,9 +19,9 @@ const Navigation: React.FC<NavigationProps> = React.memo(
     const [openModal, setOpenModal] = useState(false);
 
     const tabs = [
-      { text: 'Мои заказы', icon: orders },
-      { text: 'Адреса доставки', icon: location },
-      { text: 'Мои данные', icon: portrait },
+      { text: 'My Orders', icon: orders },
+      { text: 'Delivery Addresses', icon: location },
+      { text: 'My Info', icon: portrait },
     ];
 
     return (
@@ -31,10 +31,10 @@ const Navigation: React.FC<NavigationProps> = React.memo(
             setOpen={setOpenModal}
             Content={
               <>
-                <p>Вы действительно хотите выйти?</p>
+                <p>Are you sure you want to log out?</p>
                 <div className="modal__content__buttons">
                   <Button
-                    text="Да"
+                    text="Yes"
                     color="grey"
                     onClick={() => {
                       logoutUser();
@@ -42,7 +42,7 @@ const Navigation: React.FC<NavigationProps> = React.memo(
                     }}
                   />
                   <Button
-                    text="Нет"
+                    text="No"
                     color="grey"
                     onClick={() => setOpenModal(false)}
                   />
@@ -62,9 +62,9 @@ const Navigation: React.FC<NavigationProps> = React.memo(
             />
           ))}
           <Tab
-            text={'Выйти'}
+            text={'Log out'}
             onClick={() => setOpenModal(true)}
-            active={currentTab === 'Выйти'}
+            active={currentTab === 'Log out'}
             icon={logoutsvg}
           />
         </div>

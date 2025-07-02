@@ -12,7 +12,7 @@ const Leathers = (props: Props) => {
     <div className="leathers">
       <div className="leathers-heading">
         <Back />
-        <h1>Типы кожи</h1>
+        <h1>Types of Leather</h1>
       </div>
       <div className="leathers__container">
         <div className="leathers__container__leather">
@@ -20,28 +20,27 @@ const Leathers = (props: Props) => {
           <div className="leathers__container__leather__content">
             <div className="leathers__container__leather__content-text">
               <p>
-                Это прочная высококачественная кожа крупного рогатого скота. Эта
-                кожа характерна своим эффектом состаривания. Он образуется
-                благодаря специальной обработке: на шлифованный краст с помощью
-                нагрева наносится смесь восков с высокой температурой плавления
-                и специальные присадки. После обработки таким способом кожа
-                становится темнее, нежели была изначально. В результате этого
-                она меняет цвет в местах залома, изгиба или натяжения,
-                становится более светлой.
+                This is a durable, high-quality leather from large cattle. This
+                leather is characterized by its aging effect, which is achieved
+                through a special treatment: a mixture of high-melting-point
+                waxes and special additives is applied to the sanded crust using
+                heat. After this treatment, the leather becomes darker than it
+                was originally. As a result, it changes color in places where it
+                is bent, folded, or stretched, becoming lighter.
               </p>
               <p>
-                Винтажность ― это самая главная особенность этой кожи. На коже
-                Crazy Horse легко появляются следы и царапины. Царапины при
-                желании легко удалить. Для этого достаточно протереть это место
-                мягкой тряпочкой. Такая кожа легко затемняется трением с помощью
-                войлочного круга даже без добавления воска. Если вам нужен
-                равномерный окрас кожи достаточно прогладить ее утюгом выставив
-                его на минимальную температуру через бумагу.
+                The vintage look is the main feature of this leather. Marks and
+                scratches easily appear on Crazy Horse leather, but they can be
+                easily removed by rubbing the area with a soft cloth. This
+                leather can also be darkened by friction using a felt wheel,
+                even without adding wax. If you want a uniform color, simply
+                iron it on low temperature through paper.
               </p>
               <p>
-                Кожа Crazy Horse достаточно мягкая, эластичная, гладкая, без
-                блеска. Толщина обычно 1,4-3 мм. Имеет плотную структуру.
-                Изделия из этой кожи выглядят необычно, стильно, дорого.
+                Crazy Horse leather is quite soft, elastic, smooth, and matte.
+                The thickness is usually 1.4-3 mm. It has a dense structure.
+                Products made from this leather look unusual, stylish, and
+                expensive.
               </p>
             </div>
             <img
@@ -61,19 +60,17 @@ const Leathers = (props: Props) => {
             />
             <div className="leathers__container__leather__content-text">
               <p>
-                Идеальный вариант для истинных ценителей качественных
-                материалов. Такая кожа создается из шкур крупного рогатого скота
-                или овчины.
+                The perfect choice for true connoisseurs of quality materials.
+                This leather is made from the hides of large cattle or sheep.
               </p>
               <p>
-                Кожа наппа — это очень красивый материал, который проходит
-                обработку особым образом, а также “переживает ”хромовое
-                дубление. Основная особенность материала заключается в его
-                однотонной расцветки. Кроме этого, кожа nappa имеет следующие
-                характеристики: пластичная, эластичная, тонкая, а также мягкая.
-                Однако эти свойства не мешают материалу иметь высокий уровень
-                прочности и надежности. Поэтому изделия, созданные из этой кожи,
-                долговечны, прослужат владельцу не один год.
+                Nappa leather is a very beautiful material that undergoes
+                special processing and chrome tanning. The main feature of the
+                material is its solid color. In addition, nappa leather has the
+                following characteristics: it is pliable, elastic, thin, and
+                soft. However, these properties do not prevent the material from
+                being strong and reliable. Therefore, products made from this
+                leather are durable and will serve the owner for many years.
               </p>
               <p></p>
               <p></p>
@@ -85,25 +82,25 @@ const Leathers = (props: Props) => {
           <div className="leathers__container__leather__content">
             <div className="leathers__container__leather__content-text">
               <p>
-                Натуральная вощеная кожа премиум-класса толщиной 1.4-1.6мм., в
-                редких случаях доходит до 2мм. Покупать изделия из нее, помимо
-                высокого качества, отличных потребительских свойств, побуждают
-                необычная фактура поверхности и двухцветная, мраморная окраска с
-                эффектом состаривания.
+                Natural waxed premium leather with a thickness of 1.4-1.6 mm, in
+                rare cases up to 2 mm. In addition to high quality and excellent
+                consumer properties, the unusual texture and two-tone, marbled
+                coloring with an aging effect encourage the purchase of products
+                made from it.
               </p>
               <p>
-                Данную выделку получают нанесением специальных жиров, масел,
-                либо тугоплавких восков на поверхность шлифованной кожи. Как
-                правило, цвет покрывной смеси темнее, чем фоновый цвет основы.
-                Эффект "Pull-up" заключается в том, что в местах изгиба или
-                натяжения кожа меняет цвет, проявляются ее специфичные свойства.
+                This finish is achieved by applying special fats, oils, or
+                high-melting waxes to the surface of sanded leather. As a rule,
+                the color of the coating mixture is darker than the base color.
+                The "Pull-up" effect means that in places of bending or
+                stretching, the leather changes color, revealing its unique
+                properties.
               </p>
               <p>
-                Cо временем некоторые участки кожи становятся более светлыми, за
-                счет чего изделие из такой кожи выглядит несколько изношенным,
-                видавшим виды. Проявляется ни с чем не сравнимая фактура. Так же
-                данный материал ценится за свою мягкость и приятную на ощупь
-                текстуру.
+                Over time, some areas of the leather become lighter, making
+                products made from such leather look somewhat worn and
+                experienced. An incomparable texture appears. This material is
+                also valued for its softness and pleasant-to-the-touch texture.
               </p>
             </div>
             <img

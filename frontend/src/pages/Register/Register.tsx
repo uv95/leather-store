@@ -81,16 +81,16 @@ const Register = () => {
       )}
       <div className="register">
         <div className="register__container">
-          <h1 className="register__container__heading">Регистрация</h1>
+          <h1 className="register__container__heading">Registration</h1>
           <form className="register__container__form" onSubmit={onSubmit}>
             <div className="register__container__form__box">
               <Input
                 name="name"
-                label="Имя"
+                label="Name"
                 type="text"
                 value={name}
                 onChange={onChange}
-                placeholder="Имя"
+                placeholder="Name"
                 required
               />
             </div>
@@ -109,42 +109,42 @@ const Register = () => {
             <div className="register__container__form__box">
               <Input
                 name="password"
-                label="Пароль"
+                label="Password"
                 type="password"
                 value={password}
                 onChange={onChange}
-                placeholder="Пароль"
+                placeholder="Password"
                 required
               />
             </div>
             <div className="register__container__form__box">
               <Input
                 name="passwordConfirm"
-                label="Подтверждение пароля"
+                label="Confirm Password"
                 type="password"
                 value={passwordConfirm}
                 onChange={onChange}
-                placeholder="Подтверждение пароля"
+                placeholder="Confirm Password"
                 required
               />
             </div>
             <div className="register__container__form__box">
               <Input
                 name="phone"
-                label="Телефон"
+                label="Phone"
                 type="text"
                 value={phone}
                 onChange={onChange}
-                placeholder="Телефон"
+                placeholder="Phone"
                 required
               />
             </div>
             <div className="register__container__form__bottom">
-              <Button type="submit" text="Зарегистрироваться" color="grey" />
+              <Button type="submit" text="Register" color="grey" />
               <p>
-                Уже зарегистрированы?{' '}
+                Already registered?{' '}
                 <Link to={LOGIN_ROUTE} className="redLink">
-                  Войти
+                  Login
                 </Link>
               </p>
             </div>

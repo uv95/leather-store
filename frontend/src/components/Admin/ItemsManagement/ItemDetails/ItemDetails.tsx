@@ -69,16 +69,16 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
           <div className="itemDetails__form__box">
             <Input
               name="name"
-              label="Название"
+              label="Name"
               type="text"
               value={name}
               onChange={onChange}
-              placeholder="Crazy Horse Кошелек"
+              placeholder="Crazy Horse Wallet"
             />
           </div>
           <div className="itemDetails__form__box">
             <label htmlFor="type" className="itemDetails__form__box-label">
-              Тип товара
+              Item type
             </label>
             <select
               onChange={onChange}
@@ -99,7 +99,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
           <div className="itemDetails__form__box">
             <Input
               name="price"
-              label="Цена"
+              label="Price"
               value={price}
               type="number"
               onChange={onChange}
@@ -111,14 +111,14 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
               htmlFor="description"
               className="itemDetails__form__box-label"
             >
-              Описание
+              Description
             </label>
             <textarea
               id="description"
               name="description"
               value={description}
               className="itemDetails__form__box-input"
-              placeholder="Введите описание товара"
+              placeholder="Enter item description"
               onChange={onChange}
             />
           </div>
@@ -132,10 +132,10 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
                 alt="item pic"
               />
               {i === 0 ? (
-                <p>Основное фото</p>
+                <p>Main photo</p>
               ) : (
                 <p className="makeCover" onClick={() => setNewImageCover(img)}>
-                  Сделать основным
+                  Set as main
                 </p>
               )}
 
@@ -149,7 +149,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
           <div className="itemDetails__form__box">
             <Input
               name="imageCover"
-              label="Основное изображение"
+              label="Main image"
               type="file"
               onChange={onChange}
               accept="image/jpeg, image/jpg"
@@ -158,7 +158,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
           <div className="itemDetails__form__box">
             <Input
               name="images"
-              label="Дополнительные изображения (не более 3)"
+              label="Additional images (up to 3)"
               type="file"
               onChange={onChange}
               accept="image/jpeg, image/jpg"
@@ -166,12 +166,12 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             />
           </div>
         </div> */}
-        <Button text="Сохранить" color="black" big />
+        <Button text="Save" color="black" big />
         <p
           className="itemDetails__form-delete"
           onClick={() => onDelete(item._id)}
         >
-          Удалить
+          Delete
         </p>
       </form>
     </div>

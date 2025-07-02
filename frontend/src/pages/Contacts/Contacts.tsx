@@ -7,7 +7,7 @@ const Contacts = (props: Props) => {
   return (
     <div className="contacts">
       <div className="contacts__container">
-        <h1 className="contacts__container-heading">Контакты</h1>
+        <h1 className="contacts__container-heading">Contacts</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum
           maxime dolore molestiae debitis dolorem quos nemo harum, adipisci

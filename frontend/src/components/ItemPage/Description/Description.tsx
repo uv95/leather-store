@@ -24,8 +24,8 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
 
   const [leatherType, setLeatherType] = useState('Crazy Horse');
   const [colors, setColors] = useState({
-    leatherColor: 'Черный',
-    threadsColor: 'Черный',
+    leatherColor: 'Black',
+    threadsColor: 'Black',
   });
 
   const itemData = useMemo(() => {
@@ -56,7 +56,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       {openSelectLeatherColor && (
         <SelectColor
           setOpenSelectColor={setOpenSelectLeatherColor}
-          title="Выберите цвет кожи"
+          title="Choose leather color"
           type="leather"
           setColors={setColors}
           currColor={colors.leatherColor}
@@ -65,16 +65,16 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       {openSelectThreadsColor && (
         <SelectColor
           setOpenSelectColor={setOpenSelectThreadsColor}
-          title="Выберите цвет ниток"
+          title="Choose thread color"
           type="threads"
           setColors={setColors}
           currColor={colors.threadsColor}
         />
       )}
       <h1 className="item-title">{item.name}</h1>
-      <p className="item-price">{item.price} руб</p>
+      <p className="item-price">{item.price} RUB</p>
       <div className="leather-type">
-        <p>Тип кожи:</p>
+        <p>Leather type:</p>
         <div className="leather-type__radio">
           <div className="leather-type__radio__options">
             <Radio
@@ -108,11 +108,11 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
         openSelectLeatherColor={() => setOpenSelectLeatherColor(true)}
         openSelectThreadsColor={() => setOpenSelectThreadsColor(true)}
       />
-      <div className="item-desc">ОПИСАНИЕ</div>
+      <div className="item-desc">DESCRIPTION</div>
       <div className="item-desc-text">{item.description}</div>
       <Button
         onClick={() => addItemToCart(itemData)}
-        text="В корзину"
+        text="Add to cart"
         color="black"
         big
       />

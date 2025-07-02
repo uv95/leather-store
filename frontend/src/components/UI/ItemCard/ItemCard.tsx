@@ -14,13 +14,13 @@ const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
       <div className="item-card__img">
         <img
           src={require(`../../../assets/img/items/${item.imageCover}`)}
-          alt="Фото товара"
+          alt="Product photo"
           className="item-card__img--item"
         />
       </div>
       <div className="item-card__text">
         <p className="item-card__text--name">{item.name}</p>
-        <p className="item-card__text--price">{item.price} руб</p>
+        <p className="item-card__text--price">{item.price} RUB</p>
       </div>
     </Link>
   );

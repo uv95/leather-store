@@ -22,7 +22,7 @@ const SelectAddress = ({
     <div className="selectAddress">
       {addresses.length ? (
         <>
-          <h2>Выберите адрес</h2>
+          <h2>Select address</h2>
           {isLoading ? (
             <Spinner />
           ) : (
@@ -41,12 +41,12 @@ const SelectAddress = ({
         </>
       ) : (
         <p className="addAddress">
-          Пожалуйста, добавьте адрес в{' '}
+          Please add an address in{' '}
           <Link
             className="redLink"
             to={user ? USER_PROFILE_ROUTE : LOGIN_ROUTE}
           >
-            личном кабинете.
+            personal account.
           </Link>
         </p>
       )}

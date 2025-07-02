@@ -15,21 +15,21 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
             <div className="orderDetails__items__item-left">
               <img
                 src={require(`../../../../assets/img/items/${item.imageCover}`)}
-                alt="Фото товара"
+                alt="Product photo"
                 className="orderDetails__items__item-left-img"
               />
               <div className="orderDetails__items__item-left__info">
                 <h3>{item.name}</h3>
-                <p>Тип кожи: {item.leather}</p>
+                <p>Leather type: {item.leather}</p>
                 <Colors
                   leatherColor={item.colors.leatherColor}
                   threadsColor={item.colors.threadsColor}
                 />
                 <p className="orderDetails__items__item-left__info-qty">
-                  Количество: {item.quantity}
+                  Quantity: {item.quantity}
                 </p>
                 <p className="orderDetails__items__item-left__info-qty">
-                  Цена: {item.price} руб.
+                  Price: {item.price} RUB
                 </p>
               </div>
             </div>
@@ -39,17 +39,17 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
 
       <div className="orderDetails__userInfo">
         <h3>
-          Адрес доставки:{' '}
+          Delivery address:{' '}
           <span>
             {order.address.city}, {order.address.address},
             {order.address.zipcode}
           </span>
         </h3>
         <h3>
-          Клиент: <span>{order.user.name}</span>
+          Client: <span>{order.user.name}</span>
         </h3>
         <h3>
-          Контакты:{' '}
+          Contacts:{' '}
           <span>
             {order.user.email}, {order.user.phone}
           </span>

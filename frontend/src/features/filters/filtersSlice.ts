@@ -3,7 +3,7 @@ import { IFilterState } from '../../types/data';
 
 const initialState: IFilterState = {
   filters: [],
-  sort: 'По умолчанию',
+  sort: 'Default',
 };
 
 const filtersSlice = createSlice({

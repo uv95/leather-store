@@ -13,7 +13,7 @@ const About = (props: Props) => {
         </div>
 
         <div className="about__container__text">
-          <h3>Обо мне</h3>
+          <h3>About me</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, quasi
             harum! Maiores nisi sequi corporis ab voluptatibus vel officiis amet

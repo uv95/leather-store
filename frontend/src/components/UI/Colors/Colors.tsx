@@ -26,7 +26,7 @@ const Colors = ({
       }`}
     >
       <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
-        <p>Цвет кожи:</p>
+        <p>Leather color:</p>
         <div
           className={`colors-${
             vertical ? 'vertical' : 'horizontal'
@@ -38,7 +38,7 @@ const Colors = ({
         ></div>
       </div>
       <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
-        <p>Нитки:</p>
+        <p>Threads:</p>
         <div
           className={`colors-${
             vertical ? 'vertical' : 'horizontal'

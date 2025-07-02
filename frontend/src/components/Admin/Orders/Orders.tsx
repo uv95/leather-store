@@ -20,7 +20,7 @@ const Orders = (props: Props) => {
     },
     { dataItem: order.user.name },
     { dataItem: order.address.city },
-    { dataItem: order.total + ' руб.' },
+    { dataItem: order.total + ' RUB' },
     {
       dataItem: order.status,
       style: statusStyles.find((status) => status.status === order.status)
@@ -35,7 +35,7 @@ const Orders = (props: Props) => {
       ) : (
         <>
           {activeOrders.length !== 0 && (
-            <h1 className="orders-heading">Активные</h1>
+            <h1 className="orders-heading">Active</h1>
           )}
           {activeOrders.map((order) => (
             <ListItem
@@ -46,7 +46,7 @@ const Orders = (props: Props) => {
             />
           ))}
           {finishedOrders.length !== 0 && (
-            <h1 className="orders-heading">Выполненные</h1>
+            <h1 className="orders-heading">Completed</h1>
           )}
           {finishedOrders.map((order) => (
             <ListItem

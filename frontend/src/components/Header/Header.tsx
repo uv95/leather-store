@@ -39,7 +39,7 @@ const Header = () => {
                 to={CATALOG_ROUTE}
                 className="header__container-inner__nav-catalog"
               >
-                КАТАЛОГ
+                CATALOG
               </Link>
               <Link
                 to={

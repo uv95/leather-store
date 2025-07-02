@@ -7,7 +7,7 @@ const PaymentDelivery = (props: Props) => {
   return (
     <div className="pd">
       <div className="pd__container">
-        <h4 className="pd__container__heading">Доставка и оплата</h4>
+        <h4 className="pd__container__heading">Delivery and Payment</h4>
         <div className="pd__container__text">
           <p className="pd__container__text--delivery">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,

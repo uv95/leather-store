@@ -46,7 +46,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
           ))}
         </div>
         <Button
-          text="Выбрать"
+          text="Select"
           color="black"
           big
           onClick={() => setOpenSelectColor(false)}

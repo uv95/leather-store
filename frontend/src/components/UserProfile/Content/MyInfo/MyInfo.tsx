@@ -79,16 +79,16 @@ const MyInfo = () => {
 
   return (
     <div className="info">
-      <h1 className="info__heading">Мои данные</h1>
+      <h1 className="info__heading">My Info</h1>
       <div className="info__container">
         <form onSubmit={onSubmit}>
           <div className="info__container__section">
-            <h2 className="info__container__section-heading">Личные данные</h2>
+            <h2 className="info__container__section-heading">Personal Info</h2>
             <div className="flex">
               <div className="info__container__section__input-box">
                 <Input
                   name="name"
-                  label="Имя"
+                  label="Name"
                   type="text"
                   value={name}
                   onChange={onChange}
@@ -97,7 +97,7 @@ const MyInfo = () => {
               <div className="info__container__section__input-box">
                 <Input
                   name="phone"
-                  label="Телефон"
+                  label="Phone"
                   type="text"
                   value={phone}
                   onChange={onChange}
@@ -117,15 +117,15 @@ const MyInfo = () => {
               />
             </div>
           </div>
-          <Button type="submit" text="Сохранить" color="black" big />
+          <Button type="submit" text="Save" color="black" big />
         </form>
         <form onSubmit={onNewPasswordSubmit}>
           <div className="info__container__section">
-            <h2 className="info__container__section-heading">Пароль</h2>
+            <h2 className="info__container__section-heading">Password</h2>
             <div className="info__container__section__input-box">
               <Input
                 name="passwordCurrent"
-                label="Старый пароль"
+                label="Old password"
                 type="password"
                 value={passwordCurrent}
                 onChange={onNewPasswordChange}
@@ -135,7 +135,7 @@ const MyInfo = () => {
               <div className="info__container__section__input-box">
                 <Input
                   name="password"
-                  label="Новый пароль"
+                  label="New password"
                   type="password"
                   value={password}
                   onChange={onNewPasswordChange}
@@ -144,7 +144,7 @@ const MyInfo = () => {
               <div className="info__container__section__input-box">
                 <Input
                   name="passwordConfirm"
-                  label="Подтвердите пароль"
+                  label="Confirm password"
                   type="password"
                   value={passwordConfirm}
                   onChange={onNewPasswordChange}
@@ -152,7 +152,7 @@ const MyInfo = () => {
               </div>
             </div>
           </div>
-          <Button type="submit" text="Сохранить" color="black" big />
+          <Button type="submit" text="Save" color="black" big />
         </form>
       </div>
     </div>

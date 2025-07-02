@@ -13,29 +13,31 @@ export const NOT_FOUND_ROUTE = '/not_found';
 export const LEATHERS_ROUTE = '/leathers';
 
 export const statusStyles = [
-  { status: 'Ожидает оплаты', style: 'status status-waitsForPayment' },
-  { status: 'Принят', style: 'status status-accepted' },
-  { status: 'Выполнен', style: 'status status-completed' },
+  { status: 'Awaiting payment', style: 'status status-waitsForPayment' },
+  { status: 'Accepted', style: 'status status-accepted' },
+  { status: 'Completed', style: 'status status-completed' },
 ];
 
 export const typeOptions = [
-  'Кошельки и картхолдеры',
-  'Чехлы для очков',
-  'Обложки на паспорт',
+  'Wallets and cardholders',
+  'Eyeglass cases',
+  'Passport covers',
 ];
 
 export const colors = {
-  Черный: '#000000',
-  Коричневый: '#55391a',
-  Синий: '#0846aa',
-  Рыжий: '#aa6908',
-  Красный: '#cb1212',
-  Бордовый: '#801030',
-  Зеленый: '#1e8b0d',
-  Серый: '#909090',
-  // Розовый: '#fe87fe',
-  Хаки: '#474c21',
+  Black: '#000000',
+  Brown: '#55391a',
+  Blue: '#0846aa',
+  Ginger: '#aa6908',
+  Red: '#cb1212',
+  Burgundy: '#801030',
+  Green: '#1e8b0d',
+  Grey: '#909090',
+  // Pink: '#fe87fe',
+  Khaki: '#474c21',
 };
 
-// export const BASE_URL = 'http://localhost:5000/';
-export const BASE_URL = 'https://leather-store-server.onrender.com/';
+export const BASE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/'
+    : 'https://leather-store-server.onrender.com/';

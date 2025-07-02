@@ -80,11 +80,11 @@ const AddItem: React.FC<AddItemProps> = ({
 
   return (
     <>
-      <h1 className="title">Добавить товар</h1>
+      <h1 className="title">Add Item</h1>
       <form className="form" id="form" onSubmit={onSubmit}>
         <div className="form__box">
           <label htmlFor="type" className="form__box-label">
-            Тип товара
+            Item type
           </label>
           <select
             onChange={onChange}
@@ -102,16 +102,16 @@ const AddItem: React.FC<AddItemProps> = ({
         <div className="form__box">
           <Input
             name="name"
-            label="Название"
+            label="Name"
             type="text"
             onChange={onChange}
-            placeholder="Crazy Horse Кошелек"
+            placeholder="Crazy Horse Wallet"
           />
         </div>
         <div className="form__box">
           <Input
             name="price"
-            label="Цена"
+            label="Price"
             type="number"
             onChange={onChange}
             placeholder="1000"
@@ -119,20 +119,20 @@ const AddItem: React.FC<AddItemProps> = ({
         </div>
         <div className="form__box">
           <label htmlFor="description" className="form__box-label">
-            Описание
+            Description
           </label>
           <textarea
             id="description"
             name="description"
             className="form__box-input"
-            placeholder="Введите описание товара"
+            placeholder="Enter item description"
             onChange={onChange}
           />
         </div>
         <div className="form__box">
           <Input
             name="imageCover"
-            label="Основное изображение"
+            label="Main image"
             type="file"
             onChange={onChange}
             accept="image/jpeg, image/jpg"
@@ -141,7 +141,7 @@ const AddItem: React.FC<AddItemProps> = ({
         <div className="form__box">
           <Input
             name="images"
-            label="Дополнительные изображения (не более 3)"
+            label="Additional images (up to 3)"
             type="file"
             onChange={onChange}
             accept="image/jpeg, image/jpg"
@@ -149,7 +149,7 @@ const AddItem: React.FC<AddItemProps> = ({
           />
         </div>
         <div className="form__btn">
-          <Button text="Добавить" color="grey" />
+          <Button text="Add" color="grey" />
         </div>
       </form>
     </>

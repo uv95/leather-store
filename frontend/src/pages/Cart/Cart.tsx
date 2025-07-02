@@ -47,7 +47,7 @@ const Cart = () => {
         items: cart.items,
         user,
         address: addresses[currentAddressIndex],
-        status: 'Ожидает оплаты',
+        status: 'Awaiting payment',
         total: cart.total,
       });
   }, [cart, addresses, currentAddressIndex, user]);
@@ -59,17 +59,16 @@ const Cart = () => {
           setOpen={setOpenModal}
           Content={
             isOrderLoading && cart?.items.length ? (
-              <p className="cart__modal">Оформляем заказ...</p>
+              <p className="cart__modal">Placing order...</p>
             ) : status === 'rejected' ? (
               <p className="cart__modal">
-                Произошла ошибка! Пожалуйста, перезагрузите страницу и
-                попробуйте снова.
+                An error occurred! Please reload the page and try again.
               </p>
             ) : (
               <p className="cart__modal">
-                Заказ создан! Перейти в{' '}
+                Order created! Go to{' '}
                 <Link className="redLink" to={USER_PROFILE_ROUTE}>
-                  личный кабинет.
+                  your account.
                 </Link>
               </p>
             )
@@ -78,12 +77,12 @@ const Cart = () => {
       )}
       <div className="cart">
         <Back />
-        <h1 className="cart__heading">Корзина</h1>
+        <h1 className="cart__heading">Cart</h1>
         <div className="cart__container">
           {isLoading ? (
             <Spinner />
           ) : !cart || !cart.items.length ? (
-            <p className="cart__container-empty">Корзина пуста</p>
+            <p className="cart__container-empty">Cart is empty</p>
           ) : (
             <>
               <div className="cart__container__order">
@@ -93,7 +92,7 @@ const Cart = () => {
                   ))}
                 </div>
                 <div className="cart__container__order__total">
-                  <p>Итого: {cart.total} руб.</p>
+                  <p>Total: {cart.total} RUB</p>
                 </div>
               </div>
               {openSelectAddress && (
@@ -113,7 +112,7 @@ const Cart = () => {
                       setOpenSelectAddress(true);
                     }
                   }}
-                  text={openSelectAddress ? 'Заказать' : 'Оформление заказа'}
+                  text={openSelectAddress ? 'Order' : 'Checkout'}
                   color="black"
                   big
                   animation={openSelectAddress}

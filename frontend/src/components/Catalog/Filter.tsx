@@ -9,7 +9,7 @@ const Filter = () => {
     <div className="filter">
       <Button
         onClick={() => setOpen(!open)}
-        text="Фильтр и сортировка"
+        text="Filter and sort"
         color="grey"
       />
       {open && (
