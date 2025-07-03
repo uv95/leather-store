@@ -18,11 +18,11 @@ export const statusStyles = [
   { status: 'Completed', style: 'status status-completed' },
 ];
 
-export const typeOptions = [
-  'Wallets and cardholders',
-  'Eyeglass cases',
-  'Passport covers',
-];
+export enum ITEM_TYPE {
+  WALLETS = 'Wallets and cardholders',
+  EYEGLASS_CASES = 'Eyeglass cases',
+  PASSPORT_COVERS = 'Passport covers',
+}
 
 export const colors = {
   Black: '#000000',
@@ -33,11 +33,12 @@ export const colors = {
   Burgundy: '#801030',
   Green: '#1e8b0d',
   Grey: '#909090',
-  // Pink: '#fe87fe',
   Khaki: '#474c21',
 };
 
-export const BASE_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000/'
-    : 'https://leather-store-server.onrender.com/';
+// export const BASE_URL =
+//   process.env.NODE_ENV === 'development'
+//     ? 'http://localhost:5000/'
+//     : 'https://leather-store-server.onrender.com/';
+
+export const BASE_URL = 'https://leather-store.fly.dev/';

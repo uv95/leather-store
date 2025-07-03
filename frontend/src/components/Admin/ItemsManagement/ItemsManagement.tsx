@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './itemsManagement.scss';
 import Button from '../../UI/Button/Button';
 import AddItem from './AddItem/AddItem';
@@ -9,11 +9,21 @@ import ItemDetails from './ItemDetails/ItemDetails';
 import Toast from '../../UI/Toast/Toast';
 import Modal from '../../UI/Modal/Modal';
 import Spinner from '../../UI/Spinner/Spinner';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { clearFilter } from '../../../features/filters/filtersSlice';
 
 const ItemsManagement = () => {
+  const dispatch = useAppDispatch();
+  const { filters } = useAppSelector((state) => state.filters);
+
   const [openModal, setOpenModal] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const [toastText, setToastText] = useState('');
+
+  if (filters.length) {
+    dispatch(clearFilter());
+  }
+
   const { isLoading, items } = useGetAllItems();
   const itemData = (item: IItem) => [
     {

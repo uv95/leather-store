@@ -1,17 +1,8 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import './input.scss';
 
-interface InputProps {
-  onChange: (arg: React.FormEvent<HTMLInputElement>) => void;
-  name: string;
-  value?: string;
-  type: string;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  required?: boolean;
-  placeholder?: string;
-  accept?: string;
-  multiple?: boolean;
-  defaultChecked?: boolean;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -24,17 +15,9 @@ const Input: React.FC<InputProps> = (props) => {
         {props.label}
       </label>
       <input
-        className={`input ${props.accept && 'fileInput'}`}
-        type={props.type}
-        id={props.name}
-        name={props.name}
-        value={props.value}
-        required={props.required}
-        placeholder={props.placeholder}
         onChange={props.onChange}
-        accept={props.accept}
-        multiple={props.multiple}
-        defaultChecked={props.defaultChecked}
+        className={`input ${props.accept && 'fileInput'}`}
+        {...props}
       />
     </>
   );

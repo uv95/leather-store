@@ -1,4 +1,3 @@
-import React from 'react';
 import './filtersPanel.scss';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { removeFilter, setSort } from '../../../features/filters/filtersSlice';

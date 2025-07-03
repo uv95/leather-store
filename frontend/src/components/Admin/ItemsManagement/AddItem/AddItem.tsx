@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './addItem.scss';
-import Button from '../../../UI/Button/Button';
-import { useAppDispatch } from '../../../../hooks';
 import { addItem } from '../../../../features/items/itemsSlice';
+import { useAppDispatch } from '../../../../hooks';
+import { ITEM_TYPE } from '../../../../utils/consts';
+import Button from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
-import { typeOptions } from '../../../../utils/consts';
+import './addItem.scss';
 
 interface AddItemProps {
   setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,13 +27,14 @@ const AddItem: React.FC<AddItemProps> = ({
 
   const [formData, setFormData] = useState<IFormData>({
     name: '',
-    type: '' || typeOptions[0],
+    type: ITEM_TYPE.WALLETS,
     description: '',
     price: '',
   });
 
   const [imageCover, setImageCover] = useState<File | null>(null);
   const [images, setImages] = useState<File | FileList | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,6 +51,8 @@ const AddItem: React.FC<AddItemProps> = ({
       }
     }
 
+    setIsLoading(true);
+
     dispatch(addItem(form))
       .unwrap()
       .then(() => {
@@ -58,24 +61,30 @@ const AddItem: React.FC<AddItemProps> = ({
       .catch((error) => {
         setToastText(error.split(':')[error.split(':').length - 1]);
         setOpenToast(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
+
   const onChange = (
     e: React.FormEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
     const target = e.target as HTMLInputElement;
-    if (target.files && target.id === 'imageCover')
+
+    if (target.files && target.name === 'imageCover')
       setImageCover(target.files![0]);
 
-    if (target.files && target.id === 'images') setImages(target.files);
+    if (target.files && target.name === 'images') {
+      setImages(target.files);
+    }
 
-    if (!target.files)
+    if (!target.files) {
       setFormData((prev) => ({
         ...prev,
-        [target.id]: target.id === 'price' ? +target.value : target.value,
+        [target.name]: target.name === 'price' ? +target.value : target.value,
       }));
+    }
   };
 
   return (
@@ -91,8 +100,9 @@ const AddItem: React.FC<AddItemProps> = ({
             name="type"
             id="type"
             className="form__box-select"
+            disabled={isLoading}
           >
-            {typeOptions.map((option) => (
+            {Object.values(ITEM_TYPE).map((option) => (
               <option key={option} value={option}>
                 {option.split('')[0].toUpperCase() + option.slice(1)}
               </option>
@@ -106,6 +116,8 @@ const AddItem: React.FC<AddItemProps> = ({
             type="text"
             onChange={onChange}
             placeholder="Crazy Horse Wallet"
+            disabled={isLoading}
+            required
           />
         </div>
         <div className="form__box">
@@ -115,6 +127,8 @@ const AddItem: React.FC<AddItemProps> = ({
             type="number"
             onChange={onChange}
             placeholder="1000"
+            disabled={isLoading}
+            required
           />
         </div>
         <div className="form__box">
@@ -127,6 +141,8 @@ const AddItem: React.FC<AddItemProps> = ({
             className="form__box-input"
             placeholder="Enter item description"
             onChange={onChange}
+            disabled={isLoading}
+            required
           />
         </div>
         <div className="form__box">
@@ -136,6 +152,8 @@ const AddItem: React.FC<AddItemProps> = ({
             type="file"
             onChange={onChange}
             accept="image/jpeg, image/jpg"
+            disabled={isLoading}
+            required
           />
         </div>
         <div className="form__box">
@@ -145,11 +163,12 @@ const AddItem: React.FC<AddItemProps> = ({
             type="file"
             onChange={onChange}
             accept="image/jpeg, image/jpg"
+            disabled={isLoading}
             multiple
           />
         </div>
         <div className="form__btn">
-          <Button text="Add" color="grey" />
+          <Button type="submit" text="Add" color="grey" disabled={isLoading} />
         </div>
       </form>
     </>

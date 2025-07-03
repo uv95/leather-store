@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './itemDetails.scss';
 import { IItem } from '../../../../types/data';
-import { typeOptions } from '../../../../utils/consts';
+import { ITEM_TYPE } from '../../../../utils/consts';
 import Input from '../../../UI/Input/Input';
 import Button from '../../../UI/Button/Button';
 import { useAppDispatch } from '../../../../hooks';
@@ -87,7 +87,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
               id="type"
               className="itemDetails__form__box-select"
             >
-              {typeOptions.map((option) => (
+              {Object.values(ITEM_TYPE).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './about.scss';
-import anna from '../../../assets/img/anna.jpg';
+import anna from '../../../assets/img/about-me.jpg';
 
 type Props = {};
 
