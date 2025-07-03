@@ -4,7 +4,7 @@ const itemController = require('../controllers/itemController');
 const authController = require('../controllers/authController');
 const {
   uploadItemImages,
-  attachImageUrls,
+  processItemImages,
 } = require('../middlewares/imageUpload');
 
 router
@@ -14,7 +14,7 @@ router
     authController.protect,
     authController.restrictTo('admin'),
     uploadItemImages,
-    attachImageUrls,
+    processItemImages,
     itemController.createItem
   );
 
@@ -27,7 +27,7 @@ router
     authController.protect,
     authController.restrictTo('admin'),
     uploadItemImages,
-    attachImageUrls,
+    processItemImages,
     itemController.updateItem
   )
   .delete(
