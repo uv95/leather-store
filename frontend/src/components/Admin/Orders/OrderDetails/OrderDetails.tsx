@@ -14,7 +14,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
           <div key={item._id} className="orderDetails__items__item">
             <div className="orderDetails__items__item-left">
               <img
-                src={require(`../../../../assets/img/items/${item.imageCover}`)}
+                src={item.imageCover}
                 alt={item.name || ''}
                 className="orderDetails__items__item-left-img"
               />

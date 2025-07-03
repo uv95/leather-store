@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const itemController = require('../controllers/itemController');
 const authController = require('../controllers/authController');
+const {
+  uploadItemImages,
+  attachImageUrls,
+} = require('../middlewares/imageUpload');
 
 router
   .route('/')
@@ -9,8 +13,8 @@ router
   .post(
     authController.protect,
     authController.restrictTo('admin'),
-    itemController.uploadImages,
-    itemController.resizeImages,
+    uploadItemImages,
+    attachImageUrls,
     itemController.createItem
   );
 
@@ -22,8 +26,8 @@ router
   .patch(
     authController.protect,
     authController.restrictTo('admin'),
-    // itemController.uploadImages,
-    // itemController.resizeImages,
+    uploadItemImages,
+    attachImageUrls,
     itemController.updateItem
   )
   .delete(

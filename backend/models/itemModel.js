@@ -27,10 +27,15 @@ const itemSchema = new mongoose.Schema({
     required: [true, 'Price is required'],
   },
   imageCover: {
-    type: String,
+    type: { url: String, public_id: String },
     required: [true, 'Item must have a cover image'],
   },
-  images: [String],
+  images: [
+    {
+      url: String,
+      public_id: String,
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),

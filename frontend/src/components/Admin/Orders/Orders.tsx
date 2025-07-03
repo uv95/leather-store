@@ -34,6 +34,7 @@ const Orders = (props: Props) => {
         <Spinner />
       ) : (
         <>
+          {!activeOrders.length && !finishedOrders.length && <p>No orders</p>}
           {activeOrders.length !== 0 && (
             <h1 className="orders-heading">Active</h1>
           )}

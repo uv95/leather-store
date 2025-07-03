@@ -44,7 +44,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
           <div key={item._id} className="myOrderDetails__item">
             <div className="myOrderDetails__item-left">
               <img
-                src={require(`../../../../../assets/img/items/${item.imageCover}`)}
+                src={item.imageCover}
                 alt={item.name}
                 className="myOrderDetails__item-left-img"
               />

@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: function (num) {
-          return validator.isMobilePhone(num.toString(), 'ru-RU');
+          return validator.isMobilePhone(num.toString(), 'en-US');
         },
         message: 'Invalid phone number',
       },
