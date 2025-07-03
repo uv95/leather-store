@@ -15,8 +15,8 @@ const Image: React.FC<ImageProps> = ({ item }) => {
   const allItemImages = [item.imageCover, ...item.images];
 
   const slides: ISlides[] = allItemImages.map((img) => ({
-    path: require(`../../../assets/img/items/${img}`),
-    name: img,
+    path: img.url,
+    name: img.url,
   }));
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './listItem.scss';
 import arrow from '../../../assets/icons/right.svg';
 
@@ -17,7 +17,7 @@ const ListItem = ({ data, bg, Details, myOrder }: ListItemProps) => {
         <div
           //to place image without padding
           className={`${
-            data[0].dataItem.imgPath
+            data[0].dataItem.imageCover
               ? 'listItem__card__main listItem__card__main-withImage'
               : 'listItem__card__main listItem__card__main'
           }  ${myOrder ? 'myOrder' : ''}`}
@@ -35,9 +35,9 @@ const ListItem = ({ data, bg, Details, myOrder }: ListItemProps) => {
                   el.style ? el.style : ''
                 }  ${myOrder ? 'myOrder' : ''}`}
               >
-                {el.dataItem?.imgPath ? (
+                {el.dataItem?.imageCover ? (
                   <img
-                    src={el.dataItem?.imgPath}
+                    src={el.dataItem?.imageCover}
                     alt={el.dataItem?.name || 'Product'}
                   />
                 ) : (

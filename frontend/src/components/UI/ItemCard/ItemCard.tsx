@@ -13,7 +13,7 @@ const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
     <Link to={ITEM_ROUTE + item.slug} className="item-card">
       <div className="item-card__img">
         <img
-          src={require(`../../../assets/img/items/${item.imageCover}`)}
+          src={item.imageCover.url}
           alt={item.name}
           className="item-card__img--item"
         />

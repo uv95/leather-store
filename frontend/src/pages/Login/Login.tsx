@@ -23,6 +23,17 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  function loginAsAdmin() {
+    console.log('loginAsAdmin');
+
+    dispatch(
+      login({
+        email: 'admin@gmail.com',
+        password: 'adminadmin',
+      })
+    ).then(() => navigate('/admin'));
+  }
+
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setFormData((prev) => ({
@@ -32,7 +43,7 @@ const Login = () => {
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log('on submit');
     dispatch(login(formData))
       .unwrap()
       .then((data) => {
@@ -101,6 +112,12 @@ const Login = () => {
             </div>
             <div className="login__container__form__bottom">
               <Button type="submit" text="Login" color="grey" />
+              <Button
+                type="button"
+                onClick={loginAsAdmin}
+                text="Login as Admin"
+                color="black"
+              />
               <Link to={''}>Forgot password?</Link>
               <Link to={REGISTRATION_ROUTE} className="redLink">
                 Register

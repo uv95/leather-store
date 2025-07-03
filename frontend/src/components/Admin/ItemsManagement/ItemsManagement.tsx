@@ -17,9 +17,7 @@ const ItemsManagement = () => {
   const { isLoading, items } = useGetAllItems();
   const itemData = (item: IItem) => [
     {
-      dataItem: {
-        imgPath: require(`../../../assets/img/items/${item.imageCover}`),
-      },
+      dataItem: { imageCover: item.imageCover.url },
     },
     { dataItem: 'ID: ' + item._id.slice(0, 8) },
     { dataItem: item.name },

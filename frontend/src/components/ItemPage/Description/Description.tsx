@@ -41,8 +41,8 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       },
       leather: leatherType,
       price: +item.price,
-      imageCover: item.imageCover,
-      images: item.images,
+      imageCover: item.imageCover.url,
+      images: item.images.map((img) => img.url),
     };
   }, [item, colors, leatherType, user]);
 

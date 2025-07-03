@@ -70,9 +70,14 @@ export interface IItem {
   type: string;
   description: string;
   price: string;
-  imageCover: string;
-  images: string[] | [];
+  imageCover: IImage;
+  images: IImage[] | [];
   createdAt: string;
+}
+
+interface IImage {
+  url: string;
+  public_id: string;
 }
 
 export interface IItemsState {
