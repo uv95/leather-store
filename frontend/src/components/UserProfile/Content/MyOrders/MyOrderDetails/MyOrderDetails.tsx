@@ -22,18 +22,14 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
               <p>Are you sure you want to cancel the order?</p>
               <div className="modal__content__buttons">
                 <Button
-                  text="Yes"
-                  color="grey"
                   onClick={() => {
                     cancelOrder(order._id!);
                     setOpenModal(false);
                   }}
-                />
-                <Button
-                  text="No"
-                  color="grey"
-                  onClick={() => setOpenModal(false)}
-                />
+                >
+                  Yes
+                </Button>
+                <Button onClick={() => setOpenModal(false)}>No</Button>
               </div>
             </>
           }
@@ -80,11 +76,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
           </div>
           {order.status !== 'Completed' && (
             <div className="myOrderDetails__bottom-btns">
-              <Button
-                text="Cancel order"
-                color="gray"
-                onClick={() => setOpenModal(true)}
-              />
+              <Button onClick={() => setOpenModal(true)}>Cancel order</Button>
             </div>
           )}
         </div>

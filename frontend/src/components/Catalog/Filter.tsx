@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import './filter_view.scss';
-import Dropdown from './Dropdown/Dropdown';
+import { useState } from 'react';
 import Button from '../UI/Button/Button';
+import Dropdown from './Dropdown/Dropdown';
+import './filter_view.scss';
 
 const Filter = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="filter">
-      <Button
-        onClick={() => setOpen(!open)}
-        text="Filter and sort"
-        color="grey"
-      />
+      <Button onClick={() => setOpen(!open)}>Filter and sort</Button>
       {open && (
         <>
           <div

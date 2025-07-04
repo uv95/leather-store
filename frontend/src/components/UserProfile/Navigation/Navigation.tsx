@@ -34,18 +34,14 @@ const Navigation: React.FC<NavigationProps> = React.memo(
                 <p>Are you sure you want to log out?</p>
                 <div className="modal__content__buttons">
                   <Button
-                    text="Yes"
-                    color="grey"
                     onClick={() => {
                       logoutUser();
                       setOpenModal(false);
                     }}
-                  />
-                  <Button
-                    text="No"
-                    color="grey"
-                    onClick={() => setOpenModal(false)}
-                  />
+                  >
+                    Yes
+                  </Button>
+                  <Button onClick={() => setOpenModal(false)}>No</Button>
                 </div>
               </>
             }

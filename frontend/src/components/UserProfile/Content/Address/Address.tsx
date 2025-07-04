@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../../../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
 import AddressForm from './AddressForm/AddressForm';
 import AddressCard from './AddressCard/AddressCard';
 import Spinner from '../../../UI/Spinner/Spinner';
@@ -33,10 +33,11 @@ const Address = () => {
             <h1 className="address__heading">Delivery Addresses</h1>
             <Button
               onClick={() => setOpenAddressForm(!openAddressForm)}
-              text="Add address"
-              color="black"
-              big
-            />
+              color={ButtonColor.BLACK}
+              size={ButtonSize.L}
+            >
+              Add address
+            </Button>
           </div>
           <div className="address__container">
             {!addresses?.length && (

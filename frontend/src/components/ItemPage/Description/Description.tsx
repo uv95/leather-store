@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import './description.scss';
 import SelectColor from '../../SelectColor/SelectColor';
-import Button from '../../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../UI/Button/Button';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import Radio from '../../UI/Radio/Radio';
 import { IItem } from '../../../types/data';
@@ -112,10 +112,11 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       <div className="item-desc-text">{item.description}</div>
       <Button
         onClick={() => addItemToCart(itemData)}
-        text="Add to cart"
-        color="black"
-        big
-      />
+        color={ButtonColor.BLACK}
+        size={ButtonSize.L}
+      >
+        Add to cart
+      </Button>
     </>
   );
 };

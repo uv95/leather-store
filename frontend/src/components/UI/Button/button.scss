@@ -12,6 +12,48 @@
   cursor: pointer;
   border: none;
   transition: all 0.1s;
+
+  &--large {
+    font-size: 2rem;
+    height: 5rem;
+    min-width: 16rem;
+    width: fit-content;
+    padding: 0 1rem;
+    @include max300 {
+      min-width: none;
+      font-size: 1.5rem;
+    }
+  }
+  &-black {
+    background-color: black;
+    color: white;
+    &--disabled {
+      cursor: auto;
+      background-color: $color-grey--dark;
+
+      &:hover {
+        background-color: $color-grey--dark;
+      }
+    }
+  }
+
+  &-grey {
+    background-color: $color-grey--medium;
+
+    &--disabled {
+      cursor: auto;
+      background-color: $color-grey--dark;
+
+      &:hover {
+        background-color: $color-grey--dark;
+      }
+    }
+  }
+
+  &--animated {
+    animation: up 0.8s ease;
+  }
+
   &:hover {
     color: white;
     background-color: $color-grey--dark;
@@ -23,44 +65,4 @@
   @include max300 {
     min-width: 6rem;
   }
-}
-
-.black {
-  background-color: black;
-  color: white;
-  &-disabled {
-    cursor: auto;
-    background-color: $color-grey--dark;
-    &:hover {
-      background-color: $color-grey--dark;
-    }
-  }
-}
-
-.grey {
-  background-color: $color-grey--medium;
-
-  &-disabled {
-    cursor: auto;
-    background-color: $color-grey--dark;
-    &:hover {
-      background-color: $color-grey--dark;
-    }
-  }
-}
-
-.big {
-  font-size: 2rem;
-  height: 5rem;
-  min-width: 16rem;
-  width: fit-content;
-  padding: 0 1rem;
-  @include max300 {
-    min-width: none;
-    font-size: 1.5rem;
-  }
-}
-
-.animated {
-  animation: up 0.8s ease;
 }

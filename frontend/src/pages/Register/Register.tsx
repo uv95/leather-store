@@ -140,7 +140,7 @@ const Register = () => {
               />
             </div>
             <div className="register__container__form__bottom">
-              <Button type="submit" text="Register" color="grey" />
+              <Button type="submit">Register</Button>
               <p>
                 Already registered?{' '}
                 <Link to={LOGIN_ROUTE} className="redLink">

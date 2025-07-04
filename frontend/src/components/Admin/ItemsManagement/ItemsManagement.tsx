@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './itemsManagement.scss';
-import Button from '../../UI/Button/Button';
+import Button, { ButtonColor } from '../../UI/Button/Button';
 import AddItem from './AddItem/AddItem';
 import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import { IItem } from '../../../types/data';
@@ -49,11 +49,7 @@ const ItemsManagement = () => {
       )}
       <div className="items">
         <h1 className="items-heading">Items</h1>
-        <Button
-          onClick={() => setOpenModal(true)}
-          text="Add item"
-          color="grey"
-        />
+        <Button onClick={() => setOpenModal(true)}>Add item</Button>
         <div className="items__container">
           {isLoading ? (
             <Spinner />

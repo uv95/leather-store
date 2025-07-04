@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './login.scss';
-import Button from '../../components/UI/Button/Button';
+import Button, { ButtonColor } from '../../components/UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
 import { useAppDispatch } from '../../hooks';
@@ -43,7 +43,7 @@ const Login = () => {
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('on submit');
+
     dispatch(login(formData))
       .unwrap()
       .then((data) => {
@@ -111,13 +111,14 @@ const Login = () => {
               />
             </div>
             <div className="login__container__form__bottom">
-              <Button type="submit" text="Login" color="grey" />
+              <Button type="submit">Login</Button>
               <Button
                 type="button"
                 onClick={loginAsAdmin}
-                text="Login as Admin"
-                color="black"
-              />
+                color={ButtonColor.BLACK}
+              >
+                Login as Admin
+              </Button>
               <Link to={''}>Forgot password?</Link>
               <Link to={REGISTRATION_ROUTE} className="redLink">
                 Register

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { addItem } from '../../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../../hooks';
 import { ITEM_TYPE } from '../../../../utils/consts';
-import Button from '../../../UI/Button/Button';
+import Button, { ButtonColor } from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
 import './addItem.scss';
 
@@ -168,7 +168,9 @@ const AddItem: React.FC<AddItemProps> = ({
           />
         </div>
         <div className="form__btn">
-          <Button type="submit" text="Add" color="grey" disabled={isLoading} />
+          <Button type="submit" disabled={isLoading}>
+            Add
+          </Button>
         </div>
       </form>
     </>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './addressForm.scss';
 import Input from '../../../../UI/Input/Input';
-import Button from '../../../../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../../../UI/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks';
 import {
   addAddress,
@@ -104,7 +104,9 @@ const AddressForm: React.FC<AddressFormProps> = ({
           onChange={onChange}
         />
       </div>
-      <Button type="submit" text={edit ? 'Save' : 'Add'} color="black" big />
+      <Button type="submit" color={ButtonColor.BLACK} size={ButtonSize.L}>
+        {edit ? 'Save' : 'Add'}
+      </Button>
     </form>
   );
 };

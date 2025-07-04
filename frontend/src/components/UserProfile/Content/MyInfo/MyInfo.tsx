@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../../../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
 import Spinner from '../../../UI/Spinner/Spinner';
 import './myInfo.scss';
 import { useNavigate } from 'react-router-dom';
@@ -117,7 +117,9 @@ const MyInfo = () => {
               />
             </div>
           </div>
-          <Button type="submit" text="Save" color="black" big />
+          <Button type="submit" color={ButtonColor.BLACK} size={ButtonSize.L}>
+            Save
+          </Button>
         </form>
         <form onSubmit={onNewPasswordSubmit}>
           <div className="info__container__section">
@@ -152,7 +154,9 @@ const MyInfo = () => {
               </div>
             </div>
           </div>
-          <Button type="submit" text="Save" color="black" big />
+          <Button type="submit" color={ButtonColor.BLACK} size={ButtonSize.L}>
+            Save
+          </Button>
         </form>
       </div>
     </div>

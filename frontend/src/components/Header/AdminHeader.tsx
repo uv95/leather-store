@@ -8,7 +8,7 @@ import {
   STATISTICS_ROUTE,
 } from '../../utils/consts';
 import '../Header/header.scss';
-import Button from '../UI/Button/Button';
+import Button, { ButtonColor } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 
 interface AdminHeaderProps {
@@ -42,18 +42,14 @@ const AdminHeader = ({ path }: AdminHeaderProps) => {
                 <p>Are you sure you want to log out?</p>
                 <div className="modal__content__buttons">
                   <Button
-                    text="Yes"
-                    color="grey"
                     onClick={() => {
                       logoutUser();
                       setOpenModal(false);
                     }}
-                  />
-                  <Button
-                    text="No"
-                    color="grey"
-                    onClick={() => setOpenModal(false)}
-                  />
+                  >
+                    Yes
+                  </Button>
+                  <Button onClick={() => setOpenModal(false)}>No</Button>
                 </div>
               </>
             }

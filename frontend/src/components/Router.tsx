@@ -1,26 +1,30 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import NotFound from '../pages/NotFound/NotFound';
-import { adminRoutes, userRoutes, publicRoutes } from '../routes';
+import { adminRoutes, publicRoutes, userRoutes } from '../routes';
+import { Role } from '../types/data';
+import MainLayout from './layouts/MainLayout/MainLayout';
 
 const Router: React.FC = () => {
   const role = useAppSelector((state) => state.auth.role);
 
   return (
     <Routes>
-      {role === 'admin' &&
-        adminRoutes.map(({ path, Component }) => (
+      <Route element={<MainLayout role={role} />}>
+        {role === Role.ADMIN &&
+          adminRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+        {role === Role.USER &&
+          userRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+        {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
-      {role === 'user' &&
-        userRoutes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-      {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
-      <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 };

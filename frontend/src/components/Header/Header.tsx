@@ -45,7 +45,7 @@ const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
                   className="header__container-inner__nav-icon "
                   alt="cart"
                 />
-                {cart && cart?.items.length && (
+                {cart && cart?.items.length !== 0 && (
                   <Badge value={cart.totalQuantity} />
                 )}
               </Link>
@@ -67,7 +67,6 @@ function UserOrAdminLink({
   myActiveOrders: IOrder[];
 }) {
   const getHref = (role: Role) => {
-    console.log('UserOrAdminLink');
     if (!role) {
       return LOGIN_ROUTE;
     }
@@ -85,7 +84,7 @@ function UserOrAdminLink({
             className="header__container-inner__nav-icon"
             alt={role ? 'login' : 'user_profile'}
           />
-          {role && myActiveOrders.length && (
+          {role && myActiveOrders.length !== 0 && (
             <Badge value={myActiveOrders.length} />
           )}
         </>

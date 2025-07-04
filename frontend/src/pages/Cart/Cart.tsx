@@ -3,7 +3,10 @@ import './cart.scss';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
-import Button from '../../components/UI/Button/Button';
+import Button, {
+  ButtonColor,
+  ButtonSize,
+} from '../../components/UI/Button/Button';
 import useCreateOrder from '../../hooks/useCreateOrder';
 import Back from '../../components/UI/Back/Back';
 import Modal from '../../components/UI/Modal/Modal';
@@ -112,14 +115,15 @@ const Cart = () => {
                       setOpenSelectAddress(true);
                     }
                   }}
-                  text={openSelectAddress ? 'Order' : 'Checkout'}
-                  color="black"
-                  big
-                  animation={openSelectAddress}
+                  color={ButtonColor.BLACK}
+                  size={ButtonSize.L}
+                  isAnimated={openSelectAddress}
                   disabled={
                     !openSelectAddress ? false : addresses.length ? false : true
                   }
-                />
+                >
+                  {openSelectAddress ? 'Order' : 'Checkout'}
+                </Button>
               </div>
             </>
           )}

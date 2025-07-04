@@ -5,16 +5,17 @@ import {
   selectMyActiveOrders,
   selectMyFinishedOrders,
 } from '../features/order/orderSlice';
+import { Role } from '../types/data';
 
 export function useGetMyOrders(userId: string) {
   const dispatch = useAppDispatch();
   const role = useAppSelector((state) => state.auth.role);
-
   const { isLoading, myOrders } = useAppSelector((state) => state.order);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
+
   useEffect(() => {
-    role === 'user' &&
+    role === Role.USER &&
       userId &&
       dispatch(getMyOrders(userId))
         .unwrap()

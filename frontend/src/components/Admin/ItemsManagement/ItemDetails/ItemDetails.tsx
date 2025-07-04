@@ -3,7 +3,7 @@ import './itemDetails.scss';
 import { IItem } from '../../../../types/data';
 import { ITEM_TYPE } from '../../../../utils/consts';
 import Input from '../../../UI/Input/Input';
-import Button from '../../../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
 import { useAppDispatch } from '../../../../hooks';
 import { updateItem } from '../../../../features/items/itemsSlice';
 import { deleteItem } from '../../../../features/items/itemsSlice';
@@ -166,7 +166,9 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             />
           </div>
         </div> */}
-        <Button text="Save" color="black" big />
+        <Button color={ButtonColor.BLACK} size={ButtonSize.L}>
+          Save
+        </Button>
         <p
           className="itemDetails__form-delete"
           onClick={() => onDelete(item._id)}

@@ -1,15 +1,15 @@
-import { ReactNode, useMemo } from 'react';
-import Footer from '../../Footer/Footer';
-import Header from '../../Header/Header';
-import { useLocation } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../../hooks';
 import useGetCart from '../../../hooks/useGetCart';
 import useGetMyOrders from '../../../hooks/useGetMyOrders';
-import { useAppSelector } from '../../../hooks';
 import { Role } from '../../../types/data';
+import Footer from '../../Footer/Footer';
 import AdminHeader from '../../Header/AdminHeader';
+import Header from '../../Header/Header';
 
-function MainLayout({ children }: { children: ReactNode }) {
-  const { role, user } = useAppSelector((state) => state.auth);
+function MainLayout({ role }: { role: any }) {
+  const { user } = useAppSelector((state) => state.auth);
   const { myActiveOrders } = useGetMyOrders(user?.data.user.id);
   const { cart } = useGetCart();
   const location = useLocation();
@@ -27,7 +27,9 @@ function MainLayout({ children }: { children: ReactNode }) {
         <Header role={role} myActiveOrders={myActiveOrders} cart={cart} />
       )}
 
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

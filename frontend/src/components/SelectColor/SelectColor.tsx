@@ -1,7 +1,7 @@
 import React from 'react';
 import './selectColor.scss';
 import { colors } from '../../utils/consts';
-import Button from '../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../UI/Button/Button';
 
 type SetColors = { leatherColor: string; threadsColor: string };
 
@@ -46,11 +46,12 @@ const SelectColor: React.FC<SelectColorProps> = ({
           ))}
         </div>
         <Button
-          text="Select"
-          color="black"
-          big
+          color={ButtonColor.BLACK}
+          size={ButtonSize.L}
           onClick={() => setOpenSelectColor(false)}
-        />
+        >
+          Select
+        </Button>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { ICartItem } from '../../../types/data';
 import { useDeleteCartItem } from '../../../hooks/useDeleteCartItem';
 import Quantity from '../../UI/Quantity/Quantity';
 import Colors from '../../UI/Colors/Colors';
-import Button from '../../UI/Button/Button';
+import Button, { ButtonColor } from '../../UI/Button/Button';
 import { useChangeQuantity } from '../../../hooks/useChangeQuantity';
 
 type CartItemProps = {
@@ -69,9 +69,10 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
           <Delete onClick={() => deleteCartItem(item._id!)} />
           <Button
             onClick={() => deleteCartItem(item._id!)}
-            text="Удалить"
-            color="black"
-          />
+            color={ButtonColor.BLACK}
+          >
+            Удалить
+          </Button>
         </div>
       </div>
     </div>

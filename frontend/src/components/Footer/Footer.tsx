@@ -21,7 +21,6 @@ function Footer() {
             <Link to={CONTACTS_ROUTE}>Contacts</Link>
           </nav>
           <div className="footer__container__top__social">
-            {/* todo: IG link */}
             <Link to="/">
               <img
                 src={ig}

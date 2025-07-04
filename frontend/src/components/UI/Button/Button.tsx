@@ -1,35 +1,44 @@
-import React from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import './button.scss';
 
-interface ButtonProps {
-  onClick?: () => void;
-  text: string;
-  color: string;
-  big?: boolean;
-  type?: 'button' | 'submit' | 'reset' | undefined;
-  animation?: boolean;
-  disabled?: boolean;
+export enum ButtonSize {
+  L = 'l',
+  M = 'm',
 }
 
-const Button: React.FC<ButtonProps> = ({
-  onClick,
-  text,
-  color,
-  big,
-  type,
-  animation,
-  disabled,
-}) => {
+export enum ButtonColor {
+  BLACK = 'black',
+  GREY = 'grey',
+}
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  isAnimated?: boolean;
+}
+
+const Button = (props: ButtonProps) => {
+  const {
+    children,
+    color = ButtonColor.GREY,
+    size = ButtonSize.M,
+    isAnimated,
+    disabled,
+    onClick,
+    ...otherProps
+  } = props;
   return (
     <button
-      type={type}
-      className={`button ${color === 'black' ? 'black' : 'grey'} ${
-        big && 'big'
-      } ${animation && 'animated'} ${disabled ? `${color}-disabled` : ''}`}
       onClick={onClick}
+      className={`button button-${color} 
+      ${size === ButtonSize.L ? 'button--large' : ''} 
+      ${isAnimated ? 'button--animated' : ''} 
+      ${disabled ? `button-${color}--disabled` : ''}`}
       disabled={disabled}
+      {...otherProps}
     >
-      {text}
+      {children}
     </button>
   );
 };
