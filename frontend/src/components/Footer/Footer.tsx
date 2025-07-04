@@ -1,13 +1,13 @@
-import React from 'react';
-import './footer.scss';
 import { Link } from 'react-router-dom';
+import ig from '../../assets/icons/instagram-512.svg';
 import {
-  HOME_ROUTE,
   CATALOG_ROUTE,
   CONTACTS_ROUTE,
+  HOME_ROUTE,
   LEATHERS_ROUTE,
 } from '../../utils/consts';
-import ig from '../../assets/icons/instagram-512.svg';
+import './footer.scss';
+import { memo } from 'react';
 
 function Footer() {
   return (
@@ -39,4 +39,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

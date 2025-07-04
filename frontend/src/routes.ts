@@ -1,3 +1,4 @@
+import { lazy } from 'react';
 import {
   ADMIN_ROUTE,
   LOGIN_ROUTE,
@@ -13,19 +14,24 @@ import {
   USER_PROFILE_ROUTE,
   LEATHERS_ROUTE,
 } from './utils/consts';
-import Admin from './pages/Admin/Admin';
-import Cart from './pages/Cart/Cart';
-import Catalog from './pages/Catalog/Catalog';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import ItemPage from './pages/itemPage/ItemPage';
-import Home from './pages/Home/Home';
-import NotFound from './pages/NotFound/NotFound';
-import Contacts from './pages/Contacts/Contacts';
-import Statistics from './components/Admin/Statistics/Statistics';
-import ItemsManagement from './components/Admin/ItemsManagement/ItemsManagement';
-import UserProfile from './pages/UserProfile/UserProfile';
-import Leathers from './pages/Leathers/Leathers';
+
+const Cart = lazy(() => import('./pages/Cart/Cart'));
+const Catalog = lazy(() => import('./pages/Catalog/Catalog'));
+const Login = lazy(() => import('./pages/Login/Login'));
+const Register = lazy(() => import('./pages/Register/Register'));
+const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'));
+const Home = lazy(() => import('./pages/Home/Home'));
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
+const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
+const Statistics = lazy(
+  () => import('./components/Admin/Statistics/Statistics')
+);
+const ItemsManagement = lazy(
+  () => import('./components/Admin/ItemsManagement/ItemsManagement')
+);
+const UserProfile = lazy(() => import('./pages/UserProfile/UserProfile'));
+const Leathers = lazy(() => import('./pages/Leathers/Leathers'));
+const Admin = lazy(() => import('./pages/Admin/Admin'));
 
 interface Routes {
   path: string;

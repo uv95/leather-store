@@ -1,6 +1,9 @@
-import React from 'react';
-import './header.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { memo } from 'react';
+import { Link } from 'react-router-dom';
+import cartIcon from '../../assets/icons/cart.svg';
+import login from '../../assets/icons/sign-in.svg';
+import userIcon from '../../assets/icons/user.svg';
+import { ICart, IOrder, Role } from '../../types/data';
 import {
   ADMIN_ROUTE,
   CART_ROUTE,
@@ -9,81 +12,84 @@ import {
   LOGIN_ROUTE,
   USER_PROFILE_ROUTE,
 } from '../../utils/consts';
-import cartIcon from '../../assets/icons/cart.svg';
-import userIcon from '../../assets/icons/user.svg';
-import login from '../../assets/icons/sign-in.svg';
-import AdminHeader from './AdminHeader';
 import Badge from '../UI/Badge/Badge';
-import useGetMyOrders from '../../hooks/useGetMyOrders';
-import { useAppSelector } from '../../hooks';
-import useGetCart from '../../hooks/useGetCart';
+import './header.scss';
 
-const Header = () => {
-  const { role, user } = useAppSelector((state) => state.auth);
-  const { myActiveOrders } = useGetMyOrders(user?.data.user.id);
-  const { cart } = useGetCart();
-  const location = useLocation();
+interface HeaderProps {
+  role: Role;
+  myActiveOrders: IOrder[];
+  cart: ICart | null;
+}
 
+const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
   return (
     <header className="header">
       <div className="header__container">
-        {location.pathname.startsWith('/admin') && role === 'admin' ? (
-          <AdminHeader />
-        ) : (
-          <div className="header__container-inner">
-            <Link to={HOME_ROUTE} className="header__container-inner__logo">
-              ANNE LEATHER
+        <div className="header__container-inner">
+          <Link to={HOME_ROUTE} className="header__container-inner__logo">
+            ANNE LEATHER
+          </Link>
+          <div className="header__container-inner__nav">
+            <Link
+              to={CATALOG_ROUTE}
+              className="header__container-inner__nav-catalog"
+            >
+              CATALOG
             </Link>
-            <div className="header__container-inner__nav">
-              <Link
-                to={CATALOG_ROUTE}
-                className="header__container-inner__nav-catalog"
-              >
-                CATALOG
-              </Link>
-              <Link
-                to={
-                  !role
-                    ? LOGIN_ROUTE
-                    : role === 'user'
-                    ? USER_PROFILE_ROUTE
-                    : ADMIN_ROUTE
-                }
-                className={role === 'user' ? 'link-user' : ''}
-              >
-                {role === 'admin' ? (
-                  'ADMIN'
-                ) : (
-                  <>
-                    <img
-                      src={!role ? login : userIcon}
-                      className="header__container-inner__nav-icon"
-                      alt={role ? 'login' : 'user_profile'}
-                    />
-                    {role && myActiveOrders.length !== 0 && (
-                      <Badge value={myActiveOrders.length} />
-                    )}
-                  </>
+            <UserOrAdminLink role={role} myActiveOrders={myActiveOrders} />
+
+            {role !== Role.ADMIN && (
+              <Link to={CART_ROUTE} className="link-cart">
+                <img
+                  src={cartIcon}
+                  className="header__container-inner__nav-icon "
+                  alt="cart"
+                />
+                {cart && cart?.items.length && (
+                  <Badge value={cart.totalQuantity} />
                 )}
               </Link>
-              {role !== 'admin' && (
-                <Link to={CART_ROUTE} className="link-cart">
-                  <img
-                    src={cartIcon}
-                    className="header__container-inner__nav-icon "
-                    alt="cart"
-                  />
-                  {cart && cart?.items.length !== 0 && (
-                    <Badge value={cart.totalQuantity} />
-                  )}
-                </Link>
-              )}
-            </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
 };
 
-export default Header;
+export default memo(Header);
+
+function UserOrAdminLink({
+  role,
+  myActiveOrders,
+}: {
+  role: Role;
+  myActiveOrders: IOrder[];
+}) {
+  const getHref = (role: Role) => {
+    console.log('UserOrAdminLink');
+    if (!role) {
+      return LOGIN_ROUTE;
+    }
+    return role === Role.USER ? USER_PROFILE_ROUTE : ADMIN_ROUTE;
+  };
+
+  return (
+    <Link to={getHref(role)} className={role === Role.USER ? 'link-user' : ''}>
+      {role === Role.ADMIN ? (
+        'ADMIN'
+      ) : (
+        <>
+          <img
+            src={!role ? login : userIcon}
+            className="header__container-inner__nav-icon"
+            alt={role ? 'login' : 'user_profile'}
+          />
+          {role && myActiveOrders.length && (
+            <Badge value={myActiveOrders.length} />
+          )}
+        </>
+      )}
+    </Link>
+  );
+}

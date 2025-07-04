@@ -41,6 +41,11 @@ export interface IUpdatedAuth {
 
 //USER
 
+export enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 export interface IUser {
   name: string;
   email: string;
@@ -55,7 +60,7 @@ export interface IUserState {
     email: string;
     name: string;
     phone: string;
-    role: string;
+    role: Role;
   } | null;
   users: Object[] | [];
   isLoading: boolean;

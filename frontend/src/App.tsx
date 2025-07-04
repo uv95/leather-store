@@ -1,22 +1,22 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import Router from './components/Router';
+import { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import store from './store';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './components/Router';
 import ScrollToTop from './components/ScrollToTop';
+import Spinner from './components/UI/Spinner/Spinner';
+import MainLayout from './components/layouts/MainLayout/MainLayout';
+import store from './store';
 
 const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <main>
+        <MainLayout>
           <ScrollToTop />
-          <Header />
-          <Router />
-          <Footer />
-        </main>
+          <Suspense fallback={<Spinner />}>
+            <Router />
+          </Suspense>
+        </MainLayout>
       </BrowserRouter>
     </Provider>
   );
