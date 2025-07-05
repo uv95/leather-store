@@ -10,6 +10,8 @@ const itemRouter = require('./routes/itemRouter');
 const userRouter = require('./routes/userRouter');
 const cartRouter = require('./routes/cartRouter');
 const orderRouter = require('./routes/orderRouter');
+const analyticsRouter = require('./routes/analyticsRouter');
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -46,6 +48,7 @@ app.use('/items', itemRouter);
 app.use('/users', userRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
+app.use('/analytics', analyticsRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError('Page not found', 404));
