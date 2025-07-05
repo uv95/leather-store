@@ -128,7 +128,7 @@ export interface IQuantity {
 }
 
 export interface ICartState {
-  cart: ICart;
+  cart: ICart | null;
   isLoading: boolean;
 }
 
@@ -209,4 +209,10 @@ export enum OrderStatus {
   AWAITING_PAYMENT = 'Awaiting payment',
   IN_PROGRESS = 'In progress',
   COMPLETED = 'Completed',
+}
+
+export enum SortingOptions {
+  PRICE_DESCENDING = 'Price descending',
+  PRICE_ASCENDING = 'Price ascending',
+  DEFAULT = 'Default',
 }

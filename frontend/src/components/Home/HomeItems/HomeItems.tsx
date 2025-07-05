@@ -1,10 +1,9 @@
-import React from 'react';
-import './homeItems.scss';
 import { Link } from 'react-router-dom';
+import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import { CATALOG_ROUTE } from '../../../utils/consts';
 import ItemCard from '../../UI/ItemCard/ItemCard';
-import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import Spinner from '../../UI/Spinner/Spinner';
+import './homeItems.scss';
 
 const HomeItems = () => {
   const { isLoading, items } = useGetAllItems();
@@ -18,13 +17,11 @@ const HomeItems = () => {
         </Link>
       </div>
       <div className="home-items__container">
-        {isLoading ? (
-          <Spinner />
-        ) : (
+        {isLoading && <Spinner />}
+        {!isLoading &&
           items
             ?.slice(0, 4)
-            .map((item) => <ItemCard key={item._id} item={item} />)
-        )}
+            .map((item) => <ItemCard key={item._id} item={item} />)}
       </div>
     </div>
   );

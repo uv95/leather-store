@@ -1,6 +1,5 @@
-import React from 'react';
-import './about.scss';
 import anna from '../../../assets/img/about-me.jpg';
+import './about.scss';
 
 type Props = {};
 

@@ -10,8 +10,8 @@ interface AddressCardProps {
   address: IAddress;
   setEdit?: React.Dispatch<React.SetStateAction<boolean>>;
   setAddressId?: React.Dispatch<React.SetStateAction<string>>;
-  fromCart?: boolean;
-  active?: boolean;
+  isFromCart?: boolean;
+  isActive?: boolean;
   onClick?: () => void;
 }
 
@@ -19,8 +19,8 @@ const AddressCard: React.FC<AddressCardProps> = ({
   address,
   setEdit,
   setAddressId,
-  fromCart,
-  active,
+  isFromCart,
+  isActive,
   onClick,
 }) => {
   const dispatch = useAppDispatch();
@@ -34,15 +34,15 @@ const AddressCard: React.FC<AddressCardProps> = ({
 
   return (
     <div
-      className={`address-card ${active ? 'address-card-active' : ''} ${
-        fromCart ? 'address-card__fromCart' : ''
+      className={`address-card ${isActive ? 'address-card-active' : ''} ${
+        isFromCart ? 'address-card__fromCart' : ''
       }`}
       onClick={onClick}
     >
       <div className="address-card__right">
         {address.city}, {address.address}, {address.zipcode}
       </div>
-      {!fromCart && (
+      {!isFromCart && (
         <div className="address-card__left">
           <img
             src={edit}

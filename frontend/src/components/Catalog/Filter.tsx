@@ -5,6 +5,7 @@ import './filter_view.scss';
 
 const Filter = () => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="filter">
       <Button onClick={() => setOpen(!open)}>Filter and sort</Button>

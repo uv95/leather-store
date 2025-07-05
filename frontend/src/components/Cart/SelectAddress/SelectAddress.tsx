@@ -31,8 +31,8 @@ const SelectAddress = ({
                 <AddressCard
                   key={address._id}
                   address={address}
-                  fromCart
-                  active={i === currentAddressIndex}
+                  isFromCart
+                  isActive={i === currentAddressIndex}
                   onClick={() => setCurrentAddressIndex(i)}
                 />
               ))}

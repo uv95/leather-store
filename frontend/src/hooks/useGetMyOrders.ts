@@ -7,12 +7,14 @@ import {
 } from '../features/order/orderSlice';
 import { Role } from '../types/data';
 
-export function useGetMyOrders(userId: string) {
+export function useGetMyOrders() {
   const dispatch = useAppDispatch();
-  const role = useAppSelector((state) => state.auth.role);
+  const { role, user } = useAppSelector((state) => state.auth);
   const { isLoading, myOrders } = useAppSelector((state) => state.order);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
+
+  const userId = user?.data.user._id;
 
   useEffect(() => {
     role === Role.USER &&

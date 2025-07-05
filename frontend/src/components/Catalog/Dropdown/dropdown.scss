@@ -34,14 +34,13 @@
       @include list;
     }
 
-    &-left,
-    &-right {
+    &-section {
       width: 20rem;
       @include max500 {
         width: 100%;
       }
 
-      &__title {
+      &-title {
         font-weight: 600;
         margin-bottom: 1rem;
         text-align: center;
@@ -49,12 +48,13 @@
           font-size: 2rem;
         }
       }
-      &__options {
+      &-options {
         @include list;
         gap: 1rem;
         @include center;
 
-        &--item {
+        &--item,
+        &--item-active {
           @include center;
           justify-content: flex-start;
           padding-left: 1rem;

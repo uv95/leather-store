@@ -9,15 +9,8 @@ import {
   IUpdatedQuantity,
 } from '../../types/data';
 
-const cartInitialState = {
-  items: [],
-  total: 0,
-  totalQuantity: 0,
-  user: undefined,
-};
-
 const initialState: ICartState = {
-  cart: cartInitialState,
+  cart: null,
   isLoading: false,
 };
 
@@ -195,10 +188,10 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
       })
       .addCase(emptyCart.fulfilled, (state) => {
-        state.cart = cartInitialState;
+        state.cart = null;
       })
       .addCase(emptyCart.rejected, (state) => {
-        state.cart = cartInitialState;
+        state.cart = null;
       })
       .addCase(updateCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
@@ -207,14 +200,14 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
       })
       .addCase(getCart.pending, (state) => {
-        state.cart = cartInitialState;
+        state.cart = null;
         state.isLoading = true;
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
       })
       .addCase(getCart.rejected, (state) => {
-        state.cart = cartInitialState;
+        state.cart = null;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
