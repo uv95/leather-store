@@ -13,25 +13,25 @@ import {
   ITEMS_MANAGEMENT_ROUTE,
   USER_PROFILE_ROUTE,
   LEATHERS_ROUTE,
-} from './utils/consts';
+} from '../utils/consts';
 
-const Cart = lazy(() => import('./pages/Cart/Cart'));
-const Catalog = lazy(() => import('./pages/Catalog/Catalog'));
-const Login = lazy(() => import('./pages/Login/Login'));
-const Register = lazy(() => import('./pages/Register/Register'));
-const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'));
-const Home = lazy(() => import('./pages/Home/Home'));
-const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
-const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
+const Cart = lazy(() => import('../pages/Cart/Cart'));
+const Catalog = lazy(() => import('../pages/Catalog/Catalog'));
+const Login = lazy(() => import('../pages/Login/Login'));
+const Register = lazy(() => import('../pages/Register/Register'));
+const ItemPage = lazy(() => import('../pages/itemPage/ItemPage'));
+const Home = lazy(() => import('../pages/Home/Home'));
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
+const Contacts = lazy(() => import('../pages/Contacts/Contacts'));
 const Statistics = lazy(
-  () => import('./components/Admin/Statistics/Statistics')
+  () => import('../components/Admin/Statistics/Statistics')
 );
 const ItemsManagement = lazy(
-  () => import('./components/Admin/ItemsManagement/ItemsManagement')
+  () => import('../components/Admin/ItemsManagement/ItemsManagement')
 );
-const UserProfile = lazy(() => import('./pages/UserProfile/UserProfile'));
-const Leathers = lazy(() => import('./pages/Leathers/Leathers'));
-const Admin = lazy(() => import('./pages/Admin/Admin'));
+const UserProfile = lazy(() => import('../pages/UserProfile/UserProfile'));
+const Leathers = lazy(() => import('../pages/Leathers/Leathers'));
+const Admin = lazy(() => import('../pages/Admin/Admin'));
 
 interface Routes {
   path: string;

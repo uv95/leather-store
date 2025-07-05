@@ -1,20 +1,20 @@
-import React, { useState, useCallback } from 'react';
-import './cart.scss';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
+import Back from '../../components/UI/Back/Back';
 import Button, {
   ButtonColor,
   ButtonSize,
 } from '../../components/UI/Button/Button';
-import useCreateOrder from '../../hooks/useCreateOrder';
-import Back from '../../components/UI/Back/Back';
 import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import { ICartItem, IOrder } from '../../types/data';
-import { USER_PROFILE_ROUTE } from '../../utils/consts';
 import { useAppSelector } from '../../hooks';
+import useCreateOrder from '../../hooks/useCreateOrder';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
+import { ICartItem, IOrder, OrderStatus } from '../../types/data';
+import { USER_PROFILE_ROUTE } from '../../utils/consts';
+import './cart.scss';
 
 const Cart = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -40,20 +40,20 @@ const Cart = () => {
       address: '',
       zipcode: '',
     },
-    status: '',
+    status: OrderStatus.AWAITING_PAYMENT,
     total: 0,
   });
 
   const setCart = useCallback(() => {
     if (cart && user && addresses[currentAddressIndex])
       setCartData({
+        ...cartData,
         items: cart.items,
         user,
         address: addresses[currentAddressIndex],
-        status: 'Awaiting payment',
         total: cart.total,
       });
-  }, [cart, addresses, currentAddressIndex, user]);
+  }, [cart, addresses, currentAddressIndex, user, cartData]);
 
   return (
     <>
@@ -118,9 +118,7 @@ const Cart = () => {
                   color={ButtonColor.BLACK}
                   size={ButtonSize.L}
                   isAnimated={openSelectAddress}
-                  disabled={
-                    !openSelectAddress ? false : addresses.length ? false : true
-                  }
+                  disabled={!openSelectAddress ? false : !addresses.length}
                 >
                   {openSelectAddress ? 'Order' : 'Checkout'}
                 </Button>

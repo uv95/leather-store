@@ -1,11 +1,10 @@
-import React from 'react';
-import './orders.scss';
 import useGetOrders from '../../../hooks/useGetOrders';
-import ListItem from '../../UI/ListItem/ListItem';
-import OrderDetails from './OrderDetails/OrderDetails';
-import { statusStyles } from '../../../utils/consts';
 import { IOrder } from '../../../types/data';
+import { orderStatuses } from '../../../utils/consts';
+import ListItem from '../../UI/ListItem/ListItem';
 import Spinner from '../../UI/Spinner/Spinner';
+import OrderDetails from './OrderDetails/OrderDetails';
+import './orders.scss';
 
 type Props = {};
 
@@ -23,8 +22,7 @@ const Orders = (props: Props) => {
     { dataItem: order.total + ' RUB' },
     {
       dataItem: order.status,
-      style: statusStyles.find((status) => status.status === order.status)
-        ?.style,
+      style: orderStatuses.find(({ status }) => status === order.status)?.style,
     },
   ];
 

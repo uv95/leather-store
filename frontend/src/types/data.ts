@@ -105,8 +105,8 @@ export interface ICartItem {
   name: string;
   quantity: number;
   colors: {
-    leatherColor: string;
-    threadsColor: string;
+    leatherColor: Color;
+    threadsColor: Color;
   };
   leather: string;
   imageCover: string;
@@ -141,7 +141,7 @@ export interface IOrder {
   user: IUser;
   total: number;
   address: IAddress;
-  status: string;
+  status: OrderStatus;
   createdAt?: Date;
 }
 
@@ -163,4 +163,51 @@ export interface IUpdatedOrder {
 export interface IFilterState {
   filters: string[];
   sort: string;
+}
+
+export enum ItemType {
+  WALLETS = 'Wallets and cardholders',
+  EYEGLASS_CASES = 'Eyeglass cases',
+  PASSPORT_COVERS = 'Passport covers',
+}
+
+export enum Color {
+  BLACK = 'black',
+  BROWN = 'brown',
+  BLUE = 'blue',
+  GINGER = 'ginger',
+  RED = 'red',
+  BURGUNDY = 'burgundy',
+  GREEN = 'green',
+  GREY = 'grey',
+  KHAKI = 'khaki',
+}
+
+export const HexColor = {
+  [Color.BLACK]: '#000000',
+  [Color.BROWN]: '#55391a',
+  [Color.BLUE]: '#0846aa',
+  [Color.GINGER]: '#aa6908',
+  [Color.RED]: '#cb1212',
+  [Color.BURGUNDY]: '#801030',
+  [Color.GREEN]: '#1e8b0d',
+  [Color.GREY]: '#909090',
+  [Color.KHAKI]: '#474c21',
+};
+
+export enum LeatherType {
+  CRAZY_HORSE = 'Crazy Horse',
+  NAPPA = 'Nappa',
+  PULL_UP = 'Pull Up',
+}
+
+export enum ItemPart {
+  LEATHER = 'leather',
+  THREAD = 'thread',
+}
+
+export enum OrderStatus {
+  AWAITING_PAYMENT = 'Awaiting payment',
+  ACCEPTED = 'Accepted',
+  COMPLETED = 'Completed',
 }

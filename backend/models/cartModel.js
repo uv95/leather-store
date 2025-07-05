@@ -1,5 +1,17 @@
 const mongoose = require('mongoose');
 
+const colors = [
+  'black',
+  'red',
+  'blue',
+  'brown',
+  'ginger',
+  'burgundy',
+  'green',
+  'grey',
+  'khaki',
+];
+
 const cartSchema = new mongoose.Schema({
   items: [
     {
@@ -14,33 +26,13 @@ const cartSchema = new mongoose.Schema({
       colors: {
         leatherColor: {
           type: String,
-          enum: [
-            'Black',
-            'Red',
-            'Blue',
-            'Brown',
-            'Ginger',
-            'Burgundy',
-            'Green',
-            'Grey',
-            'Khaki',
-          ],
+          enum: colors,
           default: 'Black',
           required: true,
         },
         threadsColor: {
           type: String,
-          enum: [
-            'Black',
-            'Red',
-            'Blue',
-            'Brown',
-            'Ginger',
-            'Burgundy',
-            'Green',
-            'Grey',
-            'Khaki',
-          ],
+          enum: colors,
           default: 'Black',
           required: true,
         },

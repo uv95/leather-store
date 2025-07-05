@@ -1,14 +1,14 @@
-import React, { useState, useMemo } from 'react';
-import './description.scss';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../hooks';
+import { useAddToCart } from '../../../hooks/useAddToCart';
+import { Color, IItem, ItemPart, LeatherType } from '../../../types/data';
+import { LEATHERS_ROUTE } from '../../../utils/consts';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button, { ButtonColor, ButtonSize } from '../../UI/Button/Button';
-import { useAddToCart } from '../../../hooks/useAddToCart';
+import Colors, { ColorsPosition } from '../../UI/Colors/Colors';
 import Radio from '../../UI/Radio/Radio';
-import { IItem } from '../../../types/data';
-import Colors from '../../UI/Colors/Colors';
-import { useNavigate } from 'react-router-dom';
-import { LEATHERS_ROUTE } from '../../../utils/consts';
-import { useAppSelector } from '../../../hooks';
+import './description.scss';
 
 interface DescriptionProps {
   item: IItem;
@@ -22,10 +22,12 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
 
-  const [leatherType, setLeatherType] = useState('Crazy Horse');
+  const [leatherType, setLeatherType] = useState<LeatherType>(
+    LeatherType.CRAZY_HORSE
+  );
   const [colors, setColors] = useState({
-    leatherColor: 'Black',
-    threadsColor: 'Black',
+    leatherColor: Color.BLACK,
+    threadsColor: Color.BLACK,
   });
 
   const itemData = useMemo(() => {
@@ -48,50 +50,53 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    setLeatherType(target.name);
+    setLeatherType(target.name as LeatherType);
   };
 
   return (
     <>
-      {openSelectLeatherColor && (
-        <SelectColor
-          setOpenSelectColor={setOpenSelectLeatherColor}
-          title="Choose leather color"
-          type="leather"
-          setColors={setColors}
-          currColor={colors.leatherColor}
-        />
-      )}
-      {openSelectThreadsColor && (
-        <SelectColor
-          setOpenSelectColor={setOpenSelectThreadsColor}
-          title="Choose thread color"
-          type="threads"
-          setColors={setColors}
-          currColor={colors.threadsColor}
-        />
-      )}
+      {[ItemPart.LEATHER, ItemPart.THREAD].map((itemPart) => {
+        if (
+          itemPart === ItemPart.LEATHER
+            ? !openSelectLeatherColor
+            : !openSelectThreadsColor
+        ) {
+          return null;
+        }
+        return (
+          <SelectColor
+            key={itemPart}
+            setOpenSelectColor={
+              itemPart === ItemPart.LEATHER
+                ? setOpenSelectLeatherColor
+                : setOpenSelectThreadsColor
+            }
+            title={`Select ${itemPart} color`}
+            type={itemPart}
+            setColors={setColors}
+            currColor={
+              itemPart === ItemPart.LEATHER
+                ? colors.leatherColor
+                : colors.threadsColor
+            }
+          />
+        );
+      })}
+
       <h1 className="item-title">{item.name}</h1>
       <p className="item-price">{item.price} RUB</p>
       <div className="leather-type">
         <p>Leather type:</p>
         <div className="leather-type__radio">
           <div className="leather-type__radio__options">
-            <Radio
-              name="Crazy Horse"
-              onChange={onChange}
-              checked={leatherType === 'Crazy Horse'}
-            />
-            <Radio
-              name="Nappa"
-              onChange={onChange}
-              checked={leatherType === 'Nappa'}
-            />
-            <Radio
-              name="Pull Up"
-              onChange={onChange}
-              checked={leatherType === 'Pull Up'}
-            />
+            {Object.values(LeatherType).map((type) => (
+              <Radio
+                key={type}
+                name={type}
+                onChange={onChange}
+                checked={leatherType === type}
+              />
+            ))}
           </div>
           <div
             className="leather-type-info"
@@ -103,8 +108,8 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       </div>
       <Colors
         leatherColor={colors.leatherColor}
-        threadsColor={colors.threadsColor}
-        vertical
+        threadColor={colors.threadsColor}
+        position={ColorsPosition.VERTICAL}
         openSelectLeatherColor={() => setOpenSelectLeatherColor(true)}
         openSelectThreadsColor={() => setOpenSelectThreadsColor(true)}
       />

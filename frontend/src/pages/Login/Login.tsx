@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import './login.scss';
 import Button, { ButtonColor } from '../../components/UI/Button/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../features/auth/authSlice';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
 import { updateCart } from '../../features/cart/cartSlice';
-import { ICartItem } from '../../types/data';
+import { ICartItem, Role } from '../../types/data';
 
 const Login = () => {
+  const { user } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [openToast, setOpenToast] = useState(false);
   const [toastText, setToastText] = useState('');
+
+  if (user) {
+    return <Navigate to="/profile" replace />;
+  }
 
   const { email, password } = formData;
 
   function loginAsAdmin() {
-    console.log('loginAsAdmin');
-
     dispatch(
       login({
         email: 'admin@gmail.com',
@@ -47,31 +51,40 @@ const Login = () => {
     dispatch(login(formData))
       .unwrap()
       .then((data) => {
-        if (data.data.user.role === 'user')
-          JSON.parse(localStorage.getItem('cart')!)
-            ? dispatch(
-                updateCart({
-                  ...JSON.parse(localStorage.getItem('cart')!),
-                  items: JSON.parse(localStorage.getItem('cart')!).items.map(
-                    (item: ICartItem) => {
-                      delete item._id;
-                      return item;
-                    }
-                  ),
-                  user: data.data.user._id,
-                })
-              )
-                .unwrap()
-                .then((_) => {
-                  localStorage.removeItem('cart');
-                  navigate('/');
-                })
-            : navigate('/');
-        if (data.data.user.role === 'admin') navigate('/admin');
-      })
-      .catch((error) => {
-        setToastText(error);
-        setOpenToast(true);
+        const { role, _id: userId } = data.data.user;
+
+        if (role === Role.ADMIN) {
+          navigate('/admin');
+          return;
+        }
+
+        const cart = localStorage.getItem('cart')
+          ? JSON.parse(localStorage.getItem('cart')!)
+          : null;
+
+        if (cart) {
+          dispatch(
+            updateCart({
+              ...cart,
+              items: cart.items.map((item: ICartItem) => {
+                delete item._id;
+                return item;
+              }),
+              user: userId,
+            })
+          )
+            .unwrap()
+            .then((_) => {
+              localStorage.removeItem('cart');
+              navigate('/');
+            })
+            .catch((error) => {
+              setToastText(error);
+              setOpenToast(true);
+            });
+        } else {
+          navigate('/');
+        }
       });
   };
 

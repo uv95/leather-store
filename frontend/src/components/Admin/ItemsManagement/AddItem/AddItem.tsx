@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { addItem } from '../../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../../hooks';
-import { ITEM_TYPE } from '../../../../utils/consts';
-import Button, { ButtonColor } from '../../../UI/Button/Button';
+import { ItemType } from '../../../../types/data';
+import Button from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
 import './addItem.scss';
 
@@ -27,7 +27,7 @@ const AddItem: React.FC<AddItemProps> = ({
 
   const [formData, setFormData] = useState<IFormData>({
     name: '',
-    type: ITEM_TYPE.WALLETS,
+    type: ItemType.WALLETS,
     description: '',
     price: '',
   });
@@ -102,7 +102,7 @@ const AddItem: React.FC<AddItemProps> = ({
             className="form__box-select"
             disabled={isLoading}
           >
-            {Object.values(ITEM_TYPE).map((option) => (
+            {Object.values(ItemType).map((option) => (
               <option key={option} value={option}>
                 {option.split('')[0].toUpperCase() + option.slice(1)}
               </option>

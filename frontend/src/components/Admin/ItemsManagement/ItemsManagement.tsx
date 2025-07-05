@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import './itemsManagement.scss';
-import Button, { ButtonColor } from '../../UI/Button/Button';
-import AddItem from './AddItem/AddItem';
+import { clearFilter } from '../../../features/filters/filtersSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { useGetAllItems } from '../../../hooks/useGetAllItems';
 import { IItem } from '../../../types/data';
+import Button from '../../UI/Button/Button';
 import ListItem from '../../UI/ListItem/ListItem';
-import ItemDetails from './ItemDetails/ItemDetails';
-import Toast from '../../UI/Toast/Toast';
 import Modal from '../../UI/Modal/Modal';
 import Spinner from '../../UI/Spinner/Spinner';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { clearFilter } from '../../../features/filters/filtersSlice';
+import Toast from '../../UI/Toast/Toast';
+import AddItem from './AddItem/AddItem';
+import ItemDetails from './ItemDetails/ItemDetails';
+import './itemsManagement.scss';
 
 const ItemsManagement = () => {
   const dispatch = useAppDispatch();

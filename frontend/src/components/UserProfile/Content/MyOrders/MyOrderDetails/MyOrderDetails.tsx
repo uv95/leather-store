@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './myOrderDetails.scss';
-import Colors from '../../../../UI/Colors/Colors';
-import Button from '../../../../UI/Button/Button';
-import { IOrder } from '../../../../../types/data';
 import { useCancelOrder } from '../../../../../hooks/useCancelOrder';
+import { IOrder } from '../../../../../types/data';
+import Button from '../../../../UI/Button/Button';
+import Colors from '../../../../UI/Colors/Colors';
 import Modal from '../../../../UI/Modal/Modal';
+import './myOrderDetails.scss';
 
 type MyOrderDetailsProps = { order: IOrder };
 
@@ -51,7 +51,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
                 <p>Leather type: {item.leather}</p>
                 <Colors
                   leatherColor={item.colors.leatherColor}
-                  threadsColor={item.colors.threadsColor}
+                  threadColor={item.colors.threadsColor}
                   fromMyOrders
                 />
                 <p className="myOrderDetails__item-left__info-qty">

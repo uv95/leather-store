@@ -8,7 +8,7 @@ import {
   STATISTICS_ROUTE,
 } from '../../utils/consts';
 import '../Header/header.scss';
-import Button, { ButtonColor } from '../UI/Button/Button';
+import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 
 interface AdminHeaderProps {

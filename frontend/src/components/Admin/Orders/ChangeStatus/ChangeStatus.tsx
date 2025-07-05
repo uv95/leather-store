@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import './changeStatus.scss';
-import { statusStyles } from '../../../../utils/consts';
-import { useAppDispatch } from '../../../../hooks';
+import { useEffect, useState } from 'react';
 import { updateOrder } from '../../../../features/order/orderSlice';
-import { IOrder } from '../../../../types/data';
+import { useAppDispatch } from '../../../../hooks';
+import { OrderStatus } from '../../../../types/data';
+import { orderStatuses } from '../../../../utils/consts';
+import './changeStatus.scss';
 
-type ChangeStatusProps = { currentStatus: string; orderId: string };
+type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
 const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
   const dispatch = useAppDispatch();
 
-  const [newStatus, setNewStatus] = useState<Partial<IOrder>>({
-    status: '',
-  });
+  const [newStatus, setNewStatus] = useState<OrderStatus>(currentStatus);
 
   useEffect(() => {
-    newStatus.status &&
-      dispatch(updateOrder({ orderId, updatedOrder: newStatus }))
-        .unwrap()
-        .then()
-        .catch((error) => console.log(error, 'ERROR'));
+    dispatch(updateOrder({ orderId, updatedOrder: { status: newStatus } }))
+      .unwrap()
+      .then()
+      .catch((error) => console.log(error, 'ERROR'));
   }, [newStatus, dispatch, orderId]);
 
   return (
     <div className="changeStatus">
-      {statusStyles.map((el) => (
+      {orderStatuses.map(({ status, style }) => (
         <div
-          key={el.status}
-          className={`${el.style} ${
-            currentStatus === el.status ? 'status-active' : 'status-inactive'
+          key={status}
+          className={`${style} ${
+            currentStatus === status ? 'status-active' : 'status-inactive'
           }`}
-          onClick={() => setNewStatus({ status: el.status })}
+          onClick={() => setNewStatus(status)}
         >
-          {el.status}
+          {status}
         </div>
       ))}
     </div>

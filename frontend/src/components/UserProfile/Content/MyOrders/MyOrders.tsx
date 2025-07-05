@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
-import './myOrders.scss';
-import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
-import ListItem from '../../../UI/ListItem/ListItem';
-import Spinner from '../../../UI/Spinner/Spinner';
-import { statusStyles } from '../../../../utils/consts';
-import { IOrder } from '../../../../types/data';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useCallback, useEffect } from 'react';
 import {
   getMyOrders,
   selectMyActiveOrders,
   selectMyFinishedOrders,
 } from '../../../../features/order/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { IOrder } from '../../../../types/data';
+import { orderStatuses } from '../../../../utils/consts';
+import ListItem from '../../../UI/ListItem/ListItem';
+import Spinner from '../../../UI/Spinner/Spinner';
+import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
+import './myOrders.scss';
 
 const MyOrders = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ const MyOrders = () => {
       },
       {
         dataItem: order.status,
-        style: statusStyles.find((status) => status.status === order.status)
+        style: orderStatuses.find(({ status }) => status === order.status)
           ?.style,
       },
     ];

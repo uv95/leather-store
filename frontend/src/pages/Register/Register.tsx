@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './register.scss';
 import Button from '../../components/UI/Button/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { register } from '../../features/auth/authSlice';
@@ -11,6 +11,7 @@ import { updateCart } from '../../features/cart/cartSlice';
 import { ICartItem } from '../../types/data';
 
 const Register = () => {
+  const { user } = useAppSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,12 +22,16 @@ const Register = () => {
   const [openToast, setOpenToast] = useState(false);
   const [toastText, setToastText] = useState('');
 
-  const { name, email, password, passwordConfirm, phone } = formData;
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { isLoading } = useAppSelector((state) => state.auth);
+
+  if (user) {
+    return <Navigate to="/profile" replace />;
+  }
+
+  const { name, email, password, passwordConfirm, phone } = formData;
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;

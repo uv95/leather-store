@@ -1,8 +1,7 @@
-import React from 'react';
-import './orderDetails.scss';
-import Colors from '../../../UI/Colors/Colors';
 import { IOrder } from '../../../../types/data';
+import Colors from '../../../UI/Colors/Colors';
 import ChangeStatus from '../ChangeStatus/ChangeStatus';
+import './orderDetails.scss';
 
 type OrderDetailsProps = { order: IOrder };
 
@@ -23,7 +22,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
                 <p>Leather type: {item.leather}</p>
                 <Colors
                   leatherColor={item.colors.leatherColor}
-                  threadsColor={item.colors.threadsColor}
+                  threadColor={item.colors.threadsColor}
                 />
                 <p className="orderDetails__items__item-left__info-qty">
                   Quantity: {item.quantity}

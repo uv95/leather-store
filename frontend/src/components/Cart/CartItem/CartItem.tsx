@@ -50,7 +50,7 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
           <p>Leather type: {item.leather}</p>
           <Colors
             leatherColor={item.colors.leatherColor}
-            threadsColor={item.colors.threadsColor}
+            threadColor={item.colors.threadsColor}
           />
           <div className="cart-item__left__info__qty">
             <Quantity

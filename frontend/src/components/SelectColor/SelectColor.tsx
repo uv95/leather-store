@@ -1,16 +1,19 @@
 import React from 'react';
-import './selectColor.scss';
-import { colors } from '../../utils/consts';
+import { Color, HexColor, ItemPart } from '../../types/data';
 import Button, { ButtonColor, ButtonSize } from '../UI/Button/Button';
-
-type SetColors = { leatherColor: string; threadsColor: string };
+import './selectColor.scss';
 
 interface SelectColorProps {
   setOpenSelectColor: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
-  type: string;
-  setColors: React.Dispatch<React.SetStateAction<SetColors>>;
-  currColor: string;
+  type: ItemPart;
+  setColors: React.Dispatch<
+    React.SetStateAction<{
+      leatherColor: Color;
+      threadsColor: Color;
+    }>
+  >;
+  currColor: Color;
 }
 
 const SelectColor: React.FC<SelectColorProps> = ({
@@ -25,23 +28,29 @@ const SelectColor: React.FC<SelectColorProps> = ({
       <div className="color" onClick={(e) => e.stopPropagation()}>
         <h1 className="color-title">{title}</h1>
         <div className="color__container">
-          {Object.keys(colors).map((color, i) => (
+          {Object.values(Color).map((color) => (
             <div
               className={`${
                 currColor === color ? 'color__container__box-checked' : ''
               } color__container__box`}
               key={color}
               onClick={() => {
-                type === 'threads'
-                  ? setColors((prev) => ({ ...prev, threadsColor: color }))
-                  : setColors((prev) => ({ ...prev, leatherColor: color }));
+                setColors((prev) => ({
+                  ...prev,
+                  [type === ItemPart.THREAD ? 'threadsColor' : 'leatherColor']:
+                    color,
+                }));
               }}
             >
               <div
                 className="color__container__box__img"
-                style={{ backgroundColor: `${Object.values(colors)[i]}` }}
+                style={{
+                  backgroundColor: HexColor[color],
+                }}
               ></div>
-              <p className="color__container__box-text">{color}</p>
+              <p className="color__container__box-text">
+                {color[0].toUpperCase() + color.slice(1)}
+              </p>
             </div>
           ))}
         </div>

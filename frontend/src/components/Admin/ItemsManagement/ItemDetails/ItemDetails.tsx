@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import './itemDetails.scss';
-import { IItem } from '../../../../types/data';
-import { ITEM_TYPE } from '../../../../utils/consts';
-import Input from '../../../UI/Input/Input';
-import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
+import React, { useEffect, useState } from 'react';
+import { deleteItem, updateItem } from '../../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../../hooks';
-import { updateItem } from '../../../../features/items/itemsSlice';
-import { deleteItem } from '../../../../features/items/itemsSlice';
+import { IItem, ItemType } from '../../../../types/data';
+import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
+import Input from '../../../UI/Input/Input';
+import './itemDetails.scss';
 
 type ItemDetailsProps = { item: IItem };
 
@@ -87,7 +85,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
               id="type"
               className="itemDetails__form__box-select"
             >
-              {Object.values(ITEM_TYPE).map((option) => (
+              {Object.values(ItemType).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

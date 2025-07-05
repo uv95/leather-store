@@ -1,50 +1,52 @@
-import React from 'react';
+import { Color, HexColor } from '../../../types/data';
 import './colors.scss';
-import { colors } from '../../../utils/consts';
+
+export enum ColorsPosition {
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
+}
 
 type ColorsProps = {
-  leatherColor: string;
-  threadsColor: string;
-  vertical?: boolean;
+  leatherColor: Color;
+  threadColor: Color;
+  position?: ColorsPosition;
   fromMyOrders?: boolean;
   openSelectLeatherColor?: () => void;
   openSelectThreadsColor?: () => void;
 };
 
 const Colors = ({
-  leatherColor,
-  threadsColor,
-  vertical,
+  leatherColor = Color.BLACK,
+  threadColor = Color.BLACK,
+  position = ColorsPosition.HORIZONTAL,
   fromMyOrders,
   openSelectLeatherColor,
   openSelectThreadsColor,
 }: ColorsProps) => {
+  const baseClass = `colors-${position}`;
+
+  if (!baseClass) {
+    return null;
+  }
+
   return (
-    <div
-      className={`colors-${vertical ? 'vertical' : 'horizontal '} ${
-        fromMyOrders ? 'fromMyOrders' : ''
-      }`}
-    >
-      <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
+    <div className={`${baseClass} ${fromMyOrders ? 'fromMyOrders' : ''}`}>
+      <div className={`${baseClass}-item`}>
         <p>Leather color:</p>
         <div
-          className={`colors-${
-            vertical ? 'vertical' : 'horizontal'
-          }-item--color`}
+          className={`${baseClass}-item--color`}
           style={{
-            backgroundColor: `${colors[leatherColor as keyof typeof colors]}`,
+            backgroundColor: HexColor[leatherColor],
           }}
           onClick={openSelectLeatherColor}
         ></div>
       </div>
-      <div className={`colors-${vertical ? 'vertical' : 'horizontal'}-item`}>
+      <div className={`${baseClass}-item`}>
         <p>Threads:</p>
         <div
-          className={`colors-${
-            vertical ? 'vertical' : 'horizontal'
-          }-item--color`}
+          className={`${baseClass}-item--color`}
           style={{
-            backgroundColor: `${colors[threadsColor as keyof typeof colors]}`,
+            backgroundColor: HexColor[threadColor],
           }}
           onClick={openSelectThreadsColor}
         ></div>
