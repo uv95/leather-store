@@ -1,6 +1,5 @@
-import React from 'react';
-import './back.scss';
 import { useNavigate } from 'react-router-dom';
+import './back.scss';
 
 type Props = {};
 

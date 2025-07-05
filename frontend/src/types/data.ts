@@ -118,7 +118,6 @@ export interface ICart {
   items: ICartItem[];
   total: number;
   totalQuantity: number;
-  user: string;
 }
 export interface IUpdatedQuantity {
   cartItemId: string;
@@ -129,7 +128,7 @@ export interface IQuantity {
 }
 
 export interface ICartState {
-  cart: ICart | null;
+  cart: ICart;
   isLoading: boolean;
 }
 
@@ -208,6 +207,6 @@ export enum ItemPart {
 
 export enum OrderStatus {
   AWAITING_PAYMENT = 'Awaiting payment',
-  ACCEPTED = 'Accepted',
+  IN_PROGRESS = 'In progress',
   COMPLETED = 'Completed',
 }

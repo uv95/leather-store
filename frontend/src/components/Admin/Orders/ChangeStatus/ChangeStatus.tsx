@@ -9,7 +9,6 @@ type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
 const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
   const dispatch = useAppDispatch();
-
   const [newStatus, setNewStatus] = useState<OrderStatus>(currentStatus);
 
   useEffect(() => {
@@ -24,8 +23,8 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
       {orderStatuses.map(({ status, style }) => (
         <div
           key={status}
-          className={`${style} ${
-            currentStatus === status ? 'status-active' : 'status-inactive'
+          className={`${style} status-${
+            currentStatus === status ? 'active' : 'inactive'
           }`}
           onClick={() => setNewStatus(status)}
         >

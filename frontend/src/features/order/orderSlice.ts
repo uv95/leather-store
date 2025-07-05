@@ -4,7 +4,12 @@ import {
   createSelector,
 } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { IOrder, IOrderState, IUpdatedOrder } from '../../types/data';
+import {
+  IOrder,
+  IOrderState,
+  IUpdatedOrder,
+  OrderStatus,
+} from '../../types/data';
 import orderService from './orderService';
 import { extractErrorMessage } from '../../utils/errorMessage';
 
@@ -171,7 +176,8 @@ export const selectActiveOrders = createSelector(
   (order) =>
     order.orders.filter(
       (order: IOrder) =>
-        order.status === 'Awaiting payment' || order.status === 'Accepted'
+        order.status === OrderStatus.AWAITING_PAYMENT ||
+        order.status === OrderStatus.IN_PROGRESS
     )
 );
 export const selectMyActiveOrders = createSelector(
@@ -179,18 +185,23 @@ export const selectMyActiveOrders = createSelector(
   (order) =>
     order.myOrders.filter(
       (order: IOrder) =>
-        order.status === 'Awaiting payment' || order.status === 'Accepted'
+        order.status === OrderStatus.AWAITING_PAYMENT ||
+        order.status === OrderStatus.IN_PROGRESS
     )
 );
 export const selectFinishedOrders = createSelector(
   (state: RootState) => state.order,
   (order) =>
-    order.orders.filter((order: IOrder) => order.status === 'Completed')
+    order.orders.filter(
+      (order: IOrder) => order.status === OrderStatus.COMPLETED
+    )
 );
 export const selectMyFinishedOrders = createSelector(
   (state: RootState) => state.order,
   (order) =>
-    order.myOrders.filter((order: IOrder) => order.status === 'Completed')
+    order.myOrders.filter(
+      (order: IOrder) => order.status === OrderStatus.COMPLETED
+    )
 );
 
 export default orderSlice.reducer;

@@ -2,7 +2,6 @@ import axios from 'axios';
 import { ICart, ICartItem, IQuantity } from '../../types/data';
 import { BASE_URL } from '../../utils/consts';
 
-// const API_URL = 'http://localhost:5000/cart/';
 const API_URL = BASE_URL + 'cart/';
 
 const addToCart = async (cartItem: ICartItem, token: string) => {
@@ -11,7 +10,6 @@ const addToCart = async (cartItem: ICartItem, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
   const res = await axios.post(API_URL, cartItem, config);
   return res.data;
 };

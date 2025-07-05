@@ -71,7 +71,7 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
             onClick={() => deleteCartItem(item._id!)}
             color={ButtonColor.BLACK}
           >
-            Удалить
+            Remove
           </Button>
         </div>
       </div>

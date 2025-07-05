@@ -11,6 +11,7 @@ type ListItemProps = {
 
 const ListItem = ({ data, bg, Details, myOrder }: ListItemProps) => {
   const [openDetails, setOpenDetails] = useState(false);
+
   return (
     <div className="listItem">
       <div className={`listItem__card listItem__card--${bg}`}>

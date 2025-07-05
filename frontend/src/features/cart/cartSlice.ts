@@ -9,8 +9,15 @@ import {
   IUpdatedQuantity,
 } from '../../types/data';
 
+const cartInitialState = {
+  items: [],
+  total: 0,
+  totalQuantity: 0,
+  user: undefined,
+};
+
 const initialState: ICartState = {
-  cart: null,
+  cart: cartInitialState,
   isLoading: false,
 };
 
@@ -127,7 +134,6 @@ export const cartSlice = createSlice({
       }
       if (!state.cart)
         state.cart = {
-          user: '',
           items: [action.payload],
           total: action.payload.price,
           totalQuantity: 1,
@@ -189,10 +195,10 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
       })
       .addCase(emptyCart.fulfilled, (state) => {
-        state.cart = null;
+        state.cart = cartInitialState;
       })
       .addCase(emptyCart.rejected, (state) => {
-        state.cart = null;
+        state.cart = cartInitialState;
       })
       .addCase(updateCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
@@ -201,14 +207,14 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data.data;
       })
       .addCase(getCart.pending, (state) => {
-        state.cart = null;
+        state.cart = cartInitialState;
         state.isLoading = true;
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;
       })
       .addCase(getCart.rejected, (state) => {
-        state.cart = null;
+        state.cart = cartInitialState;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.cart = action.payload.data.data;

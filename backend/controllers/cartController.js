@@ -32,8 +32,8 @@ exports.createCart = catchAsync(async (req, res, next) => {
 
   const price = item.price;
   const name = item.name;
-  const imageCover = item.imageCover;
-  const images = item.images;
+  const imageCover = item.imageCover.url;
+  const images = item.images.map((image) => image.url);
 
   if (cart) {
     //check if there is item in cart with the same ID and COLORS
@@ -183,4 +183,3 @@ exports.emptyCart = catchAsync(async (req, res, next) => {
     data: { data: null },
   });
 });
-

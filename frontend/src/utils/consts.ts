@@ -19,13 +19,11 @@ export const orderStatuses = [
     status: OrderStatus.AWAITING_PAYMENT,
     style: 'status status-waitsForPayment',
   },
-  { status: OrderStatus.ACCEPTED, style: 'status status-accepted' },
+  { status: OrderStatus.IN_PROGRESS, style: 'status status-accepted' },
   { status: OrderStatus.COMPLETED, style: 'status status-completed' },
 ];
 
-// export const BASE_URL =
-//   process.env.NODE_ENV === 'development'
-//     ? 'http://localhost:5000/'
-//     : 'https://leather-store.fly.dev/';
-
-export const BASE_URL = 'https://leather-store.fly.dev/';
+export const BASE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/'
+    : 'https://leather-store.fly.dev/';
