@@ -37,7 +37,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
       )}
       <div className="myOrderDetails">
         {order.items.map((item) => (
-          <div key={item._id} className="myOrderDetails__item">
+          <div key={item.name} className="myOrderDetails__item">
             <div className="myOrderDetails__item-left">
               <img
                 src={item.imageCover}
@@ -60,7 +60,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
               </div>
             </div>
             <p className="myOrderDetails__item-right">
-              {item.price * item.quantity} RUB
+              ${item.price * item.quantity}
             </p>
           </div>
         ))}
@@ -72,7 +72,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
 
         <div className="myOrderDetails__bottom">
           <div className="myOrderDetails__bottom-total">
-            <p>Total: {order.total} RUB</p>
+            <p>Total: ${order.total}</p>
           </div>
           {order.status !== 'Completed' && (
             <div className="myOrderDetails__bottom-btns">

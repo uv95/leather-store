@@ -19,7 +19,7 @@ const Orders = (props: Props) => {
     },
     { dataItem: order.user.name },
     { dataItem: order.address.city },
-    { dataItem: order.total + ' RUB' },
+    { dataItem: `$${order.total}` },
     {
       dataItem: order.status,
       style: orderStatuses.find(({ status }) => status === order.status)?.style,

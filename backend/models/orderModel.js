@@ -8,9 +8,18 @@ const orderSchema = new mongoose.Schema({
       quantity: Number,
       total: Number,
       leather: String,
-      images: [String],
       imageCover: String,
       price: Number,
+      type: {
+        type: String,
+        enum: {
+          values: [
+            'Wallets and cardholders',
+            'Eyeglass cases',
+            'Passport covers',
+          ],
+        },
+      },
     },
   ],
   total: Number,

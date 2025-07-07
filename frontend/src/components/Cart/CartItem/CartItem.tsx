@@ -13,6 +13,7 @@ type CartItemProps = {
 };
 
 const CartItem = React.memo(({ item }: CartItemProps) => {
+  const { item: itemData, colors, leather } = item;
   const deleteCartItem = useDeleteCartItem();
   const changeItemQuantity = useChangeQuantity();
 
@@ -41,16 +42,16 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
     <div className="cart-item">
       <div className="cart-item__left">
         <img
-          src={item.imageCover}
-          alt={item.name || ''}
+          src={itemData.imageCover.url}
+          alt={itemData.name || ''}
           className="cart-item__left-img"
         />
         <div className="cart-item__left__info">
-          <h2 className="cart-item__left__info-title">{item.name}</h2>
-          <p>Leather type: {item.leather}</p>
+          <h2 className="cart-item__left__info-title">{itemData.name}</h2>
+          <p>Leather type: {leather}</p>
           <Colors
-            leatherColor={item.colors.leatherColor}
-            threadColor={item.colors.threadsColor}
+            leatherColor={colors.leatherColor}
+            threadColor={colors.threadsColor}
           />
           <div className="cart-item__left__info__qty">
             <Quantity
@@ -59,7 +60,7 @@ const CartItem = React.memo(({ item }: CartItemProps) => {
               quantity={quantity}
             />
             <p className="cart-item__left__info__qty-price">
-              {item.price * quantity} руб.
+              ${itemData.price * quantity}
             </p>
           </div>
         </div>

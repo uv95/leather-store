@@ -33,7 +33,7 @@ const ItemsManagement = () => {
     { dataItem: item.name },
     { dataItem: item.type.split('')[0].toUpperCase() + item.type.slice(1) },
     {
-      dataItem: item.price + ' RUB',
+      dataItem: `$${item.price}`,
     },
   ];
 

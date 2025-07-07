@@ -25,7 +25,6 @@ const updateMe = async (token: string, updatedData: Partial<IUser>) => {
   };
 
   const res = await axios.patch(API_URL + 'updateMe', updatedData, config);
-  console.log(res.data);
   return res.data;
 };
 

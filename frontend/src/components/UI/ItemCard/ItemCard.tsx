@@ -20,7 +20,7 @@ const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
       </div>
       <div className="item-card__text">
         <p className="item-card__text--name">{item.name}</p>
-        <p className="item-card__text--price">{item.price} RUB</p>
+        <p className="item-card__text--price">${item.price}</p>
       </div>
     </Link>
   );

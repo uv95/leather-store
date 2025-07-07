@@ -20,16 +20,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   const user = req.user.id;
   const address = req.body.address;
   const cart = await Cart.findOne({ user });
-  const items = cart.items.map((item) => {
-    return {
-      quantity: item.quantity,
-      name: item.name,
-      leather: item.leather,
-      colors: item.colors,
-      price: item.price,
-      imageCover: item.imageCover,
-    };
-  });
+
   const userAddresses = await Address.find({
     user,
   });
@@ -45,7 +36,6 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   const newOrder = await Order.create({
     ...req.body,
     user,
-    items,
     address,
   });
 

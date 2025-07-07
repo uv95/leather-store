@@ -6,7 +6,7 @@ export function useAddToCart() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
 
-  const addItemToCart = (item: ICartItem) => {
+  const addItemToCart = (item: Partial<ICartItem>) => {
     if (user) {
       dispatch(addToCart(item))
         .unwrap()

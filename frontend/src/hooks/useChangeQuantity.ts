@@ -9,12 +9,15 @@ export function useChangeQuantity() {
 
   const changeItemQuantity = useDebounce(
     (cartItemId: string, quantity: IQuantity) => {
-      if (user)
+      if (user) {
         dispatch(changeQuantity({ cartItemId, quantity }))
           .unwrap()
           .then()
           .catch((error) => console.log(error, 'ERROR'));
-      if (!user) dispatch(changeQuantityLS({ cartItemId, ...quantity }));
+      }
+      if (!user) {
+        dispatch(changeQuantityLS({ cartItemId, ...quantity }));
+      }
     },
     500
   );

@@ -33,18 +33,14 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
   const itemData = useMemo(() => {
     return {
       ...(!user && { _id: Date.now().toString() }),
-      ...(!user && { total: +item.price }),
+      total: +item.price,
       itemId: item._id,
-      name: item.name,
       quantity: 1,
       colors: {
         leatherColor: colors.leatherColor,
         threadsColor: colors.threadsColor,
       },
       leather: leatherType,
-      price: +item.price,
-      imageCover: item.imageCover.url,
-      images: item.images.map((img) => img.url),
     };
   }, [item, colors, leatherType, user]);
 
@@ -84,7 +80,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       })}
 
       <h1 className="item-title">{item.name}</h1>
-      <p className="item-price">{item.price} RUB</p>
+      <p className="item-price">${item.price}</p>
       <div className="leather-type">
         <p>Leather type:</p>
         <div className="leather-type__radio">

@@ -100,18 +100,19 @@ export interface IUpdatedItem {
 
 export interface ICartItem {
   _id?: string;
-  total?: number;
-  itemId: string;
-  name: string;
+  total: number;
+  item: {
+    name: string;
+    imageCover: IImage;
+    price: number;
+    type: ItemType;
+  };
   quantity: number;
   colors: {
     leatherColor: Color;
     threadsColor: Color;
   };
   leather: string;
-  imageCover: string;
-  images: string[];
-  price: number;
 }
 
 export interface ICart {
@@ -136,7 +137,16 @@ export interface ICartState {
 
 export interface IOrder {
   _id?: string;
-  items: ICartItem[];
+  items: {
+    name: string;
+    colors: { leatherColor: Color; threadsColor: Color };
+    quantity: number;
+    total: number;
+    leather: string;
+    imageCover: string;
+    price: number;
+    type: ItemType;
+  }[];
   user: IUser;
   total: number;
   address: IAddress;

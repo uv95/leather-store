@@ -28,7 +28,16 @@ const Cart = () => {
   function handleCartButton() {
     if (isSelectAddressOpen && cart) {
       const cartData = {
-        items: cart.items,
+        items: cart.items.map((cartItem: ICartItem) => ({
+          name: cartItem.item.name,
+          colors: cartItem.colors,
+          quantity: cartItem.quantity,
+          total: cartItem.total as number,
+          leather: cartItem.leather,
+          imageCover: cartItem.item.imageCover.url,
+          price: cartItem.item.price,
+          type: cartItem.item.type,
+        })),
         user,
         address: addresses[currentAddressIndex],
         status: OrderStatus.AWAITING_PAYMENT,
@@ -76,7 +85,7 @@ const Cart = () => {
               ))}
             </div>
             <div className="cart__container__order__total">
-              <p>Total: {cart?.total} RUB</p>
+              <p>Total: ${cart?.total}</p>
             </div>
           </div>
           {isSelectAddressOpen && (

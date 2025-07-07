@@ -10,7 +10,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
     <div className="orderDetails">
       <div className="orderDetails__items">
         {order.items.map((item) => (
-          <div key={item._id} className="orderDetails__items__item">
+          <div key={item.name} className="orderDetails__items__item">
             <div className="orderDetails__items__item-left">
               <img
                 src={item.imageCover}
@@ -28,7 +28,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
                   Quantity: {item.quantity}
                 </p>
                 <p className="orderDetails__items__item-left__info-qty">
-                  Price: {item.price} RUB
+                  Price: ${item.price}
                 </p>
               </div>
             </div>
