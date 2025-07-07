@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { useAddToCart } from '../../../hooks/useAddToCart';
-import { Color, IItem, ItemPart, LeatherType } from '../../../types/data';
+import { Color, IItem, ItemPart, LeatherType, Role } from '../../../types/data';
 import { LEATHERS_ROUTE } from '../../../utils/consts';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button, { ButtonColor, ButtonSize } from '../../UI/Button/Button';
@@ -17,7 +17,7 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ item }) => {
   const addItemToCart = useAddToCart();
   const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, role } = useAppSelector((state) => state.auth);
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
@@ -111,13 +111,15 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       />
       <div className="item-desc">DESCRIPTION</div>
       <div className="item-desc-text">{item.description}</div>
-      <Button
-        onClick={() => addItemToCart(itemData)}
-        color={ButtonColor.BLACK}
-        size={ButtonSize.L}
-      >
-        Add to cart
-      </Button>
+      {role !== Role.ADMIN && (
+        <Button
+          onClick={() => addItemToCart(itemData)}
+          color={ButtonColor.BLACK}
+          size={ButtonSize.L}
+        >
+          Add to cart
+        </Button>
+      )}
     </>
   );
 };

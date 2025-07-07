@@ -14,4 +14,11 @@ router.get(
   analyticsController.getMonthlyRevenue
 );
 
+router.get(
+  '/orders-by-category',
+  authController.protect,
+  authController.restrictTo('admin'),
+  analyticsController.getOrdersByCategory
+);
+
 module.exports = router;

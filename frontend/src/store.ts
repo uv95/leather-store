@@ -6,6 +6,7 @@ import addressReducer from './features/address/addressSlice';
 import cartReducer from './features/cart/cartSlice';
 import orderReducer from './features/order/orderSlice';
 import filtersReducer from './features/filters/filtersSlice';
+import analyticsReducer from './features/analytics/analyticsSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     cart: cartReducer,
     order: orderReducer,
     filters: filtersReducer,
+    analytics: analyticsReducer,
   },
 });
 

@@ -16,7 +16,8 @@ const FiltersPanel = () => {
               {filter}
               <span
                 onClick={() => {
-                  filter !== SortingOptions.DEFAULT
+                  filter === SortingOptions.PRICE_ASCENDING ||
+                  filter === SortingOptions.PRICE_DESCENDING
                     ? dispatch(setSort(SortingOptions.DEFAULT))
                     : dispatch(removeFilter(filter));
                 }}

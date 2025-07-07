@@ -2,7 +2,7 @@ import { OrderStatus } from '../types/data';
 
 export const ADMIN_ROUTE = '/admin';
 export const USER_PROFILE_ROUTE = '/profile';
-export const STATISTICS_ROUTE = '/admin/statistics';
+export const ANALYTICS_ROUTE = '/admin/analytics';
 export const ITEMS_MANAGEMENT_ROUTE = '/admin/items-management';
 export const LOGIN_ROUTE = '/login';
 export const REGISTRATION_ROUTE = '/registration';
