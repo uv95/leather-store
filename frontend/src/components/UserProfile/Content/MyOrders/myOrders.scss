@@ -1,7 +1,7 @@
 @import '../../../../base-styles/mixins.scss';
 @import '../../../../base-styles/variables.scss';
 
-.orders {
+.my-orders {
   &__heading {
     @include heading;
   }

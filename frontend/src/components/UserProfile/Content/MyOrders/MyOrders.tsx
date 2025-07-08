@@ -49,14 +49,14 @@ const MyOrders = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="orders">
-      <h1 className="orders__heading">My Orders</h1>
-      <div className="orders__container">
+    <div className="my-orders">
+      <h1 className="my-orders__heading">My Orders</h1>
+      <div className="my-orders__container">
         {!myOrders.length && (
-          <p className="orders__container-empty">Order list is empty.</p>
+          <p className="my-orders__container-empty">Order list is empty.</p>
         )}
         {myActiveOrders.length !== 0 && (
-          <h1 className="orders__orders__container-heading">Active</h1>
+          <h1 className="my-orders__orders__container-heading">Active</h1>
         )}
         {myActiveOrders.map((order) => (
           <ListItem
@@ -68,7 +68,7 @@ const MyOrders = () => {
           />
         ))}
         {myFinishedOrders.length !== 0 && (
-          <h1 className="orders__orders__container-heading">Completed</h1>
+          <h1 className="my-orders__orders__container-heading">Completed</h1>
         )}
         {myFinishedOrders.map((order) => (
           <ListItem

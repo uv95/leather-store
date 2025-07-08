@@ -2,9 +2,10 @@ import { Bar } from 'react-chartjs-2';
 import useGetAnalytics from '../../../../hooks/useGetAnalytics';
 import { BAR_COLORS, months } from '../../../../utils/consts';
 import { useMemo } from 'react';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 const MonthlyRevenue = () => {
-  const { monthlyRevenue } = useGetAnalytics();
+  const { monthlyRevenue, isLoading } = useGetAnalytics();
 
   const options = {
     responsive: true,
@@ -47,6 +48,8 @@ const MonthlyRevenue = () => {
     labels: months,
     datasets,
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="monthly-revenue">
