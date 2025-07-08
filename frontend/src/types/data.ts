@@ -226,3 +226,17 @@ export enum SortingOptions {
   PRICE_ASCENDING = 'Price ascending',
   DEFAULT = 'Default',
 }
+
+export interface MonthleRevenue {
+  totalRevenue: number;
+  _id: {
+    year: number;
+    month: number;
+  };
+}
+
+export interface OrdersByCategory {
+  _id: ItemType;
+  totalQuantity: number;
+  totalRevenue: number;
+}

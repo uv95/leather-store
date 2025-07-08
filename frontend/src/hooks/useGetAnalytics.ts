@@ -7,12 +7,12 @@ import { useEffect } from 'react';
 
 export function useGetAnalytics() {
   const dispatch = useAppDispatch();
-  const { monthlyRevenue, ordersByCategory } = useAppSelector(
+  const { monthlyRevenue, ordersByCategory, isLoading } = useAppSelector(
     (state) => state.analytics
   );
 
   useEffect(() => {
-    if (!monthlyRevenue) {
+    if (!monthlyRevenue.length) {
       dispatch(getMonthlyRevenueData())
         .unwrap()
         .then()
@@ -20,10 +20,10 @@ export function useGetAnalytics() {
           console.log('Error getting monthly revenue: ', error)
         );
     }
-  }, [dispatch, monthlyRevenue]);
+  }, [dispatch, monthlyRevenue.length]);
 
   useEffect(() => {
-    if (!ordersByCategory) {
+    if (!ordersByCategory.length) {
       dispatch(getAllOrdersByCategory())
         .unwrap()
         .then()
@@ -31,9 +31,9 @@ export function useGetAnalytics() {
           console.log('Error getting orders by category: ', error)
         );
     }
-  }, [dispatch, ordersByCategory]);
+  }, [dispatch, ordersByCategory.length]);
 
-  return { monthlyRevenue, ordersByCategory };
+  return { monthlyRevenue, ordersByCategory, isLoading };
 }
 
 export default useGetAnalytics;

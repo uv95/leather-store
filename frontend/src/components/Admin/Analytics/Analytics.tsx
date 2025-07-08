@@ -1,16 +1,38 @@
 import useGetAnalytics from '../../../hooks/useGetAnalytics';
+import MonthlyRevenue from './Reports/MonthlyRevenue';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  ArcElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  LinearScale,
+} from 'chart.js';
 import './analytics.scss';
+import OrdersByCategory from './Reports/OrdersByCategory';
 
-type Props = {};
+ChartJS.register(
+  CategoryScale,
+  ArcElement,
+  LinearScale,
+  PointElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const Analytics = (props: Props) => {
-  const { monthlyRevenue, ordersByCategory } = useGetAnalytics();
-  console.log('monthlyRevenue', monthlyRevenue);
-  console.log('ordersByCategory', ordersByCategory);
-
+const Analytics = () => {
   return (
-    <div className="stats">
-      <h1></h1>
+    <div className="analytics">
+      <h1>Analytics</h1>
+      <div className="analytics__reports">
+        <MonthlyRevenue />
+        <OrdersByCategory />
+      </div>
     </div>
   );
 };

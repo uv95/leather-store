@@ -14,7 +14,6 @@ import {
   USER_PROFILE_ROUTE,
   LEATHERS_ROUTE,
 } from '../utils/consts';
-import Analytics from '../components/Admin/Analytics/Analytics';
 
 const Cart = lazy(() => import('../pages/Cart/Cart'));
 const Catalog = lazy(() => import('../pages/Catalog/Catalog'));
@@ -24,9 +23,7 @@ const ItemPage = lazy(() => import('../pages/itemPage/ItemPage'));
 const Home = lazy(() => import('../pages/Home/Home'));
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../pages/Contacts/Contacts'));
-const Statistics = lazy(
-  () => import('../components/Admin/Analytics/Analytics')
-);
+const Analytics = lazy(() => import('../components/Admin/Analytics/Analytics'));
 const ItemsManagement = lazy(
   () => import('../components/Admin/ItemsManagement/ItemsManagement')
 );
@@ -41,7 +38,6 @@ interface Routes {
 
 export const adminRoutes: Routes[] = [
   { path: ADMIN_ROUTE, Component: Admin },
-  { path: USER_PROFILE_ROUTE, Component: UserProfile },
   { path: ANALYTICS_ROUTE, Component: Analytics },
   { path: ITEMS_MANAGEMENT_ROUTE, Component: ItemsManagement },
 ];

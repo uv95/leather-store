@@ -2,11 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import analyticsService from './analyticsService';
 import { extractErrorMessage } from '../../utils/errorMessage';
+import { MonthleRevenue, OrdersByCategory } from '../../types/data';
 
-const initialState = {
+interface InitialState {
+  isLoading: boolean;
+  monthlyRevenue: MonthleRevenue[];
+  ordersByCategory: OrdersByCategory[];
+}
+
+const initialState: InitialState = {
   isLoading: false,
-  monthlyRevenue: 0,
-  ordersByCategory: null,
+  monthlyRevenue: [],
+  ordersByCategory: [],
 };
 
 export const getMonthlyRevenueData = createAsyncThunk(
@@ -46,11 +53,11 @@ export const analyticsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getMonthlyRevenueData.pending, (state) => {
-        state.monthlyRevenue = 0;
+        state.monthlyRevenue = [];
         state.isLoading = true;
       })
       .addCase(getMonthlyRevenueData.rejected, (state) => {
-        state.monthlyRevenue = 0;
+        state.monthlyRevenue = [];
         state.isLoading = false;
       })
       .addCase(getAllOrdersByCategory.fulfilled, (state, action) => {
@@ -58,11 +65,11 @@ export const analyticsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getAllOrdersByCategory.pending, (state) => {
-        state.ordersByCategory = null;
+        state.ordersByCategory = [];
         state.isLoading = true;
       })
       .addCase(getAllOrdersByCategory.rejected, (state) => {
-        state.ordersByCategory = null;
+        state.ordersByCategory = [];
         state.isLoading = false;
       });
   },
