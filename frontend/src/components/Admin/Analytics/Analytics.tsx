@@ -1,17 +1,16 @@
-import useGetAnalytics from '../../../hooks/useGetAnalytics';
-import MonthlyRevenue from './Reports/MonthlyRevenue';
 import {
-  Chart as ChartJS,
-  CategoryScale,
   ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   PointElement,
   Title,
   Tooltip,
-  Legend,
-  BarElement,
-  LinearScale,
 } from 'chart.js';
 import './analytics.scss';
+import MonthlyRevenue from './Reports/MonthlyRevenue';
 import OrdersByCategory from './Reports/OrdersByCategory';
 
 ChartJS.register(
