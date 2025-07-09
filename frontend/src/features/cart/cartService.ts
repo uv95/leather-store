@@ -4,7 +4,7 @@ import { BASE_URL } from '../../utils/consts';
 
 const API_URL = BASE_URL + 'cart/';
 
-const addToCart = async (cartItem: ICartItem, token: string) => {
+const addToCart = async (cartItem: Partial<ICartItem>, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -69,6 +69,7 @@ const changeQuantity = async (
     quantity,
     config
   );
+
   return res.data;
 };
 

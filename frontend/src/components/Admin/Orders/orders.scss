@@ -2,7 +2,10 @@
 @import '../../../base-styles/variables.scss';
 
 .orders {
-  padding-bottom: 2rem;
+  @include main-block;
+  margin: 4rem auto 0 auto;
+  @include header-footer;
+
   @include list;
 
   & .spinner {
@@ -12,7 +15,7 @@
   &-heading {
     @include heading;
 
-    &:last-of-type {
+    &:last-of-type:not(:first-of-type) {
       margin-top: $length-l;
       @include max1000 {
         margin-top: $length-m;

@@ -17,7 +17,7 @@ const initialState: ICartState = {
 //this function also increases quantity
 export const addToCart = createAsyncThunk(
   '@@cart/add',
-  async (cartItem: ICartItem, thunkAPI) => {
+  async (cartItem: Partial<ICartItem>, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;
@@ -105,7 +105,7 @@ export const cartSlice = createSlice({
         //check if there is item in cart with the same ID and COLORS (same logic as in cartController)
         const itemIndex = state.cart.items.findIndex(
           (item) =>
-            item.itemId === action.payload.itemId &&
+            item.item.name === action.payload.item.name &&
             Object.values(item.colors).every(
               (color, i) => color === Object.values(action.payload.colors)[i]
             ) &&
@@ -115,20 +115,24 @@ export const cartSlice = createSlice({
         if (itemIndex > -1) {
           let product = state.cart.items[itemIndex];
           product.quantity += 1;
-          if (product.total) product.total += product.price;
+
+          if (product.total) {
+            product.total += product.item.price;
+          }
+
           state.cart.items[itemIndex] = product;
           state.cart.totalQuantity += 1;
-          state.cart.total += product.price;
+          state.cart.total += product.item.price;
         } else {
           state.cart.items.push(action.payload);
           state.cart.totalQuantity += 1;
-          state.cart.total += action.payload.price;
+          state.cart.total += action.payload.item.price;
         }
       }
       if (!state.cart)
         state.cart = {
           items: [action.payload],
-          total: action.payload.price,
+          total: action.payload.item.price,
           totalQuantity: 1,
         };
       localStorage.setItem('cart', JSON.stringify(state.cart));
@@ -148,7 +152,7 @@ export const cartSlice = createSlice({
           let item = state.cart.items[itemIndex];
           if (item.total && item.total < 0) item.total = 0;
           state.cart.items.splice(itemIndex, 1);
-          state.cart.total -= item.price * item.quantity;
+          state.cart.total -= item.item.price * item.quantity;
           state.cart.totalQuantity -= item.quantity;
         }
         if (!state.cart.items.length) {
@@ -168,7 +172,7 @@ export const cartSlice = createSlice({
         if (itemIndex > -1) {
           let item = state.cart.items[itemIndex];
           item.quantity = action.payload.quantity;
-          item.total = item.price * action.payload.quantity;
+          item.total = item.item.price * action.payload.quantity;
           state.cart.total = state.cart.items
             .map((item) => item.total!)
             .reduce((prev, curr) => prev! + curr!, 0);
@@ -185,7 +189,7 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(deleteItemFromCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data.data;
+        state.cart = action.payload.data;
       })
       .addCase(emptyCart.fulfilled, (state) => {
         state.cart = null;
@@ -194,23 +198,23 @@ export const cartSlice = createSlice({
         state.cart = null;
       })
       .addCase(updateCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data.data;
+        state.cart = action.payload.data;
       })
       .addCase(changeQuantity.fulfilled, (state, action) => {
-        state.cart = action.payload.data.data;
+        state.cart = action.payload.data;
       })
       .addCase(getCart.pending, (state) => {
         state.cart = null;
         state.isLoading = true;
       })
       .addCase(getCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data.data;
+        state.cart = action.payload.data;
       })
       .addCase(getCart.rejected, (state) => {
         state.cart = null;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data.data;
+        state.cart = action.payload.data;
       })
       .addMatcher(
         (action) => action.type.endsWith('/fulfilled'),

@@ -15,8 +15,7 @@ const colors = [
 const cartSchema = new mongoose.Schema({
   items: [
     {
-      itemId: { type: mongoose.Schema.ObjectId, ref: 'Item' },
-      name: String,
+      item: { type: mongoose.Schema.ObjectId, ref: 'Item' },
       quantity: {
         type: Number,
         min: [1, 'Cannot be less than 1'],
@@ -27,13 +26,13 @@ const cartSchema = new mongoose.Schema({
         leatherColor: {
           type: String,
           enum: colors,
-          default: 'Black',
+          default: 'black',
           required: true,
         },
         threadsColor: {
           type: String,
           enum: colors,
-          default: 'Black',
+          default: 'black',
           required: true,
         },
       },
@@ -43,13 +42,9 @@ const cartSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      imageCover: String,
-      images: [String],
-      price: {
-        type: Number,
-      },
       total: {
         type: Number,
+        required: true,
       },
     },
   ],

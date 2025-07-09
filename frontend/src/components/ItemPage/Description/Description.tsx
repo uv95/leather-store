@@ -2,7 +2,14 @@ import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { useAddToCart } from '../../../hooks/useAddToCart';
-import { Color, IItem, ItemPart, LeatherType } from '../../../types/data';
+import {
+  Color,
+  IItem,
+  ItemPart,
+  ItemType,
+  LeatherType,
+  Role,
+} from '../../../types/data';
 import { LEATHERS_ROUTE } from '../../../utils/consts';
 import SelectColor from '../../SelectColor/SelectColor';
 import Button, { ButtonColor, ButtonSize } from '../../UI/Button/Button';
@@ -17,7 +24,7 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ item }) => {
   const addItemToCart = useAddToCart();
   const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.auth);
+  const { role } = useAppSelector((state) => state.auth);
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);
@@ -32,21 +39,22 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
 
   const itemData = useMemo(() => {
     return {
-      ...(!user && { _id: Date.now().toString() }),
-      ...(!user && { total: +item.price }),
-      itemId: item._id,
-      name: item.name,
+      _id: item._id,
+      total: +item.price,
+      item: {
+        name: item.name,
+        price: +item.price,
+        imageCover: item.imageCover,
+        type: item.type as ItemType,
+      },
       quantity: 1,
       colors: {
         leatherColor: colors.leatherColor,
         threadsColor: colors.threadsColor,
       },
       leather: leatherType,
-      price: +item.price,
-      imageCover: item.imageCover.url,
-      images: item.images.map((img) => img.url),
     };
-  }, [item, colors, leatherType, user]);
+  }, [item, colors, leatherType]);
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -84,7 +92,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       })}
 
       <h1 className="item-title">{item.name}</h1>
-      <p className="item-price">{item.price} RUB</p>
+      <p className="item-price">${item.price}</p>
       <div className="leather-type">
         <p>Leather type:</p>
         <div className="leather-type__radio">
@@ -115,13 +123,15 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       />
       <div className="item-desc">DESCRIPTION</div>
       <div className="item-desc-text">{item.description}</div>
-      <Button
-        onClick={() => addItemToCart(itemData)}
-        color={ButtonColor.BLACK}
-        size={ButtonSize.L}
-      >
-        Add to cart
-      </Button>
+      {role !== Role.ADMIN && (
+        <Button
+          onClick={() => addItemToCart(itemData)}
+          color={ButtonColor.BLACK}
+          size={ButtonSize.L}
+        >
+          Add to cart
+        </Button>
+      )}
     </>
   );
 };

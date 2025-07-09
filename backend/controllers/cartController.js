@@ -9,37 +9,32 @@ exports.setUserId = (req, res, next) => {
 };
 
 exports.getCart = catchAsync(async (req, res, next) => {
-  const cart = await Cart.findOne({ user: req.user.id });
-  // const cart = await Cart.findOne({ user: req.user.id }).populate({
-  //   path: 'items.itemId',
-  //   select: 'name price',
-  // });
+  const cart = await Cart.findOne({ user: req.user.id }).populate({
+    path: 'items.item',
+    select: 'name price imageCover type',
+  });
 
   res.status(200).json({
     status: 'success',
-    data: { data: cart },
+    data: cart,
   });
 });
 
 exports.createCart = catchAsync(async (req, res, next) => {
-  const { itemId, quantity, colors, leather } = req.body;
+  const { item: cartItem, quantity, colors, leather, total } = req.body;
+
   const cart = await Cart.findOne({ user: req.user.id });
-  const item = await Item.findById(itemId);
+  const item = await Item.findOne({ name: cartItem.name });
 
   if (!item) {
-    return next(new AppError('No item found with that id!', 404));
+    return next(new AppError('No item found with that name!', 404));
   }
-
-  const price = item.price;
-  const name = item.name;
-  const imageCover = item.imageCover.url;
-  const images = item.images.map((image) => image.url);
 
   if (cart) {
     //check if there is item in cart with the same ID and COLORS
     const itemIndex = cart.items.findIndex(
       (item) =>
-        item.itemId.toHexString() === itemId &&
+        item.name === cartItem.name &&
         Object.values(item.colors).every(
           (color, i) => color === Object.values(colors)[i]
         ) &&
@@ -50,29 +45,29 @@ exports.createCart = catchAsync(async (req, res, next) => {
       let product = cart.items[itemIndex];
       product.quantity += 1;
       cart.items[itemIndex] = product;
+
       await cart.save();
+      const populatedCart = await getPopulatedCart(cart);
 
       res.status(200).json({
         status: 'success',
-        data: { data: cart },
+        data: populatedCart,
       });
     } else {
       cart.items.push({
-        itemId,
-        name,
+        item,
         quantity,
-        price,
         colors,
         leather,
-        imageCover,
-        images,
+        total,
       });
 
       await cart.save();
+      const populatedCart = await getPopulatedCart(cart);
 
       res.status(200).json({
         status: 'success',
-        data: { data: cart },
+        data: populatedCart,
       });
     }
   }
@@ -80,34 +75,43 @@ exports.createCart = catchAsync(async (req, res, next) => {
   if (!cart) {
     const newCart = await Cart.create({
       user: req.user.id,
-      items: [
-        { itemId, name, quantity, price, colors, leather, imageCover, images },
-      ],
-      total: quantity * price,
+      items: [{ item, quantity, colors, leather, total }],
+      total: quantity * item.price,
       quantity,
     });
 
     res.status(201).json({
       status: 'success',
-      data: { data: newCart },
+      data: newCart,
     });
   }
 });
 
-exports.replaceCart = catchAsync(async (req, res, next) => {
+exports.updateCart = catchAsync(async (req, res, next) => {
   const cart = await Cart.findOne({ user: req.user.id });
+  const cartItems = req.body.items.map((cartItem) => ({
+    ...cartItem,
+    item: cartItem._id,
+  }));
+  const body = {
+    ...req.body,
+    items: cartItems,
+  };
+
   if (!cart) {
-    const newCart = await Cart.create(req.body);
+    const newCart = await Cart.create(body);
+    const populatedCart = await getPopulatedCart(newCart);
 
     res.status(201).json({
       status: 'success',
-      data: { data: newCart },
+      data: populatedCart,
     });
   }
+
   if (cart) {
     const updatedCart = await Cart.findOneAndUpdate(
       { user: req.user.id },
-      req.body,
+      body,
       {
         new: true,
         runValidators: true,
@@ -115,12 +119,11 @@ exports.replaceCart = catchAsync(async (req, res, next) => {
     );
 
     if (!updatedCart) next(new AppError('No cart found!', 404));
+    const populatedCart = await getPopulatedCart(updatedCart);
 
     res.status(200).json({
       status: 'success',
-      data: {
-        data: updatedCart,
-      },
+      data: populatedCart,
     });
   }
 });
@@ -128,21 +131,31 @@ exports.replaceCart = catchAsync(async (req, res, next) => {
 exports.deleteItem = catchAsync(async (req, res, next) => {
   const { cartItemId } = req.params;
 
-  let cart = await Cart.findOne({ user: req.user.id });
+  let cart = await Cart.findOne({ user: req.user.id }).populate({
+    path: 'items.item',
+    select: 'name price imageCover type',
+  });
+
   const itemIndex = cart.items.findIndex(
     (item) => item._id.toHexString() === cartItemId
   );
 
   if (itemIndex > -1) {
     let item = cart.items[itemIndex];
-    item.total -= item.price; ///
-    if (item.total < 0) item.total = 0;
+    item.total -= item.item.price;
+
+    if (item.total < 0) {
+      item.total = 0;
+    }
+
     cart.items.splice(itemIndex, 1);
     cart = await cart.save();
 
+    const populatedCart = await getPopulatedCart(cart);
+
     res.status(200).json({
       status: 'success',
-      data: { data: cart },
+      data: populatedCart,
     });
   } else {
     return next(new AppError('No item found!', 404));
@@ -153,7 +166,11 @@ exports.changeQuantity = catchAsync(async (req, res, next) => {
   const { cartItemId } = req.params;
   const quantity = req.body.quantity;
 
-  let cart = await Cart.findOne({ user: req.user.id });
+  let cart = await Cart.findOne({ user: req.user.id }).populate({
+    path: 'items.item',
+    select: 'price',
+  });
+
   const itemIndex = cart.items.findIndex(
     (item) => item._id.toHexString() === cartItemId
   );
@@ -161,14 +178,22 @@ exports.changeQuantity = catchAsync(async (req, res, next) => {
   if (itemIndex > -1) {
     let item = cart.items[itemIndex];
     item.quantity = quantity;
-    item.total = item.price * quantity;
-    if (item.total < 0) item.total = 0;
-    if (item.quantity === 0) cart.items.splice(itemIndex, 1);
+    item.total = item.item.price * quantity;
+
+    if (item.total < 0) {
+      item.total = 0;
+    }
+    if (item.quantity === 0) {
+      cart.items.splice(itemIndex, 1);
+    }
+
     cart = await cart.save();
+
+    const populatedCart = await getPopulatedCart(cart);
 
     res.status(200).json({
       status: 'success',
-      data: { data: cart },
+      data: populatedCart,
     });
   } else {
     return next(new AppError('No item found!', 404));
@@ -180,6 +205,13 @@ exports.emptyCart = catchAsync(async (req, res, next) => {
 
   res.status(204).json({
     status: 'success',
-    data: { data: null },
+    data: null,
   });
 });
+
+async function getPopulatedCart(cart) {
+  return await cart.populate({
+    path: 'items.item',
+    select: 'name price imageCover type',
+  });
+}

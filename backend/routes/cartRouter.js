@@ -11,7 +11,7 @@ router
   .route('/')
   .get(cartController.getCart)
   .post(cartController.setUserId, cartController.createCart)
-  .patch(cartController.setUserId, cartController.replaceCart)
+  .patch(cartController.setUserId, cartController.updateCart)
   .delete(cartController.emptyCart);
 
 router.route('/:cartItemId').delete(cartController.deleteItem);

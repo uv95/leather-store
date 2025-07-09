@@ -5,7 +5,7 @@ import {
   ADMIN_ROUTE,
   HOME_ROUTE,
   ITEMS_MANAGEMENT_ROUTE,
-  STATISTICS_ROUTE,
+  ANALYTICS_ROUTE,
 } from '../../utils/consts';
 import '../Header/header.scss';
 import Button from '../UI/Button/Button';
@@ -20,7 +20,7 @@ const AdminHeader = ({ path }: AdminHeaderProps) => {
   const tabs = [
     { text: 'Orders', route: ADMIN_ROUTE },
     { text: 'Items', route: ITEMS_MANAGEMENT_ROUTE },
-    { text: 'Statistics', route: STATISTICS_ROUTE },
+    { text: 'Analytics', route: ANALYTICS_ROUTE },
     { text: 'Home', route: HOME_ROUTE },
   ];
 

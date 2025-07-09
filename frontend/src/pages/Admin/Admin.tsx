@@ -1,15 +1,10 @@
-import React from 'react';
-import './admin.scss';
 import Orders from '../../components/Admin/Orders/Orders';
+import './admin.scss';
 
 type Props = {};
 
 const Admin = (props: Props) => {
-  return (
-    <div className="admin">
-      <Orders />
-    </div>
-  );
+  return <Orders />;
 };
 
 export default Admin;

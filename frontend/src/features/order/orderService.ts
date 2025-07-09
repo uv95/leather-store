@@ -46,7 +46,6 @@ const getOrder = async (orderId: string, token: string) => {
     },
   };
   const res = await axios.get(API_URL + orderId, config);
-  console.log(res.data, 'getOrder');
   return res.data;
 };
 
