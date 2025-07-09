@@ -80,9 +80,11 @@ const Cart = () => {
         <>
           <div className="cart__container__order">
             <div className="cart__container__order__items">
-              {cart?.items.map((item: ICartItem) => (
-                <CartItem key={item._id} item={item} />
-              ))}
+              {cart?.items.map((item: ICartItem) => {
+                const key =
+                  item.item.name + item.leather + JSON.stringify(item.colors);
+                return <CartItem key={key} item={item} />;
+              })}
             </div>
             <div className="cart__container__order__total">
               <p>Total: ${cart?.total}</p>

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import './register.scss';
-import Button from '../../components/UI/Button/Button';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../../utils/consts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { register } from '../../features/auth/authSlice';
+import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
+import { register } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
-import { ICartItem } from '../../types/data';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { LOGIN_ROUTE } from '../../utils/consts';
+import './register.scss';
 
 const Register = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -50,12 +49,6 @@ const Register = () => {
           ? dispatch(
               updateCart({
                 ...JSON.parse(localStorage.getItem('cart')!),
-                items: JSON.parse(localStorage.getItem('cart')!).items.map(
-                  (item: ICartItem) => {
-                    delete item._id;
-                    return item;
-                  }
-                ),
                 user: data.data.user._id,
               })
             )

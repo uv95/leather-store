@@ -105,7 +105,7 @@ export const cartSlice = createSlice({
         //check if there is item in cart with the same ID and COLORS (same logic as in cartController)
         const itemIndex = state.cart.items.findIndex(
           (item) =>
-            item._id === action.payload.itemId &&
+            item.item.name === action.payload.item.name &&
             Object.values(item.colors).every(
               (color, i) => color === Object.values(action.payload.colors)[i]
             ) &&
@@ -115,20 +115,24 @@ export const cartSlice = createSlice({
         if (itemIndex > -1) {
           let product = state.cart.items[itemIndex];
           product.quantity += 1;
-          if (product.total) product.total += product.item.price;
+
+          if (product.total) {
+            product.total += product.item.price;
+          }
+
           state.cart.items[itemIndex] = product;
           state.cart.totalQuantity += 1;
           state.cart.total += product.item.price;
         } else {
           state.cart.items.push(action.payload);
           state.cart.totalQuantity += 1;
-          state.cart.total += action.payload.price;
+          state.cart.total += action.payload.item.price;
         }
       }
       if (!state.cart)
         state.cart = {
           items: [action.payload],
-          total: action.payload.price,
+          total: action.payload.item.price,
           totalQuantity: 1,
         };
       localStorage.setItem('cart', JSON.stringify(state.cart));

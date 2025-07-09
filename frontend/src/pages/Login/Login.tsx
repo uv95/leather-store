@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './login.scss';
-import Button, { ButtonColor } from '../../components/UI/Button/Button';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { REGISTRATION_ROUTE } from '../../utils/consts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { login } from '../../features/auth/authSlice';
+import Button, { ButtonColor } from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Toast from '../../components/UI/Toast/Toast';
+import { login } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
-import { ICartItem, Role } from '../../types/data';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Role } from '../../types/data';
+import { REGISTRATION_ROUTE } from '../../utils/consts';
+import './login.scss';
 
 const Login = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -35,7 +35,7 @@ const Login = () => {
         email: 'admin@gmail.com',
         password: 'adminadmin',
       })
-    ).then(() => navigate('/admin'));
+    ).then(() => navigate('/admin/orders'));
   }
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -66,10 +66,6 @@ const Login = () => {
           dispatch(
             updateCart({
               ...cart,
-              items: cart.items.map((item: ICartItem) => {
-                delete item._id;
-                return item;
-              }),
               user: userId,
             })
           )
