@@ -5,11 +5,10 @@ import { ItemType } from '../../../../types/data';
 import Button from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
 import './addItem.scss';
+import toast from '../../../../lib/toast';
 
 interface AddItemProps {
   setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;
-  setToastText: React.Dispatch<React.SetStateAction<string>>;
-  setOpenToast: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface IFormData {
   name: string;
@@ -18,11 +17,7 @@ interface IFormData {
   price: string;
 }
 
-const AddItem: React.FC<AddItemProps> = ({
-  setOpenAddItem,
-  setOpenToast,
-  setToastText,
-}) => {
+const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<IFormData>({
@@ -58,10 +53,7 @@ const AddItem: React.FC<AddItemProps> = ({
       .then(() => {
         setOpenAddItem(false);
       })
-      .catch((error) => {
-        setToastText(error.split(':')[error.split(':').length - 1]);
-        setOpenToast(true);
-      })
+      .catch((error) => toast.error(error))
       .finally(() => setIsLoading(false));
   };
 

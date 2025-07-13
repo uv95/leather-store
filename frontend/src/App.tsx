@@ -5,19 +5,24 @@ import MainLayout from './components/layouts/MainLayout/MainLayout';
 import Router from './components/Router';
 import ScrollToTop from './components/ScrollToTop';
 import store from './store';
+import Toast from './components/UI/Toast/Toast';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <MainLayout>
-          <Suspense>
-            <ScrollToTop />
-            <Router />
-          </Suspense>
-        </MainLayout>
-      </BrowserRouter>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <Toast />
+        <BrowserRouter>
+          <MainLayout>
+            <Suspense>
+              <ScrollToTop />
+              <Router />
+            </Suspense>
+          </MainLayout>
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 

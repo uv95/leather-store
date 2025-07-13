@@ -7,7 +7,6 @@ import Button from '../../UI/Button/Button';
 import ListItem from '../../UI/ListItem/ListItem';
 import Modal from '../../UI/Modal/Modal';
 import Spinner from '../../UI/Spinner/Spinner';
-import Toast from '../../UI/Toast/Toast';
 import AddItem from './AddItem/AddItem';
 import ItemDetails from './ItemDetails/ItemDetails';
 import './itemsManagement.scss';
@@ -15,10 +14,7 @@ import './itemsManagement.scss';
 const ItemsManagement = () => {
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector((state) => state.filters);
-
   const [openModal, setOpenModal] = useState(false);
-  const [openToast, setOpenToast] = useState(false);
-  const [toastText, setToastText] = useState('');
 
   if (filters.length) {
     dispatch(clearFilter());
@@ -39,14 +35,6 @@ const ItemsManagement = () => {
 
   return (
     <>
-      {openToast && (
-        <Toast
-          text={toastText}
-          type="error"
-          opened={openToast}
-          setOpened={setOpenToast}
-        />
-      )}
       <div className="items">
         <h1 className="items-heading">Items</h1>
         <Button onClick={() => setOpenModal(true)}>Add item</Button>
@@ -78,13 +66,7 @@ const ItemsManagement = () => {
         {openModal && (
           <Modal
             setOpen={setOpenModal}
-            Content={
-              <AddItem
-                setOpenAddItem={setOpenModal}
-                setToastText={setToastText}
-                setOpenToast={setOpenToast}
-              />
-            }
+            Content={<AddItem setOpenAddItem={setOpenModal} />}
           />
         )}
       </div>
