@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getMe } from '../features/user/userSlice';
+import toast from '../lib/toast';
 
 export function useGetMe() {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ export function useGetMe() {
       dispatch(getMe())
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
   }, [dispatch, role]);
 
   return { user, isLoading };

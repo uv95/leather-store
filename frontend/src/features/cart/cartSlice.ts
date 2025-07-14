@@ -23,7 +23,6 @@ export const addToCart = createAsyncThunk(
       const { token } = state.auth.user;
       return await cartService.addToCart(cartItem, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -35,7 +34,6 @@ export const getCart = createAsyncThunk('@@cart/get', async (_, thunkAPI) => {
     const { token } = state.auth.user;
     return await cartService.getCart(token);
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
 });
@@ -48,7 +46,6 @@ export const updateCart = createAsyncThunk(
       const { token } = state.auth.user;
       return await cartService.updateCart(updatedCart, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -62,7 +59,6 @@ export const emptyCart = createAsyncThunk(
       const { token } = state.auth.user;
       return await cartService.emptyCart(token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -75,7 +71,6 @@ export const deleteItemFromCart = createAsyncThunk(
       const { token } = state.auth.user;
       return await cartService.deleteItemFromCart(cartItemId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -89,7 +84,6 @@ export const changeQuantity = createAsyncThunk(
       const { token } = state.auth.user;
       return await cartService.changeQuantity(cartItemId, quantity, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

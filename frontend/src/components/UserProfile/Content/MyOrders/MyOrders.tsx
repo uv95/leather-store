@@ -11,6 +11,7 @@ import ListItem from '../../../UI/ListItem/ListItem';
 import Spinner from '../../../UI/Spinner/Spinner';
 import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import './myOrders.scss';
+import toast from '../../../../lib/toast';
 
 const MyOrders = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +44,7 @@ const MyOrders = () => {
       dispatch(getMyOrders(user._id))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
   }, [dispatch, user, myOrders]);
 
   if (isLoading) return <Spinner />;

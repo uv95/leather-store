@@ -16,7 +16,6 @@ export const getMe = createAsyncThunk('@user/getMe', async (_, thunkAPI) => {
     const { token } = state.auth.user;
     return await userService.getMe(token);
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
 });
@@ -28,7 +27,6 @@ export const updateMe = createAsyncThunk(
       const { token } = state.auth.user;
       return await userService.updateMe(token, updatedData);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

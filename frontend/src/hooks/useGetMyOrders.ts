@@ -6,6 +6,7 @@ import {
   selectMyFinishedOrders,
 } from '../features/order/orderSlice';
 import { Role } from '../types/data';
+import toast from '../lib/toast';
 
 export function useGetMyOrders() {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export function useGetMyOrders() {
       dispatch(getMyOrders(userId))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
   }, [dispatch, userId, role]);
 
   return { isLoading, myActiveOrders, myFinishedOrders, myOrders };

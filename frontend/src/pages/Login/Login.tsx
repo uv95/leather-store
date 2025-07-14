@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Button, { ButtonColor } from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
-import Toast from '../../components/UI/Toast/Toast';
 import { login } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Role } from '../../types/data';
 import { REGISTRATION_ROUTE } from '../../utils/consts';
 import './login.scss';
+import toast from '../../lib/toast';
 
 const Login = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -20,8 +20,6 @@ const Login = () => {
   });
 
   const dispatch = useAppDispatch();
-  const [openToast, setOpenToast] = useState(false);
-  const [toastText, setToastText] = useState('');
 
   if (user) {
     return <Navigate to="/profile" replace />;
@@ -45,6 +43,7 @@ const Login = () => {
       [target.name]: target.value,
     }));
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -73,27 +72,16 @@ const Login = () => {
             .then((_) => {
               localStorage.removeItem('cart');
               navigate('/');
-            })
-            .catch((error) => {
-              setToastText(error);
-              setOpenToast(true);
             });
         } else {
           navigate('/');
         }
-      });
+      })
+      .catch((error) => toast.error(error));
   };
 
   return (
     <>
-      {openToast && (
-        <Toast
-          text={toastText}
-          type="error"
-          opened={openToast}
-          setOpened={setOpenToast}
-        />
-      )}
       <div className="login">
         <div className="login__container">
           <h1 className="login__container__heading">Login to your account</h1>
@@ -106,6 +94,7 @@ const Login = () => {
                 value={email}
                 onChange={onChange}
                 placeholder="Email"
+                required
               />
             </div>
 
@@ -117,6 +106,7 @@ const Login = () => {
                 value={password}
                 onChange={onChange}
                 placeholder="Password"
+                required
               />
             </div>
             <div className="login__container__form__bottom">

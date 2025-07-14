@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addToCart, addToCartLS } from '../features/cart/cartSlice';
 import { ICartItem } from '../types/data';
+import toast from '../lib/toast';
 
 export function useAddToCart() {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ export function useAddToCart() {
       dispatch(addToCart(item))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
     }
     if (!user) {
       dispatch(addToCartLS(item));

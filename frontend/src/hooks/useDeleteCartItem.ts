@@ -3,6 +3,7 @@ import {
   deleteItemFromCart,
   deleteItemFromCartLS,
 } from '../features/cart/cartSlice';
+import toast from '../lib/toast';
 
 export function useDeleteCartItem() {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ export function useDeleteCartItem() {
       dispatch(deleteItemFromCart(cartItemId))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
     if (!user) dispatch(deleteItemFromCartLS(cartItemId));
   };
 

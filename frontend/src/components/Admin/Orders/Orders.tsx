@@ -6,9 +6,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 import OrderDetails from './OrderDetails/OrderDetails';
 import './orders.scss';
 
-type Props = {};
-
-const Orders = (props: Props) => {
+const Orders = () => {
   const { activeOrders, finishedOrders, isLoading } = useGetOrders();
   const orderData = (order: IOrder) => [
     {

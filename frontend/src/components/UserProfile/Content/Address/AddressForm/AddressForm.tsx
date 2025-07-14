@@ -7,6 +7,7 @@ import {
   addAddress,
   updateAddress,
 } from '../../../../../features/address/addressSlice';
+import toast from '../../../../../lib/toast';
 
 interface AddressFormProps {
   edit: boolean;
@@ -23,9 +24,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const { isLoading, address: currAddress } = useAppSelector(
-    (state) => state.address
-  );
+  const { address: currAddress } = useAppSelector((state) => state.address);
 
   const [formData, setFormData] = useState({
     city: '',
@@ -50,16 +49,22 @@ const AddressForm: React.FC<AddressFormProps> = ({
     if (edit && addressId) {
       dispatch(updateAddress({ addressId, updatedAddress: formData }))
         .unwrap()
-        .then((_) => setOpenAddressForm(false))
-        .catch((error) => console.log(error, 'error'));
-
-      setEdit(false);
+        .then((_) => {
+          setOpenAddressForm(false);
+          toast.success('Address updated');
+          setEdit(false);
+        })
+        .catch((error) => toast.error(error));
     }
+
     !edit &&
       dispatch(addAddress(formData))
         .unwrap()
-        .then((_) => setOpenAddressForm(false))
-        .catch((error) => console.log(error, 'error'));
+        .then(() => {
+          setOpenAddressForm(false);
+          toast.success('Address successfully added');
+        })
+        .catch((error) => toast.error(error));
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -69,8 +74,6 @@ const AddressForm: React.FC<AddressFormProps> = ({
       [target.name]: target.value,
     }));
   };
-
-  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <form className="address-form" onSubmit={onSubmit}>

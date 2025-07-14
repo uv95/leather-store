@@ -1,5 +1,6 @@
 import { useAppDispatch } from '../hooks';
 import { deleteOrder } from '../features/order/orderSlice';
+import toast from '../lib/toast';
 
 export function useCancelOrder() {
   const dispatch = useAppDispatch();
@@ -7,8 +8,8 @@ export function useCancelOrder() {
   const cancelOrder = (orderId: string) => {
     dispatch(deleteOrder(orderId))
       .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .then(() => toast.success('Order canceled'))
+      .catch((error) => toast.error(error));
   };
 
   return cancelOrder;

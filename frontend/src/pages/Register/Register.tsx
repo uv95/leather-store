@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
-import Toast from '../../components/UI/Toast/Toast';
 import { register } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import './register.scss';
+import toast from '../../lib/toast';
 
 const Register = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -18,13 +18,9 @@ const Register = () => {
     passwordConfirm: '',
     phone: '',
   });
-  const [openToast, setOpenToast] = useState(false);
-  const [toastText, setToastText] = useState('');
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const { isLoading } = useAppSelector((state) => state.auth);
 
   if (user) {
     return <Navigate to="/profile" replace />;
@@ -39,6 +35,7 @@ const Register = () => {
       [target.name]: target.value,
     }));
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -59,24 +56,11 @@ const Register = () => {
               })
           : navigate(-1);
       })
-      .catch((error) => {
-        setToastText(error.split(':')[2 || 1]);
-        setOpenToast(true);
-      });
+      .catch((error) => toast.error(error));
   };
-
-  if (isLoading) return <h1>Loading....</h1>;
 
   return (
     <>
-      {openToast && (
-        <Toast
-          text={toastText}
-          type="error"
-          opened={openToast}
-          setOpened={setOpenToast}
-        />
-      )}
       <div className="register">
         <div className="register__container">
           <h1 className="register__container__heading">Registration</h1>

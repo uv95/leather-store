@@ -20,7 +20,6 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -32,7 +31,6 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(user);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -46,7 +44,6 @@ export const updatePassword = createAsyncThunk(
       const { token } = state.auth.user;
       return await authService.updatePassword(token, updatedData);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

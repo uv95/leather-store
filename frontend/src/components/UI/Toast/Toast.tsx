@@ -1,29 +1,37 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import './toast.scss';
+import toast, { ToastType } from '../../../lib/toast';
 
-type Props = {
-  text: string;
-  type: string;
-  opened: boolean;
-  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
-};
+const Toast = () => {
+  const [toastState, setToastState] = useState<{
+    type: string;
+    message: string;
+  } | null>(null);
 
-const Toast = ({ text, type, opened, setOpened }: Props) => {
   useEffect(() => {
-    setTimeout(() => {
-      setOpened(false);
-    }, 4000);
-  }, [setOpened]);
+    const unsubscribe = toast.subscribe((event) => {
+      setToastState(event);
+      setTimeout(() => {
+        setToastState(null);
+      }, 4000);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  if (!toastState) return null;
 
   return ReactDOM.createPortal(
     <div
       style={{
-        backgroundColor: `${type === 'success' ? '#4caf51' : '#f44436'}`,
+        backgroundColor: `${
+          toastState.type === ToastType.SUCCESS ? '#4caf51' : '#f44436'
+        }`,
       }}
       className="toast"
     >
-      {text}
+      {toastState.message}
     </div>,
     document.getElementById('root') as HTMLElement
   );
