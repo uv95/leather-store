@@ -39,7 +39,10 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
     form.append('type', formData.type);
     form.append('description', formData.description);
     form.append('price', formData.price);
-    if (imageCover) form.append('imageCover', imageCover);
+
+    if (imageCover) {
+      form.append('imageCover', imageCover);
+    }
     if (images) {
       for (let i = 0; i < 2; i++) {
         form.append('images', Object.values(images!)[i]);
@@ -52,6 +55,7 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
       .unwrap()
       .then(() => {
         setOpenAddItem(false);
+        toast.success('New item successfully added');
       })
       .catch((error) => toast.error(error))
       .finally(() => setIsLoading(false));

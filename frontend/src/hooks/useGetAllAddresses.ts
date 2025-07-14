@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getAllAddresses } from '../features/address/addressSlice';
+import toast from '../lib/toast';
 
 export function useGetAllAddresses() {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   const { isLoading, addresses } = useAppSelector((state) => state.address);
 
   useEffect(() => {
-    dispatch(getAllAddresses())
-      .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'ERROR'));
-  }, [dispatch]);
+    if (user) {
+      dispatch(getAllAddresses())
+        .unwrap()
+        .then()
+        .catch((error) => toast.error(error));
+    }
+  }, [dispatch, user]);
 
   return { isLoading, addresses };
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getAllItems, selectVisibleItems } from '../features/items/itemsSlice';
+import toast from '../lib/toast';
 
 export function useGetAllItems() {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ export function useGetAllItems() {
     dispatch(getAllItems())
       .unwrap()
       .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .catch((error) => toast.error(error));
   }, [dispatch]);
 
   return { isLoading, items };

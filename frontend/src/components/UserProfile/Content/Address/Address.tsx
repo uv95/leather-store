@@ -6,6 +6,7 @@ import Spinner from '../../../UI/Spinner/Spinner';
 import './address.scss';
 import AddressCard from './AddressCard/AddressCard';
 import AddressForm from './AddressForm/AddressForm';
+import toast from '../../../../lib/toast';
 
 const Address = () => {
   const { isLoading, addresses } = useAppSelector((state) => state.address);
@@ -21,7 +22,7 @@ const Address = () => {
       dispatch(getAddress(addressId))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
   }, [dispatch, addressId]);
 
   if (isLoading) return <Spinner />;

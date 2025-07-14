@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getCart, getCartLS } from '../features/cart/cartSlice';
+import toast from '../lib/toast';
 
 const useGetCart = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ const useGetCart = () => {
       dispatch(getCart())
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
     if (!user) dispatch(getCartLS());
   }, [dispatch, user]);
 

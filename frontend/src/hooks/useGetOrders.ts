@@ -5,6 +5,7 @@ import {
   getAllOrders,
   selectFinishedOrders,
 } from '../features/order/orderSlice';
+import toast from '../lib/toast';
 
 export function useGetOrders() {
   const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ export function useGetOrders() {
     dispatch(getAllOrders())
       .unwrap()
       .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .catch((error) => toast.error(error));
   }, [dispatch]);
 
   return { isLoading, activeOrders, finishedOrders };

@@ -29,7 +29,6 @@ export const addOrder = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.createOrder(orderData, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -43,7 +42,6 @@ export const getAllOrders = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.getAllOrders(token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -56,7 +54,6 @@ export const getMyOrders = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.getMyOrders(userId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -70,7 +67,6 @@ export const getOrder = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.getOrder(orderId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -84,7 +80,6 @@ export const deleteOrder = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.cancelOrder(orderId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -97,7 +92,6 @@ export const updateOrder = createAsyncThunk(
       const { token } = state.auth.user;
       return await orderService.updateOrder(orderId, updatedOrder, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

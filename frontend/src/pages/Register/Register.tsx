@@ -22,8 +22,6 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { isLoading } = useAppSelector((state) => state.auth);
-
   if (user) {
     return <Navigate to="/profile" replace />;
   }
@@ -37,6 +35,7 @@ const Register = () => {
       [target.name]: target.value,
     }));
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -57,13 +56,8 @@ const Register = () => {
               })
           : navigate(-1);
       })
-      .catch((error) => {
-        console.log('error', error);
-        toast.error(error);
-      });
+      .catch((error) => toast.error(error));
   };
-
-  if (isLoading) return <h1>Loading....</h1>;
 
   return (
     <>

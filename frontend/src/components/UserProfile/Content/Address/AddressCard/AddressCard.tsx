@@ -5,6 +5,7 @@ import trash from '../../../../../assets/icons/trash.svg';
 import { useAppDispatch } from '../../../../../hooks';
 import { deleteAddress } from '../../../../../features/address/addressSlice';
 import { IAddress } from '../../../../../types/data';
+import toast from '../../../../../lib/toast';
 
 interface AddressCardProps {
   address: IAddress;
@@ -28,8 +29,8 @@ const AddressCard: React.FC<AddressCardProps> = ({
   const onDelete = (id: string) => {
     dispatch(deleteAddress(id))
       .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .then(() => toast.success('Address deleted'))
+      .catch((error) => toast.error(error));
   };
 
   return (

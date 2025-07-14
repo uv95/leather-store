@@ -22,7 +22,6 @@ export const addItem = createAsyncThunk(
       const { token } = state.auth.user;
       return await itemsService.addItem(itemData, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -34,7 +33,6 @@ export const getAllItems = createAsyncThunk(
     try {
       return await itemsService.getAllItems();
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -45,7 +43,6 @@ export const getItemBySlug = createAsyncThunk(
     try {
       return await itemsService.getItemBySlug(slug);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -70,7 +67,6 @@ export const deleteItem = createAsyncThunk(
       const { token } = state.auth.user;
       return await itemsService.deleteItem(itemId, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }
@@ -84,7 +80,6 @@ export const updateItem = createAsyncThunk(
       const { token } = state.auth.user;
       return await itemsService.updateItem(itemId, updatedItem, token);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
   }

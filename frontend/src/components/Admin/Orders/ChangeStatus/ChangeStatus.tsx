@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../../hooks';
 import { OrderStatus } from '../../../../types/data';
 import { orderStatuses } from '../../../../utils/consts';
 import './changeStatus.scss';
+import toast from '../../../../lib/toast';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
@@ -15,7 +16,7 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
     dispatch(updateOrder({ orderId, updatedOrder: { status: newStatus } }))
       .unwrap()
       .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .catch((error) => toast.error(error));
   }, [newStatus, dispatch, orderId]);
 
   return (

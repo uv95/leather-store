@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getItemBySlug } from '../features/items/itemsSlice';
 import { useParams } from 'react-router-dom';
+import toast from '../lib/toast';
 
 export function useGetItem() {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export function useGetItem() {
       dispatch(getItemBySlug(slug))
         .unwrap()
         .then()
-        .catch((error) => console.log(error, 'ERROR'));
+        .catch((error) => toast.error(error));
   }, [dispatch, slug]);
 
   // const getItem = (id: string) => {

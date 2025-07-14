@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
-import Spinner from '../../../UI/Spinner/Spinner';
-import './myInfo.scss';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { logout, updatePassword } from '../../../../features/auth/authSlice';
 import { updateMe } from '../../../../features/user/userSlice';
-import { updatePassword, logout } from '../../../../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import toast from '../../../../lib/toast';
+import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
+import './myInfo.scss';
 
 const MyInfo = () => {
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -42,8 +42,8 @@ const MyInfo = () => {
 
     dispatch(updateMe(formData))
       .unwrap()
-      .then()
-      .catch((error) => console.log(error, 'error'));
+      .then(() => toast.success('Personal info updated'))
+      .catch((error) => toast.error(error));
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -60,11 +60,12 @@ const MyInfo = () => {
 
     dispatch(updatePassword(passwordData))
       .unwrap()
-      .then((data) => {
+      .then(() => {
+        toast.success('Password updated');
         dispatch(logout());
         navigate('/login');
       })
-      .catch((error) => console.log(error, 'error'));
+      .catch((error) => toast.error(error));
   };
 
   const onNewPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -74,8 +75,6 @@ const MyInfo = () => {
       [target.name]: target.value,
     }));
   };
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div className="info">

@@ -5,6 +5,7 @@ import { IItem, ItemType } from '../../../../types/data';
 import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
 import Input from '../../../UI/Input/Input';
 import './itemDetails.scss';
+import toast from '../../../../lib/toast';
 
 type ItemDetailsProps = { item: IItem };
 
@@ -16,8 +17,6 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
     type: '',
     description: '',
     price: '',
-    // imageCover: '',
-    // images: [],
   });
 
   const { name, type, description, price } = formData;
@@ -27,7 +26,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
     dispatch(deleteItem(id))
       .unwrap()
       .then()
-      .catch((error) => console.log(error, 'ERROR'));
+      .catch((error) => toast.error(error));
   };
 
   useEffect(() => {
@@ -36,8 +35,6 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
       type: item.type,
       description: item.description,
       price: item.price,
-      // imageCover: item.imageCover,
-      // images: item.images,
     });
   }, [item]);
 
@@ -46,9 +43,10 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
 
     dispatch(updateItem({ itemId: item._id, updatedItem: formData }))
       .unwrap()
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error, 'error'));
+      .then(() => toast.success('Item updated'))
+      .catch((error) => toast.error(error));
   };
+
   const onChange = (
     e: React.FormEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -60,6 +58,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
       [target.name]: target.value,
     }));
   };
+
   return (
     <div className="itemDetails">
       <form className="itemDetails__form" id="form" onSubmit={onSubmit}>
