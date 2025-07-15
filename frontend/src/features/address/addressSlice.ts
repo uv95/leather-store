@@ -3,6 +3,7 @@ import { RootState } from '../../store';
 import { IAddress, IAddressState, IUpdatedAddress } from '../../types/data';
 import addressService from './addressService';
 import { extractErrorMessage } from '../../utils/errorMessage';
+import { logout } from '../auth/authSlice';
 
 const initialState: IAddressState = {
   address: null,
@@ -83,6 +84,9 @@ export const addressSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(logout, (state) => {
+        state.addresses = [];
+      })
       .addCase(deleteAddress.fulfilled, (state, action) => {
         state.addresses = state.addresses.filter(
           (address) => address._id !== action.meta.arg
