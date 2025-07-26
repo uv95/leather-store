@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getAllAddresses } from '../features/address/addressSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useGetAllAddresses() {
   const dispatch = useAppDispatch();

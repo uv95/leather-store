@@ -2,7 +2,7 @@ import { useAppDispatch } from '../hooks';
 import { addOrder } from '../features/order/orderSlice';
 import { IOrder } from '../types/data';
 import { emptyCart } from '../features/cart/cartSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useCreateOrder() {
   const dispatch = useAppDispatch();

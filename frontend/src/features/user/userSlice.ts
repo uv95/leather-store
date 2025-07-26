@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { extractErrorMessage } from '../../utils/errorMessage';
 import userService from './userService';
 import { IUser, IUserState } from '../../types/data';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 
 const initialState: IUserState = {
   user: null,

@@ -11,7 +11,7 @@ import {
   OrderStatus,
 } from '../../types/data';
 import orderService from './orderService';
-import { extractErrorMessage } from '../../utils/errorMessage';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 
 const initialState: IOrderState = {
   order: null,

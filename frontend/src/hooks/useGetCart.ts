@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getCart, getCartLS } from '../features/cart/cartSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 const useGetCart = () => {
   const dispatch = useAppDispatch();

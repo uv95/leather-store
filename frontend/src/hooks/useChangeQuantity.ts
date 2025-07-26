@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { changeQuantity, changeQuantityLS } from '../features/cart/cartSlice';
 import { IQuantity } from '../types/data';
 import useDebounce from './useDebounce';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useChangeQuantity() {
   const dispatch = useAppDispatch();

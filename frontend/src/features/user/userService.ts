@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { IUser } from '../../types/data';
-import { BASE_URL } from '../../utils/consts';
+import { BASE_URL } from '../../shared/const/consts';
 
-// const API_URL = 'http://localhost:5000/users/';
 const API_URL = BASE_URL + 'users/';
 
 const getMe = async (token: string) => {

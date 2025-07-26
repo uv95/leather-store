@@ -1,0 +1,52 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.footer {
+  background-color: var(--color-grey--light);
+  position: absolute;
+  bottom: 0;
+  height: var(--footer-height);
+  width: 100%;
+  padding: 3rem 2rem;
+  font-size: 1.5rem;
+
+  &__container {
+    width: 100%;
+    max-width: 124rem;
+    margin: 0 auto;
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        @include max400 {
+          @include list;
+          margin-bottom: 1rem;
+          align-items: flex-start;
+        }
+      }
+      &__social {
+        &--img {
+          width: 3rem;
+          height: 3rem;
+        }
+      }
+
+      @include max400 {
+        align-items: flex-start;
+      }
+    }
+
+    &__bottom {
+      margin-top: 1rem;
+      color: var(--color-grey--dark);
+      font-size: 1.2rem;
+    }
+  }
+
+  @include max400 {
+    height: var(--footer-height-l);
+  }
+}

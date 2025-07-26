@@ -6,7 +6,7 @@ import {
 import { RootState } from '../../store';
 import itemsService from './itemsService';
 import { IItemsState, IUpdatedItem } from '../../types/data';
-import { extractErrorMessage } from '../../utils/errorMessage';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 
 const initialState: IItemsState = {
   item: null,

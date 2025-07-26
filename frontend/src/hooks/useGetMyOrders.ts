@@ -6,7 +6,7 @@ import {
   selectMyFinishedOrders,
 } from '../features/order/orderSlice';
 import { Role } from '../types/data';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useGetMyOrders() {
   const dispatch = useAppDispatch();

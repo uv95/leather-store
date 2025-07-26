@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import analyticsService from './analyticsService';
-import { extractErrorMessage } from '../../utils/errorMessage';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 import { MonthleRevenue, OrdersByCategory } from '../../types/data';
 
 interface InitialState {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { extractErrorMessage } from '../../utils/errorMessage';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 import cartService from './cartService';
 import {
   ICart,

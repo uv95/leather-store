@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { IAddress, IAddressState, IUpdatedAddress } from '../../types/data';
 import addressService from './addressService';
-import { extractErrorMessage } from '../../utils/errorMessage';
+import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
 import { logout } from '../auth/authSlice';
 
 const initialState: IAddressState = {

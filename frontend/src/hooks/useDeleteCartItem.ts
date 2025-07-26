@@ -3,7 +3,7 @@ import {
   deleteItemFromCart,
   deleteItemFromCartLS,
 } from '../features/cart/cartSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useDeleteCartItem() {
   const dispatch = useAppDispatch();

@@ -24,13 +24,13 @@ const ItemPage = lazy(() => import('../../../pages/itemPage/ItemPage'));
 const Home = lazy(() => import('../../../pages/Home/Home'));
 const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
-const Analytics = lazy(() => import('../../../components/Admin/Analytics/Analytics'));
+const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));
 const ItemsManagement = lazy(
   () => import('../../../components/Admin/ItemsManagement/ItemsManagement')
 );
 const UserProfile = lazy(() => import('../../../pages/UserProfile/UserProfile'));
 const Leathers = lazy(() => import('../../../pages/Leathers/Leathers'));
-const Admin = lazy(() => import('../../../pages/Admin/Admin'));
+const OrdersAdmin = lazy(() => import('../../../pages/OrdersAdmin/OrdersAdmin'));
 
 interface Routes {
   path: RoutePath;
@@ -38,7 +38,7 @@ interface Routes {
 }
 
 export const adminRoutes: Routes[] = [
-  { path: RoutePath.ADMIN_ORDERS, Component: Admin },
+  { path: RoutePath.ADMIN_ORDERS, Component: OrdersAdmin },
   { path: RoutePath.ANALYTICS, Component: Analytics },
   { path: RoutePath.ITEMS_MANAGEMENT, Component: ItemsManagement },
 ];

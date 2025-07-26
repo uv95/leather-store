@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addToCart, addToCartLS } from '../features/cart/cartSlice';
 import { ICartItem } from '../types/data';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useAddToCart() {
   const dispatch = useAppDispatch();

@@ -1,0 +1,74 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.header {
+  &__container {
+    &__admin {
+      height: var(--header-height);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include max700 {
+        font-size: 1.7rem;
+      }
+      @include max500 {
+        display: none;
+      }
+
+      &-link {
+        color: var(--color-grey--dark) !important;
+        cursor: pointer;
+        &-active {
+          position: relative;
+          transition: all 0.2s;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            height: 1px;
+            width: 100%;
+            background-color: black;
+            @include max500 {
+              height: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.mobile {
+  display: none;
+  @include max500 {
+    @include center;
+    height: 5rem;
+    margin: 0 auto;
+    font-size: 2.5rem;
+
+    &__menu {
+      @include list;
+      width: 100%;
+      align-items: center;
+      gap: 2rem;
+      height: 20rem;
+      background-color: white;
+      position: absolute;
+      overflow: hidden;
+      top: 5rem;
+      transition: all 0.1s ease-in-out;
+
+      &-link {
+        @include hover;
+      }
+
+      &--open {
+        max-height: 20rem;
+      }
+      &--closed {
+        max-height: 0rem;
+      }
+    }
+  }
+}

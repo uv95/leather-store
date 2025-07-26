@@ -45,3 +45,5 @@ export const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:5000/'
     : 'https://leather-store.fly.dev/';
+
+    console.log('BASE_URL', BASE_URL)

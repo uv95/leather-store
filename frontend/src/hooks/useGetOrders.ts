@@ -5,7 +5,7 @@ import {
   getAllOrders,
   selectFinishedOrders,
 } from '../features/order/orderSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useGetOrders() {
   const dispatch = useAppDispatch();

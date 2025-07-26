@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../hooks';
 import { deleteOrder } from '../features/order/orderSlice';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useCancelOrder() {
   const dispatch = useAppDispatch();

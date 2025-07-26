@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getItemBySlug } from '../features/items/itemsSlice';
 import { useParams } from 'react-router-dom';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 export function useGetItem() {
   const dispatch = useAppDispatch();
