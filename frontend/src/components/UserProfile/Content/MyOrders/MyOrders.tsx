@@ -6,12 +6,12 @@ import {
 } from '../../../../features/order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { IOrder } from '../../../../types/data';
-import { orderStatuses } from '../../../../utils/consts';
-import ListItem from '../../../UI/ListItem/ListItem';
-import Spinner from '../../../UI/Spinner/Spinner';
+import { orderStatuses } from '../../../../shared/const/consts';
+import ListItem from '../../../../shared/ui/ListItem/ListItem';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
 import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
 import './myOrders.scss';
-import toast from '../../../../lib/toast';
+import toast from '../../../../shared/lib/toast/toast';
 
 const MyOrders = () => {
   const dispatch = useAppDispatch();

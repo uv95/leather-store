@@ -1,8 +1,7 @@
-@import '../../../base-styles/mixins.scss';
-@import '../../../base-styles/variables.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .about {
-  background-color: $color-grey--light;
+  background-color: var(--color-grey--light);
   padding: 10rem 0;
   margin: 4rem 0;
 

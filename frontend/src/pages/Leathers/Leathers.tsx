@@ -1,9 +1,8 @@
-import React from 'react';
 import './leathers.scss';
-import nappa from '../../assets/img/nappa.jpg';
-import crazyHorse from '../../assets/img/crazyHorse.jpg';
-import pullUp from '../../assets/img/pullUp.jpg';
-import Back from '../../components/UI/Back/Back';
+import nappa from '../../shared/assets/img/nappa.jpg';
+import crazyHorse from '../../shared/assets/img/crazyHorse.jpg';
+import pullUp from '../../shared/assets/img/pullUp.jpg';
+import Back from '../../shared/ui/Back/Back';
 
 type Props = {};
 

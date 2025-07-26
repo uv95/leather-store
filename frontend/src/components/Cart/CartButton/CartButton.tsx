@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import Button, { ButtonSize, ButtonColor } from '../../UI/Button/Button';
+import Button, { ButtonSize, ButtonColor } from '../../../shared/ui/Button/Button';
 
 interface CartButtonProps {
   onClick: () => void;

@@ -1,0 +1,167 @@
+@mixin main-block {
+  width: 100%;
+  max-width: 124rem;
+  padding: 0 2rem;
+  margin: 4rem auto 0 auto;
+  @include max700 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @include max500 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+@mixin list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@mixin header-footer {
+  padding-bottom: var(--footer-height);
+  padding-top: var(--header-height);
+  @include max400 {
+    padding-bottom: var(--footer-height-l);
+    padding-top: calc(var(--header-height) - 2rem);
+  }
+}
+
+@mixin items-section--home {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+@mixin items-section--catalog {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  row-gap: 6rem;
+  justify-content: space-between;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin heading {
+  margin-bottom: var(--length-l);
+  @include max1000 {
+    margin-bottom: var(--length-m);
+  }
+  @include max500 {
+    margin-bottom: var(--length-s);
+  }
+}
+
+@mixin colorBtn {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@mixin colorBtnHover {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  transition: all 0.1s;
+  cursor: pointer;
+
+  &:hover {
+    outline: 1px solid var(--color-grey--dark);
+    outline-offset: 3px;
+  }
+}
+
+@mixin cell {
+  background-color: var(--color-grey--medium);
+  width: 3rem;
+  @include center;
+  cursor: pointer;
+  transition: all 0.1s;
+
+  &:hover {
+    color: white;
+    background-color: var(--color-grey--dark);
+  }
+}
+
+@mixin input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 30rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+@mixin hover {
+  cursor: pointer;
+  &:hover {
+    filter: invert(30%);
+  }
+}
+
+@mixin animation-open {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 0.4s ease;
+}
+@mixin animation-closed($translateY) {
+  opacity: 0;
+  // display: none;
+  visibility: hidden;
+  transform: translateY($translateY);
+  transition: 0.4s ease;
+}
+
+//MEDIA
+
+@mixin max1000 {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+@mixin max900 {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+@mixin max800 {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+@mixin max700 {
+  @media (max-width: 700px) {
+    @content;
+  }
+}
+@mixin max600 {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+@mixin max500 {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+@mixin max400 {
+  @media (max-width: 400px) {
+    @content;
+  }
+}
+@mixin max300 {
+  @media (max-width: 300px) {
+    @content;
+  }
+}
+@mixin max200 {
+  @media (max-width: 200px) {
+    @content;
+  }
+}

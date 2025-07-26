@@ -1,5 +1,4 @@
-@import '../../../base-styles/mixins.scss';
-@import '../../../base-styles/variables.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .orders {
   @include main-block;
@@ -16,12 +15,12 @@
     @include heading;
 
     &:last-of-type:not(:first-of-type) {
-      margin-top: $length-l;
+      margin-top: var(--length-l);
       @include max1000 {
-        margin-top: $length-m;
+        margin-top: var(--length-m);
       }
       @include max500 {
-        margin-top: $length-s;
+        margin-top: var(--length-s);
       }
     }
   }

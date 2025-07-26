@@ -1,6 +1,6 @@
-@import '../../../../../base-styles/mixins.scss';
-@import '../../../../../base-styles/variables.scss';
 @import '../../../../../base-styles/animations.scss';
+@import '../../../../../app/styles/mixins/global.scss';
+
 
 .myOrderDetails {
   background-color: #fff;
@@ -21,7 +21,7 @@
     }
 
     &:first-of-type {
-      border-top: 2px solid $color-grey--light;
+      border-top: 2px solid var(--color-grey--light);
     }
     &:not(:first-of-type) {
       padding-top: 2rem;
@@ -46,7 +46,7 @@
       }
       &__info {
         font-size: 1.2rem;
-        color: $color-grey--dark;
+        color: var(--color-grey--dark);
         position: relative;
         &-title {
           font-size: 2rem;

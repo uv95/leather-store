@@ -1,11 +1,10 @@
-@import '../../../base-styles/mixins.scss';
-@import '../../../base-styles/variables.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .cart-item {
   display: flex;
   justify-content: space-between;
   padding: 2rem;
-  border-bottom: 1px solid $color-grey--medium;
+  border-bottom: 1px solid var(--color-grey--medium);
   min-height: 18rem;
 
   @include max500 {
@@ -43,7 +42,7 @@
     }
     &__info {
       font-size: 1.2rem;
-      color: $color-grey--dark;
+      color: var(--color-grey--dark);
       position: relative;
       @include max500 {
         position: static;

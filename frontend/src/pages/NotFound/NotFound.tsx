@@ -1,6 +1,6 @@
 import React from 'react';
 import './notFound.scss';
-import Back from '../../components/UI/Back/Back';
+import Back from '../../shared/ui/Back/Back';
 
 function NotFound() {
   return (

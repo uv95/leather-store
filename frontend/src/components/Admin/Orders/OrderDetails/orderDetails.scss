@@ -1,11 +1,10 @@
-@import '../../../../base-styles/variables.scss';
-@import '../../../../base-styles/mixins.scss';
 @import '../../../../base-styles/animations.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
 .orderDetails {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: $length-l;
+  gap: var(--length-l);
   &__items {
     &__item {
       padding: 2rem 0 2rem 2rem;
@@ -14,7 +13,7 @@
       align-items: center;
 
       &:first-of-type {
-        border-top: 2px solid $color-grey--light;
+        border-top: 2px solid var(--color-grey--light);
       }
       &:not(:first-of-type) {
         padding-top: 2rem;
@@ -24,7 +23,7 @@
       }
       &-left {
         display: flex;
-        gap: $length-m;
+        gap: var(--length-m);
 
         &-img {
           width: 36%;
@@ -36,11 +35,11 @@
         }
         &__info {
           font-size: 1.2rem;
-          color: $color-grey--dark;
+          color: var(--color-grey--dark);
           position: relative;
 
           & h3 {
-            margin-bottom: $length-s;
+            margin-bottom: var(--length-s);
             color: black;
           }
 
@@ -87,12 +86,12 @@
   }
 
   @include max1000 {
-    gap: $length-m;
+    gap: var(--length-m);
   }
   @include max800 {
     grid-template-columns: 3fr 2fr;
   }
   @include max700 {
-    gap: $length-s;
+    gap: var(--length-s);
   }
 }

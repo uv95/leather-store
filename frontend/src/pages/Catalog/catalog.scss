@@ -1,10 +1,9 @@
-@import '../../base-styles/variables.scss';
-@import '../../base-styles/mixins.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .catalog {
   @include main-block;
-  padding-bottom: $footer-height + 8rem;
-  padding-top: $header-height;
+  padding-bottom: calc(var(--footer-height) + 8rem);
+  padding-top: var(--header-height);
 
   @include max500 {
     padding-left: 1rem;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import Button, { ButtonColor } from '../../components/UI/Button/Button';
-import Input from '../../components/UI/Input/Input';
 import { login } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import toast from '../../shared/lib/toast/toast';
+import Button, { ButtonColor } from '../../shared/ui/Button/Button';
+import Input from '../../shared/ui/Input/Input';
 import { Role } from '../../types/data';
-import { REGISTRATION_ROUTE } from '../../utils/consts';
 import './login.scss';
-import toast from '../../lib/toast';
 
 const Login = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -119,7 +119,7 @@ const Login = () => {
                 Login as Admin
               </Button>
               <Link to={''}>Forgot password?</Link>
-              <Link to={REGISTRATION_ROUTE} className="redLink">
+              <Link to={RoutePath.REGISTRATION} className="redLink">
                 Register
               </Link>
             </div>

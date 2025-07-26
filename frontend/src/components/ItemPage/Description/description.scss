@@ -1,5 +1,4 @@
-@import '../../../base-styles/variables.scss';
-@import '../../../base-styles/mixins.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .item-title {
   font-size: 3rem;
@@ -24,7 +23,7 @@
     font-size: 1.5rem;
     transition: all 0.1s;
     &:hover {
-      border-color: $color-grey--dark;
+      border-color: var(--color-grey--dark);
     }
     &__img {
       @include colorBtnHover;
@@ -66,7 +65,7 @@
     }
 
     &:hover {
-      background-color: $color-grey--dark;
+      background-color: var(--color-grey--dark);
     }
   }
   &__radio {

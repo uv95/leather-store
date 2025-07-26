@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useCancelOrder } from '../../../../../hooks/useCancelOrder';
 import { IOrder } from '../../../../../types/data';
-import Button from '../../../../UI/Button/Button';
-import Colors from '../../../../UI/Colors/Colors';
-import Modal from '../../../../UI/Modal/Modal';
+import Button from '../../../../../shared/ui/Button/Button';
+import Colors from '../../../../../shared/ui/Colors/Colors';
+import Modal from '../../../../../shared/ui/Modal/Modal';
 import './myOrderDetails.scss';
 
 type MyOrderDetailsProps = { order: IOrder };

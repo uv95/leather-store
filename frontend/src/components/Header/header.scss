@@ -1,5 +1,4 @@
-@import '../../base-styles/mixins.scss';
-@import '../../base-styles/variables.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .header {
   font-size: 2rem;
@@ -10,14 +9,14 @@
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.95);
   color: black;
-  border-bottom: 1.5px solid $color-grey--light;
+  border-bottom: 1.5px solid var(--color-grey--light);
 
   &__container {
     @include main-block;
     margin: 0 auto;
 
     &__admin {
-      height: $header-height;
+      height: var(--header-height);
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -30,7 +29,7 @@
       }
 
       &-link {
-        color: $color-grey--dark !important;
+        color: var(--color-grey--dark) !important;
         cursor: pointer;
         &-active {
           position: relative;
@@ -56,7 +55,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: $header-height;
+      height: var(--header-height);
       color: black;
 
       @include max700 {

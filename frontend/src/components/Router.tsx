@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
-import { adminRoutes, publicRoutes, userRoutes } from '../lib/routes';
+import { adminRoutes, publicRoutes, userRoutes } from '../shared/config/routeConfig/routeConfig';
 import NotFound from '../pages/NotFound/NotFound';
 import { Role } from '../types/data';
 

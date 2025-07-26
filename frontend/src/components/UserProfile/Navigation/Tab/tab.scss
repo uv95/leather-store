@@ -1,5 +1,4 @@
-@import '../../../../base-styles/mixins.scss';
-@import '../../../../base-styles/variables.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
 .tab {
   padding: 1rem;
@@ -21,7 +20,7 @@
   }
   &.active {
     color: inherit;
-    background-color: $color-grey--medium;
+    background-color: var(--color-grey--medium);
     // font-weight: bold;
   }
 

@@ -1,11 +1,10 @@
-@import '../../../../../base-styles/mixins.scss';
-@import '../../../../../base-styles/variables.scss';
 @import '../../../../../base-styles/animations.scss';
+@import '../../../../../app/styles/mixins/global.scss';
 
 .address-form {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid $color-grey--medium;
+  border-top: 1px solid var(--color-grey--medium);
   animation: down 0.4s;
   transform-origin: top center;
 

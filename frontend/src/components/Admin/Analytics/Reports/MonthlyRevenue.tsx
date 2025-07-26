@@ -1,8 +1,8 @@
 import { Bar } from 'react-chartjs-2';
 import useGetAnalytics from '../../../../hooks/useGetAnalytics';
-import { BAR_COLORS, months } from '../../../../utils/consts';
+import { BAR_COLORS, months } from '../../../../shared/const/consts';
 import { useMemo } from 'react';
-import Spinner from '../../../UI/Spinner/Spinner';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
 
 const MonthlyRevenue = () => {
   const { monthlyRevenue, isLoading } = useGetAnalytics();

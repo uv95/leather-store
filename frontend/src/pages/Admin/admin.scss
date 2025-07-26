@@ -1,5 +1,4 @@
-@import '../../base-styles/mixins.scss';
-@import '../../base-styles/variables.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .admin {
   @include main-block;
@@ -13,6 +12,6 @@
     right: 0;
     z-index: 10;
     background-color: rgba(255, 255, 255, 0.95);
-    border-bottom: 1.5px solid $color-grey--light;
+    border-bottom: 1.5px solid var(--color-grey--light);
   }
 }

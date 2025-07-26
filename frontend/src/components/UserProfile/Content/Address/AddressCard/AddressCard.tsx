@@ -1,11 +1,11 @@
 import React from 'react';
 import './addressCard.scss';
-import edit from '../../../../../assets/icons/edit.svg';
-import trash from '../../../../../assets/icons/trash.svg';
+import edit from '../../../../../shared/assets/icons/edit.svg';
+import trash from '../../../../../shared/assets/icons/trash.svg';
 import { useAppDispatch } from '../../../../../hooks';
 import { deleteAddress } from '../../../../../features/address/addressSlice';
 import { IAddress } from '../../../../../types/data';
-import toast from '../../../../../lib/toast';
+import toast from '../../../../../shared/lib/toast/toast';
 
 interface AddressCardProps {
   address: IAddress;

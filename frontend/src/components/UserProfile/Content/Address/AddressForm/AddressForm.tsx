@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './addressForm.scss';
-import Input from '../../../../UI/Input/Input';
-import Button, { ButtonColor, ButtonSize } from '../../../../UI/Button/Button';
+import Input from '../../../../../shared/ui/Input/Input';
+import Button, { ButtonColor, ButtonSize } from '../../../../../shared/ui/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks';
 import {
   addAddress,
   updateAddress,
 } from '../../../../../features/address/addressSlice';
-import toast from '../../../../../lib/toast';
+import toast from '../../../../../shared/lib/toast/toast';
 
 interface AddressFormProps {
   edit: boolean;

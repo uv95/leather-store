@@ -1,0 +1,83 @@
+import { lazy } from 'react';
+
+export enum RoutePath {
+  ADMIN_ORDERS = '/admin/orders',
+  USER_PROFILE = '/profile',
+  ANALYTICS = '/admin/analytics',
+  ITEM_PAGE = '/catalog/:slug',
+  ITEMS_MANAGEMENT = '/admin/items-management',
+  LOGIN = '/login',
+  REGISTRATION = '/registration',
+  CATALOG = '/catalog',
+  CART = '/cart',
+  HOME = '/',
+  CONTACTS = '/contacts',
+  LEATHERS = '/leathers',
+  NOT_FOUND = '/not_found',
+}
+
+const Cart = lazy(() => import('../../../pages/Cart/Cart'));
+const Catalog = lazy(() => import('../../../pages/Catalog/Catalog'));
+const Login = lazy(() => import('../../../pages/Login/Login'));
+const Register = lazy(() => import('../../../pages/Register/Register'));
+const ItemPage = lazy(() => import('../../../pages/itemPage/ItemPage'));
+const Home = lazy(() => import('../../../pages/Home/Home'));
+const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
+const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
+const Analytics = lazy(() => import('../../../components/Admin/Analytics/Analytics'));
+const ItemsManagement = lazy(
+  () => import('../../../components/Admin/ItemsManagement/ItemsManagement')
+);
+const UserProfile = lazy(() => import('../../../pages/UserProfile/UserProfile'));
+const Leathers = lazy(() => import('../../../pages/Leathers/Leathers'));
+const Admin = lazy(() => import('../../../pages/Admin/Admin'));
+
+interface Routes {
+  path: RoutePath;
+  Component: React.FC;
+}
+
+export const adminRoutes: Routes[] = [
+  { path: RoutePath.ADMIN_ORDERS, Component: Admin },
+  { path: RoutePath.ANALYTICS, Component: Analytics },
+  { path: RoutePath.ITEMS_MANAGEMENT, Component: ItemsManagement },
+];
+export const userRoutes: Routes[] = [
+  { path: RoutePath.USER_PROFILE, Component: UserProfile },
+];
+
+export const publicRoutes: Routes[] = [
+  { path: RoutePath.CART, Component: Cart },
+  {
+    path: RoutePath.CATALOG,
+    Component: Catalog,
+  },
+  {
+    path: RoutePath.LOGIN,
+    Component: Login,
+  },
+  {
+    path: RoutePath.REGISTRATION,
+    Component: Register,
+  },
+  {
+    path: RoutePath.ITEM_PAGE,
+    Component: ItemPage,
+  },
+  {
+    path: RoutePath.HOME,
+    Component: Home,
+  },
+  {
+    path: RoutePath.CONTACTS,
+    Component: Contacts,
+  },
+  {
+    path: RoutePath.NOT_FOUND,
+    Component: NotFound,
+  },
+  {
+    path: RoutePath.LEATHERS,
+    Component: Leathers,
+  },
+];

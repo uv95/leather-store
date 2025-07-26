@@ -1,5 +1,4 @@
-@import '../../../../base-styles/variables.scss';
-@import '../../../../base-styles/mixins.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
 .changeStatus {
   grid-column: 1/3;
@@ -12,7 +11,7 @@
     @include center;
 
     &-inactive {
-      background-color: $color-grey--medium;
+      background-color: var(--color-grey--medium);
     }
 
     &:hover:not(.status-active) {

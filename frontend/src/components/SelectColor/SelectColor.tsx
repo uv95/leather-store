@@ -1,6 +1,6 @@
 import React from 'react';
 import { Color, HexColor, ItemPart } from '../../types/data';
-import Button, { ButtonColor, ButtonSize } from '../UI/Button/Button';
+import Button, { ButtonColor, ButtonSize } from '../../shared/ui/Button/Button';
 import './selectColor.scss';
 
 interface SelectColorProps {

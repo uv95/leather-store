@@ -1,5 +1,4 @@
-@import '../../base-styles/variables.scss';
-@import '../../base-styles/mixins.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .cart {
   @include main-block;
@@ -25,13 +24,13 @@
     &-empty {
       font-size: 2rem;
       text-align: center;
-      color: $color-grey--dark;
+      color: var(--color-grey--dark);
     }
     &__order {
-      border: 1px solid $color-grey--medium;
+      border: 1px solid var(--color-grey--medium);
       &__total {
         padding: 2rem 1rem;
-        background-color: $color-grey--medium;
+        background-color: var(--color-grey--medium);
         font-size: 2.5rem;
         font-weight: 700;
 

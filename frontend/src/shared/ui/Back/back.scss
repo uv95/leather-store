@@ -1,0 +1,13 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.back {
+  // text-align: center;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  color: var(--color-grey--dark);
+  @include hover;
+
+  @include max700 {
+    margin: 1rem 0;
+  }
+}

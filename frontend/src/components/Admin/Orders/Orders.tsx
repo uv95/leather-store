@@ -1,8 +1,8 @@
 import useGetOrders from '../../../hooks/useGetOrders';
 import { IOrder } from '../../../types/data';
-import { orderStatuses } from '../../../utils/consts';
-import ListItem from '../../UI/ListItem/ListItem';
-import Spinner from '../../UI/Spinner/Spinner';
+import { orderStatuses } from '../../../shared/const/consts';
+import ListItem from '../../../shared/ui/ListItem/ListItem';
+import Spinner from '../../../shared/ui/Spinner/Spinner';
 import OrderDetails from './OrderDetails/OrderDetails';
 import './orders.scss';
 

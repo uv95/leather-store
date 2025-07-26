@@ -2,8 +2,8 @@ import { useCallback, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import useGetAnalytics from '../../../../hooks/useGetAnalytics';
 import { ItemType } from '../../../../types/data';
-import { DOUGHNUT_COLORS } from '../../../../utils/consts';
-import Spinner from '../../../UI/Spinner/Spinner';
+import { DOUGHNUT_COLORS } from '../../../../shared/const/consts';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
 
 const OrdersByCategory = () => {
   const { ordersByCategory, isLoading } = useGetAnalytics();

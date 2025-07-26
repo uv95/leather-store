@@ -1,5 +1,4 @@
-@import '../../../base-styles/variables.scss';
-@import '../../../base-styles/mixins.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .filtersPanel {
   width: 100%;
@@ -25,7 +24,7 @@
       @include center;
       gap: 1rem;
       font-size: 1.3rem;
-      background-color: $color-grey--light;
+      background-color: var(--color-grey--light);
       min-height: 3rem;
       padding: 0.5rem 1rem;
 

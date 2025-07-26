@@ -1,9 +1,8 @@
-@import '../../../base-styles/mixins.scss';
-@import '../../../base-styles/variables.scss';
 @import '../../../base-styles/animations.scss';
+@import '../../../app/styles/mixins/global.scss';
 
-.selectAddress {
-  background-color: $color-grey--light;
+.select-address {
+  background-color: var(--color-grey--light);
   padding: 2rem;
   animation: down 0.5s ease;
   transform-origin: top center;
@@ -38,5 +37,5 @@
   font-size: 2rem;
   margin-top: 1rem;
   text-align: center;
-  background-color: $color-grey--light;
+  background-color: var(--color-grey--light);
 }

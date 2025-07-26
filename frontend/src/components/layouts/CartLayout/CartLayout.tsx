@@ -1,6 +1,6 @@
 import { memo, ReactNode } from 'react';
-import Back from '../../UI/Back/Back';
-import Spinner from '../../UI/Spinner/Spinner';
+import Back from '../../../shared/ui/Back/Back';
+import Spinner from '../../../shared/ui/Spinner/Spinner';
 
 interface CartLayoutProps {
   isCartEmpty: boolean;

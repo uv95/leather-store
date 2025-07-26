@@ -3,8 +3,8 @@ import './itemPage.scss';
 import Image from '../../components/ItemPage/Image/Image';
 import Description from '../../components/ItemPage/Description/Description';
 import { useGetItem } from '../../hooks/useGetItem';
-import Back from '../../components/UI/Back/Back';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import Back from '../../shared/ui/Back/Back';
+import Spinner from '../../shared/ui/Spinner/Spinner';
 
 const ItemPage = () => {
   const { item, isLoading } = useGetItem();

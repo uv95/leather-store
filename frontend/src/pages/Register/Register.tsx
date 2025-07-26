@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import Button from '../../components/UI/Button/Button';
-import Input from '../../components/UI/Input/Input';
 import { register } from '../../features/auth/authSlice';
 import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { LOGIN_ROUTE } from '../../utils/consts';
+import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import toast from '../../shared/lib/toast/toast';
+import Button from '../../shared/ui/Button/Button';
+import Input from '../../shared/ui/Input/Input';
 import './register.scss';
-import toast from '../../lib/toast';
 
 const Register = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -125,7 +125,7 @@ const Register = () => {
               <Button type="submit">Register</Button>
               <p>
                 Already registered?{' '}
-                <Link to={LOGIN_ROUTE} className="redLink">
+                <Link to={RoutePath.LOGIN} className="redLink">
                   Login
                 </Link>
               </p>

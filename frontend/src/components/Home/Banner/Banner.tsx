@@ -1,4 +1,4 @@
-import bg from '../../../assets/img/bg-1.jpg';
+import bg from '../../../shared/assets/img/bg-1.jpg';
 import './banner.scss';
 
 const Banner = () => {

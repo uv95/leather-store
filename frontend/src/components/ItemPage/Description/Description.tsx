@@ -2,6 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { useAddToCart } from '../../../hooks/useAddToCart';
+import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import Button, { ButtonColor, ButtonSize } from '../../../shared/ui/Button/Button';
+import Colors, { ColorsPosition } from '../../../shared/ui/Colors/Colors';
+import Radio from '../../../shared/ui/Radio/Radio';
 import {
   Color,
   IItem,
@@ -10,11 +14,7 @@ import {
   LeatherType,
   Role,
 } from '../../../types/data';
-import { LEATHERS_ROUTE } from '../../../utils/consts';
 import SelectColor from '../../SelectColor/SelectColor';
-import Button, { ButtonColor, ButtonSize } from '../../UI/Button/Button';
-import Colors, { ColorsPosition } from '../../UI/Colors/Colors';
-import Radio from '../../UI/Radio/Radio';
 import './description.scss';
 
 interface DescriptionProps {
@@ -108,7 +108,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
           </div>
           <div
             className="leather-type-info"
-            onClick={() => navigate(LEATHERS_ROUTE)}
+            onClick={() => navigate(RoutePath.LEATHERS)}
           >
             ?
           </div>

@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import './cartItem.scss';
-import { ReactComponent as Delete } from '../../../assets/icons/trash.svg';
+import { ReactComponent as Delete } from '../../../shared/assets/icons/trash.svg';
 import { ICartItem } from '../../../types/data';
 import { useDeleteCartItem } from '../../../hooks/useDeleteCartItem';
-import Quantity from '../../UI/Quantity/Quantity';
-import Colors from '../../UI/Colors/Colors';
-import Button, { ButtonColor } from '../../UI/Button/Button';
+import Quantity from '../../../shared/ui/Quantity/Quantity';
+import Colors from '../../../shared/ui/Colors/Colors';
+import Button, { ButtonColor } from '../../../shared/ui/Button/Button';
 import { useChangeQuantity } from '../../../hooks/useChangeQuantity';
 
 type CartItemProps = {

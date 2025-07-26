@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './catalog.scss';
-import ItemCard from '../../components/UI/ItemCard/ItemCard';
+import ItemCard from '../../shared/ui/ItemCard/ItemCard';
 import Filter from '../../components/Catalog/Filter';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
-import Pagination from '../../components/UI/Pagination/Pagination';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import Pagination from '../../shared/ui/Pagination/Pagination';
+import Spinner from '../../shared/ui/Spinner/Spinner';
 import { useAppSelector } from '../../hooks';
 import { IItem } from '../../types/data';
 // import View from '../../components/Catalog/View';

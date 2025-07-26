@@ -1,0 +1,33 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.pagination {
+  font-size: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  width: fit-content;
+  position: absolute;
+  bottom: calc(var(--footer-height) + 4rem);
+  left: 50%;
+  transform: translateX(-50%);
+
+  @include max400 {
+    bottom: calc(var(--footer-height-l) + 4rem);
+  }
+
+  &-item {
+    width: 3rem;
+    height: 3rem;
+    @include center;
+    background-color: var(--color-grey--medium);
+    &:not(.pagination-item-active):hover {
+      cursor: pointer;
+      background-color: var(--color-grey--dark);
+      color: white;
+    }
+
+    &-active {
+      background-color: var(--color-grey--dark);
+      color: white;
+    }
+  }
+}

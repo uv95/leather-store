@@ -1,10 +1,10 @@
 import React from 'react';
 import './selectAddress.scss';
 import AddressCard from '../../UserProfile/Content/Address/AddressCard/AddressCard';
-import Spinner from '../../UI/Spinner/Spinner';
+import Spinner from '../../../shared/ui/Spinner/Spinner';
 import { Link } from 'react-router-dom';
-import { LOGIN_ROUTE, USER_PROFILE_ROUTE } from '../../../utils/consts';
 import { useAppSelector } from '../../../hooks';
+import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 
 type SelectAddressProps = {
   setCurrentAddressIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -44,7 +44,7 @@ const SelectAddress = ({
           Please add an address in{' '}
           <Link
             className="redLink"
-            to={user ? USER_PROFILE_ROUTE : LOGIN_ROUTE}
+            to={user ? RoutePath.USER_PROFILE : RoutePath.LOGIN}
           >
             personal account.
           </Link>

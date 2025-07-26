@@ -4,12 +4,12 @@ import CartButton from '../../components/Cart/CartButton/CartButton';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import CartLayout from '../../components/layouts/CartLayout/CartLayout';
-import Modal from '../../components/UI/Modal/Modal';
 import { useAppSelector } from '../../hooks';
 import useCreateOrder from '../../hooks/useCreateOrder';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
+import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import Modal from '../../shared/ui/Modal/Modal';
 import { ICartItem, OrderStatus } from '../../types/data';
-import { USER_PROFILE_ROUTE } from '../../utils/consts';
 import './cart.scss';
 
 const Cart = () => {
@@ -67,7 +67,7 @@ const Cart = () => {
             ) : (
               <p className="cart__modal">
                 Order created! Go to{' '}
-                <Link className="redLink" to={USER_PROFILE_ROUTE}>
+                <Link className="redLink" to={RoutePath.USER_PROFILE}>
                   your account.
                 </Link>
               </p>

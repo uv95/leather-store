@@ -1,6 +1,5 @@
-@import '../../../base-styles/variables.scss';
-@import '../../../base-styles/mixins.scss';
 @import '../../../base-styles/animations.scss';
+@import '../../../app/styles/mixins/global.scss';
 
 .dropdown {
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.05);
@@ -61,14 +60,14 @@
           min-width: 18rem;
           height: 3rem;
           // border-radius: 3rem;
-          background-color: $color-grey--light;
+          background-color: var(--color-grey--light);
           cursor: pointer;
           &:hover {
-            background-color: $color-grey--medium;
+            background-color: var(--color-grey--medium);
           }
 
           &-active {
-            background-color: $color-grey--medium;
+            background-color: var(--color-grey--medium);
           }
 
           @include max500 {

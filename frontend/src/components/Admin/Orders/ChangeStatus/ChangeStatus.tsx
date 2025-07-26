@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { updateOrder } from '../../../../features/order/orderSlice';
 import { useAppDispatch } from '../../../../hooks';
 import { OrderStatus } from '../../../../types/data';
-import { orderStatuses } from '../../../../utils/consts';
+import { orderStatuses } from '../../../../shared/const/consts';
 import './changeStatus.scss';
-import toast from '../../../../lib/toast';
+import toast from '../../../../shared/lib/toast/toast';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 

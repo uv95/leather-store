@@ -1,5 +1,4 @@
-@import '../../base-styles/variables.scss';
-@import '../../base-styles/mixins.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .home {
   @include header-footer;

@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom';
-import ig from '../../assets/icons/instagram-512.svg';
-import {
-  CATALOG_ROUTE,
-  CONTACTS_ROUTE,
-  HOME_ROUTE,
-  LEATHERS_ROUTE,
-} from '../../utils/consts';
+import ig from '../../shared/assets/icons/instagram-512.svg';
 import './footer.scss';
 import { memo } from 'react';
+import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 
 function Footer() {
   return (
@@ -15,10 +10,10 @@ function Footer() {
       <div className="footer__container">
         <div className="footer__container__top">
           <nav className="footer__container__top__nav">
-            <Link to={HOME_ROUTE}>Home</Link>
-            <Link to={CATALOG_ROUTE}>Catalog</Link>
-            <Link to={LEATHERS_ROUTE}>Types of leather</Link>
-            <Link to={CONTACTS_ROUTE}>Contacts</Link>
+            <Link to={RoutePath.HOME}>Home</Link>
+            <Link to={RoutePath.CATALOG}>Catalog</Link>
+            <Link to={RoutePath.LEATHERS}>Types of leather</Link>
+            <Link to={RoutePath.CONTACTS}>Contacts</Link>
           </nav>
           <div className="footer__container__top__social">
             <Link to="/">

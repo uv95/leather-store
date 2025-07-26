@@ -1,5 +1,4 @@
-@import '../../../../../base-styles/mixins.scss';
-@import '../../../../../base-styles/variables.scss';
+@import '../../../../../app/styles/mixins/global.scss';
 
 .address-card {
   width: 100%;
@@ -15,7 +14,7 @@
   }
 
   &-active {
-    outline: 2px solid $color-grey--medium;
+    outline: 2px solid var(--color-grey--medium);
   }
 
   &__fromCart {

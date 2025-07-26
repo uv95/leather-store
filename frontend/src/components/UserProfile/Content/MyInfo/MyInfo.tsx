@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { logout, updatePassword } from '../../../../features/auth/authSlice';
 import { updateMe } from '../../../../features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import toast from '../../../../lib/toast';
-import Button, { ButtonColor, ButtonSize } from '../../../UI/Button/Button';
-import Input from '../../../UI/Input/Input';
+import toast from '../../../../shared/lib/toast/toast';
+import Button, { ButtonColor, ButtonSize } from '../../../../shared/ui/Button/Button';
+import Input from '../../../../shared/ui/Input/Input';
 import './myInfo.scss';
 
 const MyInfo = () => {

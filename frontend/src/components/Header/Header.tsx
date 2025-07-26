@@ -1,19 +1,12 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import cartIcon from '../../assets/icons/cart.svg';
-import login from '../../assets/icons/sign-in.svg';
-import userIcon from '../../assets/icons/user.svg';
+import cartIcon from '../../shared/assets/icons/cart.svg';
+import login from '../../shared/assets/icons/sign-in.svg';
+import userIcon from '../../shared/assets/icons/user.svg';
 import { ICart, IOrder, Role } from '../../types/data';
-import {
-  ADMIN_ROUTE,
-  CART_ROUTE,
-  CATALOG_ROUTE,
-  HOME_ROUTE,
-  LOGIN_ROUTE,
-  USER_PROFILE_ROUTE,
-} from '../../utils/consts';
-import Badge from '../UI/Badge/Badge';
+import Badge from '../../shared/ui/Badge/Badge';
 import './header.scss';
+import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 
 interface HeaderProps {
   role: Role;
@@ -26,12 +19,12 @@ const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
     <header className="header">
       <div className="header__container">
         <div className="header__container-inner">
-          <Link to={HOME_ROUTE} className="header__container-inner__logo">
+          <Link to={RoutePath.HOME} className="header__container-inner__logo">
             ANNE LEATHER
           </Link>
           <div className="header__container-inner__nav">
             <Link
-              to={CATALOG_ROUTE}
+              to={RoutePath.CATALOG}
               className="header__container-inner__nav-catalog"
             >
               CATALOG
@@ -39,7 +32,7 @@ const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
             <UserOrAdminLink role={role} myActiveOrders={myActiveOrders} />
 
             {role !== Role.ADMIN && (
-              <Link to={CART_ROUTE} className="link-cart">
+              <Link to={RoutePath.CART} className="link-cart">
                 <img
                   src={cartIcon}
                   className="header__container-inner__nav-icon "
@@ -68,9 +61,9 @@ function UserOrAdminLink({
 }) {
   const getHref = (role: Role) => {
     if (!role) {
-      return LOGIN_ROUTE;
+      return RoutePath.LOGIN;
     }
-    return role === Role.USER ? USER_PROFILE_ROUTE : ADMIN_ROUTE;
+    return role === Role.USER ? RoutePath.USER_PROFILE : RoutePath.ADMIN_ORDERS;
   };
 
   return (

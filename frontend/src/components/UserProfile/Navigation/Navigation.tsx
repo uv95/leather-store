@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Tab from './Tab/Tab';
-import logoutsvg from '../../../assets/icons/logout.svg';
-import portrait from '../../../assets/icons/portrait.svg';
-import location from '../../../assets/icons/location.svg';
-import orders from '../../../assets/icons/orders.svg';
+import logoutsvg from '../../../shared/assets/icons/logout.svg';
+import portrait from '../../../shared/assets/icons/portrait.svg';
+import location from '../../../shared/assets/icons/location.svg';
+import orders from '../../../shared/assets/icons/orders.svg';
 import useLogout from '../../../hooks/useLogout';
-import Modal from '../../UI/Modal/Modal';
-import Button from '../../UI/Button/Button';
+import Modal from '../../../shared/ui/Modal/Modal';
+import Button from '../../../shared/ui/Button/Button';
 
 interface NavigationProps {
   currentTab: string;

@@ -1,5 +1,4 @@
-@import '../../base-styles/variables.scss';
-@import '../../base-styles/mixins.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .filter {
   position: relative;
@@ -26,5 +25,5 @@
 
 .active {
   color: white;
-  background-color: $color-grey--dark;
+  background-color: var(--color-grey--dark);
 }

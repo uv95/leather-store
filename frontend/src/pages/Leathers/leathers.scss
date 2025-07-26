@@ -1,5 +1,4 @@
-@import '../../base-styles/variables.scss';
-@import '../../base-styles/mixins.scss';
+@import '../../app/styles/mixins/global.scss';
 
 .leathers {
   // margin: 0 auto;
@@ -59,7 +58,7 @@
       }
 
       &:nth-of-type(2) {
-        background-color: $color-grey--light;
+        background-color: var(--color-grey--light);
         max-width: 222rem;
       }
 

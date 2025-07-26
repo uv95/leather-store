@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { addItem } from '../../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../../hooks';
 import { ItemType } from '../../../../types/data';
-import Button from '../../../UI/Button/Button';
-import Input from '../../../UI/Input/Input';
+import Button from '../../../../shared/ui/Button/Button';
+import Input from '../../../../shared/ui/Input/Input';
 import './addItem.scss';
-import toast from '../../../../lib/toast';
+import toast from '../../../../shared/lib/toast/toast';
 
 interface AddItemProps {
   setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,5 +1,5 @@
 import { IOrder } from '../../../../types/data';
-import Colors from '../../../UI/Colors/Colors';
+import Colors from '../../../../shared/ui/Colors/Colors';
 import ChangeStatus from '../ChangeStatus/ChangeStatus';
 import './orderDetails.scss';
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../UI/Button/Button';
+import Button from '../../shared/ui/Button/Button';
 import Dropdown from './Dropdown/Dropdown';
 import './filter_view.scss';
 

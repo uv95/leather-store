@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useGetAllItems } from '../../../hooks/useGetAllItems';
-import { CATALOG_ROUTE } from '../../../utils/consts';
-import ItemCard from '../../UI/ItemCard/ItemCard';
-import Spinner from '../../UI/Spinner/Spinner';
+import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import ItemCard from '../../../shared/ui/ItemCard/ItemCard';
+import Spinner from '../../../shared/ui/Spinner/Spinner';
 import './homeItems.scss';
 
 const HomeItems = () => {
@@ -12,7 +12,7 @@ const HomeItems = () => {
     <div className="home-items">
       <div className="home-items__heading">
         <h4>Store</h4>
-        <Link to={CATALOG_ROUTE} className="home-items__heading-link">
+        <Link to={RoutePath.CATALOG} className="home-items__heading-link">
           View all
         </Link>
       </div>

@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import toast from '../lib/toast';
+import toast from '../shared/lib/toast/toast';
 
 interface Props {
   children: ReactNode;
