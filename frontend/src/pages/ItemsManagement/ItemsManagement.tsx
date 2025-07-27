@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import AddItem from '../../components/Admin/ItemsManagement/AddItem/AddItem';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import Button from '../../shared/ui/Button/Button';
 import Modal from '../../shared/ui/Modal/Modal';
 import Spinner from '../../shared/ui/Spinner/Spinner';
 import { ItemListItem } from '../../widgets/ItemListItem';
 import './itemsManagement.scss';
+import { AddItemForm } from '../../features/addItem';
 
 const ItemsManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ const ItemsManagement = () => {
         </div>
         {isModalOpen && (
           <Modal isOpen={isModalOpen} onClose={onCloseModal}>
-            <AddItem onCloseModal={onCloseModal} />
+            <AddItemForm onSuccess={onCloseModal} />
           </Modal>
         )}
       </div>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { addItem } from '../../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../../hooks';
 import { ItemType } from '../../../../types/data';
 import Button from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
-import './addItem.scss';
+import './addItemForm.scss';
 import toast from '../../../../shared/lib/toast/toast';
+import { addItem } from '../../../../entities/Item/model/services/addItem/addItem';
 
-interface AddItemProps {
-  onCloseModal: () => void;
+interface AddItemFormProps {
+  onSuccess: () => void;
 }
 interface IFormData {
   name: string;
@@ -17,7 +17,7 @@ interface IFormData {
   price: string;
 }
 
-const AddItem: React.FC<AddItemProps> = ({ onCloseModal }) => {
+const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<IFormData>({
@@ -54,7 +54,7 @@ const AddItem: React.FC<AddItemProps> = ({ onCloseModal }) => {
     dispatch(addItem(form))
       .unwrap()
       .then(() => {
-        onCloseModal();
+        onSuccess();
         toast.success('New item successfully added');
       })
       .catch((error) => toast.error(error))
@@ -173,4 +173,4 @@ const AddItem: React.FC<AddItemProps> = ({ onCloseModal }) => {
   );
 };
 
-export default AddItem;
+export default AddItemForm;

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { deleteItem, updateItem } from '../../../features/items/itemsSlice';
 import { useAppDispatch } from '../../../hooks';
 import { IItem, ItemType } from '../../../types/data';
-import Button, { ButtonColor, ButtonSize } from '../../../shared/ui/Button/Button';
+import Button, {
+  ButtonColor,
+  ButtonSize,
+} from '../../../shared/ui/Button/Button';
 import Input from '../../../shared/ui/Input/Input';
 import './itemDetails.scss';
 import toast from '../../../shared/lib/toast/toast';
+import { deleteItem } from '../../../entities/Item/model/services/deleteItem/deleteItem';
+import { updateItem } from '../../../entities/Item/model/services/updateItem/updateItem';
 
 type ItemDetailsProps = { item: IItem };
 
@@ -39,7 +43,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateItem({ itemId: item._id, updatedItem: formData }))
+    dispatch(updateItem({ itemId: item._id, newData: formData }))
       .unwrap()
       .then(() => toast.success('Item updated'))
       .catch((error) => toast.error(error));

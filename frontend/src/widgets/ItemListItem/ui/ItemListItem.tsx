@@ -1,11 +1,11 @@
 import { memo, useMemo } from 'react';
-import { IItem } from '../../../entities/Item/model/types/item';
+import { Item } from '../../../entities/Item/model/types/item';
 import ListItemLayout from '../../../shared/ui/ListItemLayout/ListItemLayout';
 import { ItemDetails } from '../../ItemDetails';
 import './itemListItem.scss';
 
 type ItemListItemProps = {
-  item: IItem;
+  item: Item;
 };
 
 const ItemListItem = ({ item }: ItemListItemProps) => {
