@@ -4,9 +4,8 @@ import ListItemLayout, {
 } from '../../../shared/ui/ListItemLayout/ListItemLayout';
 import './myOrderListItem.scss';
 import MyOrderDetails from '../../../components/UserProfile/Content/MyOrders/MyOrderDetails/MyOrderDetails';
-import { IOrder } from '../../../entities/Order/model/types/order';
+import { IOrder, OrderStatus } from '../../../entities/Order/model/types/order';
 import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
-import { OrderStatus } from '../../../types/data';
 
 type MyOrderListItemProps = {
   order: IOrder;

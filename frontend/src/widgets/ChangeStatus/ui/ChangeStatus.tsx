@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { updateOrder } from '../../../../features/order/orderSlice';
-import { useAppDispatch } from '../../../../hooks';
-import { OrderStatus } from '../../../../types/data';
-import { orderStatuses } from '../../../../shared/const/consts';
+import { updateOrder } from '../../../features/order/orderSlice';
+import { useAppDispatch } from '../../../hooks';
+import toast from '../../../shared/lib/toast/toast';
+import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './changeStatus.scss';
-import toast from '../../../../shared/lib/toast/toast';
+import { OrderStatus } from '../../../entities/Order/model/types/order';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
@@ -21,16 +21,15 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
 
   return (
     <div className="changeStatus">
-      {orderStatuses.map(({ status, style }) => (
-        <div
+      {Object.values(OrderStatus).map((status) => (
+        <OrderStatusBadge
           key={status}
-          className={`${style} status-${
-            currentStatus === status ? 'active' : 'inactive'
+          status={status}
+          classNames={`${
+            currentStatus !== status ? 'statusBadge-inactive' : ''
           }`}
           onClick={() => setNewStatus(status)}
-        >
-          {status}
-        </div>
+        />
       ))}
     </div>
   );

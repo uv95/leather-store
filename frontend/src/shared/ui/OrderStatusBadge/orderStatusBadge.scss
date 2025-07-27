@@ -27,3 +27,13 @@
     padding: 0.3rem 0.7rem;
   }
 }
+
+.statusBadge-inactive {
+  background-color: var(--color-grey--medium);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.99);
+    background-color: rgb(183, 183, 183);
+  }
+}

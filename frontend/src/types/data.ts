@@ -1,5 +1,7 @@
 //ADDRESS
 
+import { OrderStatus } from '../entities/Order/model/types/order';
+
 export interface IAddress {
   _id?: string;
   city: string;
@@ -213,12 +215,6 @@ export enum LeatherType {
 export enum ItemPart {
   LEATHER = 'leather',
   THREAD = 'thread',
-}
-
-export enum OrderStatus {
-  AWAITING_PAYMENT = 'Awaiting payment',
-  IN_PROGRESS = 'In progress',
-  COMPLETED = 'Completed',
 }
 
 export enum SortingOptions {

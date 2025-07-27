@@ -4,14 +4,10 @@ import {
   createSelector,
 } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import {
-  IOrder,
-  IOrderState,
-  IUpdatedOrder,
-  OrderStatus,
-} from '../../types/data';
+import { IOrder, IOrderState, IUpdatedOrder } from '../../types/data';
 import orderService from './orderService';
 import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
+import { OrderStatus } from '../../entities/Order/model/types/order';
 
 const initialState: IOrderState = {
   order: null,

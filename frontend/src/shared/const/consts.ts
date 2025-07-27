@@ -1,14 +1,3 @@
-import { OrderStatus } from '../../types/data';
-
-export const orderStatuses = [
-  {
-    status: OrderStatus.AWAITING_PAYMENT,
-    style: 'status status-waitsForPayment',
-  },
-  { status: OrderStatus.IN_PROGRESS, style: 'status status-accepted' },
-  { status: OrderStatus.COMPLETED, style: 'status status-completed' },
-];
-
 export const months = [
   'Jan',
   'Feb',

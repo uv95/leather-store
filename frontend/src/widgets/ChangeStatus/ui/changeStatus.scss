@@ -1,0 +1,15 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.changeStatus {
+  grid-column: 1/3;
+  height: 6rem;
+  display: flex;
+  justify-content: space-evenly;
+
+  @include max300 {
+    @include list;
+    gap: 0.5rem;
+    height: 12rem;
+    align-items: center;
+  }
+}

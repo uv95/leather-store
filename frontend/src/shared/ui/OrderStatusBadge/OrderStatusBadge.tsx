@@ -1,10 +1,5 @@
+import { OrderStatus } from '../../../entities/Order/model/types/order';
 import './orderStatusBadge.scss';
-
-export enum OrderStatus {
-  AWAITING_PAYMENT = 'Awaiting payment',
-  IN_PROGRESS = 'In progress',
-  COMPLETED = 'Completed',
-}
 
 const statusClassName = {
   [OrderStatus.AWAITING_PAYMENT]: 'awaiting-payment',
@@ -14,11 +9,20 @@ const statusClassName = {
 
 interface OrderStatusBadgeProps {
   status: OrderStatus;
+  classNames?: string;
+  onClick?: () => void;
 }
 
-const OrderStatusBadge = ({ status }: OrderStatusBadgeProps) => {
+const OrderStatusBadge = ({
+  status,
+  classNames,
+  onClick,
+}: OrderStatusBadgeProps) => {
   return (
-    <div className={`statusBadge statusBadge--${statusClassName[status]}`}>
+    <div
+      className={`statusBadge statusBadge--${statusClassName[status]} ${classNames}`}
+      onClick={onClick}
+    >
       {status}
     </div>
   );

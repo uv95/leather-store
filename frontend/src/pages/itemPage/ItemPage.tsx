@@ -18,8 +18,6 @@ const ItemPage = () => {
   const item = useSelector(getItem);
   const isLoading = useSelector(getItemsIsLoading);
 
-  console.log(slug, 'slug', item);
-
   useEffect(() => {
     if (slug) {
       dispatch(getItemBySlug(slug))

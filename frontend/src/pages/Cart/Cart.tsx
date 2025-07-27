@@ -9,8 +9,9 @@ import useCreateOrder from '../../hooks/useCreateOrder';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import Modal from '../../shared/ui/Modal/Modal';
-import { ICartItem, OrderStatus } from '../../types/data';
+import { ICartItem } from '../../types/data';
 import './cart.scss';
+import { OrderStatus } from '../../entities/Order/model/types/order';
 
 const Cart = () => {
   const { user } = useAppSelector((state) => state.auth);

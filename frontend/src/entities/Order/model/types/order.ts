@@ -1,10 +1,4 @@
-import {
-  Color,
-  IAddress,
-  ItemType,
-  IUser,
-  OrderStatus,
-} from '../../../../types/data';
+import { Color, IAddress, ItemType, IUser } from '../../../../types/data';
 
 export interface IOrder {
   _id?: string;
@@ -23,4 +17,10 @@ export interface IOrder {
   address: IAddress;
   status: OrderStatus;
   createdAt: Date;
+}
+
+export enum OrderStatus {
+  AWAITING_PAYMENT = 'Awaiting payment',
+  IN_PROGRESS = 'In progress',
+  COMPLETED = 'Completed',
 }
