@@ -8,7 +8,7 @@ import './addItem.scss';
 import toast from '../../../../shared/lib/toast/toast';
 
 interface AddItemProps {
-  setOpenAddItem: React.Dispatch<React.SetStateAction<boolean>>;
+  onCloseModal: () => void;
 }
 interface IFormData {
   name: string;
@@ -17,7 +17,7 @@ interface IFormData {
   price: string;
 }
 
-const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
+const AddItem: React.FC<AddItemProps> = ({ onCloseModal }) => {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<IFormData>({
@@ -54,7 +54,7 @@ const AddItem: React.FC<AddItemProps> = ({ setOpenAddItem }) => {
     dispatch(addItem(form))
       .unwrap()
       .then(() => {
-        setOpenAddItem(false);
+        onCloseModal();
         toast.success('New item successfully added');
       })
       .catch((error) => toast.error(error))

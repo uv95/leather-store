@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useCancelOrder } from '../../../../../hooks/useCancelOrder';
 import { IOrder } from '../../../../../types/data';
 import Button from '../../../../../shared/ui/Button/Button';
@@ -9,31 +9,36 @@ import './myOrderDetails.scss';
 type MyOrderDetailsProps = { order: IOrder };
 
 const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const cancelOrder = useCancelOrder();
+
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
 
   return (
     <>
-      {openModal && (
-        <Modal
-          setOpen={setOpenModal}
-          Content={
-            <>
-              <p>Are you sure you want to cancel the order?</p>
-              <div className="modal__content__buttons">
-                <Button
-                  onClick={() => {
-                    cancelOrder(order._id!);
-                    setOpenModal(false);
-                  }}
-                >
-                  Yes
-                </Button>
-                <Button onClick={() => setOpenModal(false)}>No</Button>
-              </div>
-            </>
-          }
-        />
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={onCloseModal}>
+          <>
+            <p>Are you sure you want to cancel the order?</p>
+            <div className="modal__content__buttons">
+              <Button
+                onClick={() => {
+                  cancelOrder(order._id!);
+                  setIsModalOpen(false);
+                }}
+              >
+                Yes
+              </Button>
+              <Button onClick={() => setIsModalOpen(false)}>No</Button>
+            </div>
+          </>
+        </Modal>
       )}
       <div className="myOrderDetails">
         {order.items.map((item) => (
@@ -76,7 +81,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
           </div>
           {order.status !== 'Completed' && (
             <div className="myOrderDetails__bottom-btns">
-              <Button onClick={() => setOpenModal(true)}>Cancel order</Button>
+              <Button onClick={onOpenModal}>Cancel order</Button>
             </div>
           )}
         </div>

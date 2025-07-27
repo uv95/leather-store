@@ -1,7 +1,5 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import AddItem from '../../components/Admin/ItemsManagement/AddItem/AddItem';
-import { clearFilter } from '../../features/filters/filtersSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import Button from '../../shared/ui/Button/Button';
 import Modal from '../../shared/ui/Modal/Modal';
@@ -10,21 +8,22 @@ import { ItemListItem } from '../../widgets/ItemListItem';
 import './itemsManagement.scss';
 
 const ItemsManagement = () => {
-  const dispatch = useAppDispatch();
-  const { filters } = useAppSelector((state) => state.filters);
-  const [openModal, setOpenModal] = useState(false);
-
-  if (filters.length) {
-    dispatch(clearFilter());
-  }
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { isLoading, items } = useGetAllItems();
+
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
 
   return (
     <>
       <div className="items">
         <h1 className="items-heading">Items</h1>
-        <Button onClick={() => setOpenModal(true)}>Add item</Button>
+        <Button onClick={onOpenModal}>Add item</Button>
         <div className="items__container">
           {isLoading ? (
             <Spinner />
@@ -40,11 +39,10 @@ const ItemsManagement = () => {
             </>
           )}
         </div>
-        {openModal && (
-          <Modal
-            setOpen={setOpenModal}
-            Content={<AddItem setOpenAddItem={setOpenModal} />}
-          />
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={onCloseModal}>
+            <AddItem onCloseModal={onCloseModal} />
+          </Modal>
         )}
       </div>
     </>

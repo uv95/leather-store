@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Tab from './Tab/Tab';
 import logoutsvg from '../../../shared/assets/icons/logout.svg';
 import portrait from '../../../shared/assets/icons/portrait.svg';
@@ -16,7 +16,7 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = React.memo(
   ({ setCurrentTab, currentTab }) => {
     const logoutUser = useLogout();
-    const [openModal, setOpenModal] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const tabs = [
       { text: 'My Orders', icon: orders },
@@ -24,28 +24,33 @@ const Navigation: React.FC<NavigationProps> = React.memo(
       { text: 'My Info', icon: portrait },
     ];
 
+    const onCloseModal = useCallback(() => {
+      setIsModalOpen(false);
+    }, []);
+
+    const onOpenModal = useCallback(() => {
+      setIsModalOpen(true);
+    }, []);
+
     return (
       <>
-        {openModal && (
-          <Modal
-            setOpen={setOpenModal}
-            Content={
-              <>
-                <p>Are you sure you want to log out?</p>
-                <div className="modal__content__buttons">
-                  <Button
-                    onClick={() => {
-                      logoutUser();
-                      setOpenModal(false);
-                    }}
-                  >
-                    Yes
-                  </Button>
-                  <Button onClick={() => setOpenModal(false)}>No</Button>
-                </div>
-              </>
-            }
-          />
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={onCloseModal}>
+            <>
+              <p>Are you sure you want to log out?</p>
+              <div className="modal__content__buttons">
+                <Button
+                  onClick={() => {
+                    logoutUser();
+                    onCloseModal();
+                  }}
+                >
+                  Yes
+                </Button>
+                <Button onClick={onCloseModal}>No</Button>
+              </div>
+            </>
+          </Modal>
         )}
         <div className="nav">
           {tabs.map((tab, i) => (
@@ -59,7 +64,7 @@ const Navigation: React.FC<NavigationProps> = React.memo(
           ))}
           <Tab
             text={'Log out'}
-            onClick={() => setOpenModal(true)}
+            onClick={onOpenModal}
             active={currentTab === 'Log out'}
             icon={logoutsvg}
           />

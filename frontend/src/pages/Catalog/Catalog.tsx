@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import './catalog.scss';
-import ItemCard from '../../shared/ui/ItemCard/ItemCard';
+import { useEffect, useState } from 'react';
 import Filter from '../../components/Catalog/Filter';
-import { useGetAllItems } from '../../hooks/useGetAllItems';
 import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useGetAllItems } from '../../hooks/useGetAllItems';
+import ItemCard from '../../shared/ui/ItemCard/ItemCard';
 import Pagination from '../../shared/ui/Pagination/Pagination';
 import Spinner from '../../shared/ui/Spinner/Spinner';
-import { useAppSelector } from '../../hooks';
 import { IItem } from '../../types/data';
-// import View from '../../components/Catalog/View';
+import './catalog.scss';
+import { clearFilter } from '../../features/filters/filtersSlice';
 
 const Catalog = () => {
+  const dispatch = useAppDispatch();
+  const { sort } = useAppSelector((state) => state.filters);
   const { isLoading, items } = useGetAllItems();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
@@ -22,7 +24,11 @@ const Catalog = () => {
     );
   }, [items, itemsPerPage]);
 
-  const { sort } = useAppSelector((state) => state.filters);
+  useEffect(() => {
+    return () => {
+      dispatch(clearFilter());
+    };
+  }, [dispatch]);
 
   return (
     <>

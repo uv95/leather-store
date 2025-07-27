@@ -21,6 +21,7 @@ const filtersSlice = createSlice({
     },
     clearFilter: (state) => {
       state.filters = [];
+      state.sort = 'Default';
     },
     setSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;

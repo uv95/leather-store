@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartButton from '../../components/Cart/CartButton/CartButton';
 import CartItem from '../../components/Cart/CartItem/CartItem';
@@ -21,9 +21,17 @@ const Cart = () => {
   const { addresses } = useGetAllAddresses();
   const createOrder = useCreateOrder();
 
-  const [openModal, setOpenModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
   const [currentAddressIndex, setCurrentAddressIndex] = useState(0);
+
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
 
   function handleCartButton() {
     if (isSelectAddressOpen && cart) {
@@ -44,7 +52,7 @@ const Cart = () => {
         total: cart.total,
       };
       createOrder(cartData);
-      setOpenModal(true);
+      onOpenModal();
     } else {
       setIsSelectAddressOpen(true);
     }
@@ -54,26 +62,23 @@ const Cart = () => {
 
   return (
     <>
-      {openModal && (
-        <Modal
-          setOpen={setOpenModal}
-          Content={
-            isOrderLoading && !isCartEmpty ? (
-              <p className="cart__modal">Placing order...</p>
-            ) : status === 'rejected' ? (
-              <p className="cart__modal">
-                An error occurred! Please reload the page and try again.
-              </p>
-            ) : (
-              <p className="cart__modal">
-                Order created! Go to{' '}
-                <Link className="redLink" to={RoutePath.USER_PROFILE}>
-                  your account.
-                </Link>
-              </p>
-            )
-          }
-        />
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={onCloseModal}>
+          {isOrderLoading && !isCartEmpty ? (
+            <p className="cart__modal">Placing order...</p>
+          ) : status === 'rejected' ? (
+            <p className="cart__modal">
+              An error occurred! Please reload the page and try again.
+            </p>
+          ) : (
+            <p className="cart__modal">
+              Order created! Go to{' '}
+              <Link className="redLink" to={RoutePath.USER_PROFILE}>
+                your account.
+              </Link>
+            </p>
+          )}
+        </Modal>
       )}
 
       <CartLayout isCartEmpty={isCartEmpty} isLoading={isLoading}>

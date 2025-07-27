@@ -1,18 +1,38 @@
-import React from 'react';
-import './modal.scss';
+import { ReactNode, useCallback, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import './modal.scss';
 
 type Props = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  Content: JSX.Element;
+  onClose: () => void;
+  children: ReactNode;
+  isOpen: boolean;
 };
 
-const Modal = ({ setOpen, Content }: Props) => {
+const Modal = ({ onClose, isOpen, children }: Props) => {
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', onKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen, onKeyDown]);
+
   return ReactDOM.createPortal(
     <>
-      <div className="modal-background" onClick={() => setOpen(false)}></div>
+      <div className="modal-background" onClick={onClose}></div>
       <div className="modal">
-        <div className="modal__content">{Content}</div>
+        <div className="modal__content">{children}</div>
       </div>
     </>,
     document.getElementById('root') as HTMLElement
