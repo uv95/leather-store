@@ -151,7 +151,7 @@ export interface IOrder {
   total: number;
   address: IAddress;
   status: OrderStatus;
-  createdAt?: Date;
+  createdAt: Date;
 }
 
 export interface IOrderState {

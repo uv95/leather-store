@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { deleteItem, updateItem } from '../../../../features/items/itemsSlice';
-import { useAppDispatch } from '../../../../hooks';
-import { IItem, ItemType } from '../../../../types/data';
-import Button, { ButtonColor, ButtonSize } from '../../../../shared/ui/Button/Button';
-import Input from '../../../../shared/ui/Input/Input';
+import { deleteItem, updateItem } from '../../../features/items/itemsSlice';
+import { useAppDispatch } from '../../../hooks';
+import { IItem, ItemType } from '../../../types/data';
+import Button, { ButtonColor, ButtonSize } from '../../../shared/ui/Button/Button';
+import Input from '../../../shared/ui/Input/Input';
 import './itemDetails.scss';
-import toast from '../../../../shared/lib/toast/toast';
+import toast from '../../../shared/lib/toast/toast';
 
 type ItemDetailsProps = { item: IItem };
 
 const ItemDetails = ({ item }: ItemDetailsProps) => {
-  // const [newImageCover, setNewImageCover] = useState('');
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<Partial<IItem>>({
     name: '',
@@ -20,7 +19,6 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
   });
 
   const { name, type, description, price } = formData;
-  // const { name, type, description, price, imageCover, images } = formData;
 
   const onDelete = (id: string) => {
     dispatch(deleteItem(id))

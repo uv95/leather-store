@@ -4,7 +4,10 @@ import { BASE_URL } from '../../shared/const/consts';
 
 const API_URL = BASE_URL + 'order/';
 
-const createOrder = async (orderData: IOrder, token: string) => {
+const createOrder = async (
+  orderData: Omit<IOrder, 'createdAt'>,
+  token: string
+) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

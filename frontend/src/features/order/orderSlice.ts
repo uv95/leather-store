@@ -23,7 +23,7 @@ const initialState: IOrderState = {
 
 export const addOrder = createAsyncThunk(
   '@@orders/add',
-  async (orderData: IOrder, thunkAPI) => {
+  async (orderData: Omit<IOrder, 'createdAt'>, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const { token } = state.auth.user;

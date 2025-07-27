@@ -1,17 +1,14 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   getMyOrders,
   selectMyActiveOrders,
   selectMyFinishedOrders,
 } from '../../../../features/order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { IOrder } from '../../../../types/data';
-import { orderStatuses } from '../../../../shared/const/consts';
-import ListItem from '../../../../shared/ui/ListItem/ListItem';
-import Spinner from '../../../../shared/ui/Spinner/Spinner';
-import MyOrderDetails from './MyOrderDetails/MyOrderDetails';
-import './myOrders.scss';
 import toast from '../../../../shared/lib/toast/toast';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
+import { MyOrderListItem } from '../../../../widgets/MyOrderListItem';
+import './myOrders.scss';
 
 const MyOrders = () => {
   const dispatch = useAppDispatch();
@@ -19,25 +16,6 @@ const MyOrders = () => {
   const { user } = useAppSelector((state) => state.auth);
   const myActiveOrders = useAppSelector(selectMyActiveOrders);
   const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
-
-  const orderData = useCallback((order: IOrder) => {
-    return [
-      { dataItem: '№ ' + order._id?.slice(0, 8) },
-      {
-        dataItem:
-          'Created ' +
-          new Date(order.createdAt!).toLocaleDateString('ru-RU', {
-            hour: 'numeric',
-            minute: 'numeric',
-          }),
-      },
-      {
-        dataItem: order.status,
-        style: orderStatuses.find(({ status }) => status === order.status)
-          ?.style,
-      },
-    ];
-  }, []);
 
   useEffect(() => {
     if (myOrders.some((order) => typeof order.address === 'string'))
@@ -60,25 +38,13 @@ const MyOrders = () => {
           <h1 className="my-orders__orders__container-heading">Active</h1>
         )}
         {myActiveOrders.map((order) => (
-          <ListItem
-            key={order._id}
-            Details={<MyOrderDetails order={order} />}
-            bg="white"
-            data={orderData(order)}
-            myOrder
-          />
+          <MyOrderListItem key={order._id} order={order} />
         ))}
         {myFinishedOrders.length !== 0 && (
           <h1 className="my-orders__orders__container-heading">Completed</h1>
         )}
         {myFinishedOrders.map((order) => (
-          <ListItem
-            key={order._id}
-            Details={<MyOrderDetails order={order} />}
-            bg="white"
-            data={orderData(order)}
-            myOrder
-          />
+          <MyOrderListItem key={order._id} order={order} />
         ))}
       </div>
     </div>

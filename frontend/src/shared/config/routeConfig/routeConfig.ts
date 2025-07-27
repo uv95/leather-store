@@ -26,7 +26,7 @@ const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
 const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));
 const ItemsManagement = lazy(
-  () => import('../../../components/Admin/ItemsManagement/ItemsManagement')
+  () => import('../../../pages/ItemsManagement/ItemsManagement')
 );
 const UserProfile = lazy(() => import('../../../pages/UserProfile/UserProfile'));
 const Leathers = lazy(() => import('../../../pages/Leathers/Leathers'));

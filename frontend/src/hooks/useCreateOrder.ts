@@ -7,7 +7,7 @@ import toast from '../shared/lib/toast/toast';
 export function useCreateOrder() {
   const dispatch = useAppDispatch();
 
-  const createOrder = (order: IOrder) => {
+  const createOrder = (order: Omit<IOrder, 'createdAt'>) => {
     dispatch(addOrder(order))
       .unwrap()
       .then((_) => {

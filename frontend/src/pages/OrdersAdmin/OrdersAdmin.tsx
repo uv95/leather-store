@@ -1,28 +1,10 @@
-import OrderDetails from '../../components/Admin/Orders/OrderDetails/OrderDetails';
 import useGetOrders from '../../hooks/useGetOrders';
-import { orderStatuses } from '../../shared/const/consts';
-import ListItem from '../../shared/ui/ListItem/ListItem';
 import Spinner from '../../shared/ui/Spinner/Spinner';
-import { IOrder } from '../../types/data';
+import { OrdersAdminListItem } from '../../widgets/OrdersAdminListItem';
 import './ordersAdmin.scss';
 
 const OrdersAdmin = () => {
   const { activeOrders, finishedOrders, isLoading } = useGetOrders();
-  const orderData = (order: IOrder) => [
-    {
-      dataItem: new Date(order.createdAt!).toLocaleDateString('ru-RU', {
-        hour: 'numeric',
-        minute: 'numeric',
-      }),
-    },
-    { dataItem: order.user.name },
-    { dataItem: order.address.city },
-    { dataItem: `$${order.total}` },
-    {
-      dataItem: order.status,
-      style: orderStatuses.find(({ status }) => status === order.status)?.style,
-    },
-  ];
 
   return (
     <div className="orders">
@@ -35,23 +17,13 @@ const OrdersAdmin = () => {
             <h1 className="orders-heading">Active</h1>
           )}
           {activeOrders.map((order) => (
-            <ListItem
-              key={order._id}
-              Details={<OrderDetails order={order} />}
-              bg="grey"
-              data={orderData(order)}
-            />
+            <OrdersAdminListItem key={order._id} order={order} />
           ))}
           {finishedOrders.length !== 0 && (
             <h1 className="orders-heading">Completed</h1>
           )}
           {finishedOrders.map((order) => (
-            <ListItem
-              key={order._id}
-              Details={<OrderDetails order={order} />}
-              bg="grey"
-              data={orderData(order)}
-            />
+            <OrdersAdminListItem key={order._id} order={order} />
           ))}
         </>
       )}
