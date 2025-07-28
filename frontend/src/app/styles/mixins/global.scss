@@ -55,6 +55,22 @@
   }
 }
 
+@mixin subtitleWithUnderline {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-grey--medium);
+  }
+}
+
 @mixin colorBtn {
   width: 4rem;
   height: 4rem;
