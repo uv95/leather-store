@@ -4,23 +4,25 @@ import CartButton from '../../components/Cart/CartButton/CartButton';
 import CartItem from '../../components/Cart/CartItem/CartItem';
 import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import CartLayout from '../../components/layouts/CartLayout/CartLayout';
-import { useAppSelector } from '../../hooks';
-import useCreateOrder from '../../hooks/useCreateOrder';
+import { createOrder } from '../../entities/Order';
+import { Order, OrderStatus } from '../../entities/Order/model/types/order';
+import { emptyCart } from '../../features/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import toast from '../../shared/lib/toast/toast';
 import Modal from '../../shared/ui/Modal/Modal';
 import { ICartItem } from '../../types/data';
 import './cart.scss';
-import { OrderStatus } from '../../entities/Order/model/types/order';
 
 const Cart = () => {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const { isLoading, cart } = useAppSelector((state) => state.cart);
   const { isLoading: isOrderLoading, status } = useAppSelector(
-    (state) => state.order
+    (state) => state.orders
   );
   const { addresses } = useGetAllAddresses();
-  const createOrder = useCreateOrder();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
@@ -33,6 +35,18 @@ const Cart = () => {
   const onOpenModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
+
+  const handleCreateOrder = useCallback(
+    (order: Omit<Order, 'createdAt'>) => {
+      dispatch(createOrder(order))
+        .unwrap()
+        .then((_) => {
+          dispatch(emptyCart());
+        })
+        .catch((error) => toast.error(error));
+    },
+    [dispatch]
+  );
 
   function handleCartButton() {
     if (isSelectAddressOpen && cart) {
@@ -52,7 +66,7 @@ const Cart = () => {
         status: OrderStatus.AWAITING_PAYMENT,
         total: cart.total,
       };
-      createOrder(cartData);
+      handleCreateOrder(cartData);
       onOpenModal();
     } else {
       setIsSelectAddressOpen(true);

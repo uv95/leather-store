@@ -3,47 +3,48 @@ import { Link } from 'react-router-dom';
 import cartIcon from '../../../shared/assets/icons/cart.svg';
 import login from '../../../shared/assets/icons/sign-in.svg';
 import userIcon from '../../../shared/assets/icons/user.svg';
-import { ICart, IOrder, Role } from '../../../types/data';
+import { ICart, Role } from '../../../types/data';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import Badge from '../../../shared/ui/Badge/Badge';
 import './header.scss';
+import { Order } from '../../../entities/Order';
 
 interface HeaderProps {
   role: Role;
-  myActiveOrders: IOrder[];
+  myActiveOrders: Order[];
   cart: ICart | null;
 }
 
 const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
   return (
     <>
-        <div className="header__container-inner">
-          <Link to={RoutePath.HOME} className="header__container-inner__logo">
-            ANNE LEATHER
+      <div className="header__container-inner">
+        <Link to={RoutePath.HOME} className="header__container-inner__logo">
+          ANNE LEATHER
+        </Link>
+        <div className="header__container-inner__nav">
+          <Link
+            to={RoutePath.CATALOG}
+            className="header__container-inner__nav-catalog"
+          >
+            CATALOG
           </Link>
-          <div className="header__container-inner__nav">
-            <Link
-              to={RoutePath.CATALOG}
-              className="header__container-inner__nav-catalog"
-            >
-              CATALOG
-            </Link>
-            <UserOrAdminLink role={role} myActiveOrders={myActiveOrders} />
+          <UserOrAdminLink role={role} myActiveOrders={myActiveOrders} />
 
-            {role !== Role.ADMIN && (
-              <Link to={RoutePath.CART} className="link-cart">
-                <img
-                  src={cartIcon}
-                  className="header__container-inner__nav-icon "
-                  alt="cart"
-                />
-                {cart && cart?.items.length !== 0 && (
-                  <Badge value={cart.totalQuantity} />
-                )}
-              </Link>
-            )}
-          </div>
+          {role !== Role.ADMIN && (
+            <Link to={RoutePath.CART} className="link-cart">
+              <img
+                src={cartIcon}
+                className="header__container-inner__nav-icon "
+                alt="cart"
+              />
+              {cart && cart?.items.length !== 0 && (
+                <Badge value={cart.totalQuantity} />
+              )}
+            </Link>
+          )}
         </div>
+      </div>
     </>
   );
 };
@@ -55,7 +56,7 @@ function UserOrAdminLink({
   myActiveOrders,
 }: {
   role: Role;
-  myActiveOrders: IOrder[];
+  myActiveOrders: Order[];
 }) {
   const getHref = (role: Role) => {
     if (!role) {

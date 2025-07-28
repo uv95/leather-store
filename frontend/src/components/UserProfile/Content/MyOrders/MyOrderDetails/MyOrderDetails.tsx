@@ -1,16 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { useCancelOrder } from '../../../../../hooks/useCancelOrder';
-import { IOrder } from '../../../../../types/data';
+import { cancelOrder, Order } from '../../../../../entities/Order';
+import { useAppDispatch } from '../../../../../hooks';
+import toast from '../../../../../shared/lib/toast/toast';
 import Button from '../../../../../shared/ui/Button/Button';
 import Colors from '../../../../../shared/ui/Colors/Colors';
 import Modal from '../../../../../shared/ui/Modal/Modal';
 import './myOrderDetails.scss';
 
-type MyOrderDetailsProps = { order: IOrder };
+type MyOrderDetailsProps = { order: Order };
 
 const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const cancelOrder = useCancelOrder();
 
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -19,6 +20,16 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
   const onOpenModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
+
+  const handleCancelOrder = useCallback(
+    (orderId: string) => {
+      dispatch(cancelOrder(orderId))
+        .unwrap()
+        .then(() => toast.success('Order canceled'))
+        .catch((error) => toast.error(error));
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -29,7 +40,7 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
             <div className="modal__content__buttons">
               <Button
                 onClick={() => {
-                  cancelOrder(order._id!);
+                  handleCancelOrder(order._id!);
                   setIsModalOpen(false);
                 }}
               >

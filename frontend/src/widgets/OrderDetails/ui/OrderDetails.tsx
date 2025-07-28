@@ -1,9 +1,9 @@
-import { IOrder } from '../../../types/data';
+import { Order } from '../../../entities/Order';
 import Colors from '../../../shared/ui/Colors/Colors';
 import { ChangeStatus } from '../../ChangeStatus';
 import './orderDetails.scss';
 
-type OrderDetailsProps = { order: IOrder };
+type OrderDetailsProps = { order: Order };
 
 const OrderDetails = ({ order }: OrderDetailsProps) => {
   return (

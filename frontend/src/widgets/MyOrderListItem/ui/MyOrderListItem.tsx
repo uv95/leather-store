@@ -4,11 +4,11 @@ import ListItemLayout, {
 } from '../../../shared/ui/ListItemLayout/ListItemLayout';
 import './myOrderListItem.scss';
 import MyOrderDetails from '../../../components/UserProfile/Content/MyOrders/MyOrderDetails/MyOrderDetails';
-import { IOrder, OrderStatus } from '../../../entities/Order/model/types/order';
 import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
+import { Order, OrderStatus } from '../../../entities/Order';
 
 type MyOrderListItemProps = {
-  order: IOrder;
+  order: Order;
 };
 
 const MyOrderListItem = ({ order }: MyOrderListItemProps) => {

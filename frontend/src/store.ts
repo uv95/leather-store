@@ -3,10 +3,10 @@ import authReducer from './features/auth/authSlice';
 import userReducer from './features/user/userSlice';
 import { addressReducer } from './entities/Address';
 import cartReducer from './features/cart/cartSlice';
-import orderReducer from './features/order/orderSlice';
+import { itemsReducer } from './entities/Item';
 import filtersReducer from './features/filters/filtersSlice';
 import analyticsReducer from './features/analytics/analyticsSlice';
-import { itemsReducer } from './entities/Item';
+import { orderReducer } from './entities/Order';
 
 const store = configureStore({
   reducer: {
@@ -15,7 +15,7 @@ const store = configureStore({
     items: itemsReducer,
     address: addressReducer,
     cart: cartReducer,
-    order: orderReducer,
+    orders: orderReducer,
     filters: filtersReducer,
     analytics: analyticsReducer,
   },

@@ -1,12 +1,12 @@
 import { memo, useMemo } from 'react';
 import { OrderDetails } from '../../OrderDetails';
-import { IOrder, OrderStatus } from '../../../entities/Order/model/types/order';
+import { Order, OrderStatus } from '../../../entities/Order';
 import ListItemLayout from '../../../shared/ui/ListItemLayout/ListItemLayout';
 import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './ordersAdminListItem.scss';
 
 type OrdersAdminListItemProps = {
-  order: IOrder;
+  order: Order;
 };
 
 const OrdersAdminListItem = ({ order }: OrdersAdminListItemProps) => {

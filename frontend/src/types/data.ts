@@ -1,25 +1,8 @@
 //ADDRESS
 
+import { Address } from '../entities/Address';
 import { Item, ItemType } from '../entities/Item/model/types/item';
 import { OrderStatus } from '../entities/Order/model/types/order';
-
-export interface IAddress {
-  _id?: string;
-  city: string;
-  address: string;
-  zipcode: string;
-}
-
-export interface IAddressState {
-  address: IAddress | null;
-  addresses: IAddress[] | [];
-  isLoading: boolean;
-}
-
-export interface IUpdatedAddress {
-  addressId: string;
-  updatedAddress: Partial<IAddress>;
-}
 
 //AUTH
 
@@ -58,7 +41,7 @@ export interface IUser {
 export interface IUserState {
   user: {
     _id?: string;
-    address: IAddress[] | [];
+    address: Address[] | [];
     cart: ICart;
     email: string;
     name: string;
@@ -74,11 +57,6 @@ export interface IUserState {
 interface IImage {
   url: string;
   public_id: string;
-}
-
-export interface IUpdatedItem {
-  itemId: string;
-  updatedItem: Partial<Item>;
 }
 
 //CART
@@ -116,40 +94,6 @@ export interface IQuantity {
 export interface ICartState {
   cart: ICart | null;
   isLoading: boolean;
-}
-
-//ORDER
-
-export interface IOrder {
-  _id?: string;
-  items: {
-    name: string;
-    colors: { leatherColor: Color; threadsColor: Color };
-    quantity: number;
-    total: number;
-    leather: string;
-    imageCover: string;
-    price: number;
-    type: ItemType;
-  }[];
-  user: IUser;
-  total: number;
-  address: IAddress;
-  status: OrderStatus;
-  createdAt: Date;
-}
-
-export interface IOrderState {
-  order: IOrder | null;
-  orders: IOrder[] | [];
-  myOrders: IOrder[] | [];
-  isLoading: boolean;
-  status: 'idle' | 'rejected' | 'success' | 'pending';
-}
-
-export interface IUpdatedOrder {
-  orderId: string;
-  updatedOrder: Partial<IOrder>;
 }
 
 //FILTER

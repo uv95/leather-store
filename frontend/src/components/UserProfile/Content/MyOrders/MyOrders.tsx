@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
-  getMyOrders,
-  selectMyActiveOrders,
-  selectMyFinishedOrders,
-} from '../../../../features/order/orderSlice';
+  getOrderIsLoading,
+  getUserActiveOrders,
+  getUserCompletedOrders,
+  getUserOrders,
+} from '../../../../entities/Order';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
@@ -12,18 +14,23 @@ import './myOrders.scss';
 
 const MyOrders = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, myOrders } = useAppSelector((state) => state.order);
+  const isLoading = useSelector(getOrderIsLoading);
+  const userActiveOrders = useSelector(getUserActiveOrders);
+  const userCompletedOrders = useSelector(getUserCompletedOrders);
   const { user } = useAppSelector((state) => state.auth);
-  const myActiveOrders = useAppSelector(selectMyActiveOrders);
-  const myFinishedOrders = useAppSelector(selectMyFinishedOrders);
+
+  const userOrders = useMemo(
+    () => [...userActiveOrders, ...userCompletedOrders],
+    [userActiveOrders, userCompletedOrders]
+  );
 
   useEffect(() => {
-    if (myOrders.some((order) => typeof order.address === 'string'))
-      dispatch(getMyOrders(user._id))
+    if (userOrders.some((order) => typeof order.address === 'string'))
+      dispatch(getUserOrders(user._id))
         .unwrap()
         .then()
-        .catch((error) => toast.error(error));
-  }, [dispatch, user, myOrders]);
+        .catch((error: string) => toast.error(error));
+  }, [dispatch, user, userOrders]);
 
   if (isLoading) return <Spinner />;
 
@@ -31,19 +38,19 @@ const MyOrders = () => {
     <div className="my-orders">
       <h1 className="my-orders__heading">My Orders</h1>
       <div className="my-orders__container">
-        {!myOrders.length && (
+        {!userOrders.length && (
           <p className="my-orders__container-empty">Order list is empty.</p>
         )}
-        {myActiveOrders.length !== 0 && (
+        {userActiveOrders.length !== 0 && (
           <h1 className="my-orders__orders__container-heading">Active</h1>
         )}
-        {myActiveOrders.map((order) => (
+        {userActiveOrders.map((order) => (
           <MyOrderListItem key={order._id} order={order} />
         ))}
-        {myFinishedOrders.length !== 0 && (
+        {userCompletedOrders.length !== 0 && (
           <h1 className="my-orders__orders__container-heading">Completed</h1>
         )}
-        {myFinishedOrders.map((order) => (
+        {userCompletedOrders.map((order) => (
           <MyOrderListItem key={order._id} order={order} />
         ))}
       </div>
@@ -51,4 +58,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default memo(MyOrders);

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { updateOrder } from '../../../features/order/orderSlice';
 import { useAppDispatch } from '../../../hooks';
 import toast from '../../../shared/lib/toast/toast';
 import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './changeStatus.scss';
 import { OrderStatus } from '../../../entities/Order/model/types/order';
+import { updateOrder } from '../../../entities/Order';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
@@ -13,7 +13,7 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
   const [newStatus, setNewStatus] = useState<OrderStatus>(currentStatus);
 
   useEffect(() => {
-    dispatch(updateOrder({ orderId, updatedOrder: { status: newStatus } }))
+    dispatch(updateOrder({ orderId, newData: { status: newStatus } }))
       .unwrap()
       .then()
       .catch((error) => toast.error(error));

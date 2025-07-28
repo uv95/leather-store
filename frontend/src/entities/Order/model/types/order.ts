@@ -1,7 +1,8 @@
-import { Color, IAddress, IUser } from '../../../../types/data';
-import { ItemType } from '../../../Item/model/types/item';
+import { Color, IUser } from '../../../../types/data';
+import { Address } from '../../../Address';
+import { ItemType } from '../../../Item';
 
-export interface IOrder {
+export interface Order {
   _id?: string;
   items: {
     name: string;
@@ -15,7 +16,7 @@ export interface IOrder {
   }[];
   user: IUser;
   total: number;
-  address: IAddress;
+  address: Address;
   status: OrderStatus;
   createdAt: Date;
 }
@@ -24,4 +25,12 @@ export enum OrderStatus {
   AWAITING_PAYMENT = 'Awaiting payment',
   IN_PROGRESS = 'In progress',
   COMPLETED = 'Completed',
+}
+
+export interface OrderSchema {
+  order?: Order;
+  orders: Order[];
+  myOrders: Order[];
+  isLoading: boolean;
+  status: 'idle' | 'rejected' | 'success' | 'pending';
 }

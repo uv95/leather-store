@@ -6,7 +6,6 @@ import MyInfo from '../../components/UserProfile/Content/MyInfo/MyInfo';
 import MyOrders from '../../components/UserProfile/Content/MyOrders/MyOrders';
 import useGetAllAddresses from '../../hooks/useGetAllAddresses';
 import useGetMe from '../../hooks/useGetMe';
-import { useSelector } from 'react-redux';
 
 const UserProfile = () => {
   useGetMe();

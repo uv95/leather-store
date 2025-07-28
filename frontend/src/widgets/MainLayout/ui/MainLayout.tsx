@@ -1,24 +1,37 @@
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
+import { getUserActiveOrders, getUserOrders } from '../../../entities/Order';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import useGetCart from '../../../hooks/useGetCart';
-import useGetMyOrders from '../../../hooks/useGetMyOrders';
+import toast from '../../../shared/lib/toast/toast';
+import Footer from '../../../shared/ui/Footer/Footer';
 import { Role } from '../../../types/data';
-import './mainLayout.scss';
 import { AdminNavbar } from '../../AdminNavbar';
 import { Header } from '../../Header';
-import Footer from '../../../shared/ui/Footer/Footer';
+import './mainLayout.scss';
 
 function MainLayout({ children }: { children: ReactNode }) {
-  const { role } = useAppSelector((state) => state.auth);
-  const { myActiveOrders } = useGetMyOrders();
+  const dispatch = useAppDispatch();
+  const { role, user } = useAppSelector((state) => state.auth);
+  const userActiveOrders = useSelector(getUserActiveOrders);
   const { cart } = useGetCart();
   const location = useLocation();
+  const userId = user?.data.user._id;
 
   const isAdminPage = useMemo(
     () => location.pathname.startsWith('/admin') && role === Role.ADMIN,
     [location, role]
   );
+
+  useEffect(() => {
+    role === Role.USER &&
+      userId &&
+      dispatch(getUserOrders(userId))
+        .unwrap()
+        .then()
+        .catch((error: string) => toast.error(error));
+  }, [dispatch, userId, role]);
 
   return (
     <>
@@ -27,7 +40,7 @@ function MainLayout({ children }: { children: ReactNode }) {
           {isAdminPage ? (
             <AdminNavbar path={location.pathname} />
           ) : (
-            <Header role={role} myActiveOrders={myActiveOrders} cart={cart} />
+            <Header role={role} myActiveOrders={userActiveOrders} cart={cart} />
           )}
         </div>
       </header>
