@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
-import { Item } from '../../entities/Item/model/types/item';
-import { CatalogFilterDropdown } from '../../features/CatalogFilterDropdown';
+import { Item } from '../../entities/Item';
+import {
+  CatalogFilterDropdown,
+  FilterList,
+} from '../../features/CatalogFilter';
 import { clearFilter } from '../../features/filters/filtersSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
@@ -37,7 +39,7 @@ const Catalog = () => {
           <div className="catalog__container__top">
             <CatalogFilterDropdown />
           </div>
-          <FiltersPanel />
+          <FilterList />
           {isLoading ? (
             <Spinner />
           ) : (

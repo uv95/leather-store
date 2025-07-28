@@ -1,6 +1,6 @@
-@import '../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
-.filtersPanel {
+.filterList {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);

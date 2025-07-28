@@ -1,11 +1,11 @@
 @import '../../../app/styles/mixins/global.scss';
 @import '../../../app/styles/animations/global.scss';
 
-.filter {
+.dropdown-container {
   position: relative;
   min-width: 20rem;
 
-  &-background {
+  &__background {
     min-width: 100vw;
     min-height: 150vh;
     position: fixed;

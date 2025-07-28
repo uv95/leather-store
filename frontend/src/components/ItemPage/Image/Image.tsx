@@ -1,7 +1,7 @@
 import React from 'react';
 import './image.scss';
 import Slider from '../Slider/Slider';
-import { Item } from '../../../entities/Item/model/types/item';
+import { Item } from '../../../entities/Item';
 
 interface ImageProps {
   item: Item;

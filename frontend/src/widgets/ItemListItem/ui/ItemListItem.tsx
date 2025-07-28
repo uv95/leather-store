@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { Item } from '../../../entities/Item/model/types/item';
+import { Item } from '../../../entities/Item';
 import ListItemLayout from '../../../shared/ui/ListItemLayout/ListItemLayout';
 import { ItemDetails } from '../../ItemDetails';
 import './itemListItem.scss';

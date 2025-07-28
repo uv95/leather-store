@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './userProfile.scss';
 import Navigation from '../../components/UserProfile/Navigation/Navigation';
 import Address from '../../components/UserProfile/Content/Address/Address';
@@ -6,10 +6,11 @@ import MyInfo from '../../components/UserProfile/Content/MyInfo/MyInfo';
 import MyOrders from '../../components/UserProfile/Content/MyOrders/MyOrders';
 import useGetAllAddresses from '../../hooks/useGetAllAddresses';
 import useGetMe from '../../hooks/useGetMe';
+import { useSelector } from 'react-redux';
 
 const UserProfile = () => {
-  useGetAllAddresses();
   useGetMe();
+  useGetAllAddresses();
 
   const [currentTab, setCurrentTab] = useState('My Orders');
 

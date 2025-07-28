@@ -3,12 +3,11 @@ import './addressCard.scss';
 import edit from '../../../../../shared/assets/icons/edit.svg';
 import trash from '../../../../../shared/assets/icons/trash.svg';
 import { useAppDispatch } from '../../../../../hooks';
-import { deleteAddress } from '../../../../../features/address/addressSlice';
-import { IAddress } from '../../../../../types/data';
 import toast from '../../../../../shared/lib/toast/toast';
+import { Address, deleteAddress } from '../../../../../entities/Address';
 
 interface AddressCardProps {
-  address: IAddress;
+  address: Address;
   setEdit?: React.Dispatch<React.SetStateAction<boolean>>;
   setAddressId?: React.Dispatch<React.SetStateAction<string>>;
   isFromCart?: boolean;

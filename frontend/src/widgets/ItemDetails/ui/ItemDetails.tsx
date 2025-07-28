@@ -7,9 +7,7 @@ import Button, {
 import Input from '../../../shared/ui/Input/Input';
 import './itemDetails.scss';
 import toast from '../../../shared/lib/toast/toast';
-import { deleteItem } from '../../../entities/Item/model/services/deleteItem/deleteItem';
-import { updateItem } from '../../../entities/Item/model/services/updateItem/updateItem';
-import { Item, ItemType } from '../../../entities/Item/model/types/item';
+import { Item, ItemType, updateItem, deleteItem } from '../../../entities/Item';
 
 type ItemDetailsProps = { item: Item };
 

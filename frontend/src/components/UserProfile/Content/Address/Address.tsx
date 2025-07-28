@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getAddress } from '../../../../features/address/addressSlice';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import Button, { ButtonColor, ButtonSize } from '../../../../shared/ui/Button/Button';
+import { useSelector } from 'react-redux';
+import {
+  getAddressIsLoading,
+  getAllAddressesSelector,
+  getAddress,
+} from '../../../../entities/Address';
+import { useAppDispatch } from '../../../../hooks';
+import toast from '../../../../shared/lib/toast/toast';
+import Button, {
+  ButtonColor,
+  ButtonSize,
+} from '../../../../shared/ui/Button/Button';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
 import './address.scss';
 import AddressCard from './AddressCard/AddressCard';
 import AddressForm from './AddressForm/AddressForm';
-import toast from '../../../../shared/lib/toast/toast';
 
 const Address = () => {
-  const { isLoading, addresses } = useAppSelector((state) => state.address);
+  const isLoading = useSelector(getAddressIsLoading);
+  const addresses = useSelector(getAllAddressesSelector);
 
   const [openAddressForm, setOpenAddressForm] = useState(false);
   const [edit, setEdit] = useState(false);

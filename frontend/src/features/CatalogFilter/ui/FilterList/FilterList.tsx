@@ -1,11 +1,11 @@
-import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { removeFilter, setSort } from '../../../features/filters/filtersSlice';
-import { SortingOptions } from '../../../types/data';
-import './filtersPanel.scss';
-import FilterTag from '../../../shared/ui/FilterTag/FilterTag';
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { removeFilter, setSort } from '../../../filters/filtersSlice';
+import { SortingOptions } from '../../../../types/data';
+import './filterList.scss';
+import FilterTag from '../../../../shared/ui/FilterTag/FilterTag';
 import { useCallback } from 'react';
 
-const FiltersPanel = () => {
+const FilterList = () => {
   const { filters, sort } = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
 
@@ -20,7 +20,7 @@ const FiltersPanel = () => {
   );
 
   return (
-    <div className="filtersPanel">
+    <div className="filterList">
       {(sort === SortingOptions.DEFAULT ? filters : [...filters, sort]).map(
         (filter) => (
           <FilterTag
@@ -34,4 +34,4 @@ const FiltersPanel = () => {
   );
 };
 
-export default FiltersPanel;
+export default FilterList;

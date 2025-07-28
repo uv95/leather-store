@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './addressForm.scss';
 import Input from '../../../../../shared/ui/Input/Input';
-import Button, { ButtonColor, ButtonSize } from '../../../../../shared/ui/Button/Button';
+import Button, {
+  ButtonColor,
+  ButtonSize,
+} from '../../../../../shared/ui/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks';
+import toast from '../../../../../shared/lib/toast/toast';
 import {
   addAddress,
+  Address,
   updateAddress,
-} from '../../../../../features/address/addressSlice';
-import toast from '../../../../../shared/lib/toast/toast';
+} from '../../../../../entities/Address';
 
 interface AddressFormProps {
   edit: boolean;
@@ -26,7 +30,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
 
   const { address: currAddress } = useAppSelector((state) => state.address);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Omit<Address, '_id'>>({
     city: '',
     address: '',
     zipcode: '',
@@ -47,7 +51,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
     e.preventDefault();
 
     if (edit && addressId) {
-      dispatch(updateAddress({ addressId, updatedAddress: formData }))
+      dispatch(updateAddress({ addressId, newData: formData }))
         .unwrap()
         .then((_) => {
           setOpenAddressForm(false);

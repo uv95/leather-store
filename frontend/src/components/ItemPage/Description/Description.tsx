@@ -12,7 +12,7 @@ import Radio from '../../../shared/ui/Radio/Radio';
 import { Color, ItemPart, LeatherType, Role } from '../../../types/data';
 import SelectColor from '../../SelectColor/SelectColor';
 import './description.scss';
-import { Item, ItemType } from '../../../entities/Item/model/types/item';
+import { Item, ItemType } from '../../../entities/Item';
 
 interface DescriptionProps {
   item: Item;

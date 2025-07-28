@@ -11,12 +11,12 @@ const Dropdown = ({ children, buttonText }: DropdownProps) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="filter">
+    <div className="dropdown-container">
       <Button onClick={() => setOpen(!open)}>{buttonText}</Button>
       {open && (
         <>
           <div
-            className="filter-background"
+            className="dropdown-container__background"
             onClick={() => setOpen(false)}
           ></div>
           <div className={`dropdown dropdown--${open ? 'open' : 'closed'}`}>
