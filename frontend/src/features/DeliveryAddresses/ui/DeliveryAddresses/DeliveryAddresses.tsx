@@ -46,8 +46,8 @@ const DeliveryAddresses = () => {
 
   return (
     <>
-      <div className="address__top">
-        <h1 className="address__heading">Delivery Addresses</h1>
+      <div className="deliveryAddresses-header">
+        <h1 className="deliveryAddresses-title">Delivery Addresses</h1>
         <Button
           onClick={onClickButton}
           color={ButtonColor.BLACK}
@@ -56,10 +56,8 @@ const DeliveryAddresses = () => {
           {isFormOpen ? 'Back' : 'Add address'}
         </Button>
       </div>
-      <div className="address__container">
-        {!addresses.length && (
-          <p className="address__container-empty">Address list is empty.</p>
-        )}
+      <div className="deliveryAddresses-container">
+        {!addresses.length && <p>Address list is empty.</p>}
 
         {isOpenEditForm && <EditAddressForm addressId={addressId} />}
 

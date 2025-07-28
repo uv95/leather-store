@@ -1,10 +1,9 @@
 import { memo, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './adminNavbar.scss';
 import useLogout from '../../../hooks/useLogout';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
-import Modal from '../../../shared/ui/Modal/Modal';
-import Button from '../../../shared/ui/Button/Button';
+import { ConfirmationModal } from '../../ConfirmationModal';
+import './adminNavbar.scss';
 
 interface AdminNavbarProps {
   path: string;
@@ -37,22 +36,12 @@ const AdminNavbar = ({ path }: AdminNavbarProps) => {
   return (
     <>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={onCloseModal}>
-          <>
-            <p>Are you sure you want to log out?</p>
-            <div className="modal__content__buttons">
-              <Button
-                onClick={() => {
-                  logoutUser();
-                  onCloseModal();
-                }}
-              >
-                Yes
-              </Button>
-              <Button onClick={onCloseModal}>No</Button>
-            </div>
-          </>
-        </Modal>
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onClose={onCloseModal}
+          confirmAction={logoutUser}
+          text="Are you sure you want to log out?"
+        />
       )}
       <div className="header__container__admin">
         {tabs.map((tab) => (

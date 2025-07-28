@@ -42,13 +42,13 @@ const MyOrders = () => {
           <p className="my-orders__container-empty">Order list is empty.</p>
         )}
         {userActiveOrders.length !== 0 && (
-          <h1 className="my-orders__orders__container-heading">Active</h1>
+          <h2 className="my-orders__container-heading">Active</h2>
         )}
         {userActiveOrders.map((order) => (
           <MyOrderListItem key={order._id} order={order} />
         ))}
         {userCompletedOrders.length !== 0 && (
-          <h1 className="my-orders__orders__container-heading">Completed</h1>
+          <h2 className="my-orders__container-heading">Completed</h2>
         )}
         {userCompletedOrders.map((order) => (
           <MyOrderListItem key={order._id} order={order} />

@@ -31,20 +31,6 @@
     width: 80%;
     margin: 0 auto;
 
-    &__buttons {
-      padding: 0 4rem;
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-
-      @include max400 {
-        padding: 0 2rem;
-      }
-      @include max300 {
-        padding: 0rem;
-      }
-    }
-
     @include max700 {
       width: 100%;
     }

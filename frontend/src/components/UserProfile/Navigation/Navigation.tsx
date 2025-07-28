@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import Tab from './Tab/Tab';
-import logoutsvg from '../../../shared/assets/icons/logout.svg';
-import portrait from '../../../shared/assets/icons/portrait.svg';
-import location from '../../../shared/assets/icons/location.svg';
-import orders from '../../../shared/assets/icons/orders.svg';
 import useLogout from '../../../hooks/useLogout';
-import Modal from '../../../shared/ui/Modal/Modal';
-import Button from '../../../shared/ui/Button/Button';
+import location from '../../../shared/assets/icons/location.svg';
+import logoutsvg from '../../../shared/assets/icons/logout.svg';
+import orders from '../../../shared/assets/icons/orders.svg';
+import portrait from '../../../shared/assets/icons/portrait.svg';
+import { ConfirmationModal } from '../../../widgets/ConfirmationModal';
+import Tab from './Tab/Tab';
 
 interface NavigationProps {
   currentTab: string;
@@ -35,22 +34,12 @@ const Navigation: React.FC<NavigationProps> = React.memo(
     return (
       <>
         {isModalOpen && (
-          <Modal isOpen={isModalOpen} onClose={onCloseModal}>
-            <>
-              <p>Are you sure you want to log out?</p>
-              <div className="modal__content__buttons">
-                <Button
-                  onClick={() => {
-                    logoutUser();
-                    onCloseModal();
-                  }}
-                >
-                  Yes
-                </Button>
-                <Button onClick={onCloseModal}>No</Button>
-              </div>
-            </>
-          </Modal>
+          <ConfirmationModal
+            isOpen={isModalOpen}
+            onClose={onCloseModal}
+            confirmAction={logoutUser}
+            text="Are you sure you want to log out?"
+          />
         )}
         <div className="nav">
           {tabs.map((tab, i) => (

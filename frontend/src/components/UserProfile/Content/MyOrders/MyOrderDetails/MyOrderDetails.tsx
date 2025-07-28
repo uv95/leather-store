@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../../../hooks';
 import toast from '../../../../../shared/lib/toast/toast';
 import Button from '../../../../../shared/ui/Button/Button';
 import Colors from '../../../../../shared/ui/Colors/Colors';
-import Modal from '../../../../../shared/ui/Modal/Modal';
+import { ConfirmationModal } from '../../../../../widgets/ConfirmationModal';
 import './myOrderDetails.scss';
 
 type MyOrderDetailsProps = { order: Order };
@@ -34,22 +34,12 @@ const MyOrderDetails = React.memo(({ order }: MyOrderDetailsProps) => {
   return (
     <>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={onCloseModal}>
-          <>
-            <p>Are you sure you want to cancel the order?</p>
-            <div className="modal__content__buttons">
-              <Button
-                onClick={() => {
-                  handleCancelOrder(order._id!);
-                  setIsModalOpen(false);
-                }}
-              >
-                Yes
-              </Button>
-              <Button onClick={() => setIsModalOpen(false)}>No</Button>
-            </div>
-          </>
-        </Modal>
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onClose={onCloseModal}
+          confirmAction={() => handleCancelOrder(order._id!)}
+          text="Are you sure you want to cancel the order?"
+        />
       )}
       <div className="myOrderDetails">
         {order.items.map((item) => (

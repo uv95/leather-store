@@ -1,9 +1,6 @@
 @import '../../../../app/styles/mixins/global.scss';
 
 .personalInfoForm {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-
   &-title {
     @include subtitleWithUnderline;
   }
@@ -20,5 +17,9 @@
     @include max500 {
       display: block;
     }
+  }
+
+  @include max500 {
+    margin-top: 2rem;
   }
 }

@@ -1,7 +1,7 @@
 @import '../../../../app/styles/mixins/global.scss';
 
-.address {
-  &__top {
+.deliveryAddresses {
+  &-header {
     display: flex;
     justify-content: space-between;
 
@@ -11,11 +11,12 @@
       margin-bottom: 2rem;
     }
   }
-  &__heading {
+
+  &-title {
     @include heading;
   }
 
-  &__container {
+  &-container {
     &-empty {
       font-size: 2rem;
     }

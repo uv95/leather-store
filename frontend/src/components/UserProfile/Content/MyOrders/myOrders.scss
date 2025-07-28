@@ -8,8 +8,17 @@
   &__container {
     @include list;
     margin-bottom: 1rem;
+
+    @include max500 {
+      margin-top: 2rem;
+    }
+
     &-empty {
       font-size: 2rem;
+    }
+
+    &-heading {
+      @include subtitleWithUnderline;
     }
   }
 }
