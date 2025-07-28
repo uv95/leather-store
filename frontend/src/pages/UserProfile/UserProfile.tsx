@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import './userProfile.scss';
-import Navigation from '../../components/UserProfile/Navigation/Navigation';
-import Address from '../../components/UserProfile/Content/Address/Address';
 import MyInfo from '../../components/UserProfile/Content/MyInfo/MyInfo';
 import MyOrders from '../../components/UserProfile/Content/MyOrders/MyOrders';
+import Navigation from '../../components/UserProfile/Navigation/Navigation';
+import { DeliveryAddresses } from '../../features/DeliveryAddresses';
 import useGetAllAddresses from '../../hooks/useGetAllAddresses';
 import useGetMe from '../../hooks/useGetMe';
+import './userProfile.scss';
 
 const UserProfile = () => {
   useGetMe();
@@ -22,7 +22,7 @@ const UserProfile = () => {
         </div>
         <div className="profile__container__content">
           {currentTab === 'My Orders' && <MyOrders />}
-          {currentTab === 'Delivery Addresses' && <Address />}
+          {currentTab === 'Delivery Addresses' && <DeliveryAddresses />}
           {currentTab === 'My Info' && <MyInfo />}
         </div>
       </div>

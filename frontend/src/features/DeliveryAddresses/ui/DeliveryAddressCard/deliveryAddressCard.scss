@@ -1,0 +1,50 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.deliveryAddressCard {
+  width: 100%;
+  height: fit-content;
+  min-height: 8rem;
+  padding: 1rem 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-content {
+    width: 85%;
+    padding: 0 2rem;
+    padding-right: 1rem;
+    font-size: 2rem;
+
+    @include max500 {
+      font-size: 1.7rem;
+      padding: 0 1rem;
+    }
+  }
+
+  &-buttons {
+    @include center;
+    width: fit-content;
+    padding: 0 2rem;
+    gap: 2rem;
+
+    @include max500 {
+      padding: 0 1rem;
+    }
+  }
+  &-icon {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    @include hover;
+
+    @include max500 {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  @include max500 {
+    padding: 0.5rem 0;
+  }
+}
