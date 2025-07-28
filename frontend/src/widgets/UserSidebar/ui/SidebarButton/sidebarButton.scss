@@ -1,12 +1,13 @@
 @import '../../../../app/styles/mixins/global.scss';
 
-.tab {
+.sidebarButton {
+  width: 24rem;
   padding: 1rem;
+  font-size: 2rem;
   display: flex;
   gap: 2rem;
-  width: 24rem;
-  font-size: 2rem;
   cursor: pointer;
+
   @include max1000 {
     width: 22rem;
   }
@@ -18,23 +19,15 @@
     width: fit-content;
     margin-bottom: 1rem;
   }
-  &.active {
+
+  &--active {
     color: inherit;
     background-color: var(--color-grey--medium);
-    // font-weight: bold;
   }
 
   &-icon {
     @include center;
-    & img {
-      width: 2rem;
-      @include max800 {
-        width: 2.5rem;
-      }
-      @include max300 {
-        width: 2rem;
-      }
-    }
+
     @include max700 {
       display: none;
     }
@@ -44,6 +37,18 @@
     }
     @include max300 {
       height: 2rem;
+    }
+
+    & img {
+      width: 2rem;
+
+      @include max800 {
+        width: 2.5rem;
+      }
+
+      @include max300 {
+        width: 2rem;
+      }
     }
   }
 
@@ -59,7 +64,7 @@
     }
   }
 
-  &:hover:not(.active) {
+  &:hover:not(.sidebarButton--active) {
     filter: invert(30%);
   }
 }
