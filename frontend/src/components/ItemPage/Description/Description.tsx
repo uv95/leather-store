@@ -3,22 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
-import Button, { ButtonColor, ButtonSize } from '../../../shared/ui/Button/Button';
+import Button, {
+  ButtonColor,
+  ButtonSize,
+} from '../../../shared/ui/Button/Button';
 import Colors, { ColorsPosition } from '../../../shared/ui/Colors/Colors';
 import Radio from '../../../shared/ui/Radio/Radio';
-import {
-  Color,
-  IItem,
-  ItemPart,
-  ItemType,
-  LeatherType,
-  Role,
-} from '../../../types/data';
+import { Color, ItemPart, LeatherType, Role } from '../../../types/data';
 import SelectColor from '../../SelectColor/SelectColor';
 import './description.scss';
+import { Item, ItemType } from '../../../entities/Item/model/types/item';
 
 interface DescriptionProps {
-  item: IItem;
+  item: Item;
 }
 
 const Description: React.FC<DescriptionProps> = ({ item }) => {

@@ -17,25 +17,4 @@
   @include max500 {
     grid-template-columns: repeat(2, 1fr);
   }
-  &__item {
-    width: fit-content;
-    &-cell {
-      min-width: fit-content;
-      @include center;
-      gap: 1rem;
-      font-size: 1.3rem;
-      background-color: var(--color-grey--light);
-      min-height: 3rem;
-      padding: 0.5rem 1rem;
-
-      @include max500 {
-        padding: 0.2rem 0.5rem;
-      }
-
-      & span {
-        font-size: 1.2rem;
-        @include hover;
-      }
-    }
-  }
 }

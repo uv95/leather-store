@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../../hooks';
-import { ItemType } from '../../../../types/data';
 import Button from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
 import './addItemForm.scss';
 import toast from '../../../../shared/lib/toast/toast';
 import { addItem } from '../../../../entities/Item/model/services/addItem/addItem';
+import { ItemType } from '../../../../entities/Item/model/types/item';
 
 interface AddItemFormProps {
   onSuccess: () => void;

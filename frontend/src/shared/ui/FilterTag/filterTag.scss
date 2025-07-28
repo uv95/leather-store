@@ -1,0 +1,24 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.filterTag {
+  width: fit-content;
+
+  min-width: fit-content;
+  @include center;
+  gap: 1rem;
+  font-size: 1.3rem;
+  background-color: var(--color-grey--light);
+  min-height: 3rem;
+  padding: 0.5rem 1rem;
+
+  @include max500 {
+    padding: 0.2rem 0.5rem;
+  }
+
+  & button:hover {
+    font-size: 1.2rem;
+    @include hover;
+    background-color: rgba(0, 0, 0, 0);
+    color: inherit;
+  }
+}

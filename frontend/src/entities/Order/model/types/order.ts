@@ -1,4 +1,5 @@
-import { Color, IAddress, ItemType, IUser } from '../../../../types/data';
+import { Color, IAddress, IUser } from '../../../../types/data';
+import { ItemType } from '../../../Item/model/types/item';
 
 export interface IOrder {
   _id?: string;

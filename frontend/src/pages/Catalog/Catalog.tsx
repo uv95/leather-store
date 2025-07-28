@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import Filter from '../../components/Catalog/Filter';
 import FiltersPanel from '../../components/Catalog/FiltersPanel/FiltersPanel';
+import { Item } from '../../entities/Item/model/types/item';
+import { CatalogFilterDropdown } from '../../features/CatalogFilterDropdown';
+import { clearFilter } from '../../features/filters/filtersSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useGetAllItems } from '../../hooks/useGetAllItems';
 import ItemCard from '../../shared/ui/ItemCard/ItemCard';
 import Pagination from '../../shared/ui/Pagination/Pagination';
 import Spinner from '../../shared/ui/Spinner/Spinner';
-import { IItem } from '../../types/data';
 import './catalog.scss';
-import { clearFilter } from '../../features/filters/filtersSlice';
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
@@ -35,8 +35,7 @@ const Catalog = () => {
       <div className="catalog">
         <div className="catalog__container">
           <div className="catalog__container__top">
-            <Filter />
-            {/* <View /> */}
+            <CatalogFilterDropdown />
           </div>
           <FiltersPanel />
           {isLoading ? (
@@ -65,7 +64,7 @@ const Catalog = () => {
 export default Catalog;
 
 function CatalogItems(props: {
-  items: IItem[];
+  items: Item[];
   sort: string;
   itemsPerPage: number;
   currentPage: number;

@@ -1,0 +1,49 @@
+@import '../../../app/styles/mixins/global.scss';
+@import '../../../app/styles/animations/global.scss';
+
+.filter {
+  position: relative;
+  min-width: 20rem;
+
+  &-background {
+    min-width: 100vw;
+    min-height: 150vh;
+    position: fixed;
+    top: -10%;
+    left: 0;
+  }
+}
+
+.dropdown {
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 4rem;
+  width: 42rem;
+  padding: 1rem 1rem 2rem 1rem;
+  background-color: #fff;
+  z-index: 10;
+  @include max500 {
+    width: calc(100vw * 0.9);
+    padding: 2rem;
+  }
+  @include max300 {
+    padding: 1rem;
+  }
+
+  &--open {
+    @include animation-open;
+  }
+  &--closed {
+    @include animation-closed(-1rem);
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(2, 20rem);
+    justify-content: space-between;
+
+    @include max500 {
+      @include list;
+    }
+  }
+}

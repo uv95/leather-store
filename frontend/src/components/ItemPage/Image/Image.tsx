@@ -1,10 +1,10 @@
 import React from 'react';
 import './image.scss';
 import Slider from '../Slider/Slider';
-import { IItem } from '../../../types/data';
+import { Item } from '../../../entities/Item/model/types/item';
 
 interface ImageProps {
-  item: IItem;
+  item: Item;
 }
 export interface ISlides {
   path: any;

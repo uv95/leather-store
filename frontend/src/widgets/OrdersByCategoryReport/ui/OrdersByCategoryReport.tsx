@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import useGetAnalytics from '../../../hooks/useGetAnalytics';
-import { ItemType } from '../../../types/data';
 import { DOUGHNUT_COLORS } from '../../../shared/const/consts';
 import Spinner from '../../../shared/ui/Spinner/Spinner';
-import './ordersByCategoryReport.scss'
+import './ordersByCategoryReport.scss';
+import { ItemType } from '../../../entities/Item/model/types/item';
 
 const OrdersByCategoryReport = () => {
   const { ordersByCategory, isLoading } = useGetAnalytics();

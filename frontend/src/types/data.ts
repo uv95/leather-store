@@ -1,5 +1,6 @@
 //ADDRESS
 
+import { Item, ItemType } from '../entities/Item/model/types/item';
 import { OrderStatus } from '../entities/Order/model/types/order';
 
 export interface IAddress {
@@ -70,32 +71,14 @@ export interface IUserState {
 
 //ITEM
 
-export interface IItem {
-  _id: string;
-  name: string;
-  slug: string;
-  type: string;
-  description: string;
-  price: string;
-  imageCover: IImage;
-  images: IImage[] | [];
-  createdAt: string;
-}
-
 interface IImage {
   url: string;
   public_id: string;
 }
 
-export interface IItemsState {
-  item: IItem | null;
-  items: IItem[] | [];
-  isLoading: boolean;
-}
-
 export interface IUpdatedItem {
   itemId: string;
-  updatedItem: Partial<IItem>;
+  updatedItem: Partial<Item>;
 }
 
 //CART
@@ -174,12 +157,6 @@ export interface IUpdatedOrder {
 export interface IFilterState {
   filters: string[];
   sort: string;
-}
-
-export enum ItemType {
-  WALLETS = 'Wallets and cardholders',
-  EYEGLASS_CASES = 'Eyeglass cases',
-  PASSPORT_COVERS = 'Passport covers',
 }
 
 export enum Color {

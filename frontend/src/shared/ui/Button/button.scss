@@ -12,7 +12,7 @@
   border: none;
   transition: all 0.1s;
 
-  &--large {
+  &-l {
     font-size: 2rem;
     height: 5rem;
     min-width: 16rem;
@@ -23,6 +23,12 @@
       font-size: 1.5rem;
     }
   }
+
+  &-s {
+    font-size: 1.3rem;
+    min-width: 0;
+  }
+
   &-black {
     background-color: black;
     color: white;
@@ -47,6 +53,16 @@
         background-color: var(--color-grey--dark);
       }
     }
+  }
+
+  &-clear {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &--square {
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
   }
 
   &--animated {

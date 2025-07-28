@@ -1,0 +1,24 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.filterDropdownSection {
+  width: 20rem;
+
+  &-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+
+    @include max500 {
+      font-size: 2rem;
+    }
+  }
+  &-content {
+    @include list;
+    @include center;
+    gap: 1rem;
+  }
+
+  @include max500 {
+    width: 100%;
+  }
+}

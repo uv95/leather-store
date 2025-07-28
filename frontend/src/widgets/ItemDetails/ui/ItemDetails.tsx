@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
-import { IItem, ItemType } from '../../../types/data';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -10,14 +9,15 @@ import './itemDetails.scss';
 import toast from '../../../shared/lib/toast/toast';
 import { deleteItem } from '../../../entities/Item/model/services/deleteItem/deleteItem';
 import { updateItem } from '../../../entities/Item/model/services/updateItem/updateItem';
+import { Item, ItemType } from '../../../entities/Item/model/types/item';
 
-type ItemDetailsProps = { item: IItem };
+type ItemDetailsProps = { item: Item };
 
 const ItemDetails = ({ item }: ItemDetailsProps) => {
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState<Partial<IItem>>({
+  const [formData, setFormData] = useState<Partial<Item>>({
     name: '',
-    type: '',
+    type: undefined,
     description: '',
     price: '',
   });
