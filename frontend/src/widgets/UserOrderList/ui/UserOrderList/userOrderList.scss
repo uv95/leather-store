@@ -1,0 +1,24 @@
+@import '../../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/animations/global.scss';
+
+.userOrderList {
+  &-title {
+    @include heading;
+  }
+
+  &-container {
+    @include list;
+    margin-bottom: 1rem;
+
+    @include max500 {
+      margin-top: 2rem;
+    }
+  }
+  &__section-title {
+    @include subtitleWithUnderline;
+  }
+
+  &-empty {
+    font-size: 2rem;
+  }
+}

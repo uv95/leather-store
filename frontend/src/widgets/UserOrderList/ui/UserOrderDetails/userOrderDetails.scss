@@ -1,8 +1,7 @@
-@import '../../../../../app/styles/mixins/global.scss';
-@import '../../../../../app/styles/animations/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/animations/global.scss';
 
-
-.myOrderDetails {
+.userOrderDetails {
   background-color: #fff;
 
   &__item {

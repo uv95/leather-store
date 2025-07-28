@@ -9,6 +9,7 @@ import Button, {
   ButtonSize,
 } from '../../../../shared/ui/Button/Button';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
+import { AddressIdProvider } from '../../model/AddressIdContext';
 import AddAddressForm from '../DeliveryAddressForm/AddAddressForm/AddAddressForm';
 import EditAddressForm from '../DeliveryAddressForm/EditAddressForm/EditAddressForm';
 import DeliveryAddressList from '../DeliveryAddressList/DeliveryAddressList';
@@ -20,7 +21,7 @@ const DeliveryAddresses = () => {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [addressId, setAddressId] = useState('');
+
   const isOpenEditForm = isFormOpen && isEdit;
   const isOpenAddForm = isFormOpen && !isEdit;
 
@@ -45,7 +46,7 @@ const DeliveryAddresses = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
+    <AddressIdProvider>
       <div className="deliveryAddresses-header">
         <h1 className="deliveryAddresses-title">Delivery Addresses</h1>
         <Button
@@ -59,21 +60,17 @@ const DeliveryAddresses = () => {
       <div className="deliveryAddresses-container">
         {!addresses.length && <p>Address list is empty.</p>}
 
-        {isOpenEditForm && <EditAddressForm addressId={addressId} />}
+        {isOpenEditForm && <EditAddressForm />}
 
         {isOpenAddForm && (
           <AddAddressForm onCloseForm={() => setIsFormOpen(false)} />
         )}
 
         {!isFormOpen && (
-          <DeliveryAddressList
-            setAddressId={setAddressId}
-            addresses={addresses}
-            onOpenForm={onOpenForm}
-          />
+          <DeliveryAddressList addresses={addresses} onOpenForm={onOpenForm} />
         )}
       </div>
-    </>
+    </AddressIdProvider>
   );
 };
 

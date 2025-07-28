@@ -1,17 +1,17 @@
 import { memo, useMemo } from 'react';
+import { Order, OrderStatus } from '../../../../entities/Order';
 import ListItemLayout, {
   ListItemTheme,
-} from '../../../shared/ui/ListItemLayout/ListItemLayout';
-import './myOrderListItem.scss';
-import MyOrderDetails from '../../../components/UserProfile/Content/MyOrders/MyOrderDetails/MyOrderDetails';
-import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
-import { Order, OrderStatus } from '../../../entities/Order';
+} from '../../../../shared/ui/ListItemLayout/ListItemLayout';
+import OrderStatusBadge from '../../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
+import UserOrderDetails from '../UserOrderDetails/UserOrderDetails';
+import './userOrderListItem.scss';
 
-type MyOrderListItemProps = {
+type UserOrderListItemProps = {
   order: Order;
 };
 
-const MyOrderListItem = ({ order }: MyOrderListItemProps) => {
+const UserOrderListItem = ({ order }: UserOrderListItemProps) => {
   const { _id: orderId, createdAt, status } = order;
 
   const orderData: Record<string, string> = useMemo(
@@ -28,21 +28,21 @@ const MyOrderListItem = ({ order }: MyOrderListItemProps) => {
 
   return (
     <ListItemLayout
-      Details={<MyOrderDetails order={order} />}
+      Details={<UserOrderDetails order={order} />}
       theme={ListItemTheme.WHITE}
     >
       <div
-        className="myOrderListItem"
+        className="userOrderListItem"
         style={{
           gridTemplateColumns: `repeat(${Object.keys(orderData).length}, 1fr)`,
         }}
       >
         {Object.keys(orderData).map((dataKey) => (
-          <div key={dataKey} className={`myOrderListItem__field`}>
+          <div key={dataKey} className={`userOrderListItem__field`}>
             {dataKey === 'status' ? (
               <OrderStatusBadge status={orderData.status as OrderStatus} />
             ) : (
-              <div className="myOrderListItem__field-content">
+              <div className="userOrderListItem__field-content">
                 {orderData[dataKey]}
               </div>
             )}
@@ -53,4 +53,4 @@ const MyOrderListItem = ({ order }: MyOrderListItemProps) => {
   );
 };
 
-export default memo(MyOrderListItem);
+export default memo(UserOrderListItem);

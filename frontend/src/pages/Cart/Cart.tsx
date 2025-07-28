@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartButton from '../../components/Cart/CartButton/CartButton';
 import CartItem from '../../components/Cart/CartItem/CartItem';
-import SelectAddress from '../../components/Cart/SelectAddress/SelectAddress';
 import CartLayout from '../../components/layouts/CartLayout/CartLayout';
 import { createOrder } from '../../entities/Order';
 import { Order, OrderStatus } from '../../entities/Order/model/types/order';
@@ -14,6 +13,7 @@ import toast from '../../shared/lib/toast/toast';
 import Modal from '../../shared/ui/Modal/Modal';
 import { ICartItem } from '../../types/data';
 import './cart.scss';
+import { CheckoutAddressSection } from '../../widgets/CheckoutAddressSection';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -111,7 +111,7 @@ const Cart = () => {
             </div>
           </div>
           {isSelectAddressOpen && (
-            <SelectAddress
+            <CheckoutAddressSection
               setCurrentAddressIndex={setCurrentAddressIndex}
               currentAddressIndex={currentAddressIndex}
             />

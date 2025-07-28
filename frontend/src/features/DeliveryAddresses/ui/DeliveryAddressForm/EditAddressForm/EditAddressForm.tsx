@@ -10,13 +10,11 @@ import {
 import { useAppDispatch } from '../../../../../hooks';
 import toast from '../../../../../shared/lib/toast/toast';
 import AddressForm from '../AddressForm/AddressForm';
+import { useAddressIdContext } from '../../../model/AddressIdContext';
 
-interface EditAddressFormProps {
-  addressId: string;
-}
-
-const EditAddressForm: React.FC<EditAddressFormProps> = ({ addressId }) => {
+const EditAddressForm = () => {
   const dispatch = useAppDispatch();
+  const { addressId } = useAddressIdContext();
 
   const isLoading = useSelector(getAddressIsLoading);
   const address = useSelector(getAddressSelector);

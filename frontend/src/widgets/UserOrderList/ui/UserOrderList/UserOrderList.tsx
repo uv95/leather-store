@@ -9,10 +9,10 @@ import {
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
-import { MyOrderListItem } from '../../../../widgets/MyOrderListItem';
-import './myOrders.scss';
+import './userOrderList.scss';
+import UserOrderListItem from '../UserOrderListItem/UserOrderListItem';
 
-const MyOrders = () => {
+const UserOrderList = () => {
   const dispatch = useAppDispatch();
   const isLoading = useSelector(getOrderIsLoading);
   const userActiveOrders = useSelector(getUserActiveOrders);
@@ -35,27 +35,31 @@ const MyOrders = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="my-orders">
-      <h1 className="my-orders__heading">My Orders</h1>
-      <div className="my-orders__container">
+    <div className="userOrderList">
+      <h1 className="userOrderList-title">My Orders</h1>
+      <div className="userOrderList-container">
         {!userOrders.length && (
-          <p className="my-orders__container-empty">Order list is empty.</p>
+          <p className="userOrderList-empty">Order list is empty.</p>
         )}
+
         {userActiveOrders.length !== 0 && (
-          <h2 className="my-orders__container-heading">Active</h2>
+          <h2 className="userOrderList__section-title">Active</h2>
         )}
+
         {userActiveOrders.map((order) => (
-          <MyOrderListItem key={order._id} order={order} />
+          <UserOrderListItem key={order._id} order={order} />
         ))}
+
         {userCompletedOrders.length !== 0 && (
-          <h2 className="my-orders__container-heading">Completed</h2>
+          <h2 className="userOrderList__section-title">Completed</h2>
         )}
+
         {userCompletedOrders.map((order) => (
-          <MyOrderListItem key={order._id} order={order} />
+          <UserOrderListItem key={order._id} order={order} />
         ))}
       </div>
     </div>
   );
 };
 
-export default memo(MyOrders);
+export default memo(UserOrderList);
