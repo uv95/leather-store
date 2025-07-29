@@ -5,7 +5,7 @@ import { addressReducer } from './entities/Address';
 import cartReducer from './features/cart/cartSlice';
 import { itemsReducer } from './entities/Item';
 import filtersReducer from './features/filters/filtersSlice';
-import analyticsReducer from './features/analytics/analyticsSlice';
+import { analyticsReducer } from './features/analytics';
 import { orderReducer } from './entities/Order';
 
 const store = configureStore({

@@ -1,13 +1,34 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import useGetAnalytics from '../../../hooks/useGetAnalytics';
-import { DOUGHNUT_COLORS } from '../../../shared/const/consts';
-import Spinner from '../../../shared/ui/Spinner/Spinner';
-import './ordersByCategoryReport.scss';
+import { useSelector } from 'react-redux';
 import { ItemType } from '../../../entities/Item/model/types/item';
+import {
+  getAnalyticsIsLoading,
+  getOrdersByCategory,
+  getOrdersByCategorySelector,
+} from '../../../features/analytics';
+import { useAppDispatch } from '../../../hooks';
+import { DOUGHNUT_COLORS } from '../../../shared/const/consts';
+import toast from '../../../shared/lib/toast/toast';
+import Spinner from '../../../shared/ui/Spinner/Spinner';
+import { options } from '../model/options';
+import './ordersByCategoryReport.scss';
 
 const OrdersByCategoryReport = () => {
-  const { ordersByCategory, isLoading } = useGetAnalytics();
+  const dispatch = useAppDispatch();
+  const isLoading = useSelector(getAnalyticsIsLoading);
+  const ordersByCategory = useSelector(getOrdersByCategorySelector);
+
+  useEffect(() => {
+    if (!ordersByCategory.length) {
+      dispatch(getOrdersByCategory())
+        .unwrap()
+        .then()
+        .catch((error) =>
+          toast.error(`Error getting orders by category: ${error}`)
+        );
+    }
+  }, [dispatch, ordersByCategory.length]);
 
   const labels = Object.values(ItemType);
 
@@ -59,16 +80,6 @@ const OrdersByCategoryReport = () => {
       },
     ];
   }, [revenueDataset, quantityDataset, labels]);
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
 
   if (isLoading) return <Spinner />;
 

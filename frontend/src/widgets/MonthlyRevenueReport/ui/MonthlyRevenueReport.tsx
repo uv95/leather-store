@@ -1,34 +1,33 @@
+import { useEffect, useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import useGetAnalytics from '../../../hooks/useGetAnalytics';
+import { useSelector } from 'react-redux';
+import {
+  getAnalyticsIsLoading,
+  getMonthlyRevenueData,
+  getMonthlyRevenueSelector,
+} from '../../../features/analytics';
 import { BAR_COLORS, months } from '../../../shared/const/consts';
-import { useMemo } from 'react';
 import Spinner from '../../../shared/ui/Spinner/Spinner';
+import { options } from '../model/options';
 import './monthlyRevenueReport.scss';
+import { useAppDispatch } from '../../../hooks';
+import toast from '../../../shared/lib/toast/toast';
 
 const MonthlyRevenueReport = () => {
-  const { monthlyRevenue, isLoading } = useGetAnalytics();
+  const dispatch = useAppDispatch();
+  const isLoading = useSelector(getAnalyticsIsLoading);
+  const monthlyRevenue = useSelector(getMonthlyRevenueSelector);
 
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-        },
-      },
-    },
-    elements: {
-      bar: {
-        borderWidth: 8,
-        borderColor: '#faebd700',
-      },
-    },
-  };
+  useEffect(() => {
+    if (!monthlyRevenue.length) {
+      dispatch(getMonthlyRevenueData())
+        .unwrap()
+        .then()
+        .catch((error) =>
+          toast.error(`Error getting monthly revenue: ${error}`)
+        );
+    }
+  }, [monthlyRevenue.length, dispatch]);
 
   const datasets = useMemo(
     () => [

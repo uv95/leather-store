@@ -1,8 +1,5 @@
-//ADDRESS
-
 import { Address } from '../entities/Address';
-import { Item, ItemType } from '../entities/Item/model/types/item';
-import { OrderStatus } from '../entities/Order/model/types/order';
+import { ItemType } from '../entities/Item/model/types/item';
 
 //AUTH
 
@@ -142,18 +139,4 @@ export enum SortingOptions {
   PRICE_DESCENDING = 'Price descending',
   PRICE_ASCENDING = 'Price ascending',
   DEFAULT = 'Default',
-}
-
-export interface MonthleRevenue {
-  totalRevenue: number;
-  _id: {
-    year: number;
-    month: number;
-  };
-}
-
-export interface OrdersByCategory {
-  _id: ItemType;
-  totalQuantity: number;
-  totalRevenue: number;
 }
