@@ -1,11 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
-import { adminRoutes, publicRoutes, userRoutes } from '../../../../shared/config/routeConfig/routeConfig';
+import { getUserRole, Role } from '../../../../entities/User';
 import NotFound from '../../../../pages/NotFound/NotFound';
-import { Role } from '../../../../types/data';
-import { useAppSelector } from '../../../../hooks';
+import {
+  adminRoutes,
+  publicRoutes,
+  userRoutes,
+} from '../../../../shared/config/routeConfig/routeConfig';
+import { useSelector } from 'react-redux';
 
-export const AppRouter: React.FC = () => {
-  const { role } = useAppSelector((state) => state.auth);
+export const AppRouter = () => {
+  const role = useSelector(getUserRole);
 
   return (
     <Routes>

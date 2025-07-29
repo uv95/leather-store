@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
+import { Item, ItemType } from '../../../entities/Item';
+import { getUserRole, Role } from '../../../entities/User';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import Button, {
@@ -9,10 +11,9 @@ import Button, {
 } from '../../../shared/ui/Button/Button';
 import Colors, { ColorsPosition } from '../../../shared/ui/Colors/Colors';
 import Radio from '../../../shared/ui/Radio/Radio';
-import { Color, ItemPart, LeatherType, Role } from '../../../types/data';
+import { Color, ItemPart, LeatherType } from '../../../types/data';
 import SelectColor from '../../SelectColor/SelectColor';
 import './description.scss';
-import { Item, ItemType } from '../../../entities/Item';
 
 interface DescriptionProps {
   item: Item;
@@ -21,7 +22,7 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ item }) => {
   const addItemToCart = useAddToCart();
   const navigate = useNavigate();
-  const { role } = useAppSelector((state) => state.auth);
+  const role = useSelector(getUserRole);
 
   const [openSelectLeatherColor, setOpenSelectLeatherColor] = useState(false);
   const [openSelectThreadsColor, setOpenSelectThreadsColor] = useState(false);

@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../features/auth';
 import { getCart, getCartLS } from '../features/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import toast from '../shared/lib/toast/toast';
 
 const useGetCart = () => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
-  const { user } = useAppSelector((state) => state.auth);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
-    if (user)
+    if (isLoggedIn)
       dispatch(getCart())
         .unwrap()
         .then()
         .catch((error) => toast.error(error));
-    if (!user) dispatch(getCartLS());
-  }, [dispatch, user]);
+    if (!isLoggedIn) dispatch(getCartLS());
+  }, [dispatch, isLoggedIn]);
 
   return { cart };
 };

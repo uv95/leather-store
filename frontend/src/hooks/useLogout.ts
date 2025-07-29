@@ -1,5 +1,5 @@
+import { logout } from '../entities/User';
 import { useAppDispatch } from '../hooks';
-import { logout, setRole } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 export function useLogout() {
@@ -8,7 +8,6 @@ export function useLogout() {
 
   const logoutUser = () => {
     dispatch(logout());
-    dispatch(setRole(''));
     navigate('/');
   };
 

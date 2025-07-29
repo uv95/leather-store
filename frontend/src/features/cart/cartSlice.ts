@@ -1,13 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { LOCAL_STORAGE_USER_KEY } from '../../shared/const/consts';
 import { extractErrorMessage } from '../../shared/lib/extractErrorMessage/errorMessage';
-import cartService from './cartService';
 import {
   ICart,
   ICartItem,
   ICartState,
   IUpdatedQuantity,
 } from '../../types/data';
+import cartService from './cartService';
 
 const initialState: ICartState = {
   cart: null,
@@ -19,9 +19,7 @@ export const addToCart = createAsyncThunk(
   '@@cart/add',
   async (cartItem: Partial<ICartItem>, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      return await cartService.addToCart(cartItem, token);
+      return await cartService.addToCart(cartItem);
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
@@ -30,9 +28,7 @@ export const addToCart = createAsyncThunk(
 
 export const getCart = createAsyncThunk('@@cart/get', async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as RootState;
-    const { token } = state.auth.user;
-    return await cartService.getCart(token);
+    return await cartService.getCart();
   } catch (error) {
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
@@ -42,9 +38,7 @@ export const updateCart = createAsyncThunk(
   '@@cart/update',
   async (updatedCart: Partial<ICart>, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      return await cartService.updateCart(updatedCart, token);
+      return await cartService.updateCart(updatedCart);
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
@@ -55,9 +49,7 @@ export const emptyCart = createAsyncThunk(
   '@@cart/emptyCart',
   async (_, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      return await cartService.emptyCart(token);
+      return await cartService.emptyCart();
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
@@ -67,9 +59,7 @@ export const deleteItemFromCart = createAsyncThunk(
   '@@cart/deleteItem',
   async (cartItemId: string, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      return await cartService.deleteItemFromCart(cartItemId, token);
+      return await cartService.deleteItemFromCart(cartItemId);
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }
@@ -80,9 +70,7 @@ export const changeQuantity = createAsyncThunk(
   '@@cart/changeQuantity',
   async ({ cartItemId, quantity }: IUpdatedQuantity, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      return await cartService.changeQuantity(cartItemId, quantity, token);
+      return await cartService.changeQuantity(cartItemId, quantity);
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));
     }

@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { RootState } from '../../../../../store';
 import axios from 'axios';
 import { BASE_URL } from '../../../../../shared/const/consts';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
 import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
 import { Item } from '../../types/item';
 
@@ -13,9 +12,7 @@ export const updateItem = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      const config = getAuthConfig(token);
+      const config = getAuthConfig();
       const result = await axios.patch(
         `${BASE_URL}items/${itemId}`,
         newData,

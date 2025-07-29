@@ -1,6 +1,7 @@
-import { Color, IUser } from '../../../../types/data';
+import { Color } from '../../../../types/data';
 import { Address } from '../../../Address';
 import { ItemType } from '../../../Item';
+import { User } from '../../../User';
 
 export interface Order {
   _id?: string;
@@ -14,7 +15,7 @@ export interface Order {
     price: number;
     type: ItemType;
   }[];
-  user: IUser;
+  user: User;
   total: number;
   address: Address;
   status: OrderStatus;

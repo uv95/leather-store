@@ -3,7 +3,6 @@ import axios from 'axios';
 import { BASE_URL } from '../../../../../shared/const/consts';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
 import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { RootState } from '../../../../../store';
 import { Address } from '../../types/address';
 
 export const updateAddress = createAsyncThunk(
@@ -13,9 +12,7 @@ export const updateAddress = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      const { token } = state.auth.user;
-      const config = getAuthConfig(token);
+      const config = getAuthConfig();
       const result = await axios.patch(
         `${BASE_URL}users/me/address/${addressId}`,
         newData,

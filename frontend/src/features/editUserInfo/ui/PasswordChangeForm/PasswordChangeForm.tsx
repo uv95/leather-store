@@ -7,14 +7,15 @@ import Button, {
   ButtonSize,
 } from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
-import { logout, updatePassword } from '../../../auth/authSlice';
 import './passwordChangeForm.scss';
+import { PasswordUpdateData, updatePassword } from '../../../auth';
+import { logout } from '../../../../entities/User';
 
 const PasswordChangeForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [passwordData, setPasswordData] = useState({
+  const [passwordData, setPasswordData] = useState<PasswordUpdateData>({
     passwordCurrent: '',
     password: '',
     passwordConfirm: '',

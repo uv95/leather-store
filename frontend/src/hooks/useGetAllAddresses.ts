@@ -5,25 +5,25 @@ import {
   getAllAddresses,
   getAllAddressesSelector,
 } from '../entities/Address';
-import { getUserSelector } from '../entities/User';
+import { getIsLoggedIn } from '../features/auth';
 import { useAppDispatch } from '../hooks';
 import toast from '../shared/lib/toast/toast';
 
 export function useGetAllAddresses() {
   const dispatch = useAppDispatch();
 
-  const user = useSelector(getUserSelector);
+  const isLoggedIn = useSelector(getIsLoggedIn);
   const isLoading = useSelector(getAddressIsLoading);
   const addresses = useSelector(getAllAddressesSelector);
 
   useEffect(() => {
-    if (user) {
+    if (isLoggedIn) {
       dispatch(getAllAddresses())
         .unwrap()
         .then()
         .catch((error) => toast.error(error));
     }
-  }, [dispatch, user]);
+  }, [dispatch, isLoggedIn]);
 
   return { isLoading, addresses };
 }

@@ -1,15 +1,15 @@
 import { memo, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useLogout from '../../../hooks/useLogout';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import { ConfirmationModal } from '../../ConfirmationModal';
 import './adminNavbar.scss';
 
-interface AdminNavbarProps {
-  path: string;
-}
+const AdminNavbar = () => {
+  console.log('AdminNavbar');
+  const location = useLocation();
+  const { pathname } = location;
 
-const AdminNavbar = ({ path }: AdminNavbarProps) => {
   const logoutUser = useLogout();
   const tabs = [
     { text: 'Orders', route: RoutePath.ADMIN_ORDERS },
@@ -49,7 +49,7 @@ const AdminNavbar = ({ path }: AdminNavbarProps) => {
             key={tab.text}
             to={tab.route}
             className={`${
-              tab.route === path
+              tab.route === pathname
                 ? 'header__container__admin-link-active'
                 : 'header__container__admin-link'
             }`}

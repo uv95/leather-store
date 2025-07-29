@@ -9,21 +9,23 @@ import { UserOrderList } from '../../widgets/UserOrderList';
 import { UserSidebar } from '../../widgets/UserSidebar';
 import './userProfile.scss';
 import { Tab } from '../../widgets/UserSidebar/model/tabs';
+import { getIsLoggedIn } from '../../features/auth';
 
 const UserProfile = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.MY_ORDERS);
 
   useEffect(() => {
-    if (!user) {
+    if (!isLoggedIn) {
       dispatch(getUser())
         .unwrap()
         .then()
         .catch((error) => toast.error(error));
     }
-  }, [dispatch, user]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <div className="profile">

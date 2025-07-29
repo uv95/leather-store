@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { register } from '../../features/auth/authSlice';
+import { getUserSelector } from '../../entities/User';
+import { register } from '../../features/auth';
 import { updateCart } from '../../features/cart/cartSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import toast from '../../shared/lib/toast/toast';
 import Button from '../../shared/ui/Button/Button';
@@ -10,7 +12,7 @@ import Input from '../../shared/ui/Input/Input';
 import './register.scss';
 
 const Register = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useSelector(getUserSelector);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

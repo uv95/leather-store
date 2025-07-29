@@ -1,11 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../../hooks';
+import { getAllAddressesSelector } from '../../../../entities/Address';
+import { getIsLoggedIn } from '../../../../features/auth';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
 import CheckoutAddressCard from '../CheckoutAddressCard/CheckoutAddressCard';
 import './checkoutAddressSection.scss';
-import { useSelector } from 'react-redux';
-import { getAllAddressesSelector } from '../../../../entities/Address';
 
 type CheckoutAddressSectionProps = {
   setCurrentAddressIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -17,7 +17,7 @@ const CheckoutAddressSection = ({
   currentAddressIndex,
 }: CheckoutAddressSectionProps) => {
   const addresses = useSelector(getAllAddressesSelector);
-  const { user } = useAppSelector((state) => state.auth);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   if (!addresses.length) {
     return (
@@ -26,7 +26,7 @@ const CheckoutAddressSection = ({
           Please add an address in{' '}
           <Link
             className="redLink"
-            to={user ? RoutePath.USER_PROFILE : RoutePath.LOGIN}
+            to={isLoggedIn ? RoutePath.USER_PROFILE : RoutePath.LOGIN}
           >
             personal account.
           </Link>

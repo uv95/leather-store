@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { login } from '../../features/auth/authSlice';
+import { getUserSelector, Role } from '../../entities/User';
+import { login } from '../../features/auth';
 import { updateCart } from '../../features/cart/cartSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import toast from '../../shared/lib/toast/toast';
 import Button, { ButtonColor } from '../../shared/ui/Button/Button';
 import Input from '../../shared/ui/Input/Input';
-import { Role } from '../../types/data';
 import './login.scss';
+import { LOCAL_STORAGE_USER_KEY } from '../../shared/const/consts';
 
 const Login = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useSelector(getUserSelector);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -33,7 +35,9 @@ const Login = () => {
         email: 'admin@gmail.com',
         password: 'adminadmin',
       })
-    ).then(() => navigate('/admin/orders'));
+    ).then(() => {
+      navigate('/admin/orders');
+    });
   }
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -49,7 +53,7 @@ const Login = () => {
 
     dispatch(login(formData))
       .unwrap()
-      .then((data) => {
+      .then((data: any) => {
         const { role, _id: userId } = data.data.user;
 
         if (role === Role.ADMIN) {
@@ -77,7 +81,7 @@ const Login = () => {
           navigate('/');
         }
       })
-      .catch((error) => toast.error(error));
+      .catch((error: string) => toast.error(error));
   };
 
   return (

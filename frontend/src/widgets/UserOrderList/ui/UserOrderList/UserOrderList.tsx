@@ -6,18 +6,19 @@ import {
   getUserCompletedOrders,
   getUserOrders,
 } from '../../../../entities/Order';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { getUserSelector } from '../../../../entities/User';
+import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
-import './userOrderList.scss';
 import UserOrderListItem from '../UserOrderListItem/UserOrderListItem';
+import './userOrderList.scss';
 
 const UserOrderList = () => {
   const dispatch = useAppDispatch();
   const isLoading = useSelector(getOrderIsLoading);
   const userActiveOrders = useSelector(getUserActiveOrders);
   const userCompletedOrders = useSelector(getUserCompletedOrders);
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useSelector(getUserSelector);
 
   const userOrders = useMemo(
     () => [...userActiveOrders, ...userCompletedOrders],
@@ -25,7 +26,7 @@ const UserOrderList = () => {
   );
 
   useEffect(() => {
-    if (userOrders.some((order) => typeof order.address === 'string'))
+    if (userOrders.some((order) => typeof order.address === 'string') && user)
       dispatch(getUserOrders(user._id))
         .unwrap()
         .then()

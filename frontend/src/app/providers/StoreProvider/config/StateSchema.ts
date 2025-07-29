@@ -3,6 +3,7 @@ import { ItemsSchema } from '../../../../entities/Item';
 import { OrderSchema } from '../../../../entities/Order/model/types/order';
 import { UserSchema } from '../../../../entities/User/model/types/user';
 import { AnalyticsSchema } from '../../../../features/analytics';
+import { AuthSchema } from '../../../../features/auth';
 
 export interface StateSchema {
   items: ItemsSchema;
@@ -10,4 +11,5 @@ export interface StateSchema {
   orders: OrderSchema;
   analytics: AnalyticsSchema;
   user: UserSchema;
+  auth: AuthSchema;
 }

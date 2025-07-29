@@ -14,10 +14,12 @@ import Modal from '../../shared/ui/Modal/Modal';
 import { ICartItem } from '../../types/data';
 import './cart.scss';
 import { CheckoutAddressSection } from '../../widgets/CheckoutAddressSection';
+import { getUserSelector } from '../../entities/User';
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useSelector(getUserSelector);
   const { isLoading, cart } = useAppSelector((state) => state.cart);
   const { isLoading: isOrderLoading, status } = useAppSelector(
     (state) => state.orders
@@ -49,8 +51,8 @@ const Cart = () => {
   );
 
   function handleCartButton() {
-    if (isSelectAddressOpen && cart) {
-      const cartData = {
+    if (isSelectAddressOpen && cart && user) {
+      const cartData: Omit<Order, 'createdAt'> = {
         items: cart.items.map((cartItem: ICartItem) => ({
           name: cartItem.item.name,
           colors: cartItem.colors,

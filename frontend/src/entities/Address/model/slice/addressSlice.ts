@@ -5,7 +5,7 @@ import { getAddress } from '../services/getAddress/getAddress';
 import { addAddress } from '../services/addAddress/addAddress';
 import { getAllAddresses } from '../services/getAllAddresses/getAllAddresses';
 import { updateAddress } from '../services/updateAddress/updateAddress';
-import { logout } from '../../../../features/auth/authSlice';
+import { logout } from '../../../User';
 
 const initialState: AddressSchema = {
   addresses: [],

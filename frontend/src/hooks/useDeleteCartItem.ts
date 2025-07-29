@@ -1,21 +1,23 @@
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../features/auth';
 import {
   deleteItemFromCart,
   deleteItemFromCartLS,
 } from '../features/cart/cartSlice';
+import { useAppDispatch } from '../hooks';
 import toast from '../shared/lib/toast/toast';
 
 export function useDeleteCartItem() {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   const deleteCartItem = (cartItemId: string) => {
-    if (user)
+    if (isLoggedIn)
       dispatch(deleteItemFromCart(cartItemId))
         .unwrap()
         .then()
         .catch((error) => toast.error(error));
-    if (!user) dispatch(deleteItemFromCartLS(cartItemId));
+    if (!isLoggedIn) dispatch(deleteItemFromCartLS(cartItemId));
   };
 
   return deleteCartItem;

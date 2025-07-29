@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOCAL_STORAGE_USER_KEY } from '../../../../shared/const/consts';
 import { getUser } from '../services/getUser/getUser';
 import { updateUser } from '../services/updateUser/updateUser';
-import { UserSchema } from '../types/user';
+import { User, UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
   user: undefined,
@@ -11,7 +12,15 @@ const initialState: UserSchema = {
 export const userSlice = createSlice({
   name: '@@user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, { payload }: PayloadAction<User>) => {
+      state.user = payload;
+    },
+    logout: (state) => {
+      state.user = undefined;
+      localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
@@ -37,5 +46,7 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { logout, setUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,29 +1,32 @@
-import { Suspense } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { Suspense, useEffect } from 'react';
 import ScrollToTop from '../components/ScrollToTop';
-import store from '../store';
 import Toast from '../shared/ui/Toast/Toast';
-import './styles/index.scss';
-import { ErrorBoundary } from './providers/ErrorBoundary';
-import { AppRouter } from './providers/router';
 import { MainLayout } from '../widgets/MainLayout';
+import { AppRouter } from './providers/router';
+import './styles/index.scss';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../features/auth';
+import { useAppDispatch } from '../hooks';
+import { getUser } from '../entities/User';
 
 const App = () => {
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getUser());
+    }
+  }, [isLoggedIn, dispatch]);
+
   return (
-    <ErrorBoundary>
-      <Provider store={store}>
-        <Toast />
-        <BrowserRouter>
-          <MainLayout>
-            <Suspense>
-              <ScrollToTop />
-              <AppRouter />
-            </Suspense>
-          </MainLayout>
-        </BrowserRouter>
-      </Provider>
-    </ErrorBoundary>
+    <Suspense>
+      <Toast />
+      <ScrollToTop />
+      <MainLayout>
+        <AppRouter />
+      </MainLayout>
+    </Suspense>
   );
 };
 

@@ -1,21 +1,34 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getUserActiveOrders, getUserOrders } from '../../../entities/Order';
+import { getUserRole, getUserSelector, Role } from '../../../entities/User';
+import useGetCart from '../../../hooks/useGetCart';
 import cartIcon from '../../../shared/assets/icons/cart.svg';
 import login from '../../../shared/assets/icons/sign-in.svg';
 import userIcon from '../../../shared/assets/icons/user.svg';
-import { ICart, Role } from '../../../types/data';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import Badge from '../../../shared/ui/Badge/Badge';
 import './header.scss';
-import { Order } from '../../../entities/Order';
+import { useAppDispatch } from '../../../hooks';
+import toast from '../../../shared/lib/toast/toast';
 
-interface HeaderProps {
-  role: Role;
-  myActiveOrders: Order[];
-  cart: ICart | null;
-}
+const Header = () => {
+  const dispatch = useAppDispatch();
 
-const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
+  const user = useSelector(getUserSelector);
+  const role = useSelector(getUserRole);
+  const { cart } = useGetCart();
+
+  useEffect(() => {
+    if (role === Role.USER && user?._id) {
+      dispatch(getUserOrders(user?._id))
+        .unwrap()
+        .then()
+        .catch((error: string) => toast.error(error));
+    }
+  }, [dispatch, user?._id, role]);
+
   return (
     <>
       <div className="header__container-inner">
@@ -29,7 +42,7 @@ const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
           >
             CATALOG
           </Link>
-          <UserOrAdminLink role={role} myActiveOrders={myActiveOrders} />
+          <UserOrAdminLink />
 
           {role !== Role.ADMIN && (
             <Link to={RoutePath.CART} className="link-cart">
@@ -51,15 +64,13 @@ const Header = ({ role, myActiveOrders, cart }: HeaderProps) => {
 
 export default memo(Header);
 
-function UserOrAdminLink({
-  role,
-  myActiveOrders,
-}: {
-  role: Role;
-  myActiveOrders: Order[];
-}) {
+function UserOrAdminLink() {
+  const user = useSelector(getUserSelector);
+  const role = useSelector(getUserRole);
+  const userActiveOrders = useSelector(getUserActiveOrders);
+
   const getHref = (role: Role) => {
-    if (!role) {
+    if (!user) {
       return RoutePath.LOGIN;
     }
     return role === Role.USER ? RoutePath.USER_PROFILE : RoutePath.ADMIN_ORDERS;
@@ -72,12 +83,12 @@ function UserOrAdminLink({
       ) : (
         <>
           <img
-            src={!role ? login : userIcon}
+            src={!user ? login : userIcon}
             className="header__container-inner__nav-icon"
-            alt={role ? 'login' : 'user_profile'}
+            alt={!user ? 'login' : 'user_profile'}
           />
-          {role && myActiveOrders.length !== 0 && (
-            <Badge value={myActiveOrders.length} />
+          {user && userActiveOrders.length !== 0 && (
+            <Badge value={userActiveOrders.length} />
           )}
         </>
       )}
