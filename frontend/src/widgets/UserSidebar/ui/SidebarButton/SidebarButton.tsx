@@ -1,15 +1,24 @@
+import { Tab } from '../../model/tabs';
 import './sidebarButton.scss';
 
 interface SidebarButtonProps {
-  text: string;
+  text: Tab;
   onClick: () => void;
   isActive: boolean;
   icon: string;
 }
 
-const SidebarButton = ({ text, onClick, isActive, icon }: SidebarButtonProps) => {
+const SidebarButton = ({
+  text,
+  onClick,
+  isActive,
+  icon,
+}: SidebarButtonProps) => {
   return (
-    <div onClick={onClick} className={`sidebarButton ${isActive ? 'sidebarButton--active' : ''}`}>
+    <div
+      onClick={onClick}
+      className={`sidebarButton ${isActive ? 'sidebarButton--active' : ''}`}
+    >
       <div className="sidebarButton-icon">
         <img src={icon} alt={text} />
       </div>

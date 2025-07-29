@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import toast from '../shared/lib/toast/toast';
 import { useSelector } from 'react-redux';
 import {
   getAddressIsLoading,
   getAllAddresses,
   getAllAddressesSelector,
 } from '../entities/Address';
+import { getUserSelector } from '../entities/User';
+import { useAppDispatch } from '../hooks';
+import toast from '../shared/lib/toast/toast';
 
 export function useGetAllAddresses() {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+
+  const user = useSelector(getUserSelector);
   const isLoading = useSelector(getAddressIsLoading);
   const addresses = useSelector(getAllAddressesSelector);
 

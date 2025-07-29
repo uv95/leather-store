@@ -1,22 +1,14 @@
-import React, { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import useLogout from '../../../../hooks/useLogout';
-import location from '../../../../shared/assets/icons/location.svg';
 import logoutsvg from '../../../../shared/assets/icons/logout.svg';
-import orders from '../../../../shared/assets/icons/orders.svg';
-import portrait from '../../../../shared/assets/icons/portrait.svg';
 import { ConfirmationModal } from '../../../ConfirmationModal';
+import { Tab, tabs } from '../../model/tabs';
 import SidebarButton from '../SidebarButton/SidebarButton';
 
 interface UserSidebarProps {
-  currentTab: string;
-  setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
+  currentTab: Tab;
+  setCurrentTab: (arg: Tab) => void;
 }
-
-const tabs = [
-  { text: 'My Orders', icon: orders },
-  { text: 'Delivery Addresses', icon: location },
-  { text: 'My Info', icon: portrait },
-];
 
 const UserSidebar = memo(({ setCurrentTab, currentTab }: UserSidebarProps) => {
   const logoutUser = useLogout();
@@ -52,8 +44,8 @@ const UserSidebar = memo(({ setCurrentTab, currentTab }: UserSidebarProps) => {
           />
         ))}
         <SidebarButton
-          text={'Log out'}
-          isActive={currentTab === 'Log out'}
+          text={Tab.LOG_OUT}
+          isActive={currentTab === Tab.LOG_OUT}
           icon={logoutsvg}
           onClick={onOpenModal}
         />

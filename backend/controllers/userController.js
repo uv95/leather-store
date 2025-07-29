@@ -58,7 +58,7 @@ exports.createUser = (req, res) => {
 
 exports.getAllUsers = factory.getAll(User);
 exports.getOneUser = factory.getOne(User, {
-  path: 'address cart',
+  path: 'cart',
 });
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);

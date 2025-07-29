@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useSelector } from 'react-redux';
+import { getUserSelector, updateUser } from '../../../../entities/User';
+import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Button, {
   ButtonColor,
   ButtonSize,
 } from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
-import { updateMe } from '../../../user/userSlice';
 import './personalInfoForm.scss';
 
 const PersonalInfoForm = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const user = useSelector(getUserSelector);
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ const PersonalInfoForm = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateMe(formData))
+    dispatch(updateUser(formData))
       .unwrap()
       .then(() => toast.success('Personal info updated'))
       .catch((error) => toast.error(error));

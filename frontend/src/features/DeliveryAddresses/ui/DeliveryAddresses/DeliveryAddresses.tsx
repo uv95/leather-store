@@ -1,7 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getAddressIsLoading,
+  getAllAddresses,
   getAllAddressesSelector,
 } from '../../../../entities/Address';
 import Button, {
@@ -14,8 +15,12 @@ import AddAddressForm from '../DeliveryAddressForm/AddAddressForm/AddAddressForm
 import EditAddressForm from '../DeliveryAddressForm/EditAddressForm/EditAddressForm';
 import DeliveryAddressList from '../DeliveryAddressList/DeliveryAddressList';
 import './deliveryAddresses.scss';
+import toast from '../../../../shared/lib/toast/toast';
+import { useAppDispatch } from '../../../../hooks';
 
 const DeliveryAddresses = () => {
+  const dispatch = useAppDispatch();
+
   const isLoading = useSelector(getAddressIsLoading);
   const addresses = useSelector(getAllAddressesSelector);
 
@@ -42,6 +47,15 @@ const DeliveryAddresses = () => {
       setIsFormOpen(true);
     }
   }, [isFormOpen, onCloseForm]);
+
+  useEffect(() => {
+    if (!addresses.length) {
+      dispatch(getAllAddresses())
+        .unwrap()
+        .then()
+        .catch((error) => toast.error(error));
+    }
+  }, [dispatch, addresses.length]);
 
   if (isLoading) return <Spinner />;
 

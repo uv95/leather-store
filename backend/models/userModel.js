@@ -67,11 +67,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.virtual('address', {
-  ref: 'Address',
-  foreignField: 'user',
-  localField: '_id',
-});
+// userSchema.virtual('address', {
+//   ref: 'Address',
+//   foreignField: 'user',
+//   localField: '_id',
+// });
 userSchema.virtual('cart', {
   ref: 'Cart',
   foreignField: 'user',
