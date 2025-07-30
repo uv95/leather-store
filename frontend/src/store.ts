@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './features/auth';
 import { userReducer } from './entities/User';
 import { addressReducer } from './entities/Address';
-import cartReducer from './features/cart/cartSlice';
+import { cartReducer } from './entities/Cart';
 import { itemsReducer } from './entities/Item';
 import filtersReducer from './features/filters/filtersSlice';
 import { analyticsReducer } from './features/analytics';

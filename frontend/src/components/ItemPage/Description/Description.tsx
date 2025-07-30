@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Item, ItemType } from '../../../entities/Item';
 import { getUserRole, Role } from '../../../entities/User';
-import { useAddToCart } from '../../../hooks/useAddToCart';
+import { useAddToCart } from '../../../features/cart/api/useAddToCart';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import Button, {
   ButtonColor,

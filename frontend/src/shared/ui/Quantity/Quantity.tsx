@@ -1,20 +1,19 @@
-import React from 'react';
 import './quantity.scss';
 
-type IQuantity = {
-  reduce: () => void;
+interface IQuantity {
+  onDecrement: () => void;
   quantity: number;
-  increase: () => void;
-};
+  onIncrement: () => void;
+}
 
-const Quantity: React.FC<IQuantity> = ({ reduce, quantity, increase }) => {
+const Quantity = ({ onDecrement, quantity, onIncrement }: IQuantity) => {
   return (
     <div className="quantity">
-      <div className="quantity__cell" onClick={reduce}>
+      <div className="quantity__cell" onClick={onDecrement}>
         -
       </div>
       <div className="quantity__cell-num">{quantity}</div>
-      <div className="quantity__cell" onClick={increase}>
+      <div className="quantity__cell" onClick={onIncrement}>
         +
       </div>
     </div>

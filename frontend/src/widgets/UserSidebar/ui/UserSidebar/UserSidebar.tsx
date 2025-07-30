@@ -1,6 +1,5 @@
 import { memo, useCallback, useState } from 'react';
 import useLogout from '../../../../hooks/useLogout';
-import logoutsvg from '../../../../shared/assets/icons/logout.svg';
 import { ConfirmationModal } from '../../../ConfirmationModal';
 import { Tab, tabs } from '../../model/tabs';
 import SidebarButton from '../SidebarButton/SidebarButton';
@@ -40,15 +39,11 @@ const UserSidebar = memo(({ setCurrentTab, currentTab }: UserSidebarProps) => {
             text={tab.text}
             isActive={currentTab === tab.text}
             icon={tab.icon}
-            onClick={() => setCurrentTab(tab.text)}
+            onClick={() =>
+              tab.text === Tab.LOG_OUT ? onOpenModal() : setCurrentTab(tab.text)
+            }
           />
         ))}
-        <SidebarButton
-          text={Tab.LOG_OUT}
-          isActive={currentTab === Tab.LOG_OUT}
-          icon={logoutsvg}
-          onClick={onOpenModal}
-        />
       </div>
     </>
   );

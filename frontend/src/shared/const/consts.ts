@@ -31,6 +31,7 @@ export const BAR_COLORS = [
 export const DOUGHNUT_COLORS = ['#7787f9', '#a68dcf', '#d28da2'];
 
 export const LOCAL_STORAGE_USER_KEY = 'leather-store-user';
+export const LOCAL_STORAGE_CART = 'leather-store-cart';
 
 export const BASE_URL =
   process.env.NODE_ENV === 'development'

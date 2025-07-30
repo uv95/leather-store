@@ -1,24 +1,24 @@
 import { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getCartItemsQuantity } from '../../../entities/Cart/model/selectors/getCartItemsQuantity/getCart';
 import { getUserActiveOrders, getUserOrders } from '../../../entities/Order';
 import { getUserRole, getUserSelector, Role } from '../../../entities/User';
-import useGetCart from '../../../hooks/useGetCart';
+import { useAppDispatch } from '../../../hooks';
 import cartIcon from '../../../shared/assets/icons/cart.svg';
 import login from '../../../shared/assets/icons/sign-in.svg';
 import userIcon from '../../../shared/assets/icons/user.svg';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import toast from '../../../shared/lib/toast/toast';
 import Badge from '../../../shared/ui/Badge/Badge';
 import './header.scss';
-import { useAppDispatch } from '../../../hooks';
-import toast from '../../../shared/lib/toast/toast';
 
 const Header = () => {
   const dispatch = useAppDispatch();
 
   const user = useSelector(getUserSelector);
   const role = useSelector(getUserRole);
-  const { cart } = useGetCart();
+  const cartItemsQuantity = useSelector(getCartItemsQuantity);
 
   useEffect(() => {
     if (role === Role.USER && user?._id) {
@@ -51,9 +51,7 @@ const Header = () => {
                 className="header__container-inner__nav-icon "
                 alt="cart"
               />
-              {cart && cart?.items.length !== 0 && (
-                <Badge value={cart.totalQuantity} />
-              )}
+              {cartItemsQuantity !== 0 && <Badge value={cartItemsQuantity} />}
             </Link>
           )}
         </div>

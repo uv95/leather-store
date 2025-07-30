@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { getUserSelector, Role } from '../../entities/User';
 import { login } from '../../features/auth';
-import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import toast from '../../shared/lib/toast/toast';
 import Button, { ButtonColor } from '../../shared/ui/Button/Button';
 import Input from '../../shared/ui/Input/Input';
 import './login.scss';
-import { LOCAL_STORAGE_USER_KEY } from '../../shared/const/consts';
+import { updateCart } from '../../entities/Cart';
+import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 
 const Login = () => {
   const user = useSelector(getUserSelector);
@@ -61,8 +61,8 @@ const Login = () => {
           return;
         }
 
-        const cart = localStorage.getItem('cart')
-          ? JSON.parse(localStorage.getItem('cart')!)
+        const cart = localStorage.getItem(LOCAL_STORAGE_CART)
+          ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
           : null;
 
         if (cart) {
@@ -74,7 +74,7 @@ const Login = () => {
           )
             .unwrap()
             .then((_) => {
-              localStorage.removeItem('cart');
+              localStorage.removeItem(LOCAL_STORAGE_CART);
               navigate('/');
             });
         } else {

@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../features/auth';
-import { changeQuantity, changeQuantityLS } from '../features/cart/cartSlice';
-import { useAppDispatch } from '../hooks';
-import toast from '../shared/lib/toast/toast';
-import { IQuantity } from '../types/data';
-import useDebounce from './useDebounce';
+import { getIsLoggedIn } from '../../auth';
+import { useAppDispatch } from '../../../hooks';
+import toast from '../../../shared/lib/toast/toast';
+import { IQuantity } from '../../../types/data';
+import useDebounce from '../../../hooks/useDebounce';
+import { changeQuantity, changeQuantityLS } from '../../../entities/Cart';
 
 export function useChangeQuantity() {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export function useChangeQuantity() {
         dispatch(changeQuantity({ cartItemId, quantity }))
           .unwrap()
           .then()
-          .catch((error) => toast.error(error));
+          .catch((error: string) => toast.error(error));
       }
       if (!isLoggedIn) {
         dispatch(changeQuantityLS({ cartItemId, ...quantity }));

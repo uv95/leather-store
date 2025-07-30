@@ -1,4 +1,4 @@
-import { Item, ItemType, ItemsSchema } from './model/types/item';
+import { Item, ItemType, ItemsSchema, Image } from './model/types/item';
 import itemsReducer from './model/slice/itemsSlice';
 import { getFilteredItems } from './model/selectors/getFilteredItems/getFilteredItems';
 import { getItem } from './model/selectors/getItem/getItem';
@@ -13,6 +13,7 @@ export {
   type Item,
   ItemType,
   type ItemsSchema,
+  type Image,
   itemsReducer,
   getFilteredItems,
   getItem,

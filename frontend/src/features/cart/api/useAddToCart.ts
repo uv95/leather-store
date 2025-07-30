@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../features/auth';
-import { addToCart, addToCartLS } from '../features/cart/cartSlice';
-import { useAppDispatch } from '../hooks';
-import toast from '../shared/lib/toast/toast';
-import { ICartItem } from '../types/data';
+import { getIsLoggedIn } from '../../auth';
+import { addToCart, addToCartLS } from '../../../entities/Cart';
+import { useAppDispatch } from '../../../hooks';
+import toast from '../../../shared/lib/toast/toast';
+import { ICartItem } from '../../../types/data';
 
 export function useAddToCart() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export function useAddToCart() {
       dispatch(addToCart(item))
         .unwrap()
         .then()
-        .catch((error) => toast.error(error));
+        .catch((error: string) => toast.error(error));
     }
     if (!isLoggedIn) {
       dispatch(addToCartLS(item));

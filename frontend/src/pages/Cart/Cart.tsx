@@ -1,26 +1,32 @@
 import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartButton from '../../components/Cart/CartButton/CartButton';
-import CartItem from '../../components/Cart/CartItem/CartItem';
 import CartLayout from '../../components/layouts/CartLayout/CartLayout';
 import { createOrder } from '../../entities/Order';
 import { Order, OrderStatus } from '../../entities/Order/model/types/order';
-import { emptyCart } from '../../features/cart/cartSlice';
+import { getUserSelector } from '../../entities/User';
+import CartItemList from '../../features/cart/ui/CartItemList/CartItemList';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import toast from '../../shared/lib/toast/toast';
 import Modal from '../../shared/ui/Modal/Modal';
 import { ICartItem } from '../../types/data';
-import './cart.scss';
 import { CheckoutAddressSection } from '../../widgets/CheckoutAddressSection';
-import { getUserSelector } from '../../entities/User';
-import { useSelector } from 'react-redux';
+import './cart.scss';
+import {
+  emptyCart,
+  getCartIsLoading,
+  getCartSelector,
+} from '../../entities/Cart';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
-  const { isLoading, cart } = useAppSelector((state) => state.cart);
+  const isLoading = useSelector(getCartIsLoading);
+  const cart = useSelector(getCartSelector);
+
   const { isLoading: isOrderLoading, status } = useAppSelector(
     (state) => state.orders
   );
@@ -100,18 +106,7 @@ const Cart = () => {
 
       <CartLayout isCartEmpty={isCartEmpty} isLoading={isLoading}>
         <>
-          <div className="cart__container__order">
-            <div className="cart__container__order__items">
-              {cart?.items.map((item: ICartItem) => {
-                const key =
-                  item.item.name + item.leather + JSON.stringify(item.colors);
-                return <CartItem key={key} item={item} />;
-              })}
-            </div>
-            <div className="cart__container__order__total">
-              <p>Total: ${cart?.total}</p>
-            </div>
-          </div>
+          <CartItemList />
           {isSelectAddressOpen && (
             <CheckoutAddressSection
               setCurrentAddressIndex={setCurrentAddressIndex}

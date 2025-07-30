@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { getUserSelector } from '../../entities/User';
 import { register } from '../../features/auth';
-import { updateCart } from '../../features/cart/cartSlice';
 import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import toast from '../../shared/lib/toast/toast';
 import Button from '../../shared/ui/Button/Button';
 import Input from '../../shared/ui/Input/Input';
 import './register.scss';
+import { updateCart } from '../../entities/Cart';
+import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 
 const Register = () => {
   const user = useSelector(getUserSelector);
@@ -44,16 +45,16 @@ const Register = () => {
     dispatch(register(formData))
       .unwrap()
       .then((data) => {
-        JSON.parse(localStorage.getItem('cart')!)
+        JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
           ? dispatch(
               updateCart({
-                ...JSON.parse(localStorage.getItem('cart')!),
+                ...JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!),
                 user: data.data.user._id,
               })
             )
               .unwrap()
               .then((_) => {
-                localStorage.removeItem('cart');
+                localStorage.removeItem(LOCAL_STORAGE_CART);
                 navigate('/');
               })
           : navigate(-1);
