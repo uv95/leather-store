@@ -4,6 +4,7 @@ import {
   CartSchema,
   Quantity,
   UpdatedQuantity,
+  ItemColors,
 } from './model/types/cart';
 import { getCart } from './model/services/getCart/getCart';
 import { addToCart } from './model/services/addToCart/addToCart';
@@ -27,6 +28,7 @@ export {
   type CartSchema,
   type Quantity,
   type UpdatedQuantity,
+  type ItemColors,
   getCart,
   addToCart,
   changeQuantity,

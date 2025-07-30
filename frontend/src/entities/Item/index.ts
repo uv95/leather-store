@@ -8,6 +8,8 @@ import { deleteItem } from './model/services/deleteItem/deleteItem';
 import { getAllItems } from './model/services/getAllItems/getAllItems';
 import { getItemBySlug } from './model/services/getItemBySlug/getItemBySlug';
 import { updateItem } from './model/services/updateItem/updateItem';
+import ItemImage from './ui/ItemImage/ItemImage';
+import ItemInfo from './ui/ItemInfo/ItemInfo';
 
 export {
   type Item,
@@ -23,4 +25,6 @@ export {
   getAllItems,
   getItemBySlug,
   updateItem,
+  ItemImage,
+  ItemInfo,
 };

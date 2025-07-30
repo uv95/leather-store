@@ -1,0 +1,38 @@
+@import '../../app/styles/mixins/global.scss';
+
+.Item {
+  @include main-block;
+  @include header-footer;
+  margin-top: 2rem;
+}
+
+.container {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  @include max900 {
+    @include list;
+  }
+
+  & .spinner {
+    height: 24rem;
+  }
+}
+.itemImage {
+  max-width: 50rem;
+  width: 50%;
+  display: flex;
+  @include max900 {
+    max-width: 40rem;
+    width: 100%;
+  }
+}
+.itemInfo {
+  width: 48%;
+  @include max900 {
+    width: 100%;
+  }
+}

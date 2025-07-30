@@ -1,4 +1,4 @@
-@import '../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
 .background {
   background-color: var(--color-grey--transparent);
@@ -8,6 +8,12 @@
   top: -10%;
   left: 0;
   z-index: 999;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .color {
@@ -68,12 +74,12 @@
         padding: 0.5rem;
       }
 
-      &:not(.color__container__box-checked):hover {
+      &:not(.color__container__box_checked):hover {
         background-color: var(--color-grey--light);
         outline: 0;
       }
 
-      &-text {
+      &_text {
         font-size: 2rem;
         @include max500 {
           font-size: 1.7rem;
@@ -83,7 +89,7 @@
         }
       }
 
-      &-checked {
+      &_checked {
         background-color: var(--color-grey--light);
         outline: 1px solid var(--color-grey--dark);
         outline-offset: -1px;

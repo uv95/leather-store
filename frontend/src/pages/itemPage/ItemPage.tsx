@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Description from '../../components/ItemPage/Description/Description';
-import Image from '../../components/ItemPage/Image/Image';
+import {
+  getItem,
+  getItemBySlug,
+  getItemsIsLoading,
+  ItemImage,
+  ItemInfo,
+} from '../../entities/Item';
 import { useAppDispatch } from '../../hooks';
-import toast from '../../shared/lib/toast/toast';
 import Back from '../../shared/ui/Back/Back';
 import Spinner from '../../shared/ui/Spinner/Spinner';
-import './itemPage.scss';
-import { getItem, getItemsIsLoading, getItemBySlug } from '../../entities/Item';
+import styles from './ItemPage.module.scss';
 
 const ItemPage = () => {
   const dispatch = useAppDispatch();
@@ -18,34 +21,28 @@ const ItemPage = () => {
 
   useEffect(() => {
     if (slug) {
-      dispatch(getItemBySlug(slug))
-        .unwrap()
-        .then()
-        .catch((error) => toast.error(error));
+      dispatch(getItemBySlug(slug));
     }
   }, [dispatch, slug]);
 
-  if (isLoading) {
-    return (
-      <div className="item">
-        <Back />
-        <div className="item__container">
-          <Spinner />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="item">
+    <div className={styles.Item}>
       <Back />
-      <div className="item__container">
-        <div className="item__container__left">
-          {item && <Image item={item} />}
-        </div>
-        <div className="item__container__right">
-          {item && <Description item={item} />}
-        </div>
+      <div className={styles.container}>
+        {isLoading && <Spinner />}
+
+        {!item && <p>Item not found!</p>}
+
+        {item && !isLoading && (
+          <>
+            <div className={styles.itemImage}>
+              <ItemImage item={item} />
+            </div>
+            <div className={styles.itemInfo}>
+              <ItemInfo item={item} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

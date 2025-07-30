@@ -1,13 +1,17 @@
-@import '../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
+
+.ItemImage {
+  position: relative;
+}
 
 .slider {
   display: flex;
   overflow: hidden;
+}
 
-  &-img {
-    width: 100%;
-    transition: transform 0.5s;
-  }
+.sliderImage {
+  width: 100%;
+  transition: transform 0.5s;
 }
 
 .leftArrow,

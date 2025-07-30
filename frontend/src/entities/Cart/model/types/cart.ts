@@ -11,11 +11,13 @@ export interface CartItem {
     type: ItemType;
   };
   quantity: number;
-  colors: {
-    leatherColor: Color;
-    threadsColor: Color;
-  };
+  colors: ItemColors;
   leather: string;
+}
+
+export interface ItemColors {
+  leatherColor: Color;
+  threadsColor: Color;
 }
 
 export interface Cart {
