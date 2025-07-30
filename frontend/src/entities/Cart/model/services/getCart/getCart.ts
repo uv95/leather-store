@@ -8,7 +8,6 @@ export const getCart = createAsyncThunk('@@cart/get', async (_, thunkAPI) => {
   try {
     const config = getAuthConfig();
     const result = await axios.get(`${BASE_URL}cart`, config);
-    console.log('getCart', result.data);
 
     return result.data;
   } catch (error) {

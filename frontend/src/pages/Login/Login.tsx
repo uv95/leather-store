@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { updateCart } from '../../entities/Cart';
 import { getUserSelector, Role } from '../../entities/User';
-import { login } from '../../features/auth';
+import { getAuthIsLoading, login } from '../../features/auth';
 import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
-import Button, { ButtonColor } from '../../shared/ui/Button/Button';
+import ButtonRedesigned, { ButtonTheme } from '../../shared/ui/Button/Button';
 import Input from '../../shared/ui/Input/Input';
 import './login.scss';
-import { updateCart } from '../../entities/Cart';
-import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 
 const Login = () => {
   const user = useSelector(getUserSelector);
+  const isLoading = useSelector(getAuthIsLoading);
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -23,7 +25,13 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
 
-  if (user) {
+  useEffect(() => {
+    if (user?.role === Role.ADMIN) {
+      navigate('/admin/orders');
+    }
+  }, [user?.role, navigate]);
+
+  if (user?.role === Role.USER) {
     return <Navigate to="/profile" replace />;
   }
 
@@ -35,9 +43,7 @@ const Login = () => {
         email: 'admin@gmail.com',
         password: 'adminadmin',
       })
-    ).then(() => {
-      navigate('/admin/orders');
-    });
+    );
   }
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -114,14 +120,22 @@ const Login = () => {
               />
             </div>
             <div className="login__container__form__bottom">
-              <Button type="submit">Login</Button>
-              <Button
+              <ButtonRedesigned
+                className="button-long"
+                type="submit"
+                disabled={isLoading}
+              >
+                Login
+              </ButtonRedesigned>
+              <ButtonRedesigned
                 type="button"
                 onClick={loginAsAdmin}
-                color={ButtonColor.BLACK}
+                theme={ButtonTheme.BLACK}
+                className="button-long"
+                disabled={isLoading}
               >
                 Login as Admin
-              </Button>
+              </ButtonRedesigned>
               <Link to={''}>Forgot password?</Link>
               <Link to={RoutePath.REGISTRATION} className="redLink">
                 Register

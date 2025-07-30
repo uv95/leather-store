@@ -6,7 +6,6 @@ import { ConfirmationModal } from '../../ConfirmationModal';
 import './adminNavbar.scss';
 
 const AdminNavbar = () => {
-  console.log('AdminNavbar');
   const location = useLocation();
   const { pathname } = location;
 

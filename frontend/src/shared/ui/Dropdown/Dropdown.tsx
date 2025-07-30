@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import Button from '../Button/Button';
 import './dropdown.scss';
+import ButtonRedesigned from '../Button/Button';
 
 interface DropdownProps {
   children: ReactNode;
@@ -12,7 +13,10 @@ const Dropdown = ({ children, buttonText }: DropdownProps) => {
 
   return (
     <div className="dropdown-container">
-      <Button onClick={() => setOpen(!open)}>{buttonText}</Button>
+      <ButtonRedesigned onClick={() => setOpen(!open)}>
+        {buttonText}
+      </ButtonRedesigned>
+
       {open && (
         <>
           <div

@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import './button.scss';
+import { classNames, Mods } from '../../lib/classNames/classNames';
+import styles from './Button.module.scss';
 
 export enum ButtonSize {
   L = 'l',
@@ -7,43 +8,49 @@ export enum ButtonSize {
   S = 's',
 }
 
-export enum ButtonColor {
+export enum ButtonTheme {
   BLACK = 'black',
   GREY = 'grey',
   CLEAR = 'clear',
+  OUTLINE = 'outline',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  color?: ButtonColor;
+  theme?: ButtonTheme;
   size?: ButtonSize;
-  square?: boolean;
+  isSquare?: boolean;
   isAnimated?: boolean;
-  classNames?: string;
+  className?: string;
 }
 
 const Button = (props: ButtonProps) => {
   const {
     children,
-    color = ButtonColor.GREY,
+    theme = ButtonTheme.GREY,
     size = ButtonSize.M,
     isAnimated,
-    square,
+    isSquare,
     disabled,
-    classNames,
+    className,
     onClick,
     ...otherProps
   } = props;
 
+  const mods: Mods = {
+    [styles.square]: isSquare,
+    [styles.disabled]: disabled,
+    [styles.animated]: isAnimated,
+  };
+
   return (
     <button
       onClick={onClick}
-      className={`button button-${color} 
-      ${classNames ? classNames : ''} 
-      button-${size} 
-      ${isAnimated ? 'button--animated' : ''} 
-      ${square ? 'button--square' : ''} 
-      ${disabled ? `button-${color}--disabled` : ''}`}
+      className={classNames(styles.Button, mods, [
+        className,
+        styles[theme],
+        styles[size],
+      ])}
       disabled={disabled}
       {...otherProps}
     >

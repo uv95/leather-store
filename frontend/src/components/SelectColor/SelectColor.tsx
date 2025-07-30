@@ -1,6 +1,6 @@
 import React from 'react';
 import { Color, HexColor, ItemPart } from '../../types/data';
-import Button, { ButtonColor, ButtonSize } from '../../shared/ui/Button/Button';
+import Button, { ButtonTheme, ButtonSize } from '../../shared/ui/Button/Button';
 import './selectColor.scss';
 
 interface SelectColorProps {
@@ -55,7 +55,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
           ))}
         </div>
         <Button
-          color={ButtonColor.BLACK}
+          theme={ButtonTheme.BLACK}
           size={ButtonSize.L}
           onClick={() => setOpenSelectColor(false)}
         >

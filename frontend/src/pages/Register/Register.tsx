@@ -11,6 +11,7 @@ import Input from '../../shared/ui/Input/Input';
 import './register.scss';
 import { updateCart } from '../../entities/Cart';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
+import ButtonRedesigned from '../../shared/ui/Button/Button';
 
 const Register = () => {
   const user = useSelector(getUserSelector);
@@ -125,7 +126,9 @@ const Register = () => {
               />
             </div>
             <div className="register__container__form__bottom">
-              <Button type="submit">Register</Button>
+              <ButtonRedesigned className="button-long" type="submit">
+                Register
+              </ButtonRedesigned>
               <p>
                 Already registered?{' '}
                 <Link to={RoutePath.LOGIN} className="redLink">

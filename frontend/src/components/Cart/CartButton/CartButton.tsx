@@ -1,5 +1,8 @@
 import { memo } from 'react';
-import Button, { ButtonSize, ButtonColor } from '../../../shared/ui/Button/Button';
+import Button, {
+  ButtonSize,
+  ButtonTheme,
+} from '../../../shared/ui/Button/Button';
 
 interface CartButtonProps {
   onClick: () => void;
@@ -16,7 +19,7 @@ const CartButton = ({
     <div className="cart__container__btn">
       <Button
         onClick={onClick}
-        color={ButtonColor.BLACK}
+        theme={ButtonTheme.BLACK}
         size={ButtonSize.L}
         isAnimated={isSelectAddressOpen}
         disabled={!isSelectAddressOpen ? false : !addressNum}

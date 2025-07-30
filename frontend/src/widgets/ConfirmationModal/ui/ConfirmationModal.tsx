@@ -1,4 +1,4 @@
-import Button from '../../../shared/ui/Button/Button';
+import ButtonRedesigned from '../../../shared/ui/Button/Button';
 import Modal from '../../../shared/ui/Modal/Modal';
 import './confirmationModal.scss';
 
@@ -20,15 +20,16 @@ const ConfirmationModal = ({
       <>
         <p>{text}</p>
         <div className="confirmationModal-buttons">
-          <Button
+          <ButtonRedesigned
+            className="cm-button-long"
             onClick={() => {
               confirmAction();
               onClose();
             }}
           >
             Yes
-          </Button>
-          <Button onClick={onClose}>No</Button>
+          </ButtonRedesigned>
+          <ButtonRedesigned onClick={onClose}>No</ButtonRedesigned>
         </div>
       </>
     </Modal>

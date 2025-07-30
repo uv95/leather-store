@@ -6,10 +6,6 @@
   @include header-footer;
   position: relative;
 
-  & button {
-    margin-bottom: 4rem;
-  }
-
   &-heading {
     @include heading;
   }
@@ -40,4 +36,8 @@
       }
     }
   }
+}
+
+.add-item-button {
+  margin-bottom: 4rem;
 }

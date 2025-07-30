@@ -11,7 +11,7 @@ export const updateCart = createAsyncThunk(
     try {
       const config = getAuthConfig();
       const result = await axios.patch(`${BASE_URL}cart`, newData, config);
-      console.log('updateCart', result.data);
+
       return result.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(extractErrorMessage(error));

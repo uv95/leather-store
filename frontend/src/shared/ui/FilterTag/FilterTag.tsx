@@ -1,4 +1,4 @@
-import Button, { ButtonColor, ButtonSize } from '../Button/Button';
+import Button, { ButtonTheme, ButtonSize } from '../Button/Button';
 import './filterTag.scss';
 
 interface FilterTagProps {
@@ -11,9 +11,9 @@ const FilterTag = ({ onClick, filter }: FilterTagProps) => {
     <div className="filterTag">
       {filter}
       <Button
-        square
+        isSquare
         size={ButtonSize.S}
-        color={ButtonColor.CLEAR}
+        theme={ButtonTheme.CLEAR}
         onClick={onClick}
       >
         &#9587;

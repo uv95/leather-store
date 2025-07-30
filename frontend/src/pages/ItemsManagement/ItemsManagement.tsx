@@ -6,6 +6,7 @@ import Spinner from '../../shared/ui/Spinner/Spinner';
 import { ItemListItem } from '../../widgets/ItemListItem';
 import './itemsManagement.scss';
 import { AddItemForm } from '../../features/addItem';
+import ButtonRedesigned from '../../shared/ui/Button/Button';
 
 const ItemsManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,9 @@ const ItemsManagement = () => {
     <>
       <div className="items">
         <h1 className="items-heading">Items</h1>
-        <Button onClick={onOpenModal}>Add item</Button>
+        <ButtonRedesigned className="add-item-button" onClick={onOpenModal}>
+          Add item
+        </ButtonRedesigned>
         <div className="items__container">
           {isLoading ? (
             <Spinner />

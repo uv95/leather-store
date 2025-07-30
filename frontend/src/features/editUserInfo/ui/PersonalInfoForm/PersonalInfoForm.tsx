@@ -4,8 +4,8 @@ import { getUserSelector, updateUser } from '../../../../entities/User';
 import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Button, {
-  ButtonColor,
   ButtonSize,
+  ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
 import './personalInfoForm.scss';
@@ -82,7 +82,7 @@ const PersonalInfoForm = () => {
         />
       </div>
 
-      <Button type="submit" color={ButtonColor.BLACK} size={ButtonSize.L}>
+      <Button type="submit" theme={ButtonTheme.BLACK} size={ButtonSize.L}>
         Save
       </Button>
     </form>

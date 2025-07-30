@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { CartItem } from '../../../../entities/Cart';
 import { ReactComponent as Delete } from '../../../../shared/assets/icons/trash.svg';
-import Button, { ButtonColor } from '../../../../shared/ui/Button/Button';
+import Button, { ButtonTheme } from '../../../../shared/ui/Button/Button';
 import Colors from '../../../../shared/ui/Colors/Colors';
 import Quantity from '../../../../shared/ui/Quantity/Quantity';
 import './cartItemCard.scss';
@@ -67,7 +67,7 @@ const CartItemCard = memo(
             <Delete onClick={() => onDelete(item._id!)} />
             <Button
               onClick={() => onDelete(item._id!)}
-              color={ButtonColor.BLACK}
+              theme={ButtonTheme.BLACK}
             >
               Remove
             </Button>

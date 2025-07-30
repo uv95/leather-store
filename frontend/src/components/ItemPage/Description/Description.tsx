@@ -6,7 +6,7 @@ import { getUserRole, Role } from '../../../entities/User';
 import { useAddToCart } from '../../../features/cart/api/useAddToCart';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import Button, {
-  ButtonColor,
+  ButtonTheme,
   ButtonSize,
 } from '../../../shared/ui/Button/Button';
 import Colors, { ColorsPosition } from '../../../shared/ui/Colors/Colors';
@@ -124,7 +124,7 @@ const Description: React.FC<DescriptionProps> = ({ item }) => {
       {role !== Role.ADMIN && (
         <Button
           onClick={() => addItemToCart(itemData)}
-          color={ButtonColor.BLACK}
+          theme={ButtonTheme.BLACK}
           size={ButtonSize.L}
         >
           Add to cart

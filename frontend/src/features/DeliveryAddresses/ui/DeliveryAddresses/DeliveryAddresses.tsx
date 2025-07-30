@@ -6,7 +6,7 @@ import {
   getAllAddressesSelector,
 } from '../../../../entities/Address';
 import Button, {
-  ButtonColor,
+  ButtonTheme,
   ButtonSize,
 } from '../../../../shared/ui/Button/Button';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
@@ -65,7 +65,7 @@ const DeliveryAddresses = () => {
         <h1 className="deliveryAddresses-title">Delivery Addresses</h1>
         <Button
           onClick={onClickButton}
-          color={ButtonColor.BLACK}
+          theme={ButtonTheme.BLACK}
           size={ButtonSize.L}
         >
           {isFormOpen ? 'Back' : 'Add address'}

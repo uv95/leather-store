@@ -6,6 +6,10 @@
   display: flex;
   justify-content: space-between;
 
+  & button {
+    width: 8rem;
+  }
+
   @include max400 {
     padding: 0 2rem;
   }

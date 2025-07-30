@@ -1,31 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getUser, getUserSelector } from '../../entities/User';
+import { getUserSelector } from '../../entities/User';
 import { DeliveryAddresses } from '../../features/DeliveryAddresses';
 import { MyInfo } from '../../features/editUserInfo';
-import { useAppDispatch } from '../../hooks';
-import toast from '../../shared/lib/toast/toast';
 import { UserOrderList } from '../../widgets/UserOrderList';
 import { UserSidebar } from '../../widgets/UserSidebar';
-import './userProfile.scss';
 import { Tab } from '../../widgets/UserSidebar/model/tabs';
-import { getIsLoggedIn } from '../../features/auth';
+import './userProfile.scss';
 
 const UserProfile = () => {
-  const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
-  const isLoggedIn = useSelector(getIsLoggedIn);
-
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.MY_ORDERS);
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      dispatch(getUser())
-        .unwrap()
-        .then()
-        .catch((error) => toast.error(error));
-    }
-  }, [dispatch, isLoggedIn]);
 
   return (
     <div className="profile">

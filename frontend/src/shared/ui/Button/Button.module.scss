@@ -1,0 +1,79 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.Button {
+  cursor: pointer;
+  @include center;
+  border: none;
+  transition: all 0.1s;
+  height: fit-content;
+
+  &:hover {
+    color: white;
+    background-color: var(--color-grey--dark);
+  }
+
+  @include max500 {
+    min-width: 8rem;
+  }
+  @include max300 {
+    min-width: 6rem;
+  }
+}
+
+.m {
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+}
+
+.l {
+  font-size: 2rem;
+  padding: 1.5rem 3rem;
+  min-width: 14rem;
+
+  @include max300 {
+    min-width: none;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+.s {
+  font-size: 1.3rem;
+  min-width: 0;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+.grey {
+  background-color: var(--color-grey--medium);
+}
+
+.outline {
+  border: 1px solid var(--color-grey--medium);
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    border: 1px solid var(--color-grey--dark);
+  }
+}
+
+.clear {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.square {
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.animated {
+  animation: up 0.8s ease;
+}
+
+.disabled {
+  opacity: 0.5;
+}

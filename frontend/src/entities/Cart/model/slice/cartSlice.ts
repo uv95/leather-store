@@ -57,10 +57,6 @@ export const cartSlice = createSlice({
     },
 
     getCartLS: (state) => {
-      console.log(
-        'getCartLS',
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
-      );
       state.cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!);
     },
 

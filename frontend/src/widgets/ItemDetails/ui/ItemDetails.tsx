@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
 import Button, {
-  ButtonColor,
+  ButtonTheme,
   ButtonSize,
 } from '../../../shared/ui/Button/Button';
 import Input from '../../../shared/ui/Input/Input';
@@ -163,15 +163,18 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             />
           </div>
         </div> */}
-        <Button color={ButtonColor.BLACK} size={ButtonSize.L}>
-          Save
-        </Button>
-        <p
-          className="itemDetails__form-delete"
-          onClick={() => onDelete(item._id)}
-        >
-          Delete
-        </p>
+        <div className="itemDetails__form-buttons">
+          <Button theme={ButtonTheme.BLACK} size={ButtonSize.L}>
+            Save
+          </Button>
+          <Button
+            theme={ButtonTheme.OUTLINE}
+            size={ButtonSize.L}
+            onClick={() => onDelete(item._id)}
+          >
+            Delete
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -6,6 +6,7 @@ import Button from '../../../../shared/ui/Button/Button';
 import Colors from '../../../../shared/ui/Colors/Colors';
 import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
 import './userOrderDetails.scss';
+import ButtonRedesigned from '../../../../shared/ui/Button/Button';
 
 type UserOrderDetailsProps = { order: Order };
 
@@ -82,7 +83,9 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
           </div>
           {order.status !== 'Completed' && (
             <div className="userOrderDetails__bottom-btns">
-              <Button onClick={onOpenModal}>Cancel order</Button>
+              <ButtonRedesigned onClick={onOpenModal}>
+                Cancel order
+              </ButtonRedesigned>
             </div>
           )}
         </div>

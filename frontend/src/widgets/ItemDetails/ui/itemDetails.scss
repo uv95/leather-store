@@ -84,8 +84,11 @@
       // }
     }
 
-    & button {
-      margin: 2rem auto;
+    &-buttons {
+      margin: 0 auto;
+      margin-top: 2rem;
+      @include center;
+      gap: 1rem;
     }
   }
 

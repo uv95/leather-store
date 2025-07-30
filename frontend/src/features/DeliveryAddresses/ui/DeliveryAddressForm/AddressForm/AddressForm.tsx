@@ -1,7 +1,7 @@
 import { FormEvent } from 'react';
 import { Address } from '../../../../../entities/Address';
 import Button, {
-  ButtonColor,
+  ButtonTheme,
   ButtonSize,
 } from '../../../../../shared/ui/Button/Button';
 import Input from '../../../../../shared/ui/Input/Input';
@@ -68,7 +68,7 @@ const AddressForm = ({
           disabled={isInputDisabled}
         />
       </div>
-      <Button type="submit" color={ButtonColor.BLACK} size={ButtonSize.L}>
+      <Button type="submit" theme={ButtonTheme.BLACK} size={ButtonSize.L}>
         {isEdit ? 'Save' : 'Add'}
       </Button>
     </form>
