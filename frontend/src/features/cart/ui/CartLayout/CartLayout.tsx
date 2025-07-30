@@ -1,14 +1,17 @@
 import { memo, ReactNode } from 'react';
-import Back from '../../../shared/ui/Back/Back';
-import Spinner from '../../../shared/ui/Spinner/Spinner';
+import Back from '../../../../shared/ui/Back/Back';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
+import { getCartIsLoading } from '../../../../entities/Cart';
+import { useSelector } from 'react-redux';
 
 interface CartLayoutProps {
   isCartEmpty: boolean;
-  isLoading: boolean;
   children: ReactNode;
 }
 
-const CartLayout = ({ isCartEmpty, isLoading, children }: CartLayoutProps) => {
+const CartLayout = ({ isCartEmpty, children }: CartLayoutProps) => {
+  const isLoading = useSelector(getCartIsLoading);
+
   return (
     <div className="cart">
       <Back />

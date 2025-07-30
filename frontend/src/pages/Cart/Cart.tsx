@@ -1,36 +1,31 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import CartButton from '../../components/Cart/CartButton/CartButton';
-import CartLayout from '../../components/layouts/CartLayout/CartLayout';
+import {
+  getAllAddresses,
+  getAllAddressesSelector,
+} from '../../entities/Address';
+import { CartItem, emptyCart, getCartSelector } from '../../entities/Cart';
 import { createOrder } from '../../entities/Order';
 import { Order, OrderStatus } from '../../entities/Order/model/types/order';
 import { getUserSelector } from '../../entities/User';
-import CartItemList from '../../features/cart/ui/CartItemList/CartItemList';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useGetAllAddresses } from '../../hooks/useGetAllAddresses';
-import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
-import toast from '../../shared/lib/toast/toast';
-import Modal from '../../shared/ui/Modal/Modal';
-import { ICartItem } from '../../types/data';
-import { CheckoutAddressSection } from '../../widgets/CheckoutAddressSection';
-import './cart.scss';
+import { getIsLoggedIn } from '../../features/auth';
 import {
-  emptyCart,
-  getCartIsLoading,
-  getCartSelector,
-} from '../../entities/Cart';
+  CartButton,
+  CartItemList,
+  CartLayout,
+  CartOrderStatusModal,
+  CheckoutAddressSection,
+} from '../../features/cart';
+import { useAppDispatch } from '../../hooks';
+import toast from '../../shared/lib/toast/toast';
+import './cart.scss';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
-  const isLoading = useSelector(getCartIsLoading);
   const cart = useSelector(getCartSelector);
-
-  const { isLoading: isOrderLoading, status } = useAppSelector(
-    (state) => state.orders
-  );
-  const { addresses } = useGetAllAddresses();
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const addresses = useSelector(getAllAddressesSelector);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
@@ -59,7 +54,7 @@ const Cart = () => {
   function handleCartButton() {
     if (isSelectAddressOpen && cart && user) {
       const cartData: Omit<Order, 'createdAt'> = {
-        items: cart.items.map((cartItem: ICartItem) => ({
+        items: cart.items.map((cartItem: CartItem) => ({
           name: cartItem.item.name,
           colors: cartItem.colors,
           quantity: cartItem.quantity,
@@ -83,30 +78,29 @@ const Cart = () => {
 
   const isCartEmpty = !cart?.items.length;
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getAllAddresses())
+        .unwrap()
+        .then()
+        .catch((error) => toast.error(error));
+    }
+  }, [dispatch, isLoggedIn]);
+
   return (
     <>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={onCloseModal}>
-          {isOrderLoading && !isCartEmpty ? (
-            <p className="cart__modal">Placing order...</p>
-          ) : status === 'rejected' ? (
-            <p className="cart__modal">
-              An error occurred! Please reload the page and try again.
-            </p>
-          ) : (
-            <p className="cart__modal">
-              Order created! Go to{' '}
-              <Link className="redLink" to={RoutePath.USER_PROFILE}>
-                your account.
-              </Link>
-            </p>
-          )}
-        </Modal>
+        <CartOrderStatusModal
+          isCartEmpty={isCartEmpty}
+          isOpen={isModalOpen}
+          onClose={onCloseModal}
+        />
       )}
 
-      <CartLayout isCartEmpty={isCartEmpty} isLoading={isLoading}>
+      <CartLayout isCartEmpty={isCartEmpty}>
         <>
           <CartItemList />
+
           {isSelectAddressOpen && (
             <CheckoutAddressSection
               setCurrentAddressIndex={setCurrentAddressIndex}

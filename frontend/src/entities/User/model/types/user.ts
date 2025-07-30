@@ -1,4 +1,4 @@
-import { ICart } from '../../../../types/data';
+import { Cart } from '../../../Cart';
 
 export interface User {
   _id: string;
@@ -6,7 +6,7 @@ export interface User {
   email: string;
   phone: string;
   role: Role;
-  cart?: ICart;
+  cart?: Cart;
 }
 
 export interface UserSchema {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllAddressesSelector } from '../../../../entities/Address';
-import { getIsLoggedIn } from '../../../../features/auth';
+import { getIsLoggedIn } from '../../../auth';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
 import CheckoutAddressCard from '../CheckoutAddressCard/CheckoutAddressCard';
 import './checkoutAddressSection.scss';

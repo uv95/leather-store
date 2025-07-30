@@ -2,7 +2,7 @@ import { memo } from 'react';
 import Button, {
   ButtonSize,
   ButtonTheme,
-} from '../../../shared/ui/Button/Button';
+} from '../../../../shared/ui/Button/Button';
 
 interface CartButtonProps {
   onClick: () => void;
