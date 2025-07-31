@@ -4,26 +4,26 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateCart } from '../../entities/Cart';
 import { getUserSelector, Role } from '../../entities/User';
 import { getAuthIsLoading, login } from '../../features/auth';
+import LoginAsAdminButton from '../../features/LoginAsAdminButton/LoginAsAdminButton';
 import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
-import ButtonRedesigned, { ButtonTheme } from '../../shared/ui/Button/Button';
+import AuthorizationForm from '../../shared/ui/AuthorizationForm/AuthorizationForm';
+import Button from '../../shared/ui/Button/Button';
 import Input from '../../shared/ui/Input/Input';
-import './login.scss';
+import styles from './Login.module.scss';
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const user = useSelector(getUserSelector);
   const isLoading = useSelector(getAuthIsLoading);
-
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (user?.role === Role.ADMIN) {
@@ -35,19 +35,9 @@ const Login = () => {
     return <Navigate to="/profile" replace />;
   }
 
-  const { email, password } = formData;
-
-  function loginAsAdmin() {
-    dispatch(
-      login({
-        email: 'admin@gmail.com',
-        password: 'adminadmin',
-      })
-    );
-  }
-
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
+
     setFormData((prev) => ({
       ...prev,
       [target.name]: target.value,
@@ -91,60 +81,43 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="login">
-        <div className="login__container">
-          <h1 className="login__container__heading">Login to your account</h1>
-          <form className="login__container__form" onSubmit={onSubmit}>
-            <div className="login__container__form__box">
-              <Input
-                name="email"
-                label="Email"
-                type="email"
-                value={email}
-                onChange={onChange}
-                placeholder="Email"
-                required
-              />
-            </div>
+    <AuthorizationForm onSubmit={onSubmit} title="Login to your account">
+      <Input
+        name="email"
+        label="Email"
+        type="email"
+        value={formData.email}
+        onChange={onChange}
+        placeholder="Email"
+        required
+      />
 
-            <div className="login__container__form__box">
-              <Input
-                name="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={onChange}
-                placeholder="Password"
-                required
-              />
-            </div>
-            <div className="login__container__form__bottom">
-              <ButtonRedesigned
-                className="button-long"
-                type="submit"
-                disabled={isLoading}
-              >
-                Login
-              </ButtonRedesigned>
-              <ButtonRedesigned
-                type="button"
-                onClick={loginAsAdmin}
-                theme={ButtonTheme.BLACK}
-                className="button-long"
-                disabled={isLoading}
-              >
-                Login as Admin
-              </ButtonRedesigned>
-              <Link to={''}>Forgot password?</Link>
-              <Link to={RoutePath.REGISTRATION} className="redLink">
-                Register
-              </Link>
-            </div>
-          </form>
-        </div>
+      <Input
+        name="password"
+        label="Password"
+        type="password"
+        value={formData.password}
+        onChange={onChange}
+        placeholder="Password"
+        required
+      />
+
+      <div className={styles.buttons}>
+        <Button className="button-long" type="submit" disabled={isLoading}>
+          Login
+        </Button>
+
+        <LoginAsAdminButton />
+
+        {/* <Link to={''}>Forgot password?</Link> */}
+        <p>
+          Don't have an account?{' '}
+          <Link to={RoutePath.REGISTRATION} className="redLink">
+            Register
+          </Link>
+        </p>
       </div>
-    </>
+    </AuthorizationForm>
   );
 };
 

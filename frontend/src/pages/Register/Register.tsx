@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { updateCart } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
 import { register } from '../../features/auth';
 import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
-import toast from '../../shared/lib/toast/toast';
-import Button from '../../shared/ui/Button/Button';
-import Input from '../../shared/ui/Input/Input';
-import './register.scss';
-import { updateCart } from '../../entities/Cart';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
-import ButtonRedesigned from '../../shared/ui/Button/Button';
+import toast from '../../shared/lib/toast/toast';
+import Input from '../../shared/ui/Input/Input';
+import styles from './Register.module.scss';
+import Button from '../../shared/ui/Button/Button';
+import AuthorizationForm from '../../shared/ui/AuthorizationForm/AuthorizationForm';
 
 const Register = () => {
   const user = useSelector(getUserSelector);
@@ -64,82 +64,67 @@ const Register = () => {
   };
 
   return (
-    <>
-      <div className="register">
-        <div className="register__container">
-          <h1 className="register__container__heading">Registration</h1>
-          <form className="register__container__form" onSubmit={onSubmit}>
-            <div className="register__container__form__box">
-              <Input
-                name="name"
-                label="Name"
-                type="text"
-                value={name}
-                onChange={onChange}
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div className="register__container__form__box">
-              <Input
-                name="email"
-                label="Email"
-                type="email"
-                value={email}
-                onChange={onChange}
-                placeholder="Email"
-                required
-              />
-            </div>
+    <AuthorizationForm onSubmit={onSubmit} title="Registration">
+      <Input
+        name="name"
+        label="Name"
+        type="text"
+        value={name}
+        onChange={onChange}
+        placeholder="Name"
+        required
+      />
 
-            <div className="register__container__form__box">
-              <Input
-                name="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={onChange}
-                placeholder="Password"
-                required
-              />
-            </div>
-            <div className="register__container__form__box">
-              <Input
-                name="passwordConfirm"
-                label="Confirm Password"
-                type="password"
-                value={passwordConfirm}
-                onChange={onChange}
-                placeholder="Confirm Password"
-                required
-              />
-            </div>
-            <div className="register__container__form__box">
-              <Input
-                name="phone"
-                label="Phone"
-                type="text"
-                value={phone}
-                onChange={onChange}
-                placeholder="Phone"
-                required
-              />
-            </div>
-            <div className="register__container__form__bottom">
-              <ButtonRedesigned className="button-long" type="submit">
-                Register
-              </ButtonRedesigned>
-              <p>
-                Already registered?{' '}
-                <Link to={RoutePath.LOGIN} className="redLink">
-                  Login
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
+      <Input
+        name="email"
+        label="Email"
+        type="email"
+        value={email}
+        onChange={onChange}
+        placeholder="Email"
+        required
+      />
+
+      <Input
+        name="password"
+        label="Password"
+        type="password"
+        value={password}
+        onChange={onChange}
+        placeholder="Password"
+        required
+      />
+
+      <Input
+        name="passwordConfirm"
+        label="Confirm Password"
+        type="password"
+        value={passwordConfirm}
+        onChange={onChange}
+        placeholder="Confirm Password"
+        required
+      />
+
+      <Input
+        name="phone"
+        label="Phone"
+        type="text"
+        value={phone}
+        onChange={onChange}
+        placeholder="Phone"
+        required
+      />
+
+      <div className={styles.buttons}>
+        <Button type="submit">Register</Button>
+        <p>
+          Already registered?{' '}
+          <Link to={RoutePath.LOGIN} className="redLink">
+            Login
+          </Link>
+        </p>
       </div>
-    </>
+    </AuthorizationForm>
   );
 };
 

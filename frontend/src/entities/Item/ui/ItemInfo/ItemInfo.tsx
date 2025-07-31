@@ -13,6 +13,7 @@ import { Color, LeatherType } from '../../../../types/data';
 import { getUserRole, Role } from '../../../User';
 import ItemColorSelector from '../ItemColorSelector/ItemColorSelector';
 import styles from './ItemInfo.module.scss';
+import Input from '../../../../shared/ui/Input/Input';
 
 interface ItemInfoProps {
   item: Item;
@@ -63,11 +64,18 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
         <div className={styles.radio}>
           <div className={styles.radio__options}>
             {Object.values(LeatherType).map((type) => (
-              <Radio
+              // <Radio
+              //   key={type}
+              //   name={type}
+              //   onChange={onChange}
+              //   checked={leatherType === type}
+              // />
+              <Input
                 key={type}
-                name={type}
+                label={type}
                 onChange={onChange}
-                checked={leatherType === type}
+                isChecked={leatherType === type}
+                type="radio"
               />
             ))}
           </div>
@@ -79,14 +87,17 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
           </div>
         </div>
       </div>
+
       <ItemColorSelector
         setLeatherColor={setLeatherColor}
         setThreadColor={setThreadColor}
         leatherColor={leatherColor}
         threadColor={threadColor}
       />
+
       <div className={styles.descriptionHeading}>DESCRIPTION</div>
       <div className={styles.description}>{item.description}</div>
+
       {role !== Role.ADMIN && (
         <Button
           onClick={() => addItemToCart(itemData)}
