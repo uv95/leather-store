@@ -1,13 +1,17 @@
 import React from 'react';
 import './pagination.scss';
 
-type Props = {
+interface PaginationProps {
   currentPage: number;
   maxPages: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
+}
 
-const Pagination = ({ currentPage, maxPages, setCurrentPage }: Props) => {
+const Pagination = ({
+  currentPage,
+  maxPages,
+  setCurrentPage,
+}: PaginationProps) => {
   return (
     <div className="pagination">
       {Array.from({ length: maxPages }, (_, i) => i).map((number) => (
