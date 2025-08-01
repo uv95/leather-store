@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useGetAllItems } from '../../../hooks/useGetAllItems';
+import { useGetAllItems } from '../../../shared/lib/hooks/useGetAllItems';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import ItemCard from '../../../shared/ui/ItemCard/ItemCard';
 import Spinner from '../../../shared/ui/Spinner/Spinner';

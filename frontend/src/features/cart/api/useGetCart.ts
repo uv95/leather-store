@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { getCart as fetchCart, getCartLS } from '../../../entities/Cart';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../shared/lib/toast/toast';
 import { getIsLoggedIn } from '../../auth';
 

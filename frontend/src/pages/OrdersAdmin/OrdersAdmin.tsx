@@ -6,11 +6,11 @@ import {
   getAllOrders,
   getOrderIsLoading,
 } from '../../entities/Order';
-import { useAppDispatch } from '../../hooks';
 import Spinner from '../../shared/ui/Spinner/Spinner';
 import { OrdersAdminListItem } from '../../widgets/OrdersAdminListItem';
 import './ordersAdmin.scss';
 import toast from '../../shared/lib/toast/toast';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const OrdersAdmin = () => {
   const dispatch = useAppDispatch();

@@ -1,8 +1,10 @@
 import { memo, useCallback, useState } from 'react';
-import useLogout from '../../../../hooks/useLogout';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../../entities/User';
 import { ConfirmationModal } from '../../../ConfirmationModal';
 import { Tab, tabs } from '../../model/tabs';
 import SidebarButton from '../SidebarButton/SidebarButton';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 interface UserSidebarProps {
   currentTab: Tab;
@@ -10,7 +12,8 @@ interface UserSidebarProps {
 }
 
 const UserSidebar = memo(({ setCurrentTab, currentTab }: UserSidebarProps) => {
-  const logoutUser = useLogout();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onCloseModal = useCallback(() => {
@@ -21,13 +24,18 @@ const UserSidebar = memo(({ setCurrentTab, currentTab }: UserSidebarProps) => {
     setIsModalOpen(true);
   }, []);
 
+  const onLogout = useCallback(() => {
+    dispatch(logout());
+    navigate('/');
+  }, [dispatch, navigate]);
+
   return (
     <>
       {isModalOpen && (
         <ConfirmationModal
           isOpen={isModalOpen}
           onClose={onCloseModal}
-          confirmAction={logoutUser}
+          confirmAction={onLogout}
           text="Are you sure you want to log out?"
         />
       )}

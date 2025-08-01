@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useGetAllItems } from '../../hooks/useGetAllItems';
+import { useGetAllItems } from '../../shared/lib/hooks/useGetAllItems';
 import Button from '../../shared/ui/Button/Button';
 import Modal from '../../shared/ui/Modal/Modal';
 import Spinner from '../../shared/ui/Spinner/Spinner';

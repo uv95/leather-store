@@ -1,8 +1,8 @@
 import React, { FormEvent, useState } from 'react';
 import { addAddress, Address } from '../../../../../entities/Address';
-import { useAppDispatch } from '../../../../../hooks';
 import toast from '../../../../../shared/lib/toast/toast';
 import AddressForm from '../AddressForm/AddressForm';
+import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
 
 interface AddAddressFormProps {
   onCloseForm: () => void;

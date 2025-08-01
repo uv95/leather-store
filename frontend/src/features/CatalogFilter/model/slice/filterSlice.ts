@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFilterState } from '../../types/data';
+import { FilterSchema, SortingOptions } from '../types/filter';
 
-const initialState: IFilterState = {
+const initialState: FilterSchema = {
   filters: [],
-  sort: 'Default',
+  sortBy: SortingOptions.DEFAULT,
 };
 
-const filtersSlice = createSlice({
-  name: '@@filters',
+const filterSlice = createSlice({
+  name: '@@filter',
   initialState,
   reducers: {
     addFilter: (state, action: PayloadAction<string>) => {
@@ -21,15 +21,15 @@ const filtersSlice = createSlice({
     },
     clearFilter: (state) => {
       state.filters = [];
-      state.sort = 'Default';
+      state.sortBy = SortingOptions.DEFAULT;
     },
-    setSort: (state, action: PayloadAction<string>) => {
-      state.sort = action.payload;
+    setSort: (state, action: PayloadAction<SortingOptions>) => {
+      state.sortBy = action.payload;
     },
   },
 });
 
 export const { addFilter, removeFilter, clearFilter, setSort } =
-  filtersSlice.actions;
+  filterSlice.actions;
 
-export default filtersSlice.reducer;
+export default filterSlice.reducer;

@@ -1,10 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { StateSchema } from '../../../../../app/providers/StoreProvider/config/StateSchema';
-import { RootState } from '../../../../../store';
 
 export const getFilteredItems = createSelector(
   (state: StateSchema) => state.items.items,
-  (state: RootState) => state.filters.filters,
+  (state: StateSchema) => state.filters.filters,
   (items, filters) => {
     if (!filters.length) {
       return items;

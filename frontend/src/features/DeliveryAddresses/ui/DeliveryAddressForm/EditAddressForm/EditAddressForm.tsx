@@ -7,7 +7,7 @@ import {
   getAddressSelector,
   updateAddress,
 } from '../../../../../entities/Address';
-import { useAppDispatch } from '../../../../../hooks';
+import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../../shared/lib/toast/toast';
 import AddressForm from '../AddressForm/AddressForm';
 import { useAddressIdContext } from '../../../model/AddressIdContext';

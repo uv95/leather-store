@@ -7,11 +7,11 @@ import {
   getUserOrders,
 } from '../../../../entities/Order';
 import { getUserSelector } from '../../../../entities/User';
-import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Spinner from '../../../../shared/ui/Spinner/Spinner';
 import UserOrderListItem from '../UserOrderListItem/UserOrderListItem';
 import './userOrderList.scss';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 const UserOrderList = () => {
   const dispatch = useAppDispatch();

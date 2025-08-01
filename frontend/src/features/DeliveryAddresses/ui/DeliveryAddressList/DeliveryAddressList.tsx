@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { Address, deleteAddress } from '../../../../entities/Address';
-import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import DeliveryAddressCard from '../DeliveryAddressCard/DeliveryAddressCard';
 import './deliveryAddressList.scss';
 import { useAddressIdContext } from '../../model/AddressIdContext';
 import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 interface DeliveryAddressListProps {
   onOpenForm: () => void;

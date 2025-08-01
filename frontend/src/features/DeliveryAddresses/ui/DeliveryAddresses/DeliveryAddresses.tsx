@@ -16,7 +16,7 @@ import EditAddressForm from '../DeliveryAddressForm/EditAddressForm/EditAddressF
 import DeliveryAddressList from '../DeliveryAddressList/DeliveryAddressList';
 import './deliveryAddresses.scss';
 import toast from '../../../../shared/lib/toast/toast';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 const DeliveryAddresses = () => {
   const dispatch = useAppDispatch();

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Item } from '../../entities/Item';
 import {
   CatalogFilterDropdown,
   FilterList,
+  getSortBy,
+  SortingOptions,
 } from '../../features/CatalogFilter';
-import { clearFilter } from '../../features/filters/filtersSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useGetAllItems } from '../../hooks/useGetAllItems';
+import { clearFilter } from '../../features/CatalogFilter/model/slice/filterSlice';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
+import { useGetAllItems } from '../../shared/lib/hooks/useGetAllItems';
 import ItemCard from '../../shared/ui/ItemCard/ItemCard';
 import Pagination from '../../shared/ui/Pagination/Pagination';
 import Spinner from '../../shared/ui/Spinner/Spinner';
@@ -14,7 +17,7 @@ import './catalog.scss';
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
-  const { sort } = useAppSelector((state) => state.filters);
+  const sortBy = useSelector(getSortBy);
   const { isLoading, items } = useGetAllItems();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
@@ -45,7 +48,7 @@ const Catalog = () => {
           ) : (
             <CatalogItems
               items={items}
-              sort={sort}
+              sortBy={sortBy}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
             />
@@ -67,11 +70,11 @@ export default Catalog;
 
 function CatalogItems(props: {
   items: Item[];
-  sort: string;
+  sortBy: SortingOptions;
   itemsPerPage: number;
   currentPage: number;
 }) {
-  const { items, sort, itemsPerPage, currentPage } = props;
+  const { items, sortBy, itemsPerPage, currentPage } = props;
 
   if (!items.length) {
     return <p className="catalog__container__items-empty">No items found</p>;
@@ -79,14 +82,14 @@ function CatalogItems(props: {
 
   return (
     <div className="catalog__container__items">
-      {sort === 'Default'
+      {sortBy === SortingOptions.DEFAULT
         ? items
             .slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage)
             .map((item) => <ItemCard key={item._id} item={item} />)
         : [...items]
             .sort((a, b) => {
               if (+a.price === +b.price) return 0;
-              return sort === 'Price descending'
+              return sortBy === SortingOptions.PRICE_DESCENDING
                 ? +b.price - +a.price
                 : +a.price - +b.price;
             })

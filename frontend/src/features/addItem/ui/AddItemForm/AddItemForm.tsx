@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../../../hooks';
-import Button, { ButtonSize } from '../../../../shared/ui/Button/Button';
+import Button, {
+  ButtonSize,
+  ButtonTheme,
+} from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
 import './addItemForm.scss';
 import toast from '../../../../shared/lib/toast/toast';
 import { ItemType, addItem } from '../../../../entities/Item';
-import ButtonRedesigned, {
-  ButtonTheme,
-} from '../../../../shared/ui/Button/Button';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 interface AddItemFormProps {
   onSuccess: () => void;
@@ -166,14 +166,14 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
           />
         </div>
         <div className="form__btn">
-          <ButtonRedesigned
+          <Button
             type="submit"
             disabled={isLoading}
             theme={ButtonTheme.BLACK}
             size={ButtonSize.L}
           >
             Add
-          </ButtonRedesigned>
+          </Button>
         </div>
       </form>
     </>

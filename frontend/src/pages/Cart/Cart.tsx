@@ -16,9 +16,9 @@ import {
   CartOrderStatusModal,
   CheckoutAddressSection,
 } from '../../features/cart';
-import { useAppDispatch } from '../../hooks';
 import toast from '../../shared/lib/toast/toast';
 import './cart.scss';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const Cart = () => {
   const dispatch = useAppDispatch();

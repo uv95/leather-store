@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../../hooks';
 import Button, {
   ButtonTheme,
   ButtonSize,
@@ -8,6 +7,7 @@ import Input from '../../../shared/ui/Input/Input';
 import './itemDetails.scss';
 import toast from '../../../shared/lib/toast/toast';
 import { Item, ItemType, updateItem, deleteItem } from '../../../entities/Item';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 type ItemDetailsProps = { item: Item };
 

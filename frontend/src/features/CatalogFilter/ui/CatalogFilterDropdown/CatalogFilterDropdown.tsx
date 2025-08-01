@@ -1,19 +1,23 @@
+import { useSelector } from 'react-redux';
 import { ItemType } from '../../../../entities/Item/model/types/item';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import Dropdown from '../../../../shared/ui/Dropdown/Dropdown';
-import { SortingOptions } from '../../../../types/data';
+import { getFilters } from '../../model/selectors/getFilters/getFilters';
+import { getSortBy } from '../../model/selectors/getSortBy/getSortBy';
 import {
   addFilter,
   clearFilter,
   removeFilter,
   setSort,
-} from '../../../filters/filtersSlice';
+} from '../../model/slice/filterSlice';
 import FilterDropdownButton from '../FilterDropdownButton/FilterDropdownButton';
 import FilterDropdownSection from '../FilterDropdownSection/FilterDropdownSection';
+import { SortingOptions } from '../../model/types/filter';
 
 const CatalogFilterDropdown = () => {
   const dispatch = useAppDispatch();
-  const { filters, sort } = useAppSelector((state) => state.filters);
+  const filters = useSelector(getFilters);
+  const sortBy = useSelector(getSortBy);
 
   const handleFilter = (filter: string) => {
     filters.includes(filter)
@@ -43,7 +47,7 @@ const CatalogFilterDropdown = () => {
           <FilterDropdownButton
             key={option}
             onClick={() => dispatch(setSort(option))}
-            isSelected={sort === option}
+            isSelected={sortBy === option}
             text={option}
           />
         ))}

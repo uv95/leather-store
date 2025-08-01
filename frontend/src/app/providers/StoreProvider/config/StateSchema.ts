@@ -5,6 +5,7 @@ import { OrderSchema } from '../../../../entities/Order';
 import { UserSchema } from '../../../../entities/User';
 import { AnalyticsSchema } from '../../../../features/analytics';
 import { AuthSchema } from '../../../../features/auth';
+import { FilterSchema } from '../../../../features/CatalogFilter';
 
 export interface StateSchema {
   items: ItemsSchema;
@@ -14,4 +15,5 @@ export interface StateSchema {
   user: UserSchema;
   auth: AuthSchema;
   cart: CartSchema;
+  filters: FilterSchema;
 }

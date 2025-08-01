@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
 import Button, {
   ButtonSize,
@@ -10,6 +9,7 @@ import Input from '../../../../shared/ui/Input/Input';
 import './passwordChangeForm.scss';
 import { PasswordUpdateData, updatePassword } from '../../../auth';
 import { logout } from '../../../../entities/User';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 const PasswordChangeForm = () => {
   const dispatch = useAppDispatch();

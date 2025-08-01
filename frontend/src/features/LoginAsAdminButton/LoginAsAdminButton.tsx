@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../hooks';
 import Button, { ButtonTheme } from '../../shared/ui/Button/Button';
 import { getAuthIsLoading, login } from '../auth';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const LoginAsAdminButton = () => {
   const dispatch = useAppDispatch();

@@ -4,8 +4,8 @@ import {
   changeQuantityLS,
   Quantity,
 } from '../../../entities/Cart';
-import { useAppDispatch } from '../../../hooks';
-import useDebounce from '../../../hooks/useDebounce';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
+import useDebounce from '../../../shared/lib/hooks/useDebounce';
 import toast from '../../../shared/lib/toast/toast';
 import { getIsLoggedIn } from '../../auth';
 

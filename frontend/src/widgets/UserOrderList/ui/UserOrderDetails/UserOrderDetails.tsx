@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { cancelOrder, Order } from '../../../../entities/Order';
-import { useAppDispatch } from '../../../../hooks';
 import toast from '../../../../shared/lib/toast/toast';
-import Button from '../../../../shared/ui/Button/Button';
 import Colors from '../../../../shared/ui/Colors/Colors';
 import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
 import './userOrderDetails.scss';
-import ButtonRedesigned from '../../../../shared/ui/Button/Button';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import Button from '../../../../shared/ui/Button/Button';
 
 type UserOrderDetailsProps = { order: Order };
 
@@ -83,9 +82,7 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
           </div>
           {order.status !== 'Completed' && (
             <div className="userOrderDetails__bottom-btns">
-              <ButtonRedesigned onClick={onOpenModal}>
-                Cancel order
-              </ButtonRedesigned>
+              <Button onClick={onOpenModal}>Cancel order</Button>
             </div>
           )}
         </div>

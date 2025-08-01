@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../../hooks';
 import toast from '../../../shared/lib/toast/toast';
 import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './changeStatus.scss';
 import { OrderStatus } from '../../../entities/Order/model/types/order';
 import { updateOrder } from '../../../entities/Order';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getCartItemsQuantity } from '../../../entities/Cart/model/selectors/getCartItemsQuantity/getCart';
 import { getUserActiveOrders, getUserOrders } from '../../../entities/Order';
 import { getUserRole, getUserSelector, Role } from '../../../entities/User';
-import { useAppDispatch } from '../../../hooks';
 import cartIcon from '../../../shared/assets/icons/cart.svg';
 import login from '../../../shared/assets/icons/sign-in.svg';
 import userIcon from '../../../shared/assets/icons/user.svg';
@@ -12,6 +11,7 @@ import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import toast from '../../../shared/lib/toast/toast';
 import Badge from '../../../shared/ui/Badge/Badge';
 import './header.scss';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const Header = () => {
   const dispatch = useAppDispatch();

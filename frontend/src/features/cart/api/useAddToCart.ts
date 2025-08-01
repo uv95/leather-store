@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { addToCart, addToCartLS, CartItem } from '../../../entities/Cart';
-import { useAppDispatch } from '../../../hooks';
 import toast from '../../../shared/lib/toast/toast';
 import { getIsLoggedIn } from '../../auth';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 export function useAddToCart() {
   const dispatch = useAppDispatch();

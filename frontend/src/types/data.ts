@@ -1,10 +1,3 @@
-//FILTER
-
-export interface IFilterState {
-  filters: string[];
-  sort: string;
-}
-
 export enum Color {
   BLACK = 'black',
   BROWN = 'brown',
@@ -33,15 +26,4 @@ export enum LeatherType {
   CRAZY_HORSE = 'Crazy Horse',
   NAPPA = 'Nappa',
   PULL_UP = 'Pull Up',
-}
-
-export enum ItemPart {
-  LEATHER = 'leather',
-  THREAD = 'thread',
-}
-
-export enum SortingOptions {
-  PRICE_DESCENDING = 'Price descending',
-  PRICE_ASCENDING = 'Price ascending',
-  DEFAULT = 'Default',
 }

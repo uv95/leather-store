@@ -10,8 +10,8 @@ import { BAR_COLORS, months } from '../../../shared/const/consts';
 import Spinner from '../../../shared/ui/Spinner/Spinner';
 import { options } from '../model/options';
 import './monthlyRevenueReport.scss';
-import { useAppDispatch } from '../../../hooks';
 import toast from '../../../shared/lib/toast/toast';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const MonthlyRevenueReport = () => {
   const dispatch = useAppDispatch();

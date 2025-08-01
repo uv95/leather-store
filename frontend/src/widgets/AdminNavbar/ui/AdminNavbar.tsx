@@ -1,26 +1,24 @@
 import { memo, useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import useLogout from '../../../hooks/useLogout';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { logout } from '../../../entities/User';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
 import { ConfirmationModal } from '../../ConfirmationModal';
+import { Tab, tabs } from '../model/tabs';
 import './adminNavbar.scss';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const AdminNavbar = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
 
-  const logoutUser = useLogout();
-  const tabs = [
-    { text: 'Orders', route: RoutePath.ADMIN_ORDERS },
-    { text: 'Items', route: RoutePath.ITEMS_MANAGEMENT },
-    { text: 'Analytics', route: RoutePath.ANALYTICS },
-    { text: 'Home', route: RoutePath.HOME },
-  ];
-
-  const [currentTab, setCurrentTab] = useState({
-    text: 'Orders',
-    route: RoutePath.ADMIN_ORDERS,
-  });
+  const [currentTab, setCurrentTab] = useState<{ text: Tab; route: RoutePath }>(
+    {
+      text: Tab.ORDERS,
+      route: RoutePath.ADMIN_ORDERS,
+    }
+  );
   const [openMenu, setOpenMenu] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,13 +30,18 @@ const AdminNavbar = () => {
     setIsModalOpen(true);
   }, []);
 
+  const onLogout = useCallback(() => {
+    dispatch(logout());
+    navigate('/');
+  }, [dispatch, navigate]);
+
   return (
     <>
       {isModalOpen && (
         <ConfirmationModal
           isOpen={isModalOpen}
           onClose={onCloseModal}
-          confirmAction={logoutUser}
+          confirmAction={onLogout}
           text="Are you sure you want to log out?"
         />
       )}

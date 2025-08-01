@@ -8,10 +8,10 @@ import {
   ItemImage,
   ItemInfo,
 } from '../../entities/Item';
-import { useAppDispatch } from '../../hooks';
 import Back from '../../shared/ui/Back/Back';
 import Spinner from '../../shared/ui/Spinner/Spinner';
 import styles from './ItemPage.module.scss';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const ItemPage = () => {
   const dispatch = useAppDispatch();

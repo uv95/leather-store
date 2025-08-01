@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../auth';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../shared/lib/toast/toast';
 import {
   deleteItemFromCart,

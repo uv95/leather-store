@@ -5,7 +5,7 @@ import { updateCart } from '../../entities/Cart';
 import { getUserSelector, Role } from '../../entities/User';
 import { getAuthIsLoading, login } from '../../features/auth';
 import LoginAsAdminButton from '../../features/LoginAsAdminButton/LoginAsAdminButton';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';

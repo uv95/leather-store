@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { useAppDispatch } from '../hooks';
-import toast from '../shared/lib/toast/toast';
+import toast from '../toast/toast';
 import { useSelector } from 'react-redux';
 import {
   getAllItems,
   getFilteredItems,
   getItemsIsLoading,
-} from '../entities/Item';
+} from '../../../entities/Item';
+import { useAppDispatch } from './useAppDispatch';
 
 export function useGetAllItems() {
   const dispatch = useAppDispatch();

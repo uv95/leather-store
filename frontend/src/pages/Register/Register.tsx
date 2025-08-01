@@ -4,7 +4,6 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateCart } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
 import { register } from '../../features/auth';
-import { useAppDispatch } from '../../hooks';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
@@ -12,8 +11,11 @@ import Input from '../../shared/ui/Input/Input';
 import styles from './Register.module.scss';
 import Button from '../../shared/ui/Button/Button';
 import AuthorizationForm from '../../shared/ui/AuthorizationForm/AuthorizationForm';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const user = useSelector(getUserSelector);
   const [formData, setFormData] = useState({
     name: '',
@@ -22,9 +24,6 @@ const Register = () => {
     passwordConfirm: '',
     phone: '',
   });
-
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   if (user) {
     return <Navigate to="/profile" replace />;

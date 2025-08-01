@@ -7,12 +7,12 @@ import {
   getOrdersByCategory,
   getOrdersByCategorySelector,
 } from '../../../features/analytics';
-import { useAppDispatch } from '../../../hooks';
 import { DOUGHNUT_COLORS } from '../../../shared/const/consts';
 import toast from '../../../shared/lib/toast/toast';
 import Spinner from '../../../shared/ui/Spinner/Spinner';
 import { options } from '../model/options';
 import './ordersByCategoryReport.scss';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const OrdersByCategoryReport = () => {
   const dispatch = useAppDispatch();

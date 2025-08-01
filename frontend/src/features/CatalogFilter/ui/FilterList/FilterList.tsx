@@ -1,13 +1,17 @@
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
-import { removeFilter, setSort } from '../../../filters/filtersSlice';
-import { SortingOptions } from '../../../../types/data';
-import './filterList.scss';
-import FilterTag from '../../../../shared/ui/FilterTag/FilterTag';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import FilterTag from '../../../../shared/ui/FilterTag/FilterTag';
+import { getFilters } from '../../model/selectors/getFilters/getFilters';
+import { getSortBy } from '../../model/selectors/getSortBy/getSortBy';
+import { removeFilter, setSort } from '../../model/slice/filterSlice';
+import { SortingOptions } from '../../model/types/filter';
+import './filterList.scss';
 
 const FilterList = () => {
-  const { filters, sort } = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
+  const filters = useSelector(getFilters);
+  const sortBy = useSelector(getSortBy);
 
   const onRemoveFilter = useCallback(
     (filter: string) => {
@@ -21,7 +25,7 @@ const FilterList = () => {
 
   return (
     <div className="filterList">
-      {(sort === SortingOptions.DEFAULT ? filters : [...filters, sort]).map(
+      {(sortBy === SortingOptions.DEFAULT ? filters : [...filters, sortBy]).map(
         (filter) => (
           <FilterTag
             key={filter}
