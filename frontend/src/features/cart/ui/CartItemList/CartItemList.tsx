@@ -6,9 +6,7 @@ import CartItemCard from '../CartItemCard/CartItemCard';
 import './cartItemList.scss';
 import useChangeQuantity from '../../api/useChangeQuantity';
 
-interface CartItemListProps {}
-
-const CartItemList = ({}: CartItemListProps) => {
+const CartItemList = () => {
   const cart = useSelector(getCartSelector);
   const deleteCartItem = useDeleteCartItem();
   const changeItemQuantity = useChangeQuantity();
