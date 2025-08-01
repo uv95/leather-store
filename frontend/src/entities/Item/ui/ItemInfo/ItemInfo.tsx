@@ -64,6 +64,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
             {Object.values(LeatherType).map((type) => (
               <Input
                 key={type}
+                name={type}
                 label={type}
                 onChange={onChange}
                 isChecked={leatherType === type}

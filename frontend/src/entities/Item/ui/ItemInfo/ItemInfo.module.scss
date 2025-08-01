@@ -75,7 +75,7 @@
 
   &__options {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 
     @include max300 {
       @include list;
