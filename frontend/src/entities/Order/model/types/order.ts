@@ -1,6 +1,5 @@
-import { Color } from '../../../../types/data';
 import { Address } from '../../../Address';
-import { ItemType } from '../../../Item';
+import { Color, ItemType } from '../../../Item';
 import { User } from '../../../User';
 
 export interface Order {

@@ -1,15 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Item, ItemType } from '../..';
+import { Color, Item, ItemType, LeatherType } from '../../model/types/item';
 import { useAddToCart } from '../../../../features/cart/api/useAddToCart';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
 import Button, {
   ButtonSize,
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
-import Radio from '../../../../shared/ui/Radio/Radio';
-import { Color, LeatherType } from '../../../../types/data';
 import { getUserRole, Role } from '../../../User';
 import ItemColorSelector from '../ItemColorSelector/ItemColorSelector';
 import styles from './ItemInfo.module.scss';
@@ -64,12 +62,6 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
         <div className={styles.radio}>
           <div className={styles.radio__options}>
             {Object.values(LeatherType).map((type) => (
-              // <Radio
-              //   key={type}
-              //   name={type}
-              //   onChange={onChange}
-              //   checked={leatherType === type}
-              // />
               <Input
                 key={type}
                 label={type}

@@ -2,8 +2,8 @@ import { memo, useState } from 'react';
 import { CartItem } from '../../../../entities/Cart';
 import { ReactComponent as Delete } from '../../../../shared/assets/icons/trash.svg';
 import Button, { ButtonTheme } from '../../../../shared/ui/Button/Button';
-import Colors from '../../../../shared/ui/Colors/Colors';
 import Quantity from '../../../../shared/ui/Quantity/Quantity';
+import SelectedItemColors from '../SelectedItemColors/SelectedItemColors';
 import './cartItemCard.scss';
 
 interface CartItemCardProps {
@@ -42,7 +42,7 @@ const CartItemCard = memo(
           <div className="cart-item__left__info">
             <h2 className="cart-item__left__info-title">{itemData.name}</h2>
             <p>Leather type: {leather}</p>
-            <Colors
+            <SelectedItemColors
               leatherColor={colors.leatherColor}
               threadColor={colors.threadsColor}
             />

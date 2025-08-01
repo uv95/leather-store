@@ -1,0 +1,21 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.ItemColors {
+  display: flex;
+  margin-bottom: 3rem;
+  gap: 2.5rem;
+}
+
+.itemPartColor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  & p {
+  }
+}
+
+.color {
+  @include colorBtnHover;
+}

@@ -1,5 +1,4 @@
-import { Color } from '../../../../types/data';
-import { Image, ItemType } from '../../../Item';
+import { Color, Image, ItemType } from '../../../Item';
 
 export interface CartItem {
   _id: string;

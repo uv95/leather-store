@@ -1,5 +1,5 @@
 import { Order } from '../../../entities/Order';
-import Colors from '../../../shared/ui/Colors/Colors';
+import { SelectedItemColors } from '../../../features/cart';
 import { ChangeStatus } from '../../ChangeStatus';
 import './orderDetails.scss';
 
@@ -20,7 +20,7 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
               <div className="orderDetails__items__item-left__info">
                 <h3>{item.name}</h3>
                 <p>Leather type: {item.leather}</p>
-                <Colors
+                <SelectedItemColors
                   leatherColor={item.colors.leatherColor}
                   threadColor={item.colors.threadsColor}
                 />

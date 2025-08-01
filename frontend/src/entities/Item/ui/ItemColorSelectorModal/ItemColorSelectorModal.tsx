@@ -4,8 +4,8 @@ import Button, {
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
 import Modal from '../../../../shared/ui/Modal/Modal';
-import { Color, HexColor } from '../../../../types/data';
 import styles from './ItemColorSelectorModal.module.scss';
+import { Color, HexColor } from '../../model/types/item';
 
 interface ItemColorSelectorModalProps {
   title: string;

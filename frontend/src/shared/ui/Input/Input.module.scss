@@ -4,19 +4,23 @@
   gap: 1rem;
   width: 100%;
 
-  &:not([type='radio']) {
+  &:not(:has(.input[type='radio'])) {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
+
+    .label {
+      text-align: left;
+      align-self: flex-start;
+    }
   }
 }
 
-.label:not([type='radio']) {
-  text-align: left;
-  align-self: flex-start;
+.label {
+  min-width: max-content;
 }
+
 .input {
-  // height: 4rem;
   width: 100%;
   border-radius: 2px;
   border: 1px solid var(--color-grey--dark);

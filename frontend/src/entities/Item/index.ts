@@ -1,4 +1,12 @@
-import { Item, ItemType, ItemsSchema, Image } from './model/types/item';
+import {
+  Item,
+  ItemType,
+  ItemsSchema,
+  Image,
+  Color,
+  HexColor,
+  LeatherType,
+} from './model/types/item';
 import itemsReducer from './model/slice/itemsSlice';
 import { getFilteredItems } from './model/selectors/getFilteredItems/getFilteredItems';
 import { getItem } from './model/selectors/getItem/getItem';
@@ -16,6 +24,9 @@ export {
   ItemType,
   type ItemsSchema,
   type Image,
+  Color,
+  HexColor,
+  LeatherType,
   itemsReducer,
   getFilteredItems,
   getItem,

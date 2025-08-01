@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Colors, { ColorsPosition } from '../../../../shared/ui/Colors/Colors';
-import { Color } from '../../../../types/data';
 import ItemColorSelectorModal from '../ItemColorSelectorModal/ItemColorSelectorModal';
+import ItemColors from '../ItemColors/ItemColors';
+import { Color } from '../../model/types/item';
 
 export enum ItemPart {
   LEATHER = 'leather',
@@ -28,10 +28,9 @@ const ItemColorSelector: React.FC<ItemColorSelectorProps> = ({
 
   return (
     <>
-      <Colors
+      <ItemColors
         leatherColor={leatherColor}
         threadColor={threadColor}
-        position={ColorsPosition.VERTICAL}
         openSelectLeatherColor={() => setIsLeatherColorSelectorOpen(true)}
         openSelectThreadsColor={() => sethIsThreadColorSelectorOpen(true)}
       />

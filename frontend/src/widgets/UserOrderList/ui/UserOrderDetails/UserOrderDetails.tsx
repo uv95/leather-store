@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { cancelOrder, Order } from '../../../../entities/Order';
+import { SelectedItemColors } from '../../../../features/cart';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
-import Colors from '../../../../shared/ui/Colors/Colors';
+import Button from '../../../../shared/ui/Button/Button';
 import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
 import './userOrderDetails.scss';
-import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
-import Button from '../../../../shared/ui/Button/Button';
 
 type UserOrderDetailsProps = { order: Order };
 
@@ -55,10 +55,9 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
                   {item.name}
                 </h2>
                 <p>Leather type: {item.leather}</p>
-                <Colors
+                <SelectedItemColors
                   leatherColor={item.colors.leatherColor}
                   threadColor={item.colors.threadsColor}
-                  fromMyOrders
                 />
                 <p className="userOrderDetails__item-left__info-qty">
                   Quantity: {item.quantity}
