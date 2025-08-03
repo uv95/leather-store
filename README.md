@@ -6,7 +6,7 @@ Live: https://leather-store.netlify.app/
 
 ### Stack
 
-#### Frontend: `React`, `TypeScript`, `Redux Toolkit`, `SCSS`, `Axios`, `Chart.js`
+#### Frontend: `React`, `TypeScript`, `Redux Toolkit`, `SCSS`, `Axios`, `Chart.js`, `Storybook`
 
 #### Backend: `Node.js`, `Express`, `MongoDB`, `Cloudinary`
 
