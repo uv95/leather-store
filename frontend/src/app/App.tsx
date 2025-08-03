@@ -34,7 +34,6 @@ const App = () => {
   return (
     <Suspense>
       <Toast />
-      {/* <ScrollToTop /> */}
       <MainLayout>
         <AppRouter />
       </MainLayout>
