@@ -35,7 +35,7 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
         <div className="modal__content">{children}</div>
       </div>
     </>,
-    document.getElementById('root') as HTMLElement
+    (document.getElementById('root') as HTMLElement) || document.body
   );
 };
 

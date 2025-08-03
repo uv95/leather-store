@@ -14,11 +14,13 @@ export function useGetAllItems() {
   const items = useSelector(getFilteredItems);
 
   useEffect(() => {
-    dispatch(getAllItems())
-      .unwrap()
-      .then()
-      .catch((error) => toast.error(error));
-  }, [dispatch]);
+    if (!items.length) {
+      dispatch(getAllItems())
+        .unwrap()
+        .then()
+        .catch((error) => toast.error(error));
+    }
+  }, [dispatch, items.length]);
 
   return { isLoading, items };
 }

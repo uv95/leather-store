@@ -1,12 +1,12 @@
 import './quantity.scss';
 
-interface IQuantity {
+interface QuantityProps {
   onDecrement: () => void;
   quantity: number;
   onIncrement: () => void;
 }
 
-const Quantity = ({ onDecrement, quantity, onIncrement }: IQuantity) => {
+const Quantity = ({ onDecrement, quantity, onIncrement }: QuantityProps) => {
   return (
     <div className="quantity">
       <div className="quantity__cell" onClick={onDecrement}>
