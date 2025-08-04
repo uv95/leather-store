@@ -64,14 +64,18 @@ export const orderSlice = createSlice({
         );
       })
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action) =>
+          action.type.startsWith('@@orders') &&
+          action.type.endsWith('/fulfilled'),
         (state) => {
           state.isLoading = false;
           state.isError = false;
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action) =>
+          action.type.startsWith('@@orders') &&
+          action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
           state.isError = true;

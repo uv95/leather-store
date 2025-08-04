@@ -24,7 +24,6 @@ export const itemsSlice = createSlice({
         );
       })
       .addCase(getItemBySlug.pending, (state) => {
-        state.isLoading = true;
         state.item = undefined;
       })
       .addCase(getItemBySlug.fulfilled, (state, action) => {
@@ -33,12 +32,8 @@ export const itemsSlice = createSlice({
       .addCase(addItem.fulfilled, (state, action) => {
         state.items = [...state.items, action.payload.data.data];
       })
-      .addCase(addItem.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(getAllItems.pending, (state) => {
         state.items = [];
-        state.isLoading = true;
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.items = action.payload.data.data;
@@ -52,13 +47,24 @@ export const itemsSlice = createSlice({
         );
       })
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action) =>
+          action.type.startsWith('@@items') && action.type.endsWith('/pending'),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith('@@items') &&
+          action.type.endsWith('/fulfilled'),
         (state) => {
           state.isLoading = false;
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action) =>
+          action.type.startsWith('@@items') &&
+          action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
         }

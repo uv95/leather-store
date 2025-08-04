@@ -1,16 +1,16 @@
 @import '../../../app/styles/mixins/global.scss';
 
 .item-card {
-  max-width: 32rem;
-
   @include max400 {
     width: 100%;
   }
 
   &__img {
     width: 100%;
+    max-width: 32rem;
     max-height: 32rem;
     overflow: hidden;
+    margin: auto;
     @include max400 {
       height: 28rem;
     }

@@ -1,30 +1,31 @@
 import { Link } from 'react-router-dom';
-import { useGetAllItems } from '../../../shared/lib/hooks/useGetAllItems';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import { useGetAllItems } from '../../../shared/lib/hooks/useGetAllItems';
 import ItemCard from '../../../shared/ui/ItemCard/ItemCard';
-import Spinner from '../../../shared/ui/Spinner/Spinner';
-import './itemsPreview.scss';
+import Skeleton from '../../../shared/ui/Skeleton/Skeleton';
+import styles from './ItemsPreview.module.scss';
+import { memo } from 'react';
 
 const ItemsPreview = () => {
   const { isLoading, items } = useGetAllItems();
 
   return (
-    <div className="items-preview">
-      <div className="items-preview__heading">
+    <div className={styles.ItemsPreview}>
+      <div className={styles.heading}>
         <h4>Store</h4>
-        <Link to={RoutePath.CATALOG} className="items-preview__heading-link">
+        <Link to={RoutePath.CATALOG} className={styles.link}>
           View all
         </Link>
       </div>
-      <div className="items-preview__container">
-        {isLoading && <Spinner />}
-        {!isLoading &&
-          items
-            ?.slice(0, 4)
-            .map((item) => <ItemCard key={item._id} item={item} />)}
+      <div className={styles.items}>
+        {items?.slice(0, 4).map((item) => (
+          <div key={item._id} className={styles.item}>
+            {isLoading ? <Skeleton /> : <ItemCard item={item} />}
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default ItemsPreview;
+export default memo(ItemsPreview);

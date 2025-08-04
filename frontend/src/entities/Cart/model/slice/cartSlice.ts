@@ -132,13 +132,16 @@ export const cartSlice = createSlice({
         state.cart = action.payload.data;
       })
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action) =>
+          action.type.startsWith('@@cart') &&
+          action.type.endsWith('/fulfilled'),
         (state) => {
           state.isLoading = false;
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action) =>
+          action.type.startsWith('@@cart') && action.type.endsWith('/rejected'),
         (state) => {
           state.isLoading = false;
         }

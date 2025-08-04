@@ -17,7 +17,7 @@ export enum RoutePath {
 }
 
 const Cart = lazy(() => import('../../../pages/Cart/Cart'));
-const Catalog = lazy(() => import('../../../pages/Catalog/Catalog'));
+const Catalog = lazy(() => import('../../../pages/Catalog'));
 const Login = lazy(() => import('../../../pages/Login/Login'));
 const Register = lazy(() => import('../../../pages/Register/Register'));
 const ItemPage = lazy(() => import('../../../pages/ItemPage/ItemPage'));
