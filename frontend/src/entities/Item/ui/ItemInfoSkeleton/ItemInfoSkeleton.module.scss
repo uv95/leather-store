@@ -1,0 +1,42 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.ItemInfoSkeleton {
+  min-width: 100%;
+  height: 100%;
+
+  @include max900 {
+    width: auto;
+    max-width: 55%;
+  }
+  @include max800 {
+    width: 100%;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.price {
+  margin-bottom: 2rem;
+}
+
+.colors {
+  margin-bottom: 3rem;
+}
+
+.leatherType {
+  margin-bottom: 2rem;
+  max-width: 100%;
+}
+
+.descriptionHeading {
+  margin-bottom: 2rem;
+}
+
+.description {
+  margin-bottom: 3rem;
+  max-width: 100%;
+}

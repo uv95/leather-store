@@ -7,32 +7,56 @@
 }
 
 .container {
+  min-height: 40rem;
   margin-top: 4rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 4rem;
+  gap: 2rem;
+  align-items: stretch;
 
-  @include max900 {
+  @include max800 {
     @include list;
-  }
-
-  & .spinner {
-    height: 24rem;
+    align-items: center;
   }
 }
-.itemImage {
+
+.itemImage,
+.imageSkeletonContainer {
   max-width: 50rem;
   width: 50%;
   display: flex;
+  flex-shrink: 1;
+  align-self: center;
+
   @include max900 {
     max-width: 40rem;
     width: 100%;
   }
 }
+
+.itemImage {
+  height: auto;
+}
+
+.imageSkeleton {
+  height: 0;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
 .itemInfo {
-  width: 48%;
+  width: 50%;
+  height: auto;
+  flex-shrink: 0;
+
   @include max900 {
+    width: auto;
+    max-width: 55%;
+  }
+  @include max800 {
     width: 100%;
+    max-width: 100%;
+    align-self: flex-start;
   }
 }

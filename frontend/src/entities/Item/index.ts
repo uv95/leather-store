@@ -18,6 +18,7 @@ import { getItemBySlug } from './model/services/getItemBySlug/getItemBySlug';
 import { updateItem } from './model/services/updateItem/updateItem';
 import ItemImage from './ui/ItemImage/ItemImage';
 import ItemInfo from './ui/ItemInfo/ItemInfo';
+import ItemInfoSkeleton from './ui/ItemInfoSkeleton/ItemInfoSkeleton';
 
 export {
   type Item,
@@ -38,4 +39,5 @@ export {
   updateItem,
   ItemImage,
   ItemInfo,
+  ItemInfoSkeleton,
 };
