@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { getItemsIsLoading, Item } from '../../../../entities/Item';
+import { getItemsLoading, Item } from '../../../../entities/Item';
 import { getSortBy, SortingOptions } from '../../../../features/CatalogFilter';
 import ItemCard from '../../../../shared/ui/ItemCard/ItemCard';
 import styles from './CatalogItemList.module.scss';
@@ -12,7 +12,7 @@ function CatalogItemList(props: {
   currentPage: number;
 }) {
   const sortBy = useSelector(getSortBy);
-  const isLoading = useSelector(getItemsIsLoading);
+  const loading = useSelector(getItemsLoading);
   const { items, itemsPerPage, currentPage } = props;
 
   const itemsOnPage = useMemo(
@@ -35,13 +35,13 @@ function CatalogItemList(props: {
     });
   }, [sortBy, itemsOnPage]);
 
-  if (!isLoading && !items.length) {
+  if (loading === 'succeeded' && !items.length) {
     return <p className={styles.empty}>No items found</p>;
   }
 
   return (
     <div className={styles.CatalogItemList}>
-      {isLoading &&
+      {loading === 'pending' &&
         [...Array(itemsPerPage)].map((_, i) => (
           <div key={i} className={styles.skeleton}>
             <Skeleton className={styles.imageSekeleton} />
@@ -49,7 +49,7 @@ function CatalogItemList(props: {
           </div>
         ))}
 
-      {!isLoading &&
+      {loading === 'succeeded' &&
         sortedItems.map((item) => <ItemCard key={item._id} item={item} />)}
     </div>
   );

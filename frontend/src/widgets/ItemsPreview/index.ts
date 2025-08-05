@@ -1,3 +1,3 @@
-import ItemsPreview from "./ui/ItemsPreview";
+import ItemsPreview from './ui/ItemsPreview/ItemsPreview';
 
 export { ItemsPreview };

@@ -10,7 +10,7 @@ import {
 import itemsReducer from './model/slice/itemsSlice';
 import { getFilteredItems } from './model/selectors/getFilteredItems/getFilteredItems';
 import { getItem } from './model/selectors/getItem/getItem';
-import { getItemsIsLoading } from './model/selectors/getItemsIsLoading/getItemsIsLoading';
+import { getItemsLoading } from './model/selectors/getItemsLoading/getItemsLoading';
 import { addItem } from './model/services/addItem/addItem';
 import { deleteItem } from './model/services/deleteItem/deleteItem';
 import { getAllItems } from './model/services/getAllItems/getAllItems';
@@ -31,7 +31,7 @@ export {
   itemsReducer,
   getFilteredItems,
   getItem,
-  getItemsIsLoading,
+  getItemsLoading,
   addItem,
   deleteItem,
   getAllItems,

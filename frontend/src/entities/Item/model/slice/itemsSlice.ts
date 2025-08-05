@@ -9,7 +9,7 @@ import { ItemsSchema } from '../types/item';
 const initialState: ItemsSchema = {
   items: [],
   item: undefined,
-  isLoading: false,
+  loading: 'idle',
 };
 
 export const itemsSlice = createSlice({
@@ -50,7 +50,7 @@ export const itemsSlice = createSlice({
         (action) =>
           action.type.startsWith('@@items') && action.type.endsWith('/pending'),
         (state) => {
-          state.isLoading = true;
+          state.loading = 'pending';
         }
       )
       .addMatcher(
@@ -58,7 +58,7 @@ export const itemsSlice = createSlice({
           action.type.startsWith('@@items') &&
           action.type.endsWith('/fulfilled'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'succeeded';
         }
       )
       .addMatcher(
@@ -66,7 +66,7 @@ export const itemsSlice = createSlice({
           action.type.startsWith('@@items') &&
           action.type.endsWith('/rejected'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'failed';
         }
       );
   },

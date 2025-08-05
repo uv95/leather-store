@@ -9,7 +9,6 @@ import styles from './cartOrderStatusModal.module.scss';
 interface CartOrderStatusModalProps {
   onClose: () => void;
   isOpen: boolean;
-  // isCartEmpty: boolean;
 }
 
 const CartOrderStatusModal = memo(

@@ -6,10 +6,13 @@ import Spinner from '../../shared/ui/Spinner/Spinner';
 import { ItemListItem } from '../../widgets/ItemListItem';
 import './itemsManagement.scss';
 import { AddItemForm } from '../../features/addItem';
+import { getItemsLoading } from '../../entities/Item';
+import { useSelector } from 'react-redux';
 
 const ItemsManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { isLoading, items } = useGetAllItems();
+  const { items } = useGetAllItems();
+  const loading = useSelector(getItemsLoading);
 
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -27,9 +30,8 @@ const ItemsManagement = () => {
           Add item
         </Button>
         <div className="items__container">
-          {isLoading ? (
-            <Spinner />
-          ) : (
+          {loading === 'pending' && <Spinner />}
+          {loading === 'succeeded' && (
             <>
               {(!items || !items.length) && (
                 <p className="items__container-empty">No items</p>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import {
   getItem,
   getItemBySlug,
-  getItemsIsLoading,
+  getItemsLoading,
   ItemImage,
   ItemInfo,
   ItemInfoSkeleton,
@@ -18,7 +18,7 @@ const ItemPage = () => {
   const dispatch = useAppDispatch();
   const { slug } = useParams();
   const item = useSelector(getItem);
-  const isLoading = useSelector(getItemsIsLoading);
+  const loading = useSelector(getItemsLoading);
 
   useEffect(() => {
     if (slug) {
@@ -30,20 +30,22 @@ const ItemPage = () => {
     <div className={styles.Item}>
       <Back />
       <div className={styles.container}>
-        {!item && !isLoading && <p>Item not found!</p>}
+        {!item && loading === 'succeeded' && <p>Item not found!</p>}
 
-        {!isLoading && item ? (
+        {loading === 'succeeded' && item && (
           <div className={styles.itemImage}>
             <ItemImage item={item} />
           </div>
-        ) : (
+        )}
+        {loading === 'pending' && (
           <div className={styles.imageSkeletonContainer}>
             <Skeleton className={styles.imageSkeleton} />
           </div>
         )}
 
         <div className={styles.itemInfo}>
-          {!isLoading && item ? <ItemInfo item={item} /> : <ItemInfoSkeleton />}
+          {loading === 'pending' && <ItemInfoSkeleton />}
+          {loading === 'succeeded' && item && <ItemInfo item={item} />}
         </div>
       </div>
     </div>

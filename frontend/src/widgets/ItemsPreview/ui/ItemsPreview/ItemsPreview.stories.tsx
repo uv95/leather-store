@@ -1,6 +1,6 @@
-import { Item, itemsReducer, ItemType } from '../../../entities/Item';
-import { filterReducer } from '../../../features/CatalogFilter';
-import { createMockStore } from '../../../shared/config/storybook/createMockStore/createMockStore';
+import { Item, itemsReducer, ItemType } from '../../../../entities/Item';
+import { filterReducer } from '../../../../features/CatalogFilter';
+import { createMockStore } from '../../../../shared/config/storybook/createMockStore/createMockStore';
 import ItemsPreview from './ItemsPreview';
 
 const items: Item[] = [

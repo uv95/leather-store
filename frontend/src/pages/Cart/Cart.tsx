@@ -90,11 +90,7 @@ const Cart = () => {
   return (
     <>
       {isModalOpen && (
-        <CartOrderStatusModal
-          // isCartEmpty={isCartEmpty}
-          isOpen={isModalOpen}
-          onClose={onCloseModal}
-        />
+        <CartOrderStatusModal isOpen={isModalOpen} onClose={onCloseModal} />
       )}
 
       <CartLayout isCartEmpty={isCartEmpty}>
