@@ -4,7 +4,7 @@ import { getAllActiveOrders } from './model/selectors/getAllActiveOrders/getAllA
 import { getUserActiveOrders } from './model/selectors/getUserActiveOrders/getUserActiveOrders';
 import { getAllCompletedOrders } from './model/selectors/getAllCompletedOrders/getAllCompletedOrders';
 import { getUserCompletedOrders } from './model/selectors/getUserCompletedOrders/getAllCompletedOrders';
-import { getOrderIsLoading } from './model/selectors/getOrderIsLoading/getOrderIsLoading';
+import { getOrderLoading } from './model/selectors/getOrderLoading/getOrderLoading';
 import { cancelOrder } from './model/services/cancelOrder/cancelOrder';
 import { createOrder } from './model/services/createOrder/createOrder';
 import { getAllOrders } from './model/services/getAllOrders/getAllOrders';
@@ -21,7 +21,7 @@ export {
   getUserActiveOrders,
   getAllCompletedOrders,
   getUserCompletedOrders,
-  getOrderIsLoading,
+  getOrderLoading,
   cancelOrder,
   createOrder,
   getAllOrders,

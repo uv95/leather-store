@@ -8,5 +8,5 @@ export interface Address {
 export interface AddressSchema {
   address?: Address;
   addresses: Address[];
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }

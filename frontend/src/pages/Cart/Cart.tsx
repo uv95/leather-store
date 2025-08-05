@@ -91,7 +91,7 @@ const Cart = () => {
     <>
       {isModalOpen && (
         <CartOrderStatusModal
-          isCartEmpty={isCartEmpty}
+          // isCartEmpty={isCartEmpty}
           isOpen={isModalOpen}
           onClose={onCloseModal}
         />

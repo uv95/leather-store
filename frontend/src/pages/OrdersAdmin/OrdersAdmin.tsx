@@ -4,7 +4,7 @@ import {
   getAllActiveOrders,
   getAllCompletedOrders,
   getAllOrders,
-  getOrderIsLoading,
+  getOrderLoading,
 } from '../../entities/Order';
 import Spinner from '../../shared/ui/Spinner/Spinner';
 import { OrdersAdminListItem } from '../../widgets/OrdersAdminListItem';
@@ -17,7 +17,7 @@ const OrdersAdmin = () => {
 
   const activeOrders = useSelector(getAllActiveOrders);
   const completedOrders = useSelector(getAllCompletedOrders);
-  const isLoading = useSelector(getOrderIsLoading);
+  const loading = useSelector(getOrderLoading);
 
   useEffect(() => {
     dispatch(getAllOrders())
@@ -28,7 +28,7 @@ const OrdersAdmin = () => {
 
   return (
     <div className="orders">
-      {isLoading ? (
+      {loading === 'pending' ? (
         <Spinner />
       ) : (
         <>

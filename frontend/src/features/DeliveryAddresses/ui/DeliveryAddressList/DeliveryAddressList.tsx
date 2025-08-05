@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react';
-import { Address, deleteAddress } from '../../../../entities/Address';
+import {
+  Address,
+  deleteAddress,
+  getAddressLoading,
+} from '../../../../entities/Address';
 import toast from '../../../../shared/lib/toast/toast';
 import DeliveryAddressCard from '../DeliveryAddressCard/DeliveryAddressCard';
 import './deliveryAddressList.scss';
 import { useAddressIdContext } from '../../model/AddressIdContext';
-import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
+import { ConfirmationModal } from '../../../../shared/ui/ConfirmationModal';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import { useSelector } from 'react-redux';
+import Skeleton from '../../../../shared/ui/Skeleton/Skeleton';
 
 interface DeliveryAddressListProps {
   onOpenForm: () => void;
@@ -17,6 +23,7 @@ const DeliveryAddressList = ({
   addresses,
 }: DeliveryAddressListProps) => {
   const dispatch = useAppDispatch();
+  const loading = useSelector(getAddressLoading);
   const { setAddressId, addressId } = useAddressIdContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,17 +62,30 @@ const DeliveryAddressList = ({
         />
       )}
       <div className="deliveryAddresses">
-        {addresses.map((address) => (
-          <DeliveryAddressCard
-            key={address._id}
-            address={address}
-            onEdit={() => onEdit(address._id)}
-            onDelete={() => {
-              onOpenModal();
-              setAddressId(address._id);
-            }}
-          />
-        ))}
+        {!addresses.length && loading === 'succeeded' && (
+          <p>Address list is empty.</p>
+        )}
+
+        {loading === 'pending' && (
+          <>
+            <Skeleton height={8} />
+            <Skeleton height={8} />
+            <Skeleton height={8} />
+          </>
+        )}
+
+        {loading === 'succeeded' &&
+          addresses.map((address) => (
+            <DeliveryAddressCard
+              key={address._id}
+              address={address}
+              onEdit={() => onEdit(address._id)}
+              onDelete={() => {
+                onOpenModal();
+                setAddressId(address._id);
+              }}
+            />
+          ))}
       </div>
     </>
   );

@@ -1,5 +1,5 @@
-import ButtonRedesigned from '../../../shared/ui/Button/Button';
-import Modal from '../../../shared/ui/Modal/Modal';
+import Button from '../../Button/Button';
+import Modal from '../../Modal/Modal';
 import './confirmationModal.scss';
 
 interface ConfirmationModalProps {
@@ -20,7 +20,7 @@ const ConfirmationModal = ({
       <>
         <p>{text}</p>
         <div className="confirmationModal-buttons">
-          <ButtonRedesigned
+          <Button
             className="cm-button-long"
             onClick={() => {
               confirmAction();
@@ -28,8 +28,8 @@ const ConfirmationModal = ({
             }}
           >
             Yes
-          </ButtonRedesigned>
-          <ButtonRedesigned onClick={onClose}>No</ButtonRedesigned>
+          </Button>
+          <Button onClick={onClose}>No</Button>
         </div>
       </>
     </Modal>

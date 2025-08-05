@@ -1,0 +1,69 @@
+@import '../../../app/styles/mixins/global.scss';
+@import '../../../app/styles/animations/global.scss';
+
+.ListItemLayout {
+  width: 100%;
+
+  @include max300 {
+    min-height: 12rem;
+  }
+}
+
+.card {
+  display: flex;
+  min-height: 10rem;
+
+  @include max300 {
+    display: block;
+  }
+}
+
+.white {
+  background-color: white;
+
+  & .iconContainer {
+    border-left: 2px solid var(--color-grey--light);
+  }
+}
+.grey {
+  background-color: var(--color-grey--light);
+
+  & .iconContainer {
+    border-left: 2px solid white;
+  }
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  @include hover;
+  transition: all 0.2s;
+  transform: rotate(90deg);
+}
+.iconOpen {
+  transform: rotate(270deg);
+}
+
+.iconContainer {
+  width: 6rem;
+  height: inherit;
+  @include center;
+
+  @include max700 {
+    width: 4rem;
+  }
+
+  @include max300 {
+    height: 4rem;
+    width: 100%;
+  }
+}
+
+.details {
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  max-height: 0;
+}
+.detailsOpen {
+  max-height: 94rem;
+}

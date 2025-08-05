@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../../entities/User';
-import { ConfirmationModal } from '../../../ConfirmationModal';
+import { ConfirmationModal } from '../../../../shared/ui/ConfirmationModal';
 import { Tab, tabs } from '../../model/tabs';
 import SidebarButton from '../SidebarButton/SidebarButton';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
