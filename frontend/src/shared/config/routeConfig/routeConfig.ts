@@ -26,7 +26,8 @@ const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
 const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));
 const ItemsManagement = lazy(
-  () => import('../../../pages/ItemsManagement/ItemsManagement')
+  () =>
+    import('../../../pages/ItemsManagement/ui/ItemsManagement/ItemsManagement')
 );
 const UserProfile = lazy(
   () => import('../../../pages/UserProfile/UserProfile')

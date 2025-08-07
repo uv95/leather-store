@@ -1,8 +1,8 @@
-import { ItemType } from '../../../entities/Item';
+import { ItemType } from '../../../../entities/Item';
 import ItemListItem from './ItemListItem';
 
 export default {
-  title: 'widgets/ItemListItem',
+  title: 'pages/ItemsManagement/ItemListItem',
   component: ItemListItem,
   tags: ['autodocs'],
   argTypes: {

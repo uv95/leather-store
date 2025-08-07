@@ -1,18 +1,18 @@
 import { useCallback, useState } from 'react';
-import { useGetAllItems } from '../../shared/lib/hooks/useGetAllItems';
-import Button from '../../shared/ui/Button/Button';
-import Modal from '../../shared/ui/Modal/Modal';
-import Spinner from '../../shared/ui/Spinner/Spinner';
-import { ItemListItem } from '../../widgets/ItemListItem';
+import { AddItemForm } from '../../../../features/addItem';
+import Button from '../../../../shared/ui/Button/Button';
+import Modal from '../../../../shared/ui/Modal/Modal';
+import { ItemList } from '../ItemList/ItemList';
 import './itemsManagement.scss';
-import { AddItemForm } from '../../features/addItem';
-import { getItemsLoading } from '../../entities/Item';
+import { getItemsLoading } from '../../../../entities/Item';
 import { useSelector } from 'react-redux';
+import ItemListSkeleton from '../ItemListSkeleton/ItemListSkeleton';
+import useGetAllItems from '../../../../shared/lib/hooks/useGetAllItems';
 
 const ItemsManagement = () => {
+  const loading = useSelector(getItemsLoading);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { items } = useGetAllItems();
-  const loading = useSelector(getItemsLoading);
 
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -30,18 +30,8 @@ const ItemsManagement = () => {
           Add item
         </Button>
         <div className="items__container">
-          {loading === 'pending' && <Spinner />}
-          {loading === 'succeeded' && (
-            <>
-              {(!items || !items.length) && (
-                <p className="items__container-empty">No items</p>
-              )}
-              {items.length !== 0 &&
-                items.map((item) => (
-                  <ItemListItem key={item._id} item={item} />
-                ))}
-            </>
-          )}
+          {loading === 'pending' && <ItemListSkeleton />}
+          {loading === 'succeeded' && <ItemList items={items} />}
         </div>
         {isModalOpen && (
           <Modal isOpen={isModalOpen} onClose={onCloseModal}>
