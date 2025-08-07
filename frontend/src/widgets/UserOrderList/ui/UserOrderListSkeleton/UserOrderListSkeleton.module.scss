@@ -1,0 +1,25 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.UserOrderListSkeleton {
+  margin-bottom: 1rem;
+
+  @include max500 {
+    margin-top: 2rem;
+  }
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+.underline {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-grey--medium);
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  margin-top: 2rem;
+  max-width: 100%;
+}

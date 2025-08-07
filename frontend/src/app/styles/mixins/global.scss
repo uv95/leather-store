@@ -26,20 +26,6 @@
   }
 }
 
-@mixin items-section--home {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-}
-@mixin items-section--catalog {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  row-gap: 6rem;
-  justify-content: space-between;
-}
-
 @mixin center {
   display: flex;
   justify-content: center;

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { getUserRole, Role } from '../../../../entities/User';
 import NotFound from '../../../../pages/NotFound/NotFound';
@@ -6,7 +7,6 @@ import {
   publicRoutes,
   userRoutes,
 } from '../../../../shared/config/routeConfig/routeConfig';
-import { useSelector } from 'react-redux';
 
 export const AppRouter = () => {
   const role = useSelector(getUserRole);

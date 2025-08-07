@@ -10,10 +10,7 @@ interface ItemCardProps {
 
 const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
   return (
-    <Link
-      to={RoutePath.ITEM_PAGE.replace(':slug', item.slug)}
-      className="item-card"
-    >
+    <Link to={RoutePath.ITEM_PAGE.replace(':slug', item.slug)}>
       <div className="item-card__img">
         <img
           src={item.imageCover.url}

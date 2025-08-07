@@ -4,20 +4,21 @@ import { useParams } from 'react-router-dom';
 import {
   getItem,
   getItemBySlug,
-  getItemsIsLoading,
+  getItemsLoading,
   ItemImage,
   ItemInfo,
+  ItemInfoSkeleton,
 } from '../../entities/Item';
-import Back from '../../shared/ui/Back/Back';
-import Spinner from '../../shared/ui/Spinner/Spinner';
-import styles from './ItemPage.module.scss';
 import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
+import Back from '../../shared/ui/Back/Back';
+import Skeleton from '../../shared/ui/Skeleton/Skeleton';
+import styles from './ItemPage.module.scss';
 
 const ItemPage = () => {
   const dispatch = useAppDispatch();
   const { slug } = useParams();
   const item = useSelector(getItem);
-  const isLoading = useSelector(getItemsIsLoading);
+  const loading = useSelector(getItemsLoading);
 
   useEffect(() => {
     if (slug) {
@@ -29,20 +30,23 @@ const ItemPage = () => {
     <div className={styles.Item}>
       <Back />
       <div className={styles.container}>
-        {isLoading && <Spinner />}
+        {!item && loading === 'succeeded' && <p>Item not found!</p>}
 
-        {!item && <p>Item not found!</p>}
-
-        {item && !isLoading && (
-          <>
-            <div className={styles.itemImage}>
-              <ItemImage item={item} />
-            </div>
-            <div className={styles.itemInfo}>
-              <ItemInfo item={item} />
-            </div>
-          </>
+        {loading === 'succeeded' && item && (
+          <div className={styles.itemImage}>
+            <ItemImage item={item} />
+          </div>
         )}
+        {loading === 'pending' && (
+          <div className={styles.imageSkeletonContainer}>
+            <Skeleton className={styles.imageSkeleton} />
+          </div>
+        )}
+
+        <div className={styles.itemInfo}>
+          {loading === 'pending' && <ItemInfoSkeleton />}
+          {loading === 'succeeded' && item && <ItemInfo item={item} />}
+        </div>
       </div>
     </div>
   );

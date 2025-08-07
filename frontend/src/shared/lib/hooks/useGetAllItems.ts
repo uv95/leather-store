@@ -1,16 +1,11 @@
 import { useEffect } from 'react';
 import toast from '../toast/toast';
 import { useSelector } from 'react-redux';
-import {
-  getAllItems,
-  getFilteredItems,
-  getItemsIsLoading,
-} from '../../../entities/Item';
+import { getAllItems, getFilteredItems } from '../../../entities/Item';
 import { useAppDispatch } from './useAppDispatch';
 
 export function useGetAllItems() {
   const dispatch = useAppDispatch();
-  const isLoading = useSelector(getItemsIsLoading);
   const items = useSelector(getFilteredItems);
 
   useEffect(() => {
@@ -22,7 +17,7 @@ export function useGetAllItems() {
     }
   }, [dispatch, items.length]);
 
-  return { isLoading, items };
+  return { items };
 }
 
 export default useGetAllItems;

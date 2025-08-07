@@ -1,18 +1,18 @@
 import { FormEvent } from 'react';
-import { Address } from '../../../../../entities/Address';
+import { Address, getAddressLoading } from '../../../../../entities/Address';
 import Button, {
   ButtonTheme,
   ButtonSize,
 } from '../../../../../shared/ui/Button/Button';
 import Input from '../../../../../shared/ui/Input/Input';
 import './addressForm.scss';
+import { useSelector } from 'react-redux';
 
 interface AddressFormProps {
   isEdit?: boolean;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   setFormData: React.Dispatch<React.SetStateAction<Omit<Address, '_id'>>>;
   addressData: Omit<Address, '_id'>;
-  isInputDisabled?: boolean;
 }
 
 const AddressForm = ({
@@ -20,8 +20,8 @@ const AddressForm = ({
   onSubmit,
   setFormData,
   addressData,
-  isInputDisabled = false,
 }: AddressFormProps) => {
+  const loading = useSelector(getAddressLoading);
   const { city, address, zipcode } = addressData;
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
@@ -43,7 +43,7 @@ const AddressForm = ({
           value={city}
           required={!isEdit}
           onChange={onChange}
-          disabled={isInputDisabled}
+          disabled={loading === 'pending'}
         />
       </div>
       <div className="address-form__input-box">
@@ -54,7 +54,7 @@ const AddressForm = ({
           value={address}
           required={!isEdit}
           onChange={onChange}
-          disabled={isInputDisabled}
+          disabled={loading === 'pending'}
         />
       </div>
       <div className="address-form__input-box">
@@ -65,10 +65,15 @@ const AddressForm = ({
           value={zipcode}
           required={!isEdit}
           onChange={onChange}
-          disabled={isInputDisabled}
+          disabled={loading === 'pending'}
         />
       </div>
-      <Button type="submit" theme={ButtonTheme.BLACK} size={ButtonSize.L}>
+      <Button
+        type="submit"
+        theme={ButtonTheme.BLACK}
+        size={ButtonSize.L}
+        disabled={loading === 'pending'}
+      >
         {isEdit ? 'Save' : 'Add'}
       </Button>
     </form>

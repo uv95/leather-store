@@ -31,6 +31,5 @@ export interface OrderSchema {
   order?: Order;
   orders: Order[];
   myOrders: Order[];
-  isLoading: boolean;
-  isError?: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }

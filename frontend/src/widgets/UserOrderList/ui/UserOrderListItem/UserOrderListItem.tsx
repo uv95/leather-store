@@ -5,7 +5,7 @@ import ListItemLayout, {
 } from '../../../../shared/ui/ListItemLayout/ListItemLayout';
 import OrderStatusBadge from '../../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import UserOrderDetails from '../UserOrderDetails/UserOrderDetails';
-import './userOrderListItem.scss';
+import styles from './UserOrderListItem.module.scss';
 
 type UserOrderListItemProps = {
   order: Order;
@@ -32,19 +32,17 @@ const UserOrderListItem = ({ order }: UserOrderListItemProps) => {
       theme={ListItemTheme.WHITE}
     >
       <div
-        className="userOrderListItem"
+        className={styles.UserOrderListItem}
         style={{
           gridTemplateColumns: `repeat(${Object.keys(orderData).length}, 1fr)`,
         }}
       >
         {Object.keys(orderData).map((dataKey) => (
-          <div key={dataKey} className={`userOrderListItem__field`}>
+          <div key={dataKey} className={styles.field}>
             {dataKey === 'status' ? (
               <OrderStatusBadge status={orderData.status as OrderStatus} />
             ) : (
-              <div className="userOrderListItem__field-content">
-                {orderData[dataKey]}
-              </div>
+              <div className={styles.content}>{orderData[dataKey]}</div>
             )}
           </div>
         ))}

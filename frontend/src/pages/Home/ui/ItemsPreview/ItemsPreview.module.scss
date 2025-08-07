@@ -1,0 +1,50 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.ItemsPreview {
+  @include main-block;
+  margin: 4rem auto;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 32rem;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+
+  @include max1000 {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    min-height: calc(32rem * 2 + 2rem);
+    height: auto;
+  }
+
+  @include max500 {
+    grid-template-columns: 1fr;
+    min-height: calc(32rem * 4 + 4rem);
+    height: auto;
+  }
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.link {
+  color: var(--color-grey--dark) !important;
+  font-size: 1.5rem;
+
+  &:hover {
+    color: var(--color-grey--medium) !important;
+  }
+}
+
+.item {
+  width: 100%;
+  max-width: 32rem;
+  height: 100%;
+}

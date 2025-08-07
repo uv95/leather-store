@@ -18,7 +18,7 @@ export interface Image {
 export interface ItemsSchema {
   items: Item[];
   item?: Item;
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 export enum ItemType {

@@ -4,9 +4,9 @@ import { getOrdersByCategory } from '../services/getOrdersByCategory/getOrdersBy
 import { getMonthlyRevenueData } from '../services/getMonthlyRevenueData/getMonthlyRevenueData';
 
 const initialState: AnalyticsSchema = {
-  isLoading: false,
   monthlyRevenue: [],
   ordersByCategory: [],
+  loading: 'idle',
 };
 
 export const analyticsSlice = createSlice({
@@ -17,27 +17,27 @@ export const analyticsSlice = createSlice({
     builder
       .addCase(getMonthlyRevenueData.fulfilled, (state, action) => {
         state.monthlyRevenue = action.payload.data;
-        state.isLoading = false;
+        state.loading = 'succeeded';
       })
       .addCase(getMonthlyRevenueData.pending, (state) => {
         state.monthlyRevenue = [];
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(getMonthlyRevenueData.rejected, (state) => {
         state.monthlyRevenue = [];
-        state.isLoading = false;
+        state.loading = 'failed';
       })
       .addCase(getOrdersByCategory.fulfilled, (state, action) => {
         state.ordersByCategory = action.payload.data;
-        state.isLoading = false;
+        state.loading = 'succeeded';
       })
       .addCase(getOrdersByCategory.pending, (state) => {
         state.ordersByCategory = [];
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(getOrdersByCategory.rejected, (state) => {
         state.ordersByCategory = [];
-        state.isLoading = false;
+        state.loading = 'failed';
       });
   },
 });

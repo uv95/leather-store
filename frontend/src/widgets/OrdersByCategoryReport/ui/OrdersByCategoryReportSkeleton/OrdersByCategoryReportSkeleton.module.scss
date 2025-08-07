@@ -1,0 +1,41 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.OrdersByCategoryReportSkeleton {
+  width: 100%;
+}
+
+.title {
+  margin: 0 auto 2rem auto;
+}
+
+.chart {
+  height: 19.6rem;
+  width: 100%;
+  max-width: 51.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @include max900 {
+    margin: auto;
+  }
+}
+
+.circleContainer {
+  flex-grow: 1;
+  width: 32.7rem;
+
+  @include max500 {
+    width: auto;
+    flex-shrink: 1;
+  }
+}
+
+.circle {
+  margin: auto;
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  @include max500 {
+  }
+}

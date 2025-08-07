@@ -2,7 +2,7 @@ import { UserSchema, User, Role } from './model/types/user';
 import { getUser } from './model/services/getUser/getUser';
 import { updateUser } from './model/services/updateUser/updateUser';
 import { getUser as getUserSelector } from './model/selectors/getUser/getUser';
-import { getUserIsLoading } from './model/selectors/getUserIsLoading/getUserIsLoading';
+import { getUserLoading } from './model/selectors/getUserLoading/getUserLoading';
 import userReducer from './model/slice/userSlice';
 import { getUserRole } from './model/selectors/getUserRole/getUserRole';
 import { logout, setUser } from './model/slice/userSlice';
@@ -15,7 +15,7 @@ export {
   updateUser,
   getUserRole,
   getUserSelector,
-  getUserIsLoading,
+  getUserLoading,
   userReducer,
   logout,
   setUser,

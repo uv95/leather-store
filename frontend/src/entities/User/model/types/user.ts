@@ -11,7 +11,7 @@ export interface User {
 
 export interface UserSchema {
   user?: User;
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 export enum Role {

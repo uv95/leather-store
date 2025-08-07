@@ -10,7 +10,7 @@ import { logout } from '../../../User';
 const initialState: AddressSchema = {
   addresses: [],
   address: undefined,
-  isLoading: false,
+  loading: 'idle',
 };
 
 export const addressSlice = createSlice({
@@ -38,7 +38,7 @@ export const addressSlice = createSlice({
       })
       .addCase(getAllAddresses.pending, (state) => {
         state.addresses = [];
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(getAllAddresses.fulfilled, (state, action) => {
         state.addresses = action.payload.data.data;
@@ -52,15 +52,19 @@ export const addressSlice = createSlice({
         );
       })
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action) =>
+          action.type.startsWith('@@address') &&
+          action.type.endsWith('/fulfilled'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'succeeded';
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action) =>
+          action.type.startsWith('@@address') &&
+          action.type.endsWith('/rejected'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'failed';
         }
       );
   },

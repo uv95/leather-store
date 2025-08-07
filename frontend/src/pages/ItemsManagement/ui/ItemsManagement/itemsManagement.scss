@@ -1,0 +1,43 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.items {
+  @include main-block;
+  margin: 4rem auto 0 auto;
+  @include header-footer;
+  position: relative;
+
+  &-heading {
+    @include heading;
+  }
+
+  &__container {
+    @include list;
+    padding-bottom: 2rem;
+
+    &-empty {
+      font-size: 2rem;
+    }
+
+    &__item {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      height: 10rem;
+
+      &-delete {
+        @include center;
+        width: 8%;
+
+        & svg {
+          width: 2rem;
+          height: 2rem;
+          @include hover;
+        }
+      }
+    }
+  }
+}
+
+.add-item-button {
+  margin-bottom: 4rem;
+}

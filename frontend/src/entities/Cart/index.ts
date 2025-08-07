@@ -14,7 +14,7 @@ import { emptyCart } from './model/services/emptyCart/emptyCart';
 import { updateCart } from './model/services/updateCart/updateCart';
 import cartReducer from './model/slice/cartSlice';
 import { getCart as getCartSelector } from './model/selectors/getCart/getCart';
-import { getCartIsLoading } from './model/selectors/getCartIsLoading/getCartIsLoading';
+import { getCartLoading } from './model/selectors/getCartLoading/getCartLoading';
 import {
   addToCartLS,
   deleteItemFromCartLS,
@@ -37,7 +37,7 @@ export {
   updateCart,
   cartReducer,
   getCartSelector,
-  getCartIsLoading,
+  getCartLoading,
   addToCartLS,
   deleteItemFromCartLS,
   changeQuantityLS,

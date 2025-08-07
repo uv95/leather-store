@@ -4,7 +4,7 @@ import { SelectedItemColors } from '../../../../features/cart';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
 import Button from '../../../../shared/ui/Button/Button';
-import { ConfirmationModal } from '../../../../widgets/ConfirmationModal';
+import { ConfirmationModal } from '../../../../shared/ui/ConfirmationModal';
 import './userOrderDetails.scss';
 
 type UserOrderDetailsProps = { order: Order };
@@ -42,8 +42,8 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
         />
       )}
       <div className="userOrderDetails">
-        {order.items.map((item) => (
-          <div key={item.name} className="userOrderDetails__item">
+        {order.items.map((item, index) => (
+          <div key={item.name + index} className="userOrderDetails__item">
             <div className="userOrderDetails__item-left">
               <img
                 src={item.imageCover}

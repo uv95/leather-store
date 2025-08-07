@@ -1,0 +1,14 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.skeleton {
+  width: 100%;
+  max-width: 32rem;
+  height: 100%;
+}
+
+.imageSekeleton {
+  height: 0;
+  padding-bottom: 100%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}

@@ -6,7 +6,7 @@ import { User, UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
   user: undefined,
-  isLoading: false,
+  loading: 'idle',
 };
 
 export const userSlice = createSlice({
@@ -24,25 +24,26 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
-        state.isLoading = true;
+        state.loading = 'pending';
         state.user = undefined;
       })
       .addCase(getUser.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = 'succeeded';
         state.user = action.payload.data.data;
       })
       .addCase(getUser.rejected, (state) => {
-        state.isLoading = false;
+        state.loading = 'failed';
       })
       .addCase(updateUser.pending, (state) => {
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = 'succeeded';
+
         state.user = { ...state.user, ...action.payload.data.user };
       })
       .addCase(updateUser.rejected, (state) => {
-        state.isLoading = false;
+        state.loading = 'failed';
       });
   },
 });

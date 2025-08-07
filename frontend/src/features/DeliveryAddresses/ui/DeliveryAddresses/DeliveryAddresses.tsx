@@ -1,27 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getAddressIsLoading,
   getAllAddresses,
   getAllAddressesSelector,
 } from '../../../../entities/Address';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import toast from '../../../../shared/lib/toast/toast';
 import Button, {
-  ButtonTheme,
   ButtonSize,
+  ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
-import Spinner from '../../../../shared/ui/Spinner/Spinner';
 import { AddressIdProvider } from '../../model/AddressIdContext';
 import AddAddressForm from '../DeliveryAddressForm/AddAddressForm/AddAddressForm';
 import EditAddressForm from '../DeliveryAddressForm/EditAddressForm/EditAddressForm';
 import DeliveryAddressList from '../DeliveryAddressList/DeliveryAddressList';
 import './deliveryAddresses.scss';
-import toast from '../../../../shared/lib/toast/toast';
-import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 const DeliveryAddresses = () => {
   const dispatch = useAppDispatch();
-
-  const isLoading = useSelector(getAddressIsLoading);
   const addresses = useSelector(getAllAddressesSelector);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -57,8 +53,6 @@ const DeliveryAddresses = () => {
     }
   }, [dispatch, addresses.length]);
 
-  if (isLoading) return <Spinner />;
-
   return (
     <AddressIdProvider>
       <div className="deliveryAddresses-header">
@@ -72,8 +66,6 @@ const DeliveryAddresses = () => {
         </Button>
       </div>
       <div className="deliveryAddresses-container">
-        {!addresses.length && <p>Address list is empty.</p>}
-
         {isOpenEditForm && <EditAddressForm />}
 
         {isOpenAddForm && (
