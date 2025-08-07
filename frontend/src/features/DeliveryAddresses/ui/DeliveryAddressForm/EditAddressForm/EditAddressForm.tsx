@@ -3,20 +3,17 @@ import { useSelector } from 'react-redux';
 import {
   Address,
   getAddress,
-  getAddressLoading,
   getAddressSelector,
   updateAddress,
 } from '../../../../../entities/Address';
 import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../../shared/lib/toast/toast';
-import AddressForm from '../AddressForm/AddressForm';
 import { useAddressIdContext } from '../../../model/AddressIdContext';
+import AddressForm from '../AddressForm/AddressForm';
 
 const EditAddressForm = () => {
   const dispatch = useAppDispatch();
   const { addressId } = useAddressIdContext();
-
-  const loading = useSelector(getAddressLoading);
   const address = useSelector(getAddressSelector);
 
   const [formData, setFormData] = useState<Omit<Address, '_id'>>({
@@ -57,7 +54,6 @@ const EditAddressForm = () => {
       onSubmit={onSubmit}
       setFormData={setFormData}
       addressData={formData}
-      isInputDisabled={loading === 'pending'}
       isEdit
     />
   );

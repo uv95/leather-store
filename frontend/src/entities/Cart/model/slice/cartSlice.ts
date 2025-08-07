@@ -58,6 +58,7 @@ export const cartSlice = createSlice({
 
     getCartLS: (state) => {
       state.cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!);
+      state.loading = 'succeeded';
     },
 
     deleteItemFromCartLS: (state, action) => {
