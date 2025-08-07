@@ -5,12 +5,12 @@ import {
   getAllCompletedOrders,
   getAllOrders,
   getOrderLoading,
-} from '../../entities/Order';
-import Spinner from '../../shared/ui/Spinner/Spinner';
-import { OrdersAdminListItem } from '../../widgets/OrdersAdminListItem';
+} from '../../../../entities/Order';
+import Spinner from '../../../../shared/ui/Spinner/Spinner';
 import './ordersAdmin.scss';
-import toast from '../../shared/lib/toast/toast';
-import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
+import toast from '../../../../shared/lib/toast/toast';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import OrdersAdminListItem from '../OrdersAdminListItem/OrdersAdminListItem';
 
 const OrdersAdmin = () => {
   const dispatch = useAppDispatch();

@@ -21,7 +21,7 @@ const Catalog = lazy(() => import('../../../pages/Catalog'));
 const Login = lazy(() => import('../../../pages/Login/Login'));
 const Register = lazy(() => import('../../../pages/Register/Register'));
 const ItemPage = lazy(() => import('../../../pages/ItemPage/ItemPage'));
-const Home = lazy(() => import('../../../pages/Home/Home'));
+const Home = lazy(() => import('../../../pages/Home'));
 const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
 const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));
@@ -33,7 +33,7 @@ const UserProfile = lazy(
 );
 const Leathers = lazy(() => import('../../../pages/Leathers/Leathers'));
 const OrdersAdmin = lazy(
-  () => import('../../../pages/OrdersAdmin/OrdersAdmin')
+  () => import('../../../pages/OrdersAdmin/ui/OrdersAdmin/OrdersAdmin')
 );
 
 interface Routes {

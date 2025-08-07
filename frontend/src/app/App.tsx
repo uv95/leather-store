@@ -32,7 +32,7 @@ const App = () => {
   }, [init]);
 
   return (
-    <Suspense>
+    <Suspense fallback={'Loading....'}>
       <Toast />
       <MainLayout>
         <AppRouter />

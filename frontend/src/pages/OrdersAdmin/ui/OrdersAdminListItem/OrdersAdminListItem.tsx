@@ -1,9 +1,9 @@
 import { memo, useMemo } from 'react';
-import { OrderDetails } from '../../OrderDetails';
-import { Order, OrderStatus } from '../../../entities/Order';
-import ListItemLayout from '../../../shared/ui/ListItemLayout/ListItemLayout';
-import OrderStatusBadge from '../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
+import { Order, OrderStatus } from '../../../../entities/Order';
+import ListItemLayout from '../../../../shared/ui/ListItemLayout/ListItemLayout';
+import OrderStatusBadge from '../../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './ordersAdminListItem.scss';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 type OrdersAdminListItemProps = {
   order: Order;

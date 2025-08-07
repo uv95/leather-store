@@ -1,33 +1,37 @@
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { getUserRole, Role } from '../../../../entities/User';
+import { getUserLoading, getUserRole, Role } from '../../../../entities/User';
 import NotFound from '../../../../pages/NotFound/NotFound';
 import {
   adminRoutes,
   publicRoutes,
   userRoutes,
 } from '../../../../shared/config/routeConfig/routeConfig';
-import { useSelector } from 'react-redux';
 
 export const AppRouter = () => {
   const role = useSelector(getUserRole);
+  const loading = useSelector(getUserLoading);
 
-  return (
-    <Routes>
-      {role === Role.ADMIN &&
-        adminRoutes.map(({ path, Component }) => (
+  if (loading === 'succeeded')
+    return (
+      <Routes>
+        {role === Role.ADMIN &&
+          adminRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+
+        {role === Role.USER &&
+          userRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+
+        {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
 
-      {role === Role.USER &&
-        userRoutes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    );
 
-      {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
-
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
+  return null;
 };

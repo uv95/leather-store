@@ -1,6 +1,6 @@
-import { Order } from '../../../entities/Order';
-import { SelectedItemColors } from '../../../features/cart';
-import { ChangeStatus } from '../../ChangeStatus';
+import { Order } from '../../../../entities/Order';
+import { SelectedItemColors } from '../../../../features/cart';
+import ChangeStatus from '../ChangeStatus/ChangeStatus';
 import './orderDetails.scss';
 
 type OrderDetailsProps = { order: Order };

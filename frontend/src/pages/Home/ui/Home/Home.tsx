@@ -1,6 +1,6 @@
-import author from '../../shared/assets/img/about-me.jpg';
-import banner from '../../shared/assets/img/bg-1.jpg';
-import { ItemsPreview } from '../../widgets/ItemsPreview';
+import author from '../../../../shared/assets/img/about-me.jpg';
+import banner from '../../../../shared/assets/img/bg-1.jpg';
+import ItemsPreview from '../ItemsPreview/ItemsPreview';
 import './home.scss';
 
 const Home = () => {

@@ -1,5 +1,5 @@
-@import '../../../app/styles/mixins/global.scss';
-@import '../../../app/styles/animations/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/animations/global.scss';
 
 .ordersAdminListItem {
   width: 100%;
@@ -24,6 +24,7 @@
 
     &:first-of-type {
       justify-self: start;
+
       @include max700 {
         justify-self: center;
       }

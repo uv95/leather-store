@@ -1,8 +1,8 @@
-import { OrderStatus } from '../../../entities/Order';
+import { OrderStatus } from '../../../../entities/Order';
 import ChangeStatus from './ChangeStatus';
 
 export default {
-  title: 'widgets/ChangeStatus',
+  title: 'pages/OrdersAdmin/ChangeStatus',
   component: ChangeStatus,
   tags: ['autodocs'],
   argTypes: {

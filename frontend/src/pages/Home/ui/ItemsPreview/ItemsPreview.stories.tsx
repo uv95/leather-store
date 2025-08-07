@@ -67,7 +67,7 @@ const items: Item[] = [
 ];
 
 export default {
-  title: 'widgets/ItemsPreview',
+  title: 'pages/Home/ItemsPreview',
   component: ItemsPreview,
   tags: ['autodocs'],
   argTypes: {
