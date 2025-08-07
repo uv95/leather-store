@@ -1,5 +1,8 @@
-import { analyticsReducer, MonthleRevenue } from '../../../features/analytics';
-import { createMockStore } from '../../../shared/config/storybook/createMockStore/createMockStore';
+import {
+  analyticsReducer,
+  MonthleRevenue,
+} from '../../../../features/analytics';
+import { createMockStore } from '../../../../shared/config/storybook/createMockStore/createMockStore';
 import MonthlyRevenueReport from './MonthlyRevenueReport';
 import {
   CategoryScale,

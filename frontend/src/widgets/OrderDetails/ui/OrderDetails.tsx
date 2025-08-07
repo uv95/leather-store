@@ -9,8 +9,8 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
   return (
     <div className="orderDetails">
       <div className="orderDetails__items">
-        {order.items.map((item) => (
-          <div key={item.name} className="orderDetails__items__item">
+        {order.items.map((item, index) => (
+          <div key={item.name + index} className="orderDetails__items__item">
             <div className="orderDetails__items__item-left">
               <img
                 src={item.imageCover}

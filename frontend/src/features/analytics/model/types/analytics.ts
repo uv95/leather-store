@@ -17,5 +17,5 @@ export interface OrdersByCategory {
 export interface AnalyticsSchema {
   monthlyRevenue: MonthleRevenue[];
   ordersByCategory: OrdersByCategory[];
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }

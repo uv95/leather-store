@@ -1,3 +1,3 @@
-import OrdersByCategoryReport from "./ui/OrdersByCategoryReport";
+import OrdersByCategoryReport from './ui/OrdersByCategoryReport/OrdersByCategoryReport';
 
 export { OrdersByCategoryReport };

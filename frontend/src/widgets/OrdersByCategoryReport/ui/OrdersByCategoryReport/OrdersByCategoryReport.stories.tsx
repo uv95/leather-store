@@ -1,10 +1,10 @@
 import { Chart as ChartJS, ArcElement } from 'chart.js';
-import { ItemType } from '../../../entities/Item';
+import { ItemType } from '../../../../entities/Item';
 import {
   analyticsReducer,
   OrdersByCategory,
-} from '../../../features/analytics';
-import { createMockStore } from '../../../shared/config/storybook/createMockStore/createMockStore';
+} from '../../../../features/analytics';
+import { createMockStore } from '../../../../shared/config/storybook/createMockStore/createMockStore';
 import OrdersByCategoryReport from './OrdersByCategoryReport';
 
 ChartJS.register(ArcElement);

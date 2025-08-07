@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-import { ItemType } from '../../../entities/Item/model/types/item';
+import { ItemType } from '../../../../entities/Item/model/types/item';
 import {
-  getAnalyticsIsLoading,
+  getAnalyticsLoading,
   getOrdersByCategory,
   getOrdersByCategorySelector,
-} from '../../../features/analytics';
-import { DOUGHNUT_COLORS } from '../../../shared/const/consts';
-import toast from '../../../shared/lib/toast/toast';
-import Spinner from '../../../shared/ui/Spinner/Spinner';
-import { options } from '../model/options';
+} from '../../../../features/analytics';
+import { DOUGHNUT_COLORS } from '../../../../shared/const/consts';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import toast from '../../../../shared/lib/toast/toast';
+import { options } from '../../model/options';
+import OrdersByCategoryReportSkeleton from '../OrdersByCategoryReportSkeleton/OrdersByCategoryReportSkeleton';
 import './ordersByCategoryReport.scss';
-import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const OrdersByCategoryReport = () => {
   const dispatch = useAppDispatch();
-  const isLoading = useSelector(getAnalyticsIsLoading);
+  const loading = useSelector(getAnalyticsLoading);
   const ordersByCategory = useSelector(getOrdersByCategorySelector);
 
   useEffect(() => {
@@ -81,31 +81,37 @@ const OrdersByCategoryReport = () => {
     ];
   }, [revenueDataset, quantityDataset, labels]);
 
-  if (isLoading) return <Spinner />;
-
   return (
     <div className="orders-by-category">
-      {chartData.map((chart) => (
-        <div key={chart.title} className="orders-by-category__item">
-          <h2>{chart.title}</h2>
-          <div className="chart-item">
-            <div className="legend">
-              {labels.map((label, i) => (
-                <div key={label} className="legend-item">
-                  <div
-                    className="legend-label"
-                    style={{ backgroundColor: DOUGHNUT_COLORS[i] }}
-                  ></div>
-                  <p>{label}</p>
-                </div>
-              ))}
-            </div>
-            <div className="chart">
-              <Doughnut data={chart.data} options={options} />
+      {loading === 'pending' && (
+        <>
+          <OrdersByCategoryReportSkeleton />
+          <OrdersByCategoryReportSkeleton />
+        </>
+      )}
+
+      {loading === 'succeeded' &&
+        chartData.map((chart) => (
+          <div key={chart.title} className="orders-by-category__item">
+            <h2>{chart.title}</h2>
+            <div className="chart-item">
+              <div className="legend">
+                {labels.map((label, i) => (
+                  <div key={label} className="legend-item">
+                    <div
+                      className="legend-label"
+                      style={{ backgroundColor: DOUGHNUT_COLORS[i] }}
+                    ></div>
+                    <p>{label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="chart">
+                <Doughnut data={chart.data} options={options} />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

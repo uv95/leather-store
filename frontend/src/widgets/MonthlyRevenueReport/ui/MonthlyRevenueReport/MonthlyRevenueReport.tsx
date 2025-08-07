@@ -2,20 +2,20 @@ import { useEffect, useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import {
-  getAnalyticsIsLoading,
+  getAnalyticsLoading,
   getMonthlyRevenueData,
   getMonthlyRevenueSelector,
-} from '../../../features/analytics';
-import { BAR_COLORS, months } from '../../../shared/const/consts';
-import Spinner from '../../../shared/ui/Spinner/Spinner';
-import { options } from '../model/options';
+} from '../../../../features/analytics';
+import { BAR_COLORS, months } from '../../../../shared/const/consts';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import toast from '../../../../shared/lib/toast/toast';
+import { options } from '../../model/options';
+import MonthleRevenueReportSkeleton from '../MonthleRevenueReportSkeleton/MonthleRevenueReportSkeleton';
 import './monthlyRevenueReport.scss';
-import toast from '../../../shared/lib/toast/toast';
-import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const MonthlyRevenueReport = () => {
   const dispatch = useAppDispatch();
-  const isLoading = useSelector(getAnalyticsIsLoading);
+  const loading = useSelector(getAnalyticsLoading);
   const monthlyRevenue = useSelector(getMonthlyRevenueSelector);
 
   useEffect(() => {
@@ -49,14 +49,18 @@ const MonthlyRevenueReport = () => {
     datasets,
   };
 
-  if (isLoading) return <Spinner />;
-
   return (
     <div className="monthly-revenue">
-      <h2>Monthly Revenue</h2>
-      <div className="chart">
-        <Bar options={options} data={data} />
-      </div>
+      {loading === 'pending' && <MonthleRevenueReportSkeleton />}
+
+      {loading === 'succeeded' && (
+        <>
+          <h2>Monthly Revenue</h2>
+          <div className="chart">
+            <Bar options={options} data={data} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

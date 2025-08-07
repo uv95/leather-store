@@ -94,21 +94,19 @@ const Cart = () => {
       )}
 
       <CartLayout isCartEmpty={isCartEmpty}>
-        <>
-          <CartItemList />
+        <CartItemList />
 
-          {isSelectAddressOpen && (
-            <CheckoutAddressSection
-              setCurrentAddressIndex={setCurrentAddressIndex}
-              currentAddressIndex={currentAddressIndex}
-            />
-          )}
-          <CartButton
-            addressNum={addresses.length}
-            isSelectAddressOpen={isSelectAddressOpen}
-            onClick={handleCartButton}
+        {isSelectAddressOpen && (
+          <CheckoutAddressSection
+            setCurrentAddressIndex={setCurrentAddressIndex}
+            currentAddressIndex={currentAddressIndex}
           />
-        </>
+        )}
+        <CartButton
+          addressNum={addresses.length}
+          isSelectAddressOpen={isSelectAddressOpen}
+          onClick={handleCartButton}
+        />
       </CartLayout>
     </>
   );

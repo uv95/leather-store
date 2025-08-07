@@ -6,7 +6,7 @@ import {
   MonthleRevenue,
   OrdersByCategory,
 } from './model/types/analytics';
-import { getAnalyticsIsLoading } from './model/selectors/getAnalyticsIsLoading/getAnalyticsIsLoading';
+import { getAnalyticsLoading } from './model/selectors/getAnalyticsLoading/getAnalyticsLoading';
 import { getMonthlyRevenue as getMonthlyRevenueSelector } from './model/selectors/getMonthlyRevenue/getMonthlyRevenue';
 import { getOrdersByCategory as getOrdersByCategorySelector } from './model/selectors/getOrdersByCategory/getOrdersByCategory';
 
@@ -17,7 +17,7 @@ export {
   type AnalyticsSchema,
   type MonthleRevenue,
   type OrdersByCategory,
-  getAnalyticsIsLoading,
+  getAnalyticsLoading,
   getMonthlyRevenueSelector,
   getOrdersByCategorySelector,
 };

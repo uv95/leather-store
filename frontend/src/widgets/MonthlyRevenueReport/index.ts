@@ -1,3 +1,3 @@
-import MonthlyRevenueReport from "./ui/MonthlyRevenueReport";
+import MonthlyRevenueReport from './ui/MonthlyRevenueReport/MonthlyRevenueReport';
 
 export { MonthlyRevenueReport };
