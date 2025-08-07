@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { getUserLoading, getUserRole, Role } from '../../../../entities/User';
+import { getUserRole, Role } from '../../../../entities/User';
 import NotFound from '../../../../pages/NotFound/NotFound';
 import {
   adminRoutes,
@@ -10,28 +10,24 @@ import {
 
 export const AppRouter = () => {
   const role = useSelector(getUserRole);
-  const loading = useSelector(getUserLoading);
 
-  if (loading === 'succeeded')
-    return (
-      <Routes>
-        {role === Role.ADMIN &&
-          adminRoutes.map(({ path, Component }) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
-
-        {role === Role.USER &&
-          userRoutes.map(({ path, Component }) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
-
-        {publicRoutes.map(({ path, Component }) => (
+  return (
+    <Routes>
+      {role === Role.ADMIN &&
+        adminRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    );
+      {role === Role.USER &&
+        userRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
 
-  return null;
+      {publicRoutes.map(({ path, Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      ))}
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 };

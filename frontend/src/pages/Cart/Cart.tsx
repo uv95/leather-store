@@ -4,7 +4,12 @@ import {
   getAllAddresses,
   getAllAddressesSelector,
 } from '../../entities/Address';
-import { CartItem, emptyCart, getCartSelector } from '../../entities/Cart';
+import {
+  CartItem,
+  emptyCart,
+  getCartLoading,
+  getCartSelector,
+} from '../../entities/Cart';
 import { createOrder } from '../../entities/Order';
 import { Order, OrderStatus } from '../../entities/Order/model/types/order';
 import { getUserSelector } from '../../entities/User';
@@ -12,18 +17,20 @@ import { getIsLoggedIn } from '../../features/auth';
 import {
   CartButton,
   CartItemList,
-  CartLayout,
   CartOrderStatusModal,
   CheckoutAddressSection,
 } from '../../features/cart';
-import toast from '../../shared/lib/toast/toast';
-import './cart.scss';
+import CartItemListSkeleton from '../../features/cart/ui/CartItemListSkeleton/CartItemListSkeleton';
 import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
+import toast from '../../shared/lib/toast/toast';
+import Back from '../../shared/ui/Back/Back';
+import './cart.scss';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
   const cart = useSelector(getCartSelector);
+  const loading = useSelector(getCartLoading);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const addresses = useSelector(getAllAddressesSelector);
 
@@ -93,21 +100,35 @@ const Cart = () => {
         <CartOrderStatusModal isOpen={isModalOpen} onClose={onCloseModal} />
       )}
 
-      <CartLayout isCartEmpty={isCartEmpty}>
-        <CartItemList />
+      <div className="cart">
+        <Back />
+        <h1 className="cart__heading">Cart</h1>
+        <div className="cart__container">
+          {loading === 'pending' && <CartItemListSkeleton />}
 
-        {isSelectAddressOpen && (
-          <CheckoutAddressSection
-            setCurrentAddressIndex={setCurrentAddressIndex}
-            currentAddressIndex={currentAddressIndex}
-          />
-        )}
-        <CartButton
-          addressNum={addresses.length}
-          isSelectAddressOpen={isSelectAddressOpen}
-          onClick={handleCartButton}
-        />
-      </CartLayout>
+          {loading === 'succeeded' && isCartEmpty && (
+            <p className="cart__container-empty">Cart is empty</p>
+          )}
+
+          {loading === 'succeeded' && !isCartEmpty && (
+            <>
+              <CartItemList />
+
+              {isSelectAddressOpen && (
+                <CheckoutAddressSection
+                  setCurrentAddressIndex={setCurrentAddressIndex}
+                  currentAddressIndex={currentAddressIndex}
+                />
+              )}
+              <CartButton
+                addressNum={addresses.length}
+                isSelectAddressOpen={isSelectAddressOpen}
+                onClick={handleCartButton}
+              />
+            </>
+          )}
+        </div>
+      </div>
     </>
   );
 };

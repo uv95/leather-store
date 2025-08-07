@@ -34,5 +34,5 @@ export interface Quantity {
 
 export interface CartSchema {
   cart?: Cart;
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }

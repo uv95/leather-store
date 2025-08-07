@@ -10,7 +10,7 @@ import { LOCAL_STORAGE_CART } from '../../../../shared/const/consts';
 
 const initialState: CartSchema = {
   cart: undefined,
-  isLoading: false,
+  loading: 'idle',
 };
 
 export const cartSlice = createSlice({
@@ -120,7 +120,7 @@ export const cartSlice = createSlice({
       })
       .addCase(getCart.pending, (state) => {
         state.cart = undefined;
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload.data;
@@ -136,14 +136,14 @@ export const cartSlice = createSlice({
           action.type.startsWith('@@cart') &&
           action.type.endsWith('/fulfilled'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'succeeded';
         }
       )
       .addMatcher(
         (action) =>
           action.type.startsWith('@@cart') && action.type.endsWith('/rejected'),
         (state) => {
-          state.isLoading = false;
+          state.loading = 'failed';
         }
       );
   },

@@ -17,14 +17,13 @@ function MainLayout({ children }: { children: ReactNode }) {
     [location, role]
   );
 
-  const header = isAdminPage ? <AdminNavbar /> : <Header />;
+  const dynamicHeader = isAdminPage ? <AdminNavbar /> : <Header />;
 
   return (
     <>
       <header className="header">
         <div className="header__container">
-          {loading === 'succeeded' && header}
-          {loading === 'failed' && <Header />}
+          {loading === 'succeeded' ? dynamicHeader : <Header />}
         </div>
       </header>
       <main>{children}</main>
