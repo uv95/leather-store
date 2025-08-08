@@ -1,34 +1,13 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  items: [
-    {
-      name: String,
-      colors: { leatherColor: String, threadsColor: String },
-      quantity: Number,
-      total: Number,
-      leather: String,
-      imageCover: String,
-      price: Number,
-      type: {
-        type: String,
-        enum: {
-          values: [
-            'Wallets and cardholders',
-            'Eyeglass cases',
-            'Passport covers',
-          ],
-        },
-      },
-    },
-  ],
   total: Number,
-  user: {
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true,
   },
-  address: {
+  addressId: {
     type: mongoose.Schema.ObjectId,
     ref: 'Address',
     required: [true, 'Please provide a delivery address'],
@@ -41,13 +20,6 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-});
-
-orderSchema.pre('save', function (next) {
-  this.total = this.items
-    .map((item) => item.total)
-    .reduce((prev, curr) => prev + curr, 0);
-  next();
 });
 
 const Order = mongoose.model('Order', orderSchema);

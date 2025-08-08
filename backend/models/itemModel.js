@@ -7,7 +7,6 @@ const itemSchema = new mongoose.Schema({
     required: [true, 'Name is required'],
     unique: true,
     trim: true,
-    // minLength: [10, 'Name is too short'],
   },
   slug: String,
   type: {

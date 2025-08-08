@@ -13,7 +13,7 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a postal code'],
   },
-  user: {
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'Address must belong to the user'],
