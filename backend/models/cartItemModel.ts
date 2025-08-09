@@ -1,18 +1,30 @@
-const mongoose = require('mongoose');
-const {
-  colors,
-  leatherTypes,
+import { Types, model, Schema } from 'mongoose';
+import {
   leatherTypeValues,
   colorValues,
-} = require('../utils/consts');
+  LeatherType,
+  Color,
+} from '../utils/types';
 
-const cartItemSchema = new mongoose.Schema({
+export interface CartItem {
+  leatherType: LeatherType;
+  quantity: number;
+  price: number;
+  cartId: Types.ObjectId;
+  itemId: Types.ObjectId;
+  colors: {
+    leather: Color;
+    thread: Color;
+  };
+}
+
+const cartItemSchema = new Schema<CartItem>({
   cartId: {
-    type: mongoose.Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Cart',
   },
   itemId: {
-    type: mongoose.Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Item',
   },
   colors: {
@@ -22,7 +34,7 @@ const cartItemSchema = new mongoose.Schema({
         values: colorValues,
       },
       required: true,
-      default: colors.BLACK,
+      default: Color.BLACK,
     },
     thread: {
       type: String,
@@ -30,7 +42,7 @@ const cartItemSchema = new mongoose.Schema({
         values: colorValues,
       },
       required: true,
-      default: colors.BLACK,
+      default: Color.BLACK,
     },
   },
   leatherType: {
@@ -39,7 +51,7 @@ const cartItemSchema = new mongoose.Schema({
       values: leatherTypeValues,
     },
     required: true,
-    default: leatherTypes.CRAZY_HORSE,
+    default: LeatherType.CRAZY_HORSE,
   },
   quantity: {
     type: Number,
@@ -52,6 +64,6 @@ const cartItemSchema = new mongoose.Schema({
   },
 });
 
-const CartItem = mongoose.model('CartItem', cartItemSchema);
+const CartItem = model('CartItem', cartItemSchema);
 
-module.exports = CartItem;
+export default CartItem;

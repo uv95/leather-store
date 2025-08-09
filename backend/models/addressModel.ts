@@ -1,6 +1,13 @@
-const mongoose = require('mongoose');
+import { Types, model, Schema } from 'mongoose';
 
-const addressSchema = new mongoose.Schema({
+export interface Address {
+  city: string;
+  address: string;
+  zipcode: string;
+  userId: Types.ObjectId;
+}
+
+const addressSchema = new Schema<Address>({
   city: {
     type: String,
     required: [true, 'Please specify a city'],
@@ -14,12 +21,12 @@ const addressSchema = new mongoose.Schema({
     required: [true, 'Please provide a postal code'],
   },
   userId: {
-    type: mongoose.Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'Address must belong to the user'],
   },
 });
 
-const Address = mongoose.model('Address', addressSchema);
+const Address = model('Address', addressSchema);
 
-module.exports = Address;
+export default Address;

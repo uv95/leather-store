@@ -1,7 +1,25 @@
-const mongoose = require('mongoose');
-const slugify = require('slugify');
+import { model, Schema } from 'mongoose';
+import slugify from 'slugify';
+import { ItemType, itemTypes } from '../utils/types';
 
-const itemSchema = new mongoose.Schema({
+export interface Item {
+  name: string;
+  slug: string;
+  description: string;
+  type: ItemType;
+  price: number;
+  imageCover: {
+    url: string;
+    public_id: string;
+  };
+  images: {
+    url: string;
+    public_id: string;
+  }[];
+  createdAt: NativeDate;
+}
+
+const itemSchema = new Schema<Item>({
   name: {
     type: String,
     required: [true, 'Name is required'],
@@ -13,7 +31,7 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Type is required'],
     enum: {
-      values: ['Wallets and cardholders', 'Eyeglass cases', 'Passport covers'],
+      values: itemTypes,
       message: 'Please specify an existing item type',
     },
   },
@@ -46,6 +64,6 @@ itemSchema.pre('save', function (next) {
   next();
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const Item = model('Item', itemSchema);
 
-module.exports = Item;
+export default Item;

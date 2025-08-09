@@ -1,19 +1,19 @@
-const express = require('express');
-const xss = require('xss-clean');
-const mongoSanitize = require('express-mongo-sanitize');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const hpp = require('hpp');
-const cors = require('cors');
+import express from 'express';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import cors from 'cors';
 
-const itemRouter = require('./routes/itemRouter');
-const userRouter = require('./routes/userRouter');
-const cartRouter = require('./routes/cartRouter');
-const orderRouter = require('./routes/orderRouter');
-const analyticsRouter = require('./routes/analyticsRouter');
+import { itemRouter } from './routes/itemRouter';
+import { userRouter } from './routes/userRouter';
+import { cartRouter } from './routes/cartRouter';
+import { orderRouter } from './routes/orderRouter';
+import { analyticsRouter } from './routes/analyticsRouter';
 
-const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
+import AppError from './utils/appError';
+import { errorController } from './controllers/errorController';
 
 const app = express();
 
@@ -54,6 +54,6 @@ app.all('*', (req, res, next) => {
   next(new AppError('Page not found', 404));
 });
 
-app.use(globalErrorHandler);
+app.use(errorController);
 
-module.exports = app;
+export { app };

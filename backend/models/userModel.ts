@@ -1,9 +1,22 @@
-const crypto = require('crypto');
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { Model, model, Schema } from 'mongoose';
+import validator from 'validator';
 
-const userSchema = new mongoose.Schema(
+export interface User {
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
+  phone: string;
+  password: string;
+  passwordConfirm: string | undefined;
+  passwordChangedAt: NativeDate;
+  passwordResetToken: string;
+  passwordResetExpires: NativeDate;
+  active: boolean;
+}
+
+const userSchema = new Schema<User>(
   {
     name: {
       type: String,
@@ -14,7 +27,7 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       validate: {
-        validator: function (num) {
+        validator: function (num: string | number) {
           return validator.isMobilePhone(num.toString(), 'en-US');
         },
         message: 'Invalid phone number',
@@ -67,7 +80,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre(/^find/, function (next) {
+userSchema.pre(/^find/, function (this: Model<User>, next) {
   this.find({ active: { $ne: false } });
   next();
 });
@@ -84,22 +97,22 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
-  this.passwordChangedAt = Date.now() - 1000;
+  this.passwordChangedAt = new Date(Date.now() - 1000);
   next();
 });
 
 //compare passwords when login
 userSchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword
+  candidatePassword: string,
+  userPassword: string
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp: number) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
+      (this.passwordChangedAt.getTime() / 1000).toString(),
       10
     );
     return JWTTimestamp < changedTimestamp;
@@ -121,6 +134,6 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
-module.exports = User;
+export default User;
