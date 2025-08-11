@@ -1,3 +1,6 @@
+import { Request } from 'express';
+import { User, UserDocument } from '../models/userModel';
+
 export enum LeatherType {
   CRAZY_HORSE = 'Crazy Horse',
   NAPPA = 'Nappa',
@@ -37,3 +40,7 @@ export const itemTypes = [
 export const colorValues = Object.values(Color);
 export const leatherTypeValues = Object.values(LeatherType);
 export const orderStatuses = Object.values(OrderStatus);
+
+export interface RequestWithUser extends Request {
+  user: UserDocument;
+}
