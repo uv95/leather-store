@@ -101,7 +101,6 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-//compare passwords when login
 userSchema.methods.correctPassword = async function (
   candidatePassword: string,
   userPassword: string
@@ -117,7 +116,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp: number) {
     );
     return JWTTimestamp < changedTimestamp;
   }
-  // NOT changed
+
   return false;
 };
 

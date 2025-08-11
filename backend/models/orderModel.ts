@@ -3,7 +3,7 @@ import { OrderStatus, orderStatuses } from '../utils/types';
 
 export interface Order {
   createdAt: NativeDate;
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
   addressId: Types.ObjectId;
   total: number;
   status: OrderStatus;
@@ -11,7 +11,7 @@ export interface Order {
 
 const orderSchema = new Schema({
   total: Number,
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,

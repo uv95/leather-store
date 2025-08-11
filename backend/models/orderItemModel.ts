@@ -10,8 +10,8 @@ export interface OrderItem {
   leatherType: LeatherType;
   quantity: number;
   priceAtPurchase: number;
-  orderId: Types.ObjectId;
-  itemId: Types.ObjectId;
+  order: Types.ObjectId;
+  item: Types.ObjectId;
   colors: {
     leather: Color;
     thread: Color;
@@ -19,11 +19,11 @@ export interface OrderItem {
 }
 
 const orderItemSchema = new Schema<OrderItem>({
-  orderId: {
+  order: {
     type: Schema.Types.ObjectId,
     ref: 'Order',
   },
-  itemId: {
+  item: {
     type: Schema.Types.ObjectId,
     ref: 'Item',
   },

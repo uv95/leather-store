@@ -10,8 +10,8 @@ export interface CartItem {
   leatherType: LeatherType;
   quantity: number;
   price: number;
-  cartId: Types.ObjectId;
-  itemId: Types.ObjectId;
+  cart: Types.ObjectId;
+  item: Types.ObjectId;
   colors: {
     leather: Color;
     thread: Color;
@@ -19,11 +19,11 @@ export interface CartItem {
 }
 
 const cartItemSchema = new Schema<CartItem>({
-  cartId: {
+  cart: {
     type: Schema.Types.ObjectId,
     ref: 'Cart',
   },
-  itemId: {
+  item: {
     type: Schema.Types.ObjectId,
     ref: 'Item',
   },

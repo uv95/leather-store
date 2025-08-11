@@ -1,11 +1,11 @@
 import { Types, model, Schema } from 'mongoose';
 
 export interface Cart {
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
 }
 
 const cartSchema = new Schema<Cart>({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },

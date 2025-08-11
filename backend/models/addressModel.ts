@@ -4,7 +4,7 @@ export interface Address {
   city: string;
   address: string;
   zipcode: string;
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
 }
 
 const addressSchema = new Schema<Address>({
@@ -20,7 +20,7 @@ const addressSchema = new Schema<Address>({
     type: String,
     required: [true, 'Please provide a postal code'],
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'Address must belong to the user'],
