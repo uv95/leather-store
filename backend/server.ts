@@ -1,15 +1,8 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import { app } from './app';
-
-dotenv.config();
 
 const DATABASE = process.env.DATABASE;
 const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
-
-if (!DATABASE && !DATABASE_PASSWORD) {
-  throw new Error('DATABASE and DATABASE_PASSWORD variables not set!');
-}
 
 const DB = DATABASE!.replace('<PASSWORD>', DATABASE_PASSWORD!);
 

@@ -42,7 +42,10 @@ export class OrderService {
   }
 
   async getAllOrders() {
-    return await Order.find();
+    return await Order.find().populate([
+      { path: 'address', select: 'city address zipcode' },
+      { path: 'user', select: 'name phone email' },
+    ]);
   }
 
   async createOrder(userId: string, dto: CreateOrderDto) {
@@ -101,6 +104,12 @@ export class OrderService {
 
   async updateOrder(orderId: string, dto: UpdateOrderDto) {
     this.validateId(orderId, 'Order');
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new AppError('Order not found', 404);
+    }
 
     return await Order.findByIdAndUpdate(orderId, dto, {
       new: true,

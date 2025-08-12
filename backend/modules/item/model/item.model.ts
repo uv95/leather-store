@@ -1,6 +1,17 @@
 import { model, Schema } from 'mongoose';
 import slugify from 'slugify';
-import { ItemType, itemTypes } from '../utils/types';
+
+export enum ItemType {
+  WALLETS = 'Wallets and cardholders',
+  EYEGLASS_CASES = 'Eyeglass cases',
+  PASSPORT_COVERS = 'Passport covers',
+}
+
+export const itemTypes = [
+  'Wallets and cardholders',
+  'Eyeglass cases',
+  'Passport covers',
+];
 
 export interface Item {
   name: string;
@@ -12,7 +23,7 @@ export interface Item {
     url: string;
     public_id: string;
   };
-  images: {
+  images?: {
     url: string;
     public_id: string;
   }[];

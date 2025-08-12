@@ -1,16 +1,10 @@
 import { Request } from 'express';
-import { User, UserDocument } from '../models/userModel';
+import { UserDocument } from '../models/userModel';
 
 export enum LeatherType {
   CRAZY_HORSE = 'Crazy Horse',
   NAPPA = 'Nappa',
   PULL_UP = 'Pull Up',
-}
-
-export enum ItemType {
-  WALLETS = 'Wallets and cardholders',
-  EYEGLASS_CASES = 'Eyeglass cases',
-  PASSPORT_COVERS = 'Passport covers',
 }
 
 export enum Color {
@@ -24,12 +18,6 @@ export enum Color {
   GREY = 'grey',
   KHAKI = 'khaki',
 }
-
-export const itemTypes = [
-  'Wallets and cardholders',
-  'Eyeglass cases',
-  'Passport covers',
-];
 
 export const colorValues = Object.values(Color);
 export const leatherTypeValues = Object.values(LeatherType);

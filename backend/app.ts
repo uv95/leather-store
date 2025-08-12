@@ -1,4 +1,7 @@
 import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -6,11 +9,11 @@ import hpp from 'hpp';
 import { xss } from 'express-xss-sanitizer';
 import cors from 'cors';
 
-import { itemRouter } from './routes/itemRouter';
 import { userRouter } from './routes/userRouter';
 import { cartRouter } from './modules/cart/cart.router';
 import { orderRouter } from './modules/order/order.router';
 import { analyticsRouter } from './routes/analyticsRouter';
+import { itemRouter } from './modules/item/item.router';
 
 import AppError from './utils/appError';
 import { errorController } from './controllers/errorController';
