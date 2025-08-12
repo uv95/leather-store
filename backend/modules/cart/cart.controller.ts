@@ -42,7 +42,7 @@ export class CartController {
 
   getCart = catchAsync(
     async (req: RequestWithUser, res: Response, next: NextFunction) => {
-      const cart = await this.cartService.getCart(req?.user?.id);
+      const cart = await this.cartService.getCart(req.user?.id);
 
       res.status(200).json({
         status: 'success',
@@ -98,7 +98,7 @@ export class CartController {
       next: NextFunction
     ) => {
       const cartItem = await this.cartService.mergeCartItems(
-        req?.user?.id,
+        req.user?.id,
         req.body
       );
 

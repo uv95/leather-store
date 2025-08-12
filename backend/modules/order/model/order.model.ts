@@ -1,13 +1,20 @@
 import { Types, model, Schema } from 'mongoose';
-import { OrderStatus, orderStatuses } from '../utils/types';
+
+export enum OrderStatus {
+  AWAITING_PAYMENT = 'Awaiting payment',
+  IN_PROGRESS = 'In progress',
+  COMPLETED = 'Completed',
+}
 
 export interface Order {
   createdAt: NativeDate;
   user: Types.ObjectId;
-  addressId: Types.ObjectId;
+  address: Types.ObjectId;
   total: number;
   status: OrderStatus;
 }
+
+const orderStatuses = Object.values(OrderStatus);
 
 const orderSchema = new Schema({
   total: Number,
@@ -16,7 +23,7 @@ const orderSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  addressId: {
+  address: {
     type: Schema.Types.ObjectId,
     ref: 'Address',
     required: [true, 'Please provide a delivery address'],
@@ -24,6 +31,7 @@ const orderSchema = new Schema({
   status: {
     type: String,
     enum: orderStatuses,
+    default: OrderStatus.AWAITING_PAYMENT,
   },
   createdAt: {
     type: Date,

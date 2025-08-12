@@ -4,19 +4,42 @@ import {
   colorValues,
   Color,
   LeatherType,
-} from '../utils/types';
+} from '../../../utils/types';
+
+interface Colors {
+  leather: Color;
+  thread: Color;
+}
 
 export interface OrderItem {
   leatherType: LeatherType;
   quantity: number;
-  priceAtPurchase: number;
+  price: number;
   order: Types.ObjectId;
   item: Types.ObjectId;
-  colors: {
-    leather: Color;
-    thread: Color;
-  };
+  colors: Colors;
 }
+
+const colorsSchema = new Schema<Colors>({
+  leather: {
+    type: String,
+    enum: {
+      values: colorValues,
+      message: 'This leather color is not available',
+    },
+    required: true,
+    default: Color.BLACK,
+  },
+  thread: {
+    type: String,
+    enum: {
+      values: colorValues,
+      message: 'This thread color is not available',
+    },
+    required: true,
+    default: Color.BLACK,
+  },
+});
 
 const orderItemSchema = new Schema<OrderItem>({
   order: {
@@ -28,22 +51,8 @@ const orderItemSchema = new Schema<OrderItem>({
     ref: 'Item',
   },
   colors: {
-    leather: {
-      type: String,
-      enum: {
-        values: colorValues,
-      },
-      required: true,
-      default: Color.BLACK,
-    },
-    thread: {
-      type: String,
-      enum: {
-        values: colorValues,
-      },
-      required: true,
-      default: Color.BLACK,
-    },
+    type: colorsSchema,
+    required: true,
   },
   leatherType: {
     type: String,
@@ -58,7 +67,7 @@ const orderItemSchema = new Schema<OrderItem>({
     required: true,
     default: 1,
   },
-  priceAtPurchase: {
+  price: {
     type: Number,
     required: true,
   },

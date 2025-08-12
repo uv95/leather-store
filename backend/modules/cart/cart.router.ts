@@ -19,7 +19,7 @@ cartRouter
 cartRouter.route('/:cartId/count').get(cartController.getCartItemCount);
 
 cartRouter
-  .route('/:cartItemId')
+  .route('/item/:cartItemId')
   .patch(cartController.changeQuantity)
   .delete(cartController.removeFromCart);
 

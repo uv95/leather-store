@@ -25,12 +25,6 @@ export enum Color {
   KHAKI = 'khaki',
 }
 
-export enum OrderStatus {
-  AWAITING_PAYMENT = 'Awaiting payment',
-  IN_PROGRESS = 'In progress',
-  COMPLETED = 'Completed',
-}
-
 export const itemTypes = [
   'Wallets and cardholders',
   'Eyeglass cases',
@@ -39,7 +33,6 @@ export const itemTypes = [
 
 export const colorValues = Object.values(Color);
 export const leatherTypeValues = Object.values(LeatherType);
-export const orderStatuses = Object.values(OrderStatus);
 
 export interface RequestWithUser<
   P = any,

@@ -9,7 +9,7 @@ import cors from 'cors';
 import { itemRouter } from './routes/itemRouter';
 import { userRouter } from './routes/userRouter';
 import { cartRouter } from './modules/cart/cart.router';
-import { orderRouter } from './routes/orderRouter';
+import { orderRouter } from './modules/order/order.router';
 import { analyticsRouter } from './routes/analyticsRouter';
 
 import AppError from './utils/appError';
