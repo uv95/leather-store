@@ -14,6 +14,7 @@ import { cartRouter } from './modules/cart/cart.router';
 import { orderRouter } from './modules/order/order.router';
 import { analyticsRouter } from './routes/analyticsRouter';
 import { itemRouter } from './modules/item/item.router';
+import { addressRouter } from './modules/address/address.router';
 
 import AppError from './utils/appError';
 import { errorController } from './controllers/errorController';
@@ -42,6 +43,7 @@ app.use(
   })
 );
 
+app.use('/address', addressRouter);
 app.use('/items', itemRouter);
 app.use('/users', userRouter);
 app.use('/cart', cartRouter);

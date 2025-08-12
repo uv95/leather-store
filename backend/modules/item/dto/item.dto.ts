@@ -1,3 +1,4 @@
+import { OptionalType } from 'utils/types';
 import { ItemType } from '../model/item.model';
 
 export interface CreateItemDto {
@@ -14,9 +15,5 @@ export interface CreateItemDto {
     public_id: string;
   }[];
 }
-
-type OptionalType<T> = {
-  [K in keyof T]?: T[K];
-};
 
 export type UpdateItemDto = OptionalType<CreateItemDto>;

@@ -30,3 +30,7 @@ export interface RequestWithUser<
 > extends Request<P, ResBody, ReqBody, ReqQuery> {
   user?: UserDocument;
 }
+
+export type OptionalType<T> = {
+  [K in keyof T]?: T[K];
+};
