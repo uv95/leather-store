@@ -41,6 +41,11 @@ export const colorValues = Object.values(Color);
 export const leatherTypeValues = Object.values(LeatherType);
 export const orderStatuses = Object.values(OrderStatus);
 
-export interface RequestWithUser extends Request {
-  user: UserDocument;
+export interface RequestWithUser<
+  P = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any
+> extends Request<P, ResBody, ReqBody, ReqQuery> {
+  user?: UserDocument;
 }

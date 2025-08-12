@@ -61,7 +61,7 @@ export const errorController = (
   res: Response,
   next: NextFunction
 ) => {
-  let error = { ...err };
+  let error = err;
 
   if (!('statusCode' in err)) {
     (error as AppErrorType).statusCode = 500;
@@ -72,9 +72,7 @@ export const errorController = (
 
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(error as AppErrorType, res);
-  }
-
-  if (process.env.NODE_ENV === 'production') {
+  } else if (process.env.NODE_ENV === 'production') {
     if (error.name === 'CastError') {
       error = handleCastErrorDB(error as CastError);
     } else if ('code' in error && error.code === 11000) {

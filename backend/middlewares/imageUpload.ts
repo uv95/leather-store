@@ -1,12 +1,32 @@
-const multer = require('multer');
-const sharp = require('sharp');
-const { cloudinary } = require('../utils/cloudinary');
+import multer, { FileFilterCallback } from 'multer';
+import sharp from 'sharp';
+import { cloudinary } from '../utils/cloudinary';
+import { NextFunction, Request, Response } from 'express';
+import { UploadApiResponse } from 'cloudinary';
+
+interface ItemImageFiles {
+  imageCover?: Express.Multer.File[];
+  images?: Express.Multer.File[];
+}
+
+export type RequestWithItemImages = Request & {
+  files?: ItemImageFiles;
+  body: {
+    imageCover?: { url: string; public_id: string };
+    images?: { url: string; public_id: string }[];
+  };
+};
 
 const multerStorage = multer.memoryStorage();
-const multerFilter = (req, file, cb) => {
+
+const multerFilter: multer.Options['fileFilter'] = (
+  req,
+  file,
+  cb: FileFilterCallback
+) => {
   file.mimetype.startsWith('image')
     ? cb(null, true)
-    : cb(new Error('Not an image'), false);
+    : cb(new Error('Not an image'));
 };
 
 const upload = multer({
@@ -14,12 +34,15 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadItemImages = upload.fields([
+export const uploadItemImages = upload.fields([
   { name: 'imageCover', maxCount: 1 },
   { name: 'images', maxCount: 3 },
 ]);
 
-const uploadToCloudinary = (buffer, filename) =>
+const uploadToCloudinary = (
+  buffer: Buffer,
+  filename: string
+): Promise<UploadApiResponse> =>
   new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
       {
@@ -34,7 +57,7 @@ const uploadToCloudinary = (buffer, filename) =>
           return;
         }
 
-        resolve(result);
+        resolve(result as UploadApiResponse);
       }
     );
 
@@ -45,7 +68,11 @@ const uploadToCloudinary = (buffer, filename) =>
       .pipe(stream);
   });
 
-exports.processItemImages = async (req, res, next) => {
+export const processItemImages = async (
+  req: RequestWithItemImages,
+  res: Response,
+  next: NextFunction
+) => {
   if (!req.files) return next();
 
   try {

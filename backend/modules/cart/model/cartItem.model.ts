@@ -1,10 +1,15 @@
-import { Types, model, Schema } from 'mongoose';
+import { Types, model, Schema, Model } from 'mongoose';
 import {
   leatherTypeValues,
   colorValues,
   LeatherType,
   Color,
-} from '../utils/types';
+} from '../../../utils/types';
+
+interface Colors {
+  leather: Color;
+  thread: Color;
+}
 
 export interface CartItem {
   leatherType: LeatherType;
@@ -12,13 +17,31 @@ export interface CartItem {
   price: number;
   cart: Types.ObjectId;
   item: Types.ObjectId;
-  colors: {
-    leather: Color;
-    thread: Color;
-  };
+  colors: Colors;
 }
 
-const cartItemSchema = new Schema<CartItem>({
+const colorsSchema = new Schema<Colors>({
+  leather: {
+    type: String,
+    enum: {
+      values: colorValues,
+      message: 'This leather color is not available',
+    },
+    required: true,
+    default: Color.BLACK,
+  },
+  thread: {
+    type: String,
+    enum: {
+      values: colorValues,
+      message: 'This thread color is not available',
+    },
+    required: true,
+    default: Color.BLACK,
+  },
+});
+
+const cartItemSchema = new Schema<CartItem, Model<CartItem>>({
   cart: {
     type: Schema.Types.ObjectId,
     ref: 'Cart',
@@ -28,22 +51,8 @@ const cartItemSchema = new Schema<CartItem>({
     ref: 'Item',
   },
   colors: {
-    leather: {
-      type: String,
-      enum: {
-        values: colorValues,
-      },
-      required: true,
-      default: Color.BLACK,
-    },
-    thread: {
-      type: String,
-      enum: {
-        values: colorValues,
-      },
-      required: true,
-      default: Color.BLACK,
-    },
+    type: colorsSchema,
+    required: true,
   },
   leatherType: {
     type: String,
