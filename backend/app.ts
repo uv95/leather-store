@@ -12,9 +12,9 @@ import cors from 'cors';
 import { userRouter } from './routes/userRouter';
 import { cartRouter } from './modules/cart/cart.router';
 import { orderRouter } from './modules/order/order.router';
-import { analyticsRouter } from './routes/analyticsRouter';
 import { itemRouter } from './modules/item/item.router';
 import { addressRouter } from './modules/address/address.router';
+import { analyticsRouter } from './modules/analytics/analytics.router';
 
 import AppError from './utils/appError';
 import { errorController } from './controllers/errorController';
