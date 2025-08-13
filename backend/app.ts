@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 import mongoSanitize from 'express-mongo-sanitize';
@@ -18,7 +19,7 @@ import { userRouter } from './modules/user/user.router';
 import { authRouter } from './modules/auth/auth.router';
 
 import AppError from './utils/appError';
-import { errorController } from './controllers/errorController';
+import { errorController } from './utils/errorController';
 
 const app = express();
 
@@ -33,11 +34,8 @@ const limiter = rateLimit({
 app.use('/', limiter);
 
 app.use(express.json());
-
-// Data sanitization against NoSQL query injections
 app.use(mongoSanitize());
 app.use(xss());
-//prevent parameter pollution
 app.use(
   hpp({
     whitelist: [],

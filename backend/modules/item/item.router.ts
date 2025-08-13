@@ -1,9 +1,5 @@
 import express from 'express';
-import {
-  uploadItemImages,
-  processItemImages,
-} from '../../middlewares/imageUpload';
-
+import { uploadItemImages, processItemImages } from './item.middleware';
 import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 import { ItemService } from './item.service';
 import { ItemController } from './item.controller';

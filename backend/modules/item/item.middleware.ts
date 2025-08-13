@@ -1,6 +1,6 @@
 import multer, { FileFilterCallback } from 'multer';
 import sharp from 'sharp';
-import { cloudinary } from '../utils/cloudinary';
+import { cloudinary } from '../../utils/cloudinary';
 import { NextFunction, Request, Response } from 'express';
 import { UploadApiResponse } from 'cloudinary';
 
