@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { UserDocument } from '../models/userModel';
+import { UserDocument } from '../modules/user/model/user.model';
 
 export enum LeatherType {
   CRAZY_HORSE = 'Crazy Horse',

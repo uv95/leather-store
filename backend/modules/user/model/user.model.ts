@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { Model, model, Schema } from 'mongoose';
+import { Document, Model, model, Schema, Types } from 'mongoose';
 import validator from 'validator';
 
 export interface User {
@@ -11,12 +11,21 @@ export interface User {
   password: string;
   passwordConfirm: string | undefined;
   passwordChangedAt: NativeDate;
-  passwordResetToken: string;
-  passwordResetExpires: NativeDate;
+  passwordResetToken: string | undefined;
+  passwordResetExpires: NativeDate | undefined;
   active: boolean;
 }
 
-const userSchema = new Schema<User>(
+interface UserMethods {
+  correctPassword: (
+    candidatePassword: string,
+    userPassword: string
+  ) => Promise<boolean>;
+  changedPasswordAfter: (JWTTimestamp: number) => boolean;
+  createPasswordResetToken: () => string;
+}
+
+const userSchema = new Schema<User, Model<User>, UserMethods>(
   {
     name: {
       type: String,
@@ -128,11 +137,15 @@ userSchema.methods.createPasswordResetToken = function () {
     .update(resetToken)
     .digest('hex');
 
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
 
   return resetToken;
 };
 
 const User = model('User', userSchema);
+
+export type UserDocument = Document<Types.ObjectId, {}, User> &
+  User &
+  UserMethods;
 
 export default User;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect, restrictTo } from '../../controllers/authController';
+import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 import { AnalyticsService } from './analytics.service';
 import { AnalyticsController } from './analytics.controller';
 

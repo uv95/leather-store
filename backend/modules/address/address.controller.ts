@@ -4,7 +4,7 @@ import { RequestWithUser } from '../../utils/types';
 import { AddressService } from './address.service';
 import { CreateAddressDto, UpdateAddressDto } from './dto/address.dto';
 
-export class Addressontroller {
+export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
   createAddress = catchAsync(

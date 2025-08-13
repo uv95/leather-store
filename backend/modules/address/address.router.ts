@@ -1,10 +1,10 @@
 import express from 'express';
-import { protect, restrictTo } from '../../controllers/authController';
 import { AddressService } from './address.service';
-import { Addressontroller } from './address.controller';
+import { AddressController } from './address.controller';
+import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 
 const addressService = new AddressService();
-const addressController = new Addressontroller(addressService);
+const addressController = new AddressController(addressService);
 
 const addressRouter = express.Router();
 

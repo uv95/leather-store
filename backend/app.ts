@@ -9,12 +9,13 @@ import hpp from 'hpp';
 import { xss } from 'express-xss-sanitizer';
 import cors from 'cors';
 
-import { userRouter } from './routes/userRouter';
 import { cartRouter } from './modules/cart/cart.router';
 import { orderRouter } from './modules/order/order.router';
 import { itemRouter } from './modules/item/item.router';
 import { addressRouter } from './modules/address/address.router';
 import { analyticsRouter } from './modules/analytics/analytics.router';
+import { userRouter } from './modules/user/user.router';
+import { authRouter } from './modules/auth/auth.router';
 
 import AppError from './utils/appError';
 import { errorController } from './controllers/errorController';
@@ -44,8 +45,9 @@ app.use(
 );
 
 app.use('/address', addressRouter);
-app.use('/items', itemRouter);
-app.use('/users', userRouter);
+app.use('/item', itemRouter);
+app.use('/user', userRouter);
+app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/analytics', analyticsRouter);

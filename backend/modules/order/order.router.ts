@@ -1,5 +1,5 @@
 import { CartService } from '../../modules/cart/cart.service';
-import { protect, restrictTo } from '../../controllers/authController';
+import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 import express from 'express';
 import { OrderService } from './order.service';
 import { OrderController } from './order.controller';

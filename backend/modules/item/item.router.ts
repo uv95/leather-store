@@ -4,7 +4,7 @@ import {
   processItemImages,
 } from '../../middlewares/imageUpload';
 
-import { protect, restrictTo } from '../../controllers/authController';
+import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 import { ItemService } from './item.service';
 import { ItemController } from './item.controller';
 

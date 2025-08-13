@@ -1,6 +1,6 @@
 import express from 'express';
 import { CartController } from './cart.controller';
-import { protect } from '../../controllers/authController';
+import { protect } from '../../modules/auth/auth.middleware';
 import { CartService } from './cart.service';
 
 const cartService = new CartService();
