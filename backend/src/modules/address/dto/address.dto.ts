@@ -1,4 +1,4 @@
-import { OptionalType } from 'utils/types';
+import { OptionalType } from 'src/utils/types';
 
 export interface CreateAddressDto {
   city: string;

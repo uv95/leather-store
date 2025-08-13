@@ -1,4 +1,4 @@
-import { OptionalType } from 'utils/types';
+import { OptionalType } from 'src/utils/types';
 import { ItemType } from '../model/item.model';
 
 export interface CreateItemDto {

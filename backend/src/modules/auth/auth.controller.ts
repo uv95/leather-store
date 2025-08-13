@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { UserDocument } from 'modules/user/model/user.model';
+import { UserDocument } from '../../modules/user/model/user.model';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
 import { AuthService } from './auth.service';

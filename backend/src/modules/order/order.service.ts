@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import AppError from '../../utils/appError';
 import Order, { OrderStatus } from './model/order.model';
-import { CartService } from 'modules/cart/cart.service';
+import { CartService } from '../../modules/cart/cart.service';
 import CartItem from '../../modules/cart/model/cartItem.model';
 import OrderItem from './model/orderItem.model';
 import { CreateOrderDto, UpdateOrderDto } from './dto/order.dto';
