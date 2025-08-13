@@ -34,7 +34,7 @@ const handleJWTExpiredError = () =>
 
 const sendErrorDev = (err: AppErrorType, res: Response) => {
   res.status(err.statusCode).json({
-    status: err.status,
+    status: 'error',
     error: err,
     message: err.message,
     stack: err.stack,
@@ -43,7 +43,7 @@ const sendErrorDev = (err: AppErrorType, res: Response) => {
 const sendErrorProd = (err: AppErrorType, res: Response) => {
   if (err.isOperational) {
     res.status(err.statusCode).json({
-      status: err.status,
+      status: 'error',
       message: err.message,
     });
   } else {

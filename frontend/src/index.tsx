@@ -1,9 +1,8 @@
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './app/App';
 import { ErrorBoundary } from './app/providers/ErrorBoundary';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './app/providers/StoreProvider/config/store';
+import { StoreProvider } from './app/providers/StoreProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,9 +10,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <ErrorBoundary>
     <BrowserRouter>
-      <Provider store={store}>
+      <StoreProvider>
         <App />
-      </Provider>
+      </StoreProvider>
     </BrowserRouter>
   </ErrorBoundary>
 );
