@@ -34,6 +34,19 @@ export class OrderService {
         },
       },
       {
+        $lookup: {
+          from: 'addresses',
+          localField: 'address',
+          foreignField: '_id',
+          as: 'address',
+        },
+      },
+      {
+        $unwind: {
+          path: '$address',
+        },
+      },
+      {
         $sort: { createdAt: -1 },
       },
     ]);
@@ -85,21 +98,18 @@ export class OrderService {
     await OrderItem.bulkWrite(bulkOperations);
     await this.cartService.clearCart(dto.cartId);
 
-    const orderItems = await OrderItem.find({ order: newOrder._id }).lean();
-
-    return {
-      order: {
-        ...newOrder.toObject(),
-        orderItems,
-      },
-    };
+    return true;
   }
 
-  async deleteOrder(orderId: string) {
+  async deleteOrder(orderId: string, userId: string) {
     this.validateId(orderId, 'Order');
 
     await OrderItem.deleteMany({ order: orderId });
     await Order.findByIdAndDelete(orderId);
+
+    const userActiveOrderCount = await this.getUserActiveOrderCount(userId);
+
+    return { userActiveOrderCount };
   }
 
   async updateOrder(orderId: string, dto: UpdateOrderDto) {
@@ -114,7 +124,7 @@ export class OrderService {
     return await Order.findByIdAndUpdate(orderId, dto, {
       new: true,
       runValidators: true,
-    });
+    }).populate({ path: 'address', select: 'city address zipcode' });
   }
 
   async getUserActiveOrderCount(userId: string): Promise<number> {

@@ -9,22 +9,22 @@ export class OrderController {
 
   getUserOrders = catchAsync(
     async (req: RequestWithUser, res: Response, next: NextFunction) => {
-      const orders = await this.orderService.getUserOrders(req.user?.id);
+      const data = await this.orderService.getUserOrders(req.user?.id);
 
       res.status(200).json({
         status: 'success',
-        data: orders,
+        data,
       });
     }
   );
 
   getAllOrders = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const orders = await this.orderService.getAllOrders();
+      const data = await this.orderService.getAllOrders();
 
       res.status(200).json({
         status: 'success',
-        data: orders,
+        data,
       });
     }
   );
@@ -35,22 +35,25 @@ export class OrderController {
       res: Response,
       next: NextFunction
     ) => {
-      const order = await this.orderService.createOrder(req.user?.id, req.body);
+      const data = await this.orderService.createOrder(req.user?.id, req.body);
 
       res.status(201).json({
         status: 'success',
-        data: order,
+        data,
       });
     }
   );
 
   deleteOrder = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-      await this.orderService.deleteOrder(req.params.orderId);
+    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+      const data = await this.orderService.deleteOrder(
+        req.params.orderId,
+        req.user?.id
+      );
 
       res.status(204).json({
         status: 'success',
-        data: null,
+        data,
       });
     }
   );
@@ -61,27 +64,27 @@ export class OrderController {
       res: Response,
       next: NextFunction
     ) => {
-      const updatedOrder = await this.orderService.updateOrder(
+      const data = await this.orderService.updateOrder(
         req.params.orderId,
         req.body
       );
 
       res.status(200).json({
         status: 'success',
-        data: updatedOrder,
+        data,
       });
     }
   );
 
   getUserActiveOrderCount = catchAsync(
     async (req: RequestWithUser, res: Response, next: NextFunction) => {
-      const count = await this.orderService.getUserActiveOrderCount(
+      const data = await this.orderService.getUserActiveOrderCount(
         req.user?.id
       );
 
       res.status(200).json({
         status: 'success',
-        data: count,
+        data,
       });
     }
   );

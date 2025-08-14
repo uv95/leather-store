@@ -5,17 +5,24 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Orders } from '../../types/order';
 
-export const getAllOrders = createAsyncThunk<
-  ApiSuccessResponse<Orders>,
-  {},
+export interface DeleteOrderInput {
+  orderId: string;
+}
+
+export interface DeleteOrderData {
+  userActiveOrderCount: number;
+}
+
+export const deleteOrder = createAsyncThunk<
+  ApiSuccessResponse<DeleteOrderData>,
+  DeleteOrderInput,
   ThunkConfig<string>
->('@@orders/getAllOrders', async (_, thunkAPI) => {
+>('@@orders/deleteOrder', async ({ orderId }, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.get('/order');
+    const response = await extra.api.delete(`/order/${orderId}`);
 
     return response.data;
   } catch (error) {

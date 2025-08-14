@@ -5,7 +5,7 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { CartItemDto, CartItem } from '../../types/cart';
+import { CartItemDto } from '../../types/cart';
 
 export interface AddCartItemInput {
   cartId: string;
@@ -13,7 +13,6 @@ export interface AddCartItemInput {
 }
 
 interface AddToCartData {
-  cartItem: CartItem;
   total: number;
   itemCount: number;
 }

@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { OrderSchema } from '../types/order';
-import { cancelOrder } from '../services/cancelOrder/cancelOrder';
-import { getOrder } from '../services/getOrder/getOrder';
+import { deleteOrder } from '../services/deleteOrder/deleteOrder';
 import { createOrder } from '../services/createOrder/createOrder';
 import { getUserOrders } from '../services/getUserOrders/getUserOrders';
 import { getAllOrders } from '../services/getAllOrders/getAllOrders';
 import { updateOrder } from '../services/updateOrder/updateOrder';
+import { getUserActiveOrderCount } from '../services/getUserActiveOrderCount/getUserActiveOrderCount';
 
 const initialState: OrderSchema = {
-  order: undefined,
   orders: [],
-  myOrders: [],
+  userOrders: [],
+  userActiveOrderCount: 0,
   loading: 'idle',
 };
 
@@ -20,28 +20,24 @@ export const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(cancelOrder.fulfilled, (state, action) => {
-        state.loading = 'succeeded';
-        state.myOrders = state.myOrders.filter(
-          (order) => order._id !== action.meta.arg
-        );
-        state.orders = state.orders.filter(
-          (order) => order._id !== action.meta.arg
-        );
-      })
-      .addCase(getOrder.rejected, (state) => {
-        state.order = undefined;
-      })
-      .addCase(getOrder.fulfilled, (state, action) => {
-        state.order = action.payload.data.data;
-        state.loading = 'succeeded';
-      })
       .addCase(createOrder.pending, (state) => {
         state.loading = 'pending';
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        state.orders = [...state.orders, action.payload.data.data];
-        state.myOrders = [...state.myOrders, action.payload.data.data];
+        const { userActiveOrderCount } = action.payload.data;
+
+        state.userActiveOrderCount = userActiveOrderCount;
+        state.loading = 'succeeded';
+      })
+      .addCase(deleteOrder.fulfilled, (state, action) => {
+        const { userActiveOrderCount } = action.payload.data;
+        const { orderId } = action.meta.arg;
+
+        state.userActiveOrderCount = userActiveOrderCount;
+        state.userOrders = state.userOrders.filter(
+          (order) => order._id !== orderId
+        );
+        state.orders = state.orders.filter((order) => order._id !== orderId);
         state.loading = 'succeeded';
       })
       .addCase(getAllOrders.pending, (state) => {
@@ -49,25 +45,38 @@ export const orderSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(getAllOrders.fulfilled, (state, action) => {
-        state.orders = action.payload.data.data;
+        state.orders = action.payload.data;
         state.loading = 'succeeded';
       })
+      .addCase(getAllOrders.rejected, (state) => {
+        state.orders = [];
+      })
+      .addCase(getUserActiveOrderCount.fulfilled, (state, action) => {
+        state.userActiveOrderCount = action.payload.data;
+        state.loading = 'succeeded';
+      })
+      .addCase(getUserActiveOrderCount.rejected, (state) => {
+        state.userActiveOrderCount = 0;
+      })
       .addCase(getUserOrders.pending, (state) => {
-        state.myOrders = [];
+        state.userOrders = [];
         state.loading = 'pending';
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {
-        state.myOrders = action.payload.data.data;
+        state.userOrders = action.payload.data;
         state.loading = 'succeeded';
       })
+      .addCase(getUserOrders.rejected, (state) => {
+        state.userOrders = [];
+      })
       .addCase(updateOrder.fulfilled, (state, action) => {
-        state.loading = 'succeeded';
-        state.order = action.payload.data.data;
+        const { orderId } = action.meta.arg;
+        const updatedOrder = action.payload.data;
+
         state.orders = state.orders.map((order) =>
-          order._id === action.payload.data.data._id
-            ? action.payload.data.data
-            : order
+          order._id === orderId ? updatedOrder : order
         );
+        state.loading = 'succeeded';
       })
       .addMatcher(
         (action) =>

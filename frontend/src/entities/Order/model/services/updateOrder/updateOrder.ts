@@ -1,27 +1,34 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { Order } from '../../types/order';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { User } from '../../../../User';
+import { Order, OrderStatus } from '../../types/order';
 
-export const updateOrder = createAsyncThunk(
-  '@@orders/update',
-  async (
-    { orderId, newData }: { orderId: string; newData: Partial<Order> },
-    thunkAPI
-  ) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.patch(
-        `${BASE_URL}order/${orderId}`,
-        newData,
-        config
-      );
+export interface UpdateOrderInput {
+  orderId: string;
+  dto: {
+    status?: OrderStatus;
+    address?: string;
+  };
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export const updateOrder = createAsyncThunk<
+  ApiSuccessResponse<Order<Omit<User, '_id' | 'role'>>>,
+  UpdateOrderInput,
+  ThunkConfig<string>
+>('@@orders/updateOrder', async (updateOrderInput, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+  const { orderId, dto } = updateOrderInput;
+
+  try {
+    const response = await extra.api.patch(`/order/${orderId}`, dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

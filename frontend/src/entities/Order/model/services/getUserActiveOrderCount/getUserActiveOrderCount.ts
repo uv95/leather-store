@@ -5,17 +5,16 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Orders } from '../../types/order';
 
-export const getAllOrders = createAsyncThunk<
-  ApiSuccessResponse<Orders>,
+export const getUserActiveOrderCount = createAsyncThunk<
+  ApiSuccessResponse<number>,
   {},
   ThunkConfig<string>
->('@@orders/getAllOrders', async (_, thunkAPI) => {
+>('@@orders/getUserActiveOrderCount', async (_, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.get('/order');
+    const response = await extra.api.get(`/order/userOrders/count`);
 
     return response.data;
   } catch (error) {

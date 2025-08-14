@@ -5,13 +5,14 @@ import { getAllOrders as getAllOrdersSelector } from './model/selectors/getAllOr
 import { getUserActiveOrders } from './model/selectors/getUserActiveOrders/getUserActiveOrders';
 import { getAllCompletedOrders } from './model/selectors/getAllCompletedOrders/getAllCompletedOrders';
 import { getUserCompletedOrders } from './model/selectors/getUserCompletedOrders/getAllCompletedOrders';
+import { getUserActiveOrderCount as getUserActiveOrderCountSelector } from './model/selectors/getUserActiveOrderCount/getUserActiveOrderCount';
 import { getOrderLoading } from './model/selectors/getOrderLoading/getOrderLoading';
-import { cancelOrder } from './model/services/cancelOrder/cancelOrder';
+import { deleteOrder } from './model/services/deleteOrder/deleteOrder';
 import { createOrder } from './model/services/createOrder/createOrder';
 import { getAllOrders } from './model/services/getAllOrders/getAllOrders';
-import { getOrder } from './model/services/getOrder/getOrder';
 import { updateOrder } from './model/services/updateOrder/updateOrder';
 import { getUserOrders } from './model/services/getUserOrders/getUserOrders';
+import { getUserActiveOrderCount } from './model/services/getUserActiveOrderCount/getUserActiveOrderCount';
 
 export {
   type Order,
@@ -20,14 +21,15 @@ export {
   orderReducer,
   getAllActiveOrders,
   getUserActiveOrders,
+  getUserActiveOrderCountSelector,
   getAllOrdersSelector,
   getAllCompletedOrders,
   getUserCompletedOrders,
   getOrderLoading,
-  cancelOrder,
+  deleteOrder,
   createOrder,
   getAllOrders,
   getUserOrders,
-  getOrder,
   updateOrder,
+  getUserActiveOrderCount,
 };
