@@ -54,14 +54,14 @@ export class CartService {
       return { cartItem, total };
     }
 
-    const newCartItem = await CartItem.create({
+    await CartItem.create({
       cart: cartId,
       ...dto,
     });
     const total = await this.getUpdatedCartTotal(cartId);
     const itemCount = await this.getCartItemCount(cartId);
 
-    return { cartItem: newCartItem, total, itemCount };
+    return { total, itemCount };
   }
 
   async getCart(userId: string) {

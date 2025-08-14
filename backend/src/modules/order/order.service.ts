@@ -97,8 +97,9 @@ export class OrderService {
 
     await OrderItem.bulkWrite(bulkOperations);
     await this.cartService.clearCart(dto.cartId);
+    const userActiveOrderCount = await this.getUserActiveOrderCount(userId);
 
-    return true;
+    return { userActiveOrderCount };
   }
 
   async deleteOrder(orderId: string, userId: string) {

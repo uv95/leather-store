@@ -30,7 +30,7 @@ const DeliveryAddressList = ({
   const onDelete = useCallback(() => {
     setAddressId(addressId);
 
-    dispatch(deleteAddress(addressId))
+    dispatch(deleteAddress({ addressId }))
       .unwrap()
       .then(() => toast.success('Address deleted'))
       .catch((error) => toast.error(error));

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Address,
-  getAddress,
   getAddressSelector,
   updateAddress,
 } from '../../../../../entities/Address';
@@ -23,13 +22,6 @@ const EditAddressForm = () => {
   });
 
   useEffect(() => {
-    dispatch(getAddress(addressId))
-      .unwrap()
-      .then()
-      .catch((error) => toast.error(error));
-  }, [dispatch, addressId]);
-
-  useEffect(() => {
     address &&
       setFormData({
         city: address.city,
@@ -41,7 +33,7 @@ const EditAddressForm = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateAddress({ addressId, newData: formData }))
+    dispatch(updateAddress({ addressId, dto: formData }))
       .unwrap()
       .then((_) => {
         toast.success('Address updated');

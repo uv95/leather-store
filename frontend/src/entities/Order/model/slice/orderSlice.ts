@@ -70,11 +70,10 @@ export const orderSlice = createSlice({
         state.userOrders = [];
       })
       .addCase(updateOrder.fulfilled, (state, action) => {
-        const { orderId } = action.meta.arg;
         const updatedOrder = action.payload.data;
 
         state.orders = state.orders.map((order) =>
-          order._id === orderId ? updatedOrder : order
+          order._id === updatedOrder._id ? updatedOrder : order
         );
         state.loading = 'succeeded';
       })

@@ -7,21 +7,15 @@ import {
 } from '../../../../../shared/types/apiResponse';
 import { Address } from '../../types/address';
 
-export interface UpdateAddressInput {
-  addressId: string;
-  dto: AllOptional<Address>;
-}
-
-export const updateAddress = createAsyncThunk<
-  ApiSuccessResponse<Address>,
-  UpdateAddressInput,
+export const getUserAddresses = createAsyncThunk<
+  ApiSuccessResponse<Address[]>,
+  void,
   ThunkConfig<string>
->('@@address/updateAddress', async (updateAdressInput, thunkAPI) => {
+>('@@address/getUserAddresses', async (_, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
-  const { addressId, dto } = updateAdressInput;
 
   try {
-    const response = await extra.api.patch(`/address/${addressId}`, dto);
+    const response = await extra.api.get('/address');
 
     return response.data;
   } catch (error) {

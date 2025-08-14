@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getAllAddresses,
-  getAllAddressesSelector,
+  getUserAddresses,
+  getUserAddressesSelector,
 } from '../../entities/Address';
 import {
   clearCart,
@@ -30,7 +30,7 @@ const Cart = () => {
   const cartItemsCount = useSelector(getCartItemCountSelector);
   const loading = useSelector(getCartLoading);
   const isLoggedIn = useSelector(getIsLoggedIn);
-  const addresses = useSelector(getAllAddressesSelector);
+  const addresses = useSelector(getUserAddressesSelector);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
@@ -69,10 +69,10 @@ const Cart = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getAllAddresses())
+      dispatch(getUserAddresses())
         .unwrap()
         .then()
-        .catch((error) => toast.error(error));
+        .catch((error: string) => toast.error(error));
     }
   }, [dispatch, isLoggedIn]);
 
