@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import toast from '../toast/toast';
 import { useSelector } from 'react-redux';
-import { getAllItems, getFilteredItems } from '../../../entities/Item';
+import { getItems, getFilteredItems } from '../../../entities/Item';
 import { useAppDispatch } from './useAppDispatch';
 
-export function useGetAllItems() {
+export function useGetItems() {
   const dispatch = useAppDispatch();
   const items = useSelector(getFilteredItems);
 
   useEffect(() => {
     if (!items.length) {
-      dispatch(getAllItems())
+      dispatch(getItems())
         .unwrap()
         .then()
         .catch((error) => toast.error(error));
@@ -20,4 +20,4 @@ export function useGetAllItems() {
   return { items };
 }
 
-export default useGetAllItems;
+export default useGetItems;

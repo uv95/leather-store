@@ -6,14 +6,15 @@ import {
   Color,
   HexColor,
   LeatherType,
+  ItemDto,
 } from './model/types/item';
 import itemsReducer from './model/slice/itemsSlice';
 import { getFilteredItems } from './model/selectors/getFilteredItems/getFilteredItems';
 import { getItem } from './model/selectors/getItem/getItem';
 import { getItemsLoading } from './model/selectors/getItemsLoading/getItemsLoading';
-import { addItem } from './model/services/addItem/addItem';
+import { createItem } from './model/services/createItem/createItem';
 import { deleteItem } from './model/services/deleteItem/deleteItem';
-import { getAllItems } from './model/services/getAllItems/getAllItems';
+import { getItems } from './model/services/getItems/getItems';
 import { getItemBySlug } from './model/services/getItemBySlug/getItemBySlug';
 import { updateItem } from './model/services/updateItem/updateItem';
 import ItemImage from './ui/ItemImage/ItemImage';
@@ -25,6 +26,7 @@ export {
   ItemType,
   type ItemsSchema,
   type Image,
+  type ItemDto,
   Color,
   HexColor,
   LeatherType,
@@ -32,9 +34,9 @@ export {
   getFilteredItems,
   getItem,
   getItemsLoading,
-  addItem,
+  createItem,
   deleteItem,
-  getAllItems,
+  getItems,
   getItemBySlug,
   updateItem,
   ItemImage,

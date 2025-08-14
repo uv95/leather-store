@@ -7,19 +7,15 @@ import {
 } from '../../../../../shared/types/apiResponse';
 import { Item } from '../../types/item';
 
-interface GetItemBySlugInput {
-  slug: string;
-}
-
-export const getItemBySlug = createAsyncThunk<
+export const createItem = createAsyncThunk<
   ApiSuccessResponse<Item>,
-  GetItemBySlugInput,
+  FormData,
   ThunkConfig<string>
->('@@items/getItemBySlug', async ({ slug }, thunkAPI) => {
+>('@@items/createItem', async (dto, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.get(`/item/${slug}`);
+    const response = await extra.api.post('/item', dto);
 
     return response.data;
   } catch (error) {

@@ -1,27 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { Item } from '../../types/item';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { Item, ItemDto } from '../../types/item';
 
-export const updateItem = createAsyncThunk(
-  '@@items/update',
-  async (
-    { itemId, newData }: { itemId: string; newData: Partial<Item> },
-    thunkAPI
-  ) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.patch(
-        `${BASE_URL}items/${itemId}`,
-        newData,
-        config
-      );
+interface UpdateItemInput {
+  itemId: string;
+  dto: AllOptional<ItemDto>;
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export const updateItem = createAsyncThunk<
+  ApiSuccessResponse<Item>,
+  UpdateItemInput,
+  ThunkConfig<string>
+>('@@items/updateItem', async (updateItemInput, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+  const { itemId, dto } = updateItemInput;
+
+  try {
+    const response = await extra.api.patch(`/item/${itemId}`, dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

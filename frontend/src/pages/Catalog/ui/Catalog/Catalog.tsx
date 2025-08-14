@@ -5,14 +5,14 @@ import {
 } from '../../../../features/CatalogFilter';
 import { clearFilter } from '../../../../features/CatalogFilter/model/slice/filterSlice';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
-import { useGetAllItems } from '../../../../shared/lib/hooks/useGetAllItems';
+import { useGetItems } from '../../../../shared/lib/hooks/useGetItems';
 import Pagination from '../../../../shared/ui/Pagination/Pagination';
 import CatalogItemList from '../CatalogItemList/CatalogItemList';
 import styles from './Catalog.module.scss';
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
-  const { items } = useGetAllItems();
+  const { items } = useGetItems();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
   const [maxPages, setMaxPages] = useState(1);
