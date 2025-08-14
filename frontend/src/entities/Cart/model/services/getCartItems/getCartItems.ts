@@ -5,17 +5,22 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Cart } from '../../types/cart';
+import { CartItem } from '../../types/cart';
 
-export const getCart = createAsyncThunk<
-  ApiSuccessResponse<Cart>,
-  {},
+export interface GetCartItemsInput {
+  cartId: string;
+}
+
+export const getCartItems = createAsyncThunk<
+  ApiSuccessResponse<CartItem[]>,
+  GetCartItemsInput,
   ThunkConfig<string>
->('@@cart/getCart', async (_, thunkAPI) => {
+>('@@cart/getCartItems', async (getCartItemsInput, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
+  const { cartId } = getCartItemsInput;
 
   try {
-    const response = await extra.api.get('/cart');
+    const response = await extra.api.get(`/cart/${cartId}`);
 
     return response.data;
   } catch (error) {

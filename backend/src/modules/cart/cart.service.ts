@@ -15,6 +15,23 @@ export class CartService {
     }
   }
 
+  private async getUpdatedCartTotal(cartId: string) {
+    const totalCost = await CartItem.aggregate([
+      { $match: { cart: cartId } },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: { $multiply: ['$price', '$quantity'] } },
+        },
+      },
+    ]);
+
+    const total = totalCost[0]?.total || 0;
+    await Cart.findByIdAndUpdate(cartId, { total });
+
+    return total;
+  }
+
   async addToCart(cartId: string, dto: CreateCartItemDto) {
     this.validateId(cartId, 'Cart');
 
@@ -32,14 +49,19 @@ export class CartService {
     if (cartItem) {
       cartItem.quantity += dto.quantity;
       await cartItem.save();
+      const total = await this.getUpdatedCartTotal(cartId);
 
-      return cartItem;
+      return { cartItem, total };
     }
 
-    return await CartItem.create({
+    const newCartItem = await CartItem.create({
       cart: cartId,
       ...dto,
     });
+    const total = await this.getUpdatedCartTotal(cartId);
+    const itemCount = await this.getCartItemCount(cartId);
+
+    return { cartItem: newCartItem, total, itemCount };
   }
 
   async getCart(userId: string) {
@@ -66,6 +88,12 @@ export class CartService {
     }
 
     await CartItem.findByIdAndDelete(cartItemId);
+
+    const cartId = String(cartItem.cart._id);
+    const total = await this.getUpdatedCartTotal(cartId);
+    const itemCount = await this.getCartItemCount(cartId);
+
+    return { total, itemCount };
   }
 
   async getCartItems(cartId: string) {
@@ -84,6 +112,7 @@ export class CartService {
     this.validateId(cartId, 'Cart');
 
     await CartItem.deleteMany({ cart: cartId });
+    await Cart.findByIdAndUpdate(cartId, { total: 0 });
   }
 
   async changeQuantity(cartItemId: string, dto: ChangeQuantityDto) {
@@ -99,7 +128,7 @@ export class CartService {
       return await CartItem.findByIdAndDelete(cartItemId);
     }
 
-    return await CartItem.findByIdAndUpdate(
+    const updatedCartItem = await CartItem.findByIdAndUpdate(
       cartItemId,
       {
         quantity: dto.quantity,
@@ -109,6 +138,12 @@ export class CartService {
         runValidators: true,
       }
     );
+
+    const cartId = String(cartItem.cart._id);
+    const total = await this.getUpdatedCartTotal(cartId);
+    const itemCount = await this.getCartItemCount(cartId);
+
+    return { cartItem: updatedCartItem, total, itemCount };
   }
 
   async mergeCartItems(userId: string, dto: MergeCartItemsDto) {
@@ -131,12 +166,22 @@ export class CartService {
       );
     }
 
-    return await this.getCartItems(cartId);
+    const total = await this.getUpdatedCartTotal(cartId);
+    const cartItems = await this.getCartItems(cartId);
+    const itemCount = await this.getCartItemCount(cartId);
+
+    return { cartItems, total, itemCount };
+  }
+
+  private async getUpdatedData(cartId: string) {
+    const total = await this.getUpdatedCartTotal(cartId);
+    const cartItems = await this.getCartItems(cartId);
+    const itemCount = await this.getCartItemCount(cartId);
+
+    return { cartItems, total, itemCount };
   }
 
   async getCartItemCount(cartId: string): Promise<number> {
-    this.validateId(cartId, 'Cart');
-
     const cartItemCount = await CartItem.aggregate([
       { $match: { cart: new Types.ObjectId(cartId) } },
       { $group: { _id: null, total: { $sum: '$quantity' } } },

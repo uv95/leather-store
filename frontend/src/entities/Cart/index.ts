@@ -5,21 +5,28 @@ import {
   Quantity,
   UpdatedQuantity,
   ItemColors,
+  CartData,
+  CartItemDto,
 } from './model/types/cart';
-import { getCart } from './model/services/getCart/getCart';
 import { addToCart } from './model/services/addToCart/addToCart';
 import { changeQuantity } from './model/services/changeQuantity/changeQuantity';
-import { deleteItemFromCart } from './model/services/deleteItemFromCart/deleteItemFromCart';
-import { emptyCart } from './model/services/emptyCart/emptyCart';
-import { updateCart } from './model/services/updateCart/updateCart';
+import { clearCart } from './model/services/clearCart/clearCart';
+import { getCart } from './model/services/getCart/getCart';
+import { getCartItems } from './model/services/getCartItems/getCartItems';
+import { mergeCartItems } from './model/services/mergeCartItems/mergeCartItems';
+import { getCartItemCount } from './model/services/getCartItemCount/getCartItemCount';
+import { removeFromCart } from './model/services/removeFromCart/removeFromCart';
 import cartReducer from './model/slice/cartSlice';
-import { getCart as getCartSelector } from './model/selectors/getCart/getCart';
+import { getCartId } from './model/selectors/getCartId/getCartId';
+import { getCartItemCount as getCartItemCountSelector } from './model/selectors/getCartItemCount/getCartItemCount';
+import { getCartItems as getCartItemsSelector } from './model/selectors/getCartItems/getCartItems';
+import { getCartTotal } from './model/selectors/getCartTotal/getCartTotal';
 import { getCartLoading } from './model/selectors/getCartLoading/getCartLoading';
 import {
   addToCartLS,
-  deleteItemFromCartLS,
+  removeFromCartLS,
   changeQuantityLS,
-  getCartLS,
+  getCartItemsLS,
 } from './model/slice/cartSlice';
 
 export {
@@ -29,17 +36,24 @@ export {
   type Quantity,
   type UpdatedQuantity,
   type ItemColors,
+  type CartData,
+  type CartItemDto,
   getCart,
   addToCart,
   changeQuantity,
-  deleteItemFromCart,
-  emptyCart,
-  updateCart,
+  clearCart,
+  getCartItems,
+  mergeCartItems,
+  getCartItemCount,
+  removeFromCart,
   cartReducer,
-  getCartSelector,
+  getCartId,
   getCartLoading,
+  getCartItemCountSelector,
+  getCartItemsSelector,
+  getCartTotal,
   addToCartLS,
-  deleteItemFromCartLS,
+  removeFromCartLS,
   changeQuantityLS,
-  getCartLS,
+  getCartItemsLS,
 };

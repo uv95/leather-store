@@ -5,17 +5,22 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Cart } from '../../types/cart';
+import { CartData, CartItemDto } from '../../types/cart';
 
-export const getCart = createAsyncThunk<
-  ApiSuccessResponse<Cart>,
-  {},
+export interface MergeCartItemsInput {
+  dto: CartItemDto[];
+}
+
+export const mergeCartItems = createAsyncThunk<
+  ApiSuccessResponse<CartData>,
+  MergeCartItemsInput,
   ThunkConfig<string>
->('@@cart/getCart', async (_, thunkAPI) => {
+>('@@cart/mergeCartItems', async (mergeCartItemsInput, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
+  const { dto } = mergeCartItemsInput;
 
   try {
-    const response = await extra.api.get('/cart');
+    const response = await extra.api.post(`/cart`, dto);
 
     return response.data;
   } catch (error) {

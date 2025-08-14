@@ -1,29 +1,5 @@
-import { Color, Image, ItemType } from '../../../Item';
+import { Color, LeatherType } from '../../../Item';
 
-export interface CartItem {
-  _id: string;
-  total: number;
-  item: {
-    name: string;
-    imageCover: Image;
-    price: number;
-    type: ItemType;
-  };
-  quantity: number;
-  colors: ItemColors;
-  leather: string;
-}
-
-export interface ItemColors {
-  leatherColor: Color;
-  threadsColor: Color;
-}
-
-export interface Cart {
-  items: CartItem[];
-  total: number;
-  totalQuantity: number;
-}
 export interface UpdatedQuantity {
   cartItemId: string;
   quantity: Quantity;
@@ -33,6 +9,37 @@ export interface Quantity {
 }
 
 export interface CartSchema {
-  cart?: Cart;
+  cartId: string;
+  total: number;
+  cartItems: OptionalRecord<CartItem, '_id' | 'cart'>[];
+  cartItemCount: number;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+}
+
+export type CartItemDto = Omit<CartItem, '_id' | 'cart'>;
+
+export interface ItemColors {
+  leather: Color;
+  thread: Color;
+}
+
+export interface Cart {
+  _id: string;
+  total: number;
+}
+
+export interface CartItem {
+  _id: string;
+  cart: string;
+  item: string;
+  quantity: number;
+  price: number;
+  colors: ItemColors;
+  leatherType: LeatherType;
+}
+
+export interface CartData {
+  cartItems: CartItem[];
+  total: number;
+  itemCount: number;
 }

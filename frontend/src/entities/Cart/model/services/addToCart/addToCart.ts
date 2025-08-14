@@ -1,20 +1,36 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { CartItem } from '../../types/cart';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { CartItemDto, CartItem } from '../../types/cart';
 
-export const addToCart = createAsyncThunk(
-  '@@cart/addItem',
-  async (cartItem: Partial<CartItem>, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.post(`${BASE_URL}cart`, cartItem, config);
+export interface AddCartItemInput {
+  cartId: string;
+  dto: CartItemDto;
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+interface AddToCartData {
+  cartItem: CartItem;
+  total: number;
+  itemCount: number;
+}
+
+export const addToCart = createAsyncThunk<
+  ApiSuccessResponse<AddToCartData>,
+  AddCartItemInput,
+  ThunkConfig<string>
+>('@@cart/addItem', async (addCartItemInput, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+  const { cartId, dto } = addCartItemInput;
+
+  try {
+    const response = await extra.api.post(`/cart/${cartId}`, dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});
