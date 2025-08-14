@@ -1,4 +1,4 @@
-import { Color, LeatherType } from '../../../Item';
+import { Color, Image, LeatherType } from '../../../Item';
 
 export interface UpdatedQuantity {
   cartItemId: string;
@@ -11,7 +11,7 @@ export interface Quantity {
 export interface CartSchema {
   cartId: string;
   total: number;
-  cartItems: OptionalRecord<CartItem, '_id' | 'cart'>[];
+  cartItems: CartItem[];
   cartItemCount: number;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
@@ -31,7 +31,11 @@ export interface Cart {
 export interface CartItem {
   _id: string;
   cart: string;
-  item: string;
+  item: {
+    _id: string;
+    name: string;
+    imageCover: Image;
+  };
   quantity: number;
   price: number;
   colors: ItemColors;

@@ -90,10 +90,9 @@ export class CartService {
     await CartItem.findByIdAndDelete(cartItemId);
 
     const cartId = String(cartItem.cart._id);
-    const total = await this.getUpdatedCartTotal(cartId);
-    const itemCount = await this.getCartItemCount(cartId);
+    const updatedData = await this.getUpdatedData(cartId);
 
-    return { total, itemCount };
+    return updatedData;
   }
 
   async getCartItems(cartId: string) {
@@ -105,7 +104,10 @@ export class CartService {
       throw new AppError('Cart not found', 404);
     }
 
-    return await CartItem.find({ cart: cartId });
+    return await CartItem.find({ cart: cartId }).populate({
+      path: 'item',
+      select: 'imageCover name',
+    });
   }
 
   async clearCart(cartId: string) {
@@ -140,10 +142,9 @@ export class CartService {
     );
 
     const cartId = String(cartItem.cart._id);
-    const total = await this.getUpdatedCartTotal(cartId);
-    const itemCount = await this.getCartItemCount(cartId);
+    const updatedData = await this.getUpdatedData(cartId);
 
-    return { cartItem: updatedCartItem, total, itemCount };
+    return updatedData;
   }
 
   async mergeCartItems(userId: string, dto: MergeCartItemsDto) {
@@ -166,11 +167,9 @@ export class CartService {
       );
     }
 
-    const total = await this.getUpdatedCartTotal(cartId);
-    const cartItems = await this.getCartItems(cartId);
-    const itemCount = await this.getCartItemCount(cartId);
+    const updatedData = await this.getUpdatedData(cartId);
 
-    return { cartItems, total, itemCount };
+    return updatedData;
   }
 
   private async getUpdatedData(cartId: string) {

@@ -6,7 +6,9 @@ import {
 } from '../../entities/Address';
 import {
   CartItem,
-  emptyCart,
+  clearCart,
+  getCartItemCountSelector,
+  getCartItemsSelector,
   getCartLoading,
   getCartSelector,
 } from '../../entities/Cart';
@@ -29,7 +31,8 @@ import './cart.scss';
 const Cart = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(getUserSelector);
-  const cart = useSelector(getCartSelector);
+  const cartItems = useSelector(getCartItemsSelector);
+  const cartItemsCount = useSelector(getCartItemCountSelector);
   const loading = useSelector(getCartLoading);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const addresses = useSelector(getAllAddressesSelector);
@@ -51,7 +54,7 @@ const Cart = () => {
       dispatch(createOrder(order))
         .unwrap()
         .then((_) => {
-          dispatch(emptyCart());
+          dispatch(clearCart());
         })
         .catch((error) => toast.error(error));
     },
@@ -83,8 +86,6 @@ const Cart = () => {
     }
   }
 
-  const isCartEmpty = !cart?.items.length;
-
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getAllAddresses())
@@ -106,11 +107,11 @@ const Cart = () => {
         <div className="cart__container">
           {loading === 'pending' && <CartItemListSkeleton />}
 
-          {loading === 'succeeded' && isCartEmpty && (
+          {loading === 'succeeded' && !cartItemsCount && (
             <p className="cart__container-empty">Cart is empty</p>
           )}
 
-          {loading === 'succeeded' && !isCartEmpty && (
+          {loading === 'succeeded' && cartItemsCount && (
             <>
               <CartItemList />
 

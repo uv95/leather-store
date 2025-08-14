@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_CART } from '../../../../shared/const/consts';
 import { addToCart } from '../services/addToCart/addToCart';
 import { changeQuantity } from '../services/changeQuantity/changeQuantity';
 import { getCart } from '../services/getCart/getCart';
-import { CartItemDto, CartSchema } from '../types/cart';
+import { CartItem, CartItemDto, CartSchema } from '../types/cart';
 import { clearCart } from '../services/clearCart/clearCart';
 import { getCartItemCount } from '../services/getCartItemCount/getCartItemCount';
 import { getCartItems } from '../services/getCartItems/getCartItems';
@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
   name: '@@cart',
   initialState,
   reducers: {
-    addToCartLS: (state, action: PayloadAction<CartItemDto>) => {
+    addToCartLS: (state, action: PayloadAction<CartItem>) => {
       const newCartItem = action.payload;
 
       const existingCartItem = state.cartItems.find((cartItem) =>
@@ -57,15 +57,17 @@ export const cartSlice = createSlice({
       state.loading = 'succeeded';
     },
 
-    removeFromCartLS: (state, action: PayloadAction<CartItemDto>) => {
-      const cartItem = action.payload;
-      const cartItemIndex = state.cartItems.findIndex((existingCartItem) =>
-        areCartItemsEqual(cartItem, existingCartItem)
+    removeFromCartLS: (state, action: PayloadAction<string>) => {
+      const cartItemId = action.payload;
+      const cartItemIndex = state.cartItems.findIndex(
+        (existingCartItem) => existingCartItem._id === cartItemId
       );
 
       if (cartItemIndex > -1) {
         state.cartItems.splice(cartItemIndex, 1);
-        state.total -= cartItem.price * cartItem.quantity;
+        state.total -=
+          state.cartItems[cartItemIndex].price *
+          state.cartItems[cartItemIndex].quantity;
         localStorage.setItem(
           LOCAL_STORAGE_CART,
           JSON.stringify(state.cartItems)
@@ -75,11 +77,11 @@ export const cartSlice = createSlice({
 
     changeQuantityLS: (
       state,
-      action: PayloadAction<{ quantity: number; cartItem: CartItemDto }>
+      action: PayloadAction<{ cartItemId: string; quantity: number }>
     ) => {
-      const { cartItem, quantity } = action.payload;
-      const cartItemIndex = state.cartItems.findIndex((existingCartItem) =>
-        areCartItemsEqual(cartItem, existingCartItem)
+      const { cartItemId, quantity } = action.payload;
+      const cartItemIndex = state.cartItems.findIndex(
+        (existingCartItem) => existingCartItem._id === cartItemId
       );
 
       if (cartItemIndex > -1) {

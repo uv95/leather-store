@@ -23,6 +23,9 @@ cartRouter
   .patch(cartController.changeQuantity)
   .delete(cartController.removeFromCart);
 
-cartRouter.route('/').get(cartController.getCart);
+cartRouter
+  .route('/')
+  .get(cartController.getCart)
+  .post(cartController.mergeCartItems);
 
 export { cartRouter };

@@ -17,47 +17,47 @@ export class CartController {
       res: Response,
       next: NextFunction
     ) => {
-      const cartItem = await this.cartService.addToCart(
+      const data = await this.cartService.addToCart(
         req.params.cartId,
         req.body
       );
 
       res.status(201).json({
         status: 'success',
-        data: cartItem,
+        data,
       });
     }
   );
 
   removeFromCart = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      await this.cartService.removeFromCart(req.params.cartItemId);
+      const data = await this.cartService.removeFromCart(req.params.cartItemId);
 
       res.status(204).json({
         status: 'success',
-        data: null,
+        data,
       });
     }
   );
 
   getCart = catchAsync(
     async (req: RequestWithUser, res: Response, next: NextFunction) => {
-      const cart = await this.cartService.getCart(req.user?.id);
+      const data = await this.cartService.getCart(req.user?.id);
 
       res.status(200).json({
         status: 'success',
-        data: cart,
+        data,
       });
     }
   );
 
   getCartItems = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const cartItems = await this.cartService.getCartItems(req.params.cartId);
+      const data = await this.cartService.getCartItems(req.params.cartId);
 
       res.status(200).json({
         status: 'success',
-        data: cartItems,
+        data,
       });
     }
   );
@@ -68,7 +68,7 @@ export class CartController {
 
       res.status(204).json({
         status: 'success',
-        data: [],
+        data: null,
       });
     }
   );
@@ -79,14 +79,14 @@ export class CartController {
       res: Response,
       next: NextFunction
     ) => {
-      const cartItem = await this.cartService.changeQuantity(
+      const data = await this.cartService.changeQuantity(
         req.params.cartItemId,
         req.body
       );
 
       res.status(200).json({
         status: 'success',
-        data: cartItem,
+        data,
       });
     }
   );
@@ -97,27 +97,25 @@ export class CartController {
       res: Response,
       next: NextFunction
     ) => {
-      const cartItem = await this.cartService.mergeCartItems(
+      const data = await this.cartService.mergeCartItems(
         req.user?.id,
         req.body
       );
 
       res.status(200).json({
         status: 'success',
-        data: cartItem,
+        data,
       });
     }
   );
 
   getCartItemCount = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const cartItemCount = await this.cartService.getCartItemCount(
-        req.params.cartId
-      );
+      const data = await this.cartService.getCartItemCount(req.params.cartId);
 
       res.status(200).json({
         status: 'success',
-        data: cartItemCount,
+        data,
       });
     }
   );
