@@ -5,8 +5,7 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { User } from '../../../../User';
-import { Order, OrderStatus } from '../../types/order';
+import { AdminOrder, OrderStatus } from '../../types/order';
 
 export interface UpdateOrderInput {
   orderId: string;
@@ -17,7 +16,7 @@ export interface UpdateOrderInput {
 }
 
 export const updateOrder = createAsyncThunk<
-  ApiSuccessResponse<Order<Omit<User, '_id' | 'role'>>>,
+  ApiSuccessResponse<AdminOrder>,
   UpdateOrderInput,
   ThunkConfig<string>
 >('@@orders/updateOrder', async (updateOrderInput, thunkAPI) => {

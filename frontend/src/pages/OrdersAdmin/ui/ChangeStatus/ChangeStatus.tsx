@@ -13,7 +13,7 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
   const [newStatus, setNewStatus] = useState<OrderStatus>(currentStatus);
 
   useEffect(() => {
-    dispatch(updateOrder({ orderId, newData: { status: newStatus } }))
+    dispatch(updateOrder({ orderId, dto: { status: newStatus } }))
       .unwrap()
       .then()
       .catch((error) => toast.error(error));

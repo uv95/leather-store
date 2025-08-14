@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { updateCart } from '../../entities/Cart';
+import { mergeCartItems } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
 import { register } from '../../features/auth';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
@@ -45,19 +45,20 @@ const Register = () => {
     dispatch(register(formData))
       .unwrap()
       .then((data) => {
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
-          ? dispatch(
-              updateCart({
-                ...JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!),
-                user: data.data.user._id,
-              })
-            )
-              .unwrap()
-              .then((_) => {
-                localStorage.removeItem(LOCAL_STORAGE_CART);
-                navigate('/');
-              })
-          : navigate(-1);
+        const cartItemsStringified = localStorage.getItem(LOCAL_STORAGE_CART);
+        const cartItems = cartItemsStringified
+          ? JSON.parse(cartItemsStringified)
+          : [];
+
+        if (cartItems.length) {
+          dispatch(
+            mergeCartItems({
+              dto: cartItems,
+            })
+          );
+        } else {
+          navigate(-1);
+        }
       })
       .catch((error) => toast.error(error));
   };

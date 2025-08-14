@@ -5,11 +5,11 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Orders } from '../../types/order';
+import { AdminOrder } from '../../types/order';
 
 export const getAllOrders = createAsyncThunk<
-  ApiSuccessResponse<Orders>,
-  {},
+  ApiSuccessResponse<AdminOrder[]>,
+  void,
   ThunkConfig<string>
 >('@@orders/getAllOrders', async (_, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;

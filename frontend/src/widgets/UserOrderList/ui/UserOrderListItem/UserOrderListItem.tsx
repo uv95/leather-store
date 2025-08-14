@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { Order, OrderStatus } from '../../../../entities/Order';
+import { OrderStatus, UserOrder } from '../../../../entities/Order';
 import ListItemLayout, {
   ListItemTheme,
 } from '../../../../shared/ui/ListItemLayout/ListItemLayout';
@@ -8,7 +8,7 @@ import UserOrderDetails from '../UserOrderDetails/UserOrderDetails';
 import styles from './UserOrderListItem.module.scss';
 
 type UserOrderListItemProps = {
-  order: Order;
+  order: UserOrder;
 };
 
 const UserOrderListItem = ({ order }: UserOrderListItemProps) => {

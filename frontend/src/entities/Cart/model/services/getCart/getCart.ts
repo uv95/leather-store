@@ -9,7 +9,7 @@ import { Cart } from '../../types/cart';
 
 export const getCart = createAsyncThunk<
   ApiSuccessResponse<Cart>,
-  {},
+  void,
   ThunkConfig<string>
 >('@@cart/getCart', async (_, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;

@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { CartData, CartItemDto } from '../../types/cart';
+import { LOCAL_STORAGE_CART } from '../../../../../shared/const/consts';
 
 export interface MergeCartItemsInput {
   dto: CartItemDto[];
@@ -21,6 +22,13 @@ export const mergeCartItems = createAsyncThunk<
 
   try {
     const response = await extra.api.post(`/cart`, dto);
+
+    if (!response.data) {
+      throw new Error();
+    }
+
+    extra.navigate && extra.navigate('/');
+    localStorage.removeItem(LOCAL_STORAGE_CART);
 
     return response.data;
   } catch (error) {

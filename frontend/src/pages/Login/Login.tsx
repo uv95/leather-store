@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { updateCart } from '../../entities/Cart';
+import { mergeCartItems } from '../../entities/Cart';
 import { getUserSelector, Role } from '../../entities/User';
 import { getAuthIsLoading, login } from '../../features/auth';
 import LoginAsAdminButton from '../../features/LoginAsAdminButton/LoginAsAdminButton';
@@ -50,31 +50,26 @@ const Login = () => {
     dispatch(login(formData))
       .unwrap()
       .then((data: any) => {
-        const { role, _id: userId } = data.data.user;
+        const { role } = data.data.user;
 
         if (role === Role.ADMIN) {
           navigate('/admin');
           return;
         }
 
-        const cart = localStorage.getItem(LOCAL_STORAGE_CART)
-          ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
-          : null;
+        const cartItemsStringified = localStorage.getItem(LOCAL_STORAGE_CART);
+        const cartItems = cartItemsStringified
+          ? JSON.parse(cartItemsStringified)
+          : [];
 
-        if (cart) {
+        if (cartItems.length) {
           dispatch(
-            updateCart({
-              ...cart,
-              user: userId,
+            mergeCartItems({
+              dto: cartItems,
             })
-          )
-            .unwrap()
-            .then((_) => {
-              localStorage.removeItem(LOCAL_STORAGE_CART);
-              navigate('/');
-            });
+          );
         } else {
-          navigate('/');
+          navigate(-1);
         }
       })
       .catch((error: string) => toast.error(error));

@@ -1,4 +1,10 @@
-import { Order, OrderStatus, OrderSchema } from './model/types/order';
+import {
+  Order,
+  OrderStatus,
+  OrderSchema,
+  UserOrder,
+  AdminOrder,
+} from './model/types/order';
 import orderReducer from './model/slice/orderSlice';
 import { getAllActiveOrders } from './model/selectors/getAllActiveOrders/getAllActiveOrders';
 import { getAllOrders as getAllOrdersSelector } from './model/selectors/getAllOrders/getAllOrders';
@@ -15,6 +21,8 @@ import { getUserOrders } from './model/services/getUserOrders/getUserOrders';
 import { getUserActiveOrderCount } from './model/services/getUserActiveOrderCount/getUserActiveOrderCount';
 
 export {
+  type UserOrder,
+  type AdminOrder,
   type Order,
   OrderStatus,
   type OrderSchema,

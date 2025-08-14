@@ -5,16 +5,12 @@ import {
   getAllAddressesSelector,
 } from '../../entities/Address';
 import {
-  CartItem,
   clearCart,
+  getCartId,
   getCartItemCountSelector,
-  getCartItemsSelector,
   getCartLoading,
-  getCartSelector,
 } from '../../entities/Cart';
 import { createOrder } from '../../entities/Order';
-import { Order, OrderStatus } from '../../entities/Order/model/types/order';
-import { getUserSelector } from '../../entities/User';
 import { getIsLoggedIn } from '../../features/auth';
 import {
   CartButton,
@@ -30,8 +26,7 @@ import './cart.scss';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const user = useSelector(getUserSelector);
-  const cartItems = useSelector(getCartItemsSelector);
+  const cartId = useSelector(getCartId);
   const cartItemsCount = useSelector(getCartItemCountSelector);
   const loading = useSelector(getCartLoading);
   const isLoggedIn = useSelector(getIsLoggedIn);
@@ -50,36 +45,22 @@ const Cart = () => {
   }, []);
 
   const handleCreateOrder = useCallback(
-    (order: Omit<Order, 'createdAt'>) => {
-      dispatch(createOrder(order))
+    (addressId: string) => {
+      dispatch(createOrder({ cartId, address: addressId }))
         .unwrap()
         .then((_) => {
-          dispatch(clearCart());
+          dispatch(clearCart({ cartId }));
         })
         .catch((error) => toast.error(error));
     },
-    [dispatch]
+    [dispatch, cartId]
   );
 
   function handleCartButton() {
-    if (isSelectAddressOpen && cart && user) {
-      const cartData: Omit<Order, 'createdAt'> = {
-        items: cart.items.map((cartItem: CartItem) => ({
-          name: cartItem.item.name,
-          colors: cartItem.colors,
-          quantity: cartItem.quantity,
-          total: cartItem.total as number,
-          leather: cartItem.leather,
-          imageCover: cartItem.item.imageCover.url,
-          price: cartItem.item.price,
-          type: cartItem.item.type,
-        })),
-        user,
-        address: addresses[currentAddressIndex],
-        status: OrderStatus.AWAITING_PAYMENT,
-        total: cart.total,
-      };
-      handleCreateOrder(cartData);
+    if (isSelectAddressOpen) {
+      const addressId = addresses[currentAddressIndex]._id;
+
+      handleCreateOrder(addressId);
       onOpenModal();
     } else {
       setIsSelectAddressOpen(true);

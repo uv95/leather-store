@@ -5,10 +5,10 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { UserOrders } from '../../types/order';
+import { UserOrder } from '../../types/order';
 
 export const getUserOrders = createAsyncThunk<
-  ApiSuccessResponse<UserOrders>,
+  ApiSuccessResponse<UserOrder[]>,
   {},
   ThunkConfig<string>
 >('@@orders/getUserOrders', async (_, thunkAPI) => {

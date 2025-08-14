@@ -20,16 +20,17 @@ export enum OrderStatus {
 }
 
 export interface OrderSchema {
-  orders: Orders;
-  userOrders: UserOrders;
+  orders: AdminOrder[];
+  userOrders: UserOrder[];
   userActiveOrderCount: number;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-export type Orders = Order<Omit<User, '_id' | 'role'>>[];
-export type UserOrders = Order<string>[];
+export type AdminOrder = Order<Omit<User, '_id' | 'role'>>;
+export type UserOrder = Order<string>;
 
 export interface OrderItem {
+  _id: string;
   leatherType: LeatherType;
   quantity: number;
   price: number;
