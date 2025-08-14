@@ -1,12 +1,9 @@
-import { Cart } from '../../../Cart';
-
 export interface User {
   _id: string;
   name: string;
   email: string;
   phone: string;
   role: Role;
-  cart?: Cart;
 }
 
 export interface UserSchema {

@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import Button, { ButtonTheme } from '../../shared/ui/Button/Button';
-import { getAuthIsLoading, login } from '../auth';
+import { getAuthLoading, login } from '../auth';
 import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 
 const LoginAsAdminButton = () => {
   const dispatch = useAppDispatch();
-  const isLoading = useSelector(getAuthIsLoading);
+  const loading = useSelector(getAuthLoading);
 
   function loginAsAdmin() {
     dispatch(
@@ -21,7 +21,7 @@ const LoginAsAdminButton = () => {
       onClick={loginAsAdmin}
       theme={ButtonTheme.BLACK}
       className="button-long"
-      disabled={isLoading}
+      disabled={loading === 'pending'}
     >
       Login as Admin
     </Button>

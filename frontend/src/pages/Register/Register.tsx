@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mergeCartItems } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
-import { register } from '../../features/auth';
+import { getAuthLoading, signup } from '../../features/auth';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
@@ -17,6 +17,7 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useSelector(getUserSelector);
+  const loading = useSelector(getAuthLoading);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,7 +43,7 @@ const Register = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(register(formData))
+    dispatch(signup(formData))
       .unwrap()
       .then((data) => {
         const cartItemsStringified = localStorage.getItem(LOCAL_STORAGE_CART);
@@ -116,7 +117,9 @@ const Register = () => {
       />
 
       <div className={styles.buttons}>
-        <Button type="submit">Register</Button>
+        <Button type="submit" disabled={loading === 'pending'}>
+          Register
+        </Button>
         <p>
           Already registered?{' '}
           <Link to={RoutePath.LOGIN} className="redLink">
