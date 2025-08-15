@@ -17,7 +17,7 @@ export class CartService {
 
   private async getUpdatedCartTotal(cartId: string) {
     const totalCost = await CartItem.aggregate([
-      { $match: { cart: cartId } },
+      { $match: { cart: new Types.ObjectId(cartId) } },
       {
         $group: {
           _id: null,

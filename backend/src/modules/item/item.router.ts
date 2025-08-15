@@ -20,7 +20,7 @@ itemRouter
     itemController.createItem
   );
 
-itemRouter.route('/:slug').get(itemController.getItemBySlug);
+itemRouter.route('/slug/:slug').get(itemController.getItemBySlug);
 
 itemRouter
   .route('/:itemId')
@@ -31,6 +31,7 @@ itemRouter
     processItemImages,
     itemController.updateItem
   )
-  .delete(protect, restrictTo('admin'), itemController.deleteItem);
+  .delete(protect, restrictTo('admin'), itemController.deleteItem)
+  .get(itemController.getItemById);
 
 export { itemRouter };

@@ -12,7 +12,7 @@ userRouter.use(protect);
 
 userRouter
   .route('/currentUser')
-  .get(restrictTo('user'), userController.getUser)
+  .get(userController.getUser)
   .patch(restrictTo('user'), userController.updateUser)
   .delete(restrictTo('user'), userController.deleteUser);
 

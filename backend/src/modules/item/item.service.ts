@@ -48,4 +48,15 @@ export class ItemService {
 
     return item;
   }
+
+  async getItemById(itemId: string) {
+    this.validateId(itemId);
+    const item = await Item.findById(itemId);
+
+    if (!item) {
+      throw new AppError('Item not found', 404);
+    }
+
+    return item;
+  }
 }

@@ -72,4 +72,15 @@ export class ItemController {
       });
     }
   );
+
+  getItemById = catchAsync(
+    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+      const item = await this.itemService.getItemBySlug(req.params.itemId);
+
+      res.status(200).json({
+        status: 'success',
+        data: item,
+      });
+    }
+  );
 }

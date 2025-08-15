@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { AggregateOptions, PipelineStage, Types } from 'mongoose';
 import AppError from '../../utils/appError';
 import Order, { OrderStatus } from './model/order.model';
 import { CartService } from '../../modules/cart/cart.service';
@@ -18,13 +18,8 @@ export class OrderService {
     }
   }
 
-  async getUserOrders(userId: string) {
-    this.validateId(userId, 'User');
-
-    const orders = await Order.aggregate([
-      {
-        $match: { user: new Types.ObjectId(userId) },
-      },
+  private async getOrders(userId?: string) {
+    const aggregationOptions: PipelineStage[] = [
       {
         $lookup: {
           from: 'orderitems',
@@ -34,10 +29,44 @@ export class OrderService {
         },
       },
       {
+        $unwind: {
+          path: '$orderItems',
+        },
+      },
+      {
+        $lookup: {
+          from: 'items',
+          localField: 'orderItems.item',
+          foreignField: '_id',
+          pipeline: [{ $project: { name: 1, imageCover: 1, _id: 0 } }],
+          as: 'orderItems.item',
+        },
+      },
+      {
+        $unwind: {
+          path: '$orderItems.item',
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          orderItems: { $push: '$orderItems' },
+          root: { $first: '$$ROOT' },
+        },
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', { orderItems: '$orderItems' }],
+          },
+        },
+      },
+      {
         $lookup: {
           from: 'addresses',
           localField: 'address',
           foreignField: '_id',
+          pipeline: [{ $project: { city: 1, address: 1, zipcode: 1, _id: 0 } }],
           as: 'address',
         },
       },
@@ -46,19 +75,50 @@ export class OrderService {
           path: '$address',
         },
       },
-      {
-        $sort: { createdAt: -1 },
-      },
-    ]);
+    ];
+
+    if (userId) {
+      aggregationOptions.unshift({
+        $match: { user: new Types.ObjectId(userId) },
+      });
+    } else {
+      aggregationOptions.push(
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            pipeline: [{ $project: { name: 1, phone: 1, email: 1, _id: 0 } }],
+            as: 'user',
+          },
+        },
+        {
+          $unwind: {
+            path: '$user',
+          },
+        }
+      );
+    }
+
+    aggregationOptions.push({
+      $sort: { createdAt: -1 },
+    });
+    const orders = await Order.aggregate(aggregationOptions);
+
+    return orders;
+  }
+
+  async getUserOrders(userId: string) {
+    this.validateId(userId, 'User');
+    const orders = await this.getOrders(userId);
 
     return orders;
   }
 
   async getAllOrders() {
-    return await Order.find().populate([
-      { path: 'address', select: 'city address zipcode' },
-      { path: 'user', select: 'name phone email' },
-    ]);
+    const orders = await this.getOrders();
+
+    return orders;
   }
 
   async createOrder(userId: string, dto: CreateOrderDto) {

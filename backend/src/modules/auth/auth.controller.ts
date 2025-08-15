@@ -27,7 +27,7 @@ export class AuthController {
     ) => {
       const user = await this.authService.signup(req.body);
 
-      this.createSendToken(user, 201, res);
+      return this.createSendToken(user, 201, res);
     }
   );
 
@@ -39,7 +39,7 @@ export class AuthController {
     ) => {
       const user = await this.authService.login(req.body);
 
-      this.createSendToken(user, 200, res);
+      return this.createSendToken(user, 200, res);
     }
   );
 
@@ -74,12 +74,14 @@ export class AuthController {
   );
 
   signToken = (id: string) => {
-    if (!process.env.JWT_SECRET || !process.env.JWT_EXPIRES_IN) {
+    const { JWT_SECRET, JWT_EXPIRES_IN } = process.env;
+
+    if (!JWT_SECRET || !JWT_EXPIRES_IN) {
       throw new Error('JWT_SECRET or/and JWT_EXPIRES_IN not defined!');
     }
 
-    jwt.sign({ id }, process.env.JWT_SECRET as string, {
-      expiresIn: +process.env.JWT_EXPIRES_IN,
+    return jwt.sign({ id }, JWT_SECRET, {
+      expiresIn: `${+JWT_EXPIRES_IN}d`,
     });
   };
 
