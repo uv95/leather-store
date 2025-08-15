@@ -1,6 +1,6 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getCart, getCartLS } from '../entities/Cart';
+import { getCart, getCartItemsLS } from '../entities/Cart';
 import { getUser } from '../entities/User';
 import { getIsLoggedIn } from '../features/auth';
 import { useAppDispatch } from '../shared/lib/hooks/useAppDispatch';
@@ -23,7 +23,7 @@ const App = () => {
         .then(() => dispatch(getCart()))
         .catch((error) => toast.error(error));
     } else {
-      dispatch(getCartLS());
+      dispatch(getCartItemsLS());
     }
   }, [dispatch, isLoggedIn]);
 

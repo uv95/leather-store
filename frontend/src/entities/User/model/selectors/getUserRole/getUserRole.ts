@@ -2,4 +2,4 @@ import { StateSchema } from '../../../../../app/providers/StoreProvider/config/S
 import { Role } from '../../types/user';
 
 export const getUserRole = (state: StateSchema) =>
-  state.user?.user?.role || Role.USER;
+  state.user.user?.role || Role.USER;

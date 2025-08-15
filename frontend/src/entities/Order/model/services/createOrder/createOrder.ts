@@ -1,20 +1,32 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { Order } from '../../types/order';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
 
-export const createOrder = createAsyncThunk(
-  '@@orders/add',
-  async (orderData: Omit<Order, 'createdAt'>, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.post(`${BASE_URL}order`, orderData, config);
+export interface CreateOrderInput {
+  cartId: string;
+  address: string;
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export interface CreateOrderData {
+  userActiveOrderCount: number;
+}
+
+export const createOrder = createAsyncThunk<
+  ApiSuccessResponse<CreateOrderData>,
+  CreateOrderInput,
+  ThunkConfig<string>
+>('@@orders/createOrder', async (dto, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+
+  try {
+    const response = await extra.api.post('/order', dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

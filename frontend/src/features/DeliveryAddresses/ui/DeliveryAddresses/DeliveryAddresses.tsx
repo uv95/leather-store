@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getAllAddresses,
-  getAllAddressesSelector,
+  getUserAddresses,
+  getUserAddressesSelector,
 } from '../../../../entities/Address';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
@@ -18,7 +18,7 @@ import './deliveryAddresses.scss';
 
 const DeliveryAddresses = () => {
   const dispatch = useAppDispatch();
-  const addresses = useSelector(getAllAddressesSelector);
+  const addresses = useSelector(getUserAddressesSelector);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -46,7 +46,7 @@ const DeliveryAddresses = () => {
 
   useEffect(() => {
     if (!addresses.length) {
-      dispatch(getAllAddresses())
+      dispatch(getUserAddresses())
         .unwrap()
         .then()
         .catch((error) => toast.error(error));

@@ -1,16 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { Item } from '../../types/item';
 
-export const getItemBySlug = createAsyncThunk(
-  '@@items/getBySlug',
-  async (slug: string, thunkAPI) => {
-    try {
-      const result = await axios.get(`${BASE_URL}items/${slug}`);
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+interface GetItemBySlugInput {
+  slug: string;
+}
+
+export const getItemBySlug = createAsyncThunk<
+  ApiSuccessResponse<Item>,
+  GetItemBySlugInput,
+  ThunkConfig<string>
+>('@@items/getItemBySlug', async ({ slug }, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+
+  try {
+    const response = await extra.api.get(`/item/slug/${slug}`);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

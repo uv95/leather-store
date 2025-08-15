@@ -1,24 +1,27 @@
 import { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCartItemsQuantity } from '../../../entities/Cart/model/selectors/getCartItemsQuantity/getCart';
-import { getUserActiveOrders, getUserOrders } from '../../../entities/Order';
+import { getCartItemCountSelector } from '../../../entities/Cart';
+import {
+  getUserActiveOrderCountSelector,
+  getUserOrders,
+} from '../../../entities/Order';
 import { getUserRole, getUserSelector, Role } from '../../../entities/User';
 import cartIcon from '../../../shared/assets/icons/cart.svg';
 import login from '../../../shared/assets/icons/sign-in.svg';
 import userIcon from '../../../shared/assets/icons/user.svg';
 import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../shared/lib/toast/toast';
 import Badge from '../../../shared/ui/Badge/Badge';
 import './header.scss';
-import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 const Header = () => {
   const dispatch = useAppDispatch();
 
   const user = useSelector(getUserSelector);
   const role = useSelector(getUserRole);
-  const cartItemsQuantity = useSelector(getCartItemsQuantity);
+  const cartItemCount = useSelector(getCartItemCountSelector);
 
   useEffect(() => {
     if (role === Role.USER && user?._id) {
@@ -51,7 +54,7 @@ const Header = () => {
                 className="header__container-inner__nav-icon "
                 alt="cart"
               />
-              {cartItemsQuantity !== 0 && <Badge value={cartItemsQuantity} />}
+              {cartItemCount !== 0 && <Badge value={cartItemCount} />}
             </Link>
           )}
         </div>
@@ -65,7 +68,7 @@ export default memo(Header);
 function UserOrAdminLink() {
   const user = useSelector(getUserSelector);
   const role = useSelector(getUserRole);
-  const userActiveOrders = useSelector(getUserActiveOrders);
+  const userActiveOrderCount = useSelector(getUserActiveOrderCountSelector);
 
   const getHref = (role: Role) => {
     if (!user) {
@@ -85,8 +88,8 @@ function UserOrAdminLink() {
             className="header__container-inner__nav-icon"
             alt={!user ? 'login' : 'user_profile'}
           />
-          {user && userActiveOrders.length !== 0 && (
-            <Badge value={userActiveOrders.length} />
+          {user && userActiveOrderCount && (
+            <Badge value={userActiveOrderCount} />
           )}
         </>
       )}

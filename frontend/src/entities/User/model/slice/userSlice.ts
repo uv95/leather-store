@@ -3,6 +3,7 @@ import { LOCAL_STORAGE_USER_KEY } from '../../../../shared/const/consts';
 import { getUser } from '../services/getUser/getUser';
 import { updateUser } from '../services/updateUser/updateUser';
 import { User, UserSchema } from '../types/user';
+import { deleteUser } from '../services/deleteUser/deleteUser';
 
 const initialState: UserSchema = {
   user: undefined,
@@ -28,8 +29,8 @@ export const userSlice = createSlice({
         state.user = undefined;
       })
       .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.data;
         state.loading = 'succeeded';
-        state.user = action.payload.data.data;
       })
       .addCase(getUser.rejected, (state) => {
         state.loading = 'failed';
@@ -38,11 +39,17 @@ export const userSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload.data;
         state.loading = 'succeeded';
-
-        state.user = { ...state.user, ...action.payload.data.user };
       })
       .addCase(updateUser.rejected, (state) => {
+        state.loading = 'failed';
+      })
+      .addCase(deleteUser.fulfilled, (state) => {
+        state.user = undefined;
+        state.loading = 'succeeded';
+      })
+      .addCase(deleteUser.rejected, (state) => {
         state.loading = 'failed';
       });
   },

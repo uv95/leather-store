@@ -6,42 +6,39 @@ import Button, {
 import Input from '../../../shared/ui/Input/Input';
 import './itemDetails.scss';
 import toast from '../../../shared/lib/toast/toast';
-import { Item, ItemType, updateItem, deleteItem } from '../../../entities/Item';
+import {
+  Item,
+  ItemType,
+  updateItem,
+  deleteItem,
+  ItemDto,
+} from '../../../entities/Item';
 import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 
 type ItemDetailsProps = { item: Item };
 
 const ItemDetails = ({ item }: ItemDetailsProps) => {
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState<Partial<Item>>({
-    name: '',
-    type: undefined,
-    description: '',
-    price: '',
+  const [formData, setFormData] = useState<AllOptional<ItemDto>>({
+    name: item.name,
+    type: item.type,
+    description: item.description,
+    price: item.price,
   });
 
   const { name, type, description, price } = formData;
 
-  const onDelete = (id: string) => {
-    dispatch(deleteItem(id))
+  const onDelete = (itemId: string) => {
+    dispatch(deleteItem({ itemId }))
       .unwrap()
       .then()
       .catch((error) => toast.error(error));
   };
 
-  useEffect(() => {
-    setFormData({
-      name: item.name,
-      type: item.type,
-      description: item.description,
-      price: item.price,
-    });
-  }, [item]);
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateItem({ itemId: item._id, newData: formData }))
+    dispatch(updateItem({ itemId: item._id, dto: formData }))
       .unwrap()
       .then(() => toast.success('Item updated'))
       .catch((error) => toast.error(error));

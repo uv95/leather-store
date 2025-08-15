@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE_USER_KEY } from '../../../../shared/const/consts';
 import { login } from '../services/login/login';
-import { register } from '../services/register/register';
+import { signup } from '../services/signup/signup';
 import { updatePassword } from '../services/updatePassword/updatePassword';
 import { AuthSchema } from '../types/auth';
 import { logout } from '../../../../entities/User';
@@ -15,7 +15,7 @@ if (token) {
 
 const initialState: AuthSchema = {
   isLoggedIn,
-  isLoading: false,
+  loading: 'idle',
 };
 
 export const authSlice = createSlice({
@@ -27,35 +27,35 @@ export const authSlice = createSlice({
       .addCase(logout, (state) => {
         state.isLoggedIn = false;
       })
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
+      .addCase(signup.pending, (state) => {
+        state.loading = 'pending';
       })
-      .addCase(register.fulfilled, (state) => {
-        state.isLoading = false;
+      .addCase(signup.fulfilled, (state) => {
+        state.loading = 'succeeded';
         state.isLoggedIn = true;
       })
-      .addCase(register.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(signup.rejected, (state) => {
+        state.loading = 'failed';
       })
       .addCase(login.pending, (state) => {
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(login.fulfilled, (state) => {
-        state.isLoading = false;
+        state.loading = 'succeeded';
         state.isLoggedIn = true;
       })
       .addCase(login.rejected, (state) => {
-        state.isLoading = false;
+        state.loading = 'failed';
       })
       .addCase(updatePassword.pending, (state) => {
-        state.isLoading = true;
+        state.loading = 'pending';
       })
       .addCase(updatePassword.fulfilled, (state) => {
-        state.isLoading = false;
+        state.loading = 'succeeded';
         state.isLoggedIn = false;
       })
       .addCase(updatePassword.rejected, (state) => {
-        state.isLoading = false;
+        state.loading = 'failed';
       });
   },
 });

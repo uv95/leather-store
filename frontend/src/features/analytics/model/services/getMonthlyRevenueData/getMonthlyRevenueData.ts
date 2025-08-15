@@ -1,22 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { MonthleRevenue } from '../../types/analytics';
 
-export const getMonthlyRevenueData = createAsyncThunk(
-  '@@analytics/monthly-revenue',
-  async (_, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.get(
-        `${BASE_URL}analytics/monthly-revenue`,
-        config
-      );
+export const getMonthlyRevenueData = createAsyncThunk<
+  ApiSuccessResponse<MonthleRevenue[]>,
+  void,
+  ThunkConfig<string>
+>('@@analytics/monthly-revenue', async (_, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+  try {
+    const response = await extra.api.get('/analytics/monthly-revenue');
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});
