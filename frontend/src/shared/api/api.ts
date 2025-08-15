@@ -7,6 +7,8 @@ export const $api = axios.create({
       ? 'http://localhost:5000'
       : 'https://leather-store.fly.dev',
   headers: {
-    authorization: localStorage.getItem(LOCAL_STORAGE_USER_KEY) || '',
+    authorization: `Bearer ${JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_USER_KEY) || ''
+    )}`,
   },
 });

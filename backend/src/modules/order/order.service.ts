@@ -31,6 +31,7 @@ export class OrderService {
       {
         $unwind: {
           path: '$orderItems',
+          preserveNullAndEmptyArrays: true,
         },
       },
       {
@@ -182,10 +183,23 @@ export class OrderService {
       throw new AppError('Order not found', 404);
     }
 
-    return await Order.findByIdAndUpdate(orderId, dto, {
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, dto, {
       new: true,
       runValidators: true,
-    }).populate({ path: 'address', select: 'city address zipcode' });
+    }).populate([
+      { path: 'address', select: 'city address zipcode' },
+      { path: 'user', select: 'name email address' },
+    ]);
+
+    const orderItems = await OrderItem.find({ order: order._id }).populate({
+      path: 'item',
+      select: 'name imageCover',
+    });
+
+    return {
+      ...updatedOrder?.toObject(),
+      orderItems,
+    };
   }
 
   async getUserActiveOrderCount(userId: string): Promise<number> {

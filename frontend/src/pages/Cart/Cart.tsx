@@ -8,6 +8,7 @@ import {
   clearCart,
   getCartId,
   getCartItemCountSelector,
+  getCartItemsSelector,
   getCartLoading,
 } from '../../entities/Cart';
 import { createOrder } from '../../entities/Order';
@@ -88,11 +89,11 @@ const Cart = () => {
         <div className="cart__container">
           {loading === 'pending' && <CartItemListSkeleton />}
 
-          {loading === 'succeeded' && !cartItemsCount && (
+          {loading === 'succeeded' && cartItemsCount === 0 && (
             <p className="cart__container-empty">Cart is empty</p>
           )}
 
-          {loading === 'succeeded' && cartItemsCount && (
+          {loading === 'succeeded' && cartItemsCount !== 0 && (
             <>
               <CartItemList />
 

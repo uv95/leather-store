@@ -55,6 +55,7 @@ const Register = () => {
           dispatch(
             mergeCartItems({
               dto: cartItems,
+              navigate,
             })
           );
         } else {

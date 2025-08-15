@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { NavigateOptions, To } from 'react-router-dom';
 import { addressReducer } from '../../../../entities/Address';
 import { cartReducer } from '../../../../entities/Cart';
 import { itemsReducer } from '../../../../entities/Item';
@@ -11,12 +10,9 @@ import { authReducer } from '../../../../features/auth';
 import { $api } from '../../../../shared/api/api';
 import { ThunkExtraArg } from './StateSchema';
 
-export function createReduxStore(
-  navigate?: (to: To, options?: NavigateOptions) => void
-) {
+export function createReduxStore() {
   const extraArg: ThunkExtraArg = {
     api: $api,
-    navigate,
   };
 
   const store = configureStore({
@@ -42,5 +38,4 @@ export function createReduxStore(
   return store;
 }
 
-export type RootState = ReturnType<typeof createReduxStore>;
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

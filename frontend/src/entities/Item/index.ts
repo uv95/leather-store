@@ -16,6 +16,7 @@ import { createItem } from './model/services/createItem/createItem';
 import { deleteItem } from './model/services/deleteItem/deleteItem';
 import { getItems } from './model/services/getItems/getItems';
 import { getItemBySlug } from './model/services/getItemBySlug/getItemBySlug';
+import { getItemById } from './model/services/getItemById/getItemById';
 import { updateItem } from './model/services/updateItem/updateItem';
 import ItemImage from './ui/ItemImage/ItemImage';
 import ItemInfo from './ui/ItemInfo/ItemInfo';
@@ -38,6 +39,7 @@ export {
   deleteItem,
   getItems,
   getItemBySlug,
+  getItemById,
   updateItem,
   ItemImage,
   ItemInfo,

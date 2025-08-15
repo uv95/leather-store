@@ -66,6 +66,7 @@ const Login = () => {
           dispatch(
             mergeCartItems({
               dto: cartItems,
+              navigate,
             })
           );
         } else {

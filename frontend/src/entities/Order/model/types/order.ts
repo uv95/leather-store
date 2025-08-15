@@ -36,7 +36,6 @@ export interface OrderItem {
   price: number;
   order: string;
   item: {
-    _id: string;
     name: string;
     imageCover: Image;
   };

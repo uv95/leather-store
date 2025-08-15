@@ -14,8 +14,19 @@ function areCartItemsEqual(item1: CartItemDto, item2: CartItemDto) {
   return (
     item1.colors.leather === item2.colors.leather &&
     item1.colors.thread === item2.colors.thread &&
-    item1.item === item2.item &&
+    item1.item._id === item2.item._id &&
     item1.leatherType === item2.leatherType
+  );
+}
+
+function getGuestCartItemsCount(cartItems: CartItemDto[]) {
+  return cartItems.reduce((count, cartItem) => count + cartItem.quantity, 0);
+}
+
+function getGuestTotal(cartItems: CartItemDto[]) {
+  return cartItems.reduce(
+    (total, cartItem) => total + cartItem.price * cartItem.quantity,
+    0
   );
 }
 
@@ -45,7 +56,8 @@ export const cartSlice = createSlice({
         state.cartItems.push(newCartItem);
       }
 
-      state.total += newCartItem.price * newCartItem.quantity;
+      state.total = getGuestTotal(state.cartItems);
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
       localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(state.cartItems));
     },
 
@@ -55,6 +67,8 @@ export const cartSlice = createSlice({
         ? JSON.parse(cartItemsStringified)
         : [];
       state.loading = 'succeeded';
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
+      state.total = getGuestTotal(state.cartItems);
     },
 
     removeFromCartLS: (state, action: PayloadAction<string>) => {
@@ -65,14 +79,14 @@ export const cartSlice = createSlice({
 
       if (cartItemIndex > -1) {
         state.cartItems.splice(cartItemIndex, 1);
-        state.total -=
-          state.cartItems[cartItemIndex].price *
-          state.cartItems[cartItemIndex].quantity;
         localStorage.setItem(
           LOCAL_STORAGE_CART,
           JSON.stringify(state.cartItems)
         );
       }
+
+      state.total = getGuestTotal(state.cartItems);
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
     },
 
     changeQuantityLS: (
@@ -100,6 +114,8 @@ export const cartSlice = createSlice({
           JSON.stringify(state.cartItems)
         );
       }
+
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
     },
   },
   extraReducers: (builder) => {

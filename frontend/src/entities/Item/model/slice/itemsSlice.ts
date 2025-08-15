@@ -5,6 +5,7 @@ import { getItems } from '../services/getItems/getItems';
 import { getItemBySlug } from '../services/getItemBySlug/getItemBySlug';
 import { updateItem } from '../services/updateItem/updateItem';
 import { ItemsSchema } from '../types/item';
+import { getItemById } from '../services/getItemById/getItemById';
 
 const initialState: ItemsSchema = {
   items: [],
@@ -44,6 +45,12 @@ export const itemsSlice = createSlice({
         state.item = undefined;
       })
       .addCase(getItemBySlug.fulfilled, (state, action) => {
+        state.item = action.payload.data;
+      })
+      .addCase(getItemById.pending, (state) => {
+        state.item = undefined;
+      })
+      .addCase(getItemById.fulfilled, (state, action) => {
         state.item = action.payload.data;
       })
       .addMatcher(

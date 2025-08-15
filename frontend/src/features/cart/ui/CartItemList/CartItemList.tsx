@@ -39,7 +39,7 @@ const CartItemList = () => {
   const increaseQuantity = useCallback(
     (id: string, setQuantity: (arg: number) => void, quantity: number) => {
       setQuantity(quantity + 1);
-      changeItemQuantity(id, { quantity: quantity + 1 });
+      changeItemQuantity(id, quantity + 1);
     },
     [changeItemQuantity]
   );
@@ -51,7 +51,7 @@ const CartItemList = () => {
         return;
       }
       setQuantity(quantity - 1);
-      changeItemQuantity(id, { quantity: quantity - 1 });
+      changeItemQuantity(id, quantity - 1);
     },
     [changeItemQuantity, onRemoveFromCart]
   );

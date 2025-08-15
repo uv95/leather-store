@@ -49,10 +49,10 @@ const CartItemCard = memo(
             <div className="cart-item__left__info__qty">
               <Quantity
                 onDecrement={() =>
-                  onReduceQuantity(item._id, setQuantity, quantity)
+                  onReduceQuantity(cartItem._id, setQuantity, quantity)
                 }
                 onIncrement={() =>
-                  onIncreaseQuantity(item._id, setQuantity, quantity)
+                  onIncreaseQuantity(cartItem._id, setQuantity, quantity)
                 }
                 quantity={quantity}
               />
@@ -64,9 +64,9 @@ const CartItemCard = memo(
         </div>
         <div className="cart-item__right">
           <div className="cart-item__right-remove">
-            <Delete onClick={() => onDelete(item._id)} />
+            <Delete onClick={() => onDelete(cartItem._id)} />
             <Button
-              onClick={() => onDelete(item._id)}
+              onClick={() => onDelete(cartItem._id)}
               theme={ButtonTheme.BLACK}
             >
               Remove

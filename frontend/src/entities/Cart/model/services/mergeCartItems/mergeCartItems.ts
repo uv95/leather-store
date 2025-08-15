@@ -7,18 +7,19 @@ import {
 } from '../../../../../shared/types/apiResponse';
 import { CartData, CartItemDto } from '../../types/cart';
 import { LOCAL_STORAGE_CART } from '../../../../../shared/const/consts';
+import { To } from 'react-router-dom';
 
 export interface MergeCartItemsInput {
   dto: CartItemDto[];
+  navigate: (to: To) => void;
 }
 
 export const mergeCartItems = createAsyncThunk<
   ApiSuccessResponse<CartData>,
   MergeCartItemsInput,
   ThunkConfig<string>
->('@@cart/mergeCartItems', async (mergeCartItemsInput, thunkAPI) => {
+>('@@cart/mergeCartItems', async ({ dto, navigate }, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
-  const { dto } = mergeCartItemsInput;
 
   try {
     const response = await extra.api.post(`/cart`, dto);
@@ -27,7 +28,7 @@ export const mergeCartItems = createAsyncThunk<
       throw new Error();
     }
 
-    extra.navigate && extra.navigate('/');
+    navigate('/');
     localStorage.removeItem(LOCAL_STORAGE_CART);
 
     return response.data;
