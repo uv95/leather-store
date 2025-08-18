@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 import { Item } from '../../../../entities/Item';
 import ListItemLayout from '../../../../shared/ui/ListItemLayout/ListItemLayout';
-import { ItemDetails } from '../../../../widgets/ItemDetails';
+import ItemDetails from '../ItemDetails/ItemDetails';
 import './itemListItem.scss';
 
 type ItemListItemProps = {

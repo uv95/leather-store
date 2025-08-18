@@ -15,7 +15,7 @@ export const getOrdersByCategory = createAsyncThunk<
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.get('/analytics/orders-by-categor');
+    const response = await extra.api.get('/analytics/orders-by-category');
 
     return response.data;
   } catch (error) {

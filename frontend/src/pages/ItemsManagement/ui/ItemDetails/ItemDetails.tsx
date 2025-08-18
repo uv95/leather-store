@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Button, {
-  ButtonTheme,
-  ButtonSize,
-} from '../../../shared/ui/Button/Button';
-import Input from '../../../shared/ui/Input/Input';
-import './itemDetails.scss';
-import toast from '../../../shared/lib/toast/toast';
+import React, { useState } from 'react';
 import {
+  deleteItem,
   Item,
+  ItemDto,
   ItemType,
   updateItem,
-  deleteItem,
-  ItemDto,
-} from '../../../entities/Item';
-import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
+} from '../../../../entities/Item';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
+import toast from '../../../../shared/lib/toast/toast';
+import Button, {
+  ButtonSize,
+  ButtonTheme,
+} from '../../../../shared/ui/Button/Button';
+import Input from '../../../../shared/ui/Input/Input';
+import './itemDetails.scss';
 
 type ItemDetailsProps = { item: Item };
 
 const ItemDetails = ({ item }: ItemDetailsProps) => {
   const dispatch = useAppDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<AllOptional<ItemDto>>({
     name: item.name,
     type: item.type,
@@ -28,20 +30,21 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
 
   const { name, type, description, price } = formData;
 
-  const onDelete = (itemId: string) => {
-    dispatch(deleteItem({ itemId }))
-      .unwrap()
-      .then()
-      .catch((error) => toast.error(error));
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onClick = (e: React.FormEvent, action: 'delete' | 'update') => {
     e.preventDefault();
+    setIsLoading(true);
 
-    dispatch(updateItem({ itemId: item._id, dto: formData }))
-      .unwrap()
-      .then(() => toast.success('Item updated'))
-      .catch((error) => toast.error(error));
+    try {
+      action === 'delete'
+        ? dispatch(deleteItem({ itemId: item._id }))
+        : dispatch(updateItem({ itemId: item._id, dto: formData }));
+
+      setIsLoading(false);
+      toast.success(`Item ${action === 'delete' ? 'deleted' : 'updated'}`);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error as string);
+    }
   };
 
   const onChange = (
@@ -58,7 +61,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
 
   return (
     <div className="itemDetails">
-      <form className="itemDetails__form" id="form" onSubmit={onSubmit}>
+      <form className="itemDetails__form" id="form">
         <div className="itemDetails__form__section">
           <div className="itemDetails__form__box">
             <Input
@@ -117,57 +120,20 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             />
           </div>
         </div>
-        {/* TODO */}
-        {/* <div className="itemDetails__form__box__images">
-          {[item.imageCover, ...item.images].map((img, i) => (
-            <div className="itemDetails__form__box__images-img">
-              <img
-                src={require(`../../../../assets/img/items/${img}`)}
-                alt="item pic"
-              />
-              {i === 0 ? (
-                <p>Main photo</p>
-              ) : (
-                <p className="makeCover" onClick={() => setNewImageCover(img)}>
-                  Set as main
-                </p>
-              )}
-
-              {/* <div className="itemDetails__form__box__images-img-delete">
-                &#9587;
-              </div>
-            </div>
-          ))}
-        </div> 
-        <div className="itemDetails__form__section">
-          <div className="itemDetails__form__box">
-            <Input
-              name="imageCover"
-              label="Main image"
-              type="file"
-              onChange={onChange}
-              accept="image/jpeg, image/jpg"
-            />
-          </div>
-          <div className="itemDetails__form__box">
-            <Input
-              name="images"
-              label="Additional images (up to 3)"
-              type="file"
-              onChange={onChange}
-              accept="image/jpeg, image/jpg"
-              multiple
-            />
-          </div>
-        </div> */}
         <div className="itemDetails__form-buttons">
-          <Button theme={ButtonTheme.BLACK} size={ButtonSize.L}>
+          <Button
+            theme={ButtonTheme.BLACK}
+            size={ButtonSize.L}
+            onClick={(e) => onClick(e, 'update')}
+            disabled={isLoading}
+          >
             Save
           </Button>
           <Button
             theme={ButtonTheme.OUTLINE}
             size={ButtonSize.L}
-            onClick={() => onDelete(item._id)}
+            onClick={(e) => onClick(e, 'delete')}
+            disabled={isLoading}
           >
             Delete
           </Button>

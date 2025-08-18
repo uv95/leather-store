@@ -37,29 +37,25 @@ export const itemsSlice = createSlice({
       })
       .addCase(getItems.pending, (state) => {
         state.items = [];
+        state.loading = 'pending';
       })
       .addCase(getItems.fulfilled, (state, action) => {
         state.items = action.payload.data;
       })
       .addCase(getItemBySlug.pending, (state) => {
         state.item = undefined;
+        state.loading = 'pending';
       })
       .addCase(getItemBySlug.fulfilled, (state, action) => {
         state.item = action.payload.data;
       })
       .addCase(getItemById.pending, (state) => {
         state.item = undefined;
+        state.loading = 'pending';
       })
       .addCase(getItemById.fulfilled, (state, action) => {
         state.item = action.payload.data;
       })
-      .addMatcher(
-        (action) =>
-          action.type.startsWith('@@items') && action.type.endsWith('/pending'),
-        (state) => {
-          state.loading = 'pending';
-        }
-      )
       .addMatcher(
         (action) =>
           action.type.startsWith('@@items') &&
