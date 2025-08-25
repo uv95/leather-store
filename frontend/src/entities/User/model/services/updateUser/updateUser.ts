@@ -7,13 +7,9 @@ import {
 } from '../../../../../shared/types/apiResponse';
 import { User } from '../../types/user';
 
-interface UpdateUserInput {
-  dto: Omit<User, '_id' | 'role'>;
-}
-
 export const updateUser = createAsyncThunk<
   ApiSuccessResponse<User>,
-  UpdateUserInput,
+  Omit<User, '_id' | 'role'>,
   ThunkConfig<string>
 >('@@user/updateUser', async (dto, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;

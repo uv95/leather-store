@@ -6,6 +6,7 @@ import { getUserOrders } from '../services/getUserOrders/getUserOrders';
 import { getAllOrders } from '../services/getAllOrders/getAllOrders';
 import { updateOrder } from '../services/updateOrder/updateOrder';
 import { getUserActiveOrderCount } from '../services/getUserActiveOrderCount/getUserActiveOrderCount';
+import { logout } from '../../../User';
 
 const initialState: OrderSchema = {
   orders: [],
@@ -20,6 +21,9 @@ export const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(logout, (state) => {
+        state.userOrders = [];
+      })
       .addCase(createOrder.pending, (state) => {
         state.loading = 'pending';
       })

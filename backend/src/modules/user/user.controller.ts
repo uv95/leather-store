@@ -9,22 +9,22 @@ export class UserController {
 
   getUser = catchAsync(
     async (req: RequestWithUser, res: Response, next: NextFunction) => {
-      const user = await this.userService.getUser(req.user?.id);
+      const data = await this.userService.getUser(req.user?.id);
 
       res.status(200).json({
         status: 'success',
-        data: user,
+        data,
       });
     }
   );
 
   getUsers = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const users = await this.userService.getUsers();
+      const data = await this.userService.getUsers();
 
       res.status(200).json({
         status: 'success',
-        data: users,
+        data,
       });
     }
   );
@@ -35,14 +35,11 @@ export class UserController {
       res: Response,
       next: NextFunction
     ) => {
-      const updatedUser = await this.userService.updateUser(
-        req.user?.id,
-        req.body
-      );
+      const data = await this.userService.updateUser(req.user?.id, req.body);
 
       res.status(200).json({
         status: 'success',
-        data: updatedUser,
+        data,
       });
     }
   );

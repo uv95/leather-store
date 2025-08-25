@@ -33,7 +33,7 @@ const PersonalInfoForm = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateUser({ dto: formData }))
+    dispatch(updateUser(formData))
       .unwrap()
       .then(() => toast.success('Personal info updated'))
       .catch((error) => toast.error(error));

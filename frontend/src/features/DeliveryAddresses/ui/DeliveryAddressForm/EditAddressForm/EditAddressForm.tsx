@@ -9,11 +9,14 @@ import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../../shared/lib/toast/toast';
 import { useAddressIdContext } from '../../../model/AddressIdContext';
 import AddressForm from '../AddressForm/AddressForm';
+import { StateSchema } from '../../../../../app/providers/StoreProvider';
 
 const EditAddressForm = () => {
   const dispatch = useAppDispatch();
   const { addressId } = useAddressIdContext();
-  const address = useSelector(getAddressSelector);
+  const address = useSelector((state: StateSchema) =>
+    getAddressSelector(state)(addressId)
+  );
 
   const [formData, setFormData] = useState<Omit<Address, '_id'>>({
     city: '',

@@ -12,7 +12,7 @@ export const updatePassword = createAsyncThunk<
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.post('/auth/updatePassword', dto);
+    const response = await extra.api.patch('/auth/updatePassword', dto);
 
     return response.data;
   } catch (error) {

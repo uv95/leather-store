@@ -35,9 +35,6 @@ export const userSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.loading = 'failed';
       })
-      .addCase(updateUser.pending, (state) => {
-        state.loading = 'pending';
-      })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload.data;
         state.loading = 'succeeded';
