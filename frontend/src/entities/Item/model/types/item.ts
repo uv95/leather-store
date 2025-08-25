@@ -2,9 +2,9 @@ export interface Item {
   _id: string;
   name: string;
   slug: string;
-  type: ItemType;
   description: string;
-  price: string;
+  type: ItemType;
+  price: number;
   imageCover: Image;
   images: Image[];
   createdAt: string;
@@ -19,6 +19,15 @@ export interface ItemsSchema {
   items: Item[];
   item?: Item;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+}
+
+export interface ItemDto {
+  name: string;
+  description: string;
+  type: ItemType;
+  price: number;
+  imageCover: Image;
+  images?: Image[];
 }
 
 export enum ItemType {

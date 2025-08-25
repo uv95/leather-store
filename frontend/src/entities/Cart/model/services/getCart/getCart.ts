@@ -1,16 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { Cart } from '../../types/cart';
 
-export const getCart = createAsyncThunk('@@cart/get', async (_, thunkAPI) => {
+export const getCart = createAsyncThunk<
+  ApiSuccessResponse<Cart>,
+  void,
+  ThunkConfig<string>
+>('@@cart/getCart', async (_, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+
   try {
-    const config = getAuthConfig();
-    const result = await axios.get(`${BASE_URL}cart`, config);
+    const response = await extra.api.get('/cart');
 
-    return result.data;
+    return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
 });

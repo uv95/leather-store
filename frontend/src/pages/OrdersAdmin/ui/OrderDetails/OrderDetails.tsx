@@ -1,34 +1,36 @@
-import { Order } from '../../../../entities/Order';
+import { AdminOrder } from '../../../../entities/Order';
 import { SelectedItemColors } from '../../../../features/cart';
 import ChangeStatus from '../ChangeStatus/ChangeStatus';
 import './orderDetails.scss';
 
-type OrderDetailsProps = { order: Order };
+type OrderDetailsProps = { order: AdminOrder };
 
 const OrderDetails = ({ order }: OrderDetailsProps) => {
+  const { orderItems, address, _id: orderId, status, user } = order;
+
   return (
     <div className="orderDetails">
       <div className="orderDetails__items">
-        {order.items.map((item, index) => (
-          <div key={item.name + index} className="orderDetails__items__item">
+        {orderItems.map((orderItem) => (
+          <div key={orderItem._id} className="orderDetails__items__item">
             <div className="orderDetails__items__item-left">
               <img
-                src={item.imageCover}
-                alt={item.name || ''}
+                src={orderItem.item.imageCover.url}
+                alt={orderItem.item.name || ''}
                 className="orderDetails__items__item-left-img"
               />
               <div className="orderDetails__items__item-left__info">
-                <h3>{item.name}</h3>
-                <p>Leather type: {item.leather}</p>
+                <h3>{orderItem.item.name}</h3>
+                <p>Leather type: {orderItem.leatherType}</p>
                 <SelectedItemColors
-                  leatherColor={item.colors.leatherColor}
-                  threadColor={item.colors.threadsColor}
+                  leatherColor={orderItem.colors.leather}
+                  threadColor={orderItem.colors.thread}
                 />
                 <p className="orderDetails__items__item-left__info-qty">
-                  Quantity: {item.quantity}
+                  Quantity: {orderItem.quantity}
                 </p>
                 <p className="orderDetails__items__item-left__info-qty">
-                  Price: ${item.price}
+                  Price: ${orderItem.price}
                 </p>
               </div>
             </div>
@@ -40,21 +42,20 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
         <h3>
           Delivery address:{' '}
           <span>
-            {order.address.city}, {order.address.address},
-            {order.address.zipcode}
+            {address.city}, {address.address},{address.zipcode}
           </span>
         </h3>
         <h3>
-          Client: <span>{order.user.name}</span>
+          Client: <span>{user.name}</span>
         </h3>
         <h3>
           Contacts:{' '}
           <span>
-            {order.user.email}, {order.user.phone}
+            {user.email}, {user.phone}
           </span>
         </h3>
       </div>
-      <ChangeStatus currentStatus={order.status} orderId={order._id!} />
+      <ChangeStatus currentStatus={status} orderId={orderId} />
     </div>
   );
 };

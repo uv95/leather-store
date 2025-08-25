@@ -1,24 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { PasswordUpdateData } from '../../types/auth';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
+import { AuthApiResponseData, UpdatePasswordInput } from '../../types/auth';
 
-export const updatePassword = createAsyncThunk(
-  '@@auth/updatePassword',
-  async (passwordUpdateData: PasswordUpdateData, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.patch(
-        `${BASE_URL}users/updateMyPassword`,
-        passwordUpdateData,
-        config
-      );
+export const updatePassword = createAsyncThunk<
+  AuthApiResponseData,
+  UpdatePasswordInput,
+  ThunkConfig<string>
+>('@@auth/updatePassword', async (dto, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+  try {
+    const response = await extra.api.patch('/auth/updatePassword', dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

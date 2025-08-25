@@ -1,5 +1,6 @@
 import { UserSchema, User, Role } from './model/types/user';
 import { getUser } from './model/services/getUser/getUser';
+import { deleteUser } from './model/services/deleteUser/deleteUser';
 import { updateUser } from './model/services/updateUser/updateUser';
 import { getUser as getUserSelector } from './model/selectors/getUser/getUser';
 import { getUserLoading } from './model/selectors/getUserLoading/getUserLoading';
@@ -13,6 +14,7 @@ export {
   Role,
   getUser,
   updateUser,
+  deleteUser,
   getUserRole,
   getUserSelector,
   getUserLoading,

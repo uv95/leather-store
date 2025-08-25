@@ -18,7 +18,7 @@ const item: Item = {
   _id: '123456789',
   name: 'Clyde',
   type: ItemType.WALLETS,
-  price: '30',
+  price: 30,
   description:
     'Crafted with intention and quiet elegance, Clyde carries only what matters, resting lightly in the hand or pocket.',
   slug: '',

@@ -6,7 +6,6 @@ import {
   getUserCompletedOrders,
   getUserOrders,
 } from '../../../../entities/Order';
-import { getUserSelector } from '../../../../entities/User';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
 import UserOrderListItem from '../UserOrderListItem/UserOrderListItem';
@@ -18,7 +17,6 @@ const UserOrderList = () => {
   const loading = useSelector(getOrderLoading);
   const userActiveOrders = useSelector(getUserActiveOrders);
   const userCompletedOrders = useSelector(getUserCompletedOrders);
-  const user = useSelector(getUserSelector);
 
   const userOrders = useMemo(
     () => [...userActiveOrders, ...userCompletedOrders],
@@ -26,12 +24,13 @@ const UserOrderList = () => {
   );
 
   useEffect(() => {
-    if (userOrders.some((order) => typeof order.address === 'string') && user)
-      dispatch(getUserOrders(user._id))
+    if (!userOrders.length) {
+      dispatch(getUserOrders())
         .unwrap()
         .then()
         .catch((error: string) => toast.error(error));
-  }, [dispatch, user, userOrders]);
+    }
+  }, [dispatch, userOrders.length]);
 
   return (
     <div className="userOrderList">

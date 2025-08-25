@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AddressSchema } from '../types/address';
 import { deleteAddress } from '../services/deleteAddress/deleteAddress';
-import { getAddress } from '../services/getAddress/getAddress';
-import { addAddress } from '../services/addAddress/addAddress';
-import { getAllAddresses } from '../services/getAllAddresses/getAllAddresses';
+import { createAddress } from '../services/createAddress/createAddress';
+import { getUserAddresses } from '../services/getUserAddresses/getUserAddresses';
 import { updateAddress } from '../services/updateAddress/updateAddress';
 import { logout } from '../../../User';
 
@@ -22,43 +21,41 @@ export const addressSlice = createSlice({
       .addCase(logout, (state) => {
         state.addresses = [];
       })
+      .addCase(createAddress.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(createAddress.fulfilled, (state, action) => {
+        state.addresses.push(action.payload.data);
+        state.loading = 'succeeded';
+      })
+      .addCase(updateAddress.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(updateAddress.fulfilled, (state, action) => {
+        const updatedAddress = action.payload.data;
+
+        state.address = updatedAddress;
+        state.addresses = state.addresses.map((address) =>
+          address._id === updatedAddress._id ? updatedAddress : address
+        );
+        state.loading = 'succeeded';
+      })
       .addCase(deleteAddress.fulfilled, (state, action) => {
+        const { addressId } = action.meta.arg;
+        state.loading = 'succeeded';
+
         state.addresses = state.addresses.filter(
-          (address) => address._id !== action.meta.arg
+          (address) => address._id !== addressId
         );
       })
-      .addCase(getAddress.rejected, (state) => {
-        state.address = undefined;
-      })
-      .addCase(getAddress.fulfilled, (state, action) => {
-        state.address = action.payload.data.data;
-      })
-      .addCase(addAddress.fulfilled, (state, action) => {
-        state.addresses = [...state.addresses, action.payload.data.data];
-      })
-      .addCase(getAllAddresses.pending, (state) => {
+      .addCase(getUserAddresses.pending, (state) => {
         state.addresses = [];
         state.loading = 'pending';
       })
-      .addCase(getAllAddresses.fulfilled, (state, action) => {
-        state.addresses = action.payload.data.data;
+      .addCase(getUserAddresses.fulfilled, (state, action) => {
+        state.addresses = action.payload.data;
+        state.loading = 'succeeded';
       })
-      .addCase(updateAddress.fulfilled, (state, action) => {
-        state.address = action.payload.data.data;
-        state.addresses = state.addresses.map((address) =>
-          address._id === action.payload.data.data._id
-            ? action.payload.data.data
-            : address
-        );
-      })
-      .addMatcher(
-        (action) =>
-          action.type.startsWith('@@address') &&
-          action.type.endsWith('/fulfilled'),
-        (state) => {
-          state.loading = 'succeeded';
-        }
-      )
       .addMatcher(
         (action) =>
           action.type.startsWith('@@address') &&

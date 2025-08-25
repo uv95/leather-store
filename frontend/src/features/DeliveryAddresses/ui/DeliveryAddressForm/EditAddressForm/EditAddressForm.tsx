@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Address,
-  getAddress,
   getAddressSelector,
   updateAddress,
 } from '../../../../../entities/Address';
@@ -10,24 +9,20 @@ import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../../shared/lib/toast/toast';
 import { useAddressIdContext } from '../../../model/AddressIdContext';
 import AddressForm from '../AddressForm/AddressForm';
+import { StateSchema } from '../../../../../app/providers/StoreProvider';
 
 const EditAddressForm = () => {
   const dispatch = useAppDispatch();
   const { addressId } = useAddressIdContext();
-  const address = useSelector(getAddressSelector);
+  const address = useSelector((state: StateSchema) =>
+    getAddressSelector(state)(addressId)
+  );
 
   const [formData, setFormData] = useState<Omit<Address, '_id'>>({
     city: '',
     address: '',
     zipcode: '',
   });
-
-  useEffect(() => {
-    dispatch(getAddress(addressId))
-      .unwrap()
-      .then()
-      .catch((error) => toast.error(error));
-  }, [dispatch, addressId]);
 
   useEffect(() => {
     address &&
@@ -41,7 +36,7 @@ const EditAddressForm = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateAddress({ addressId, newData: formData }))
+    dispatch(updateAddress({ addressId, dto: formData }))
       .unwrap()
       .then((_) => {
         toast.success('Address updated');

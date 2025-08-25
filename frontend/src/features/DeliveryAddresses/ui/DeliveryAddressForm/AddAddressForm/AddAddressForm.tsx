@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { addAddress, Address } from '../../../../../entities/Address';
+import { createAddress, Address } from '../../../../../entities/Address';
 import toast from '../../../../../shared/lib/toast/toast';
 import AddressForm from '../AddressForm/AddressForm';
 import { useAppDispatch } from '../../../../../shared/lib/hooks/useAppDispatch';
@@ -19,13 +19,13 @@ const AddAddressForm: React.FC<AddAddressFormProps> = ({ onCloseForm }) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(addAddress(formData))
+    dispatch(createAddress(formData))
       .unwrap()
       .then(() => {
         onCloseForm();
         toast.success('Address successfully added');
       })
-      .catch((error) => toast.error(error));
+      .catch((error: string) => toast.error(error));
   };
 
   return (

@@ -7,7 +7,7 @@ import './itemsManagement.scss';
 import { getItemsLoading } from '../../../../entities/Item';
 import { useSelector } from 'react-redux';
 import ItemListSkeleton from '../ItemListSkeleton/ItemListSkeleton';
-import useGetAllItems from '../../../../shared/lib/hooks/useGetAllItems';
+import useGetAllItems from '../../../../shared/lib/hooks/useGetItems';
 
 const ItemsManagement = () => {
   const loading = useSelector(getItemsLoading);

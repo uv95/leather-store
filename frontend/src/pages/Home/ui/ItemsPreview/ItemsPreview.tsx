@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
-import { useGetAllItems } from '../../../../shared/lib/hooks/useGetAllItems';
+import { useGetItems } from '../../../../shared/lib/hooks/useGetItems';
 import ItemCard from '../../../../shared/ui/ItemCard/ItemCard';
 import styles from './ItemsPreview.module.scss';
 import { memo } from 'react';
@@ -9,7 +9,7 @@ import { getItemsLoading } from '../../../../entities/Item';
 import ItemsPreviewSkeleton from '../ItemsPreviewSkeleton/ItemsPreviewSkeleton';
 
 const ItemsPreview = () => {
-  const { items } = useGetAllItems();
+  const { items } = useGetItems();
   const loading = useSelector(getItemsLoading);
 
   return (

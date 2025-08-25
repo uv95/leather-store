@@ -22,7 +22,7 @@ const ItemPage = () => {
 
   useEffect(() => {
     if (slug) {
-      dispatch(getItemBySlug(slug));
+      dispatch(getItemBySlug({ slug }));
     }
   }, [dispatch, slug]);
 

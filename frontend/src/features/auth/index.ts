@@ -1,25 +1,25 @@
 import {
   AuthSchema,
-  LoginData,
-  RegisterData,
-  PasswordUpdateData,
+  LoginInput,
+  SignupInput,
+  UpdatePasswordInput,
 } from './model/types/auth';
-import { register } from './model/services/register/register';
+import { signup } from './model/services/signup/signup';
 import { login } from './model/services/login/login';
 import { updatePassword } from './model/services/updatePassword/updatePassword';
-import { getAuthIsLoading } from './model/selectors/getUserIsLoading/getAuthIsLoading';
+import { getAuthLoading } from './model/selectors/getAuthLoading/getAuthLoading';
 import { getIsLoggedIn } from './model/selectors/getIsLoggedIn/getIsLoggedIn';
 import authReducer from './model/slice/authSlice';
 
 export {
   type AuthSchema,
-  type LoginData,
-  type RegisterData,
-  type PasswordUpdateData,
-  register,
+  type LoginInput,
+  type SignupInput,
+  type UpdatePasswordInput,
+  signup,
   login,
   updatePassword,
-  getAuthIsLoading,
+  getAuthLoading,
   getIsLoggedIn,
   authReducer,
 };

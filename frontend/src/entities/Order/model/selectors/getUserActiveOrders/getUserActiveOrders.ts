@@ -1,12 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Order, OrderStatus } from '../../types/order';
-import { RootState } from '../../../../../app/providers/StoreProvider/config/store';
+import { StateSchema } from '../../../../../app/providers/StoreProvider';
+import { OrderStatus, UserOrder } from '../../types/order';
 
 export const getUserActiveOrders = createSelector(
-  (state: RootState) => state.orders,
+  (state: StateSchema) => state.orders,
   (order) =>
-    order.myOrders.filter(
-      (order: Order) =>
+    order.userOrders.filter(
+      (order: UserOrder) =>
         order.status === OrderStatus.AWAITING_PAYMENT ||
         order.status === OrderStatus.IN_PROGRESS
     )
