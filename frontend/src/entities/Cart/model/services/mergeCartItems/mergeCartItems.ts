@@ -22,6 +22,7 @@ export const mergeCartItems = createAsyncThunk<
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
+    console.log('mergeCartItems dto', dto);
     const response = await extra.api.post(`/cart`, dto);
 
     if (!response.data) {

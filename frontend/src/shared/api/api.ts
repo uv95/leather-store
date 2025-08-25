@@ -6,9 +6,14 @@ export const $api = axios.create({
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:5000'
       : 'https://leather-store.fly.dev',
-  headers: {
-    authorization: `Bearer ${JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_USER_KEY) || ''
-    )}`,
-  },
+});
+
+$api.interceptors.request.use((config) => {
+  const token = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+  }
+
+  return config;
 });

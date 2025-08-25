@@ -50,7 +50,7 @@ const Login = () => {
     dispatch(login(formData))
       .unwrap()
       .then((data: any) => {
-        const { role } = data.data.user;
+        const { role } = data.data;
 
         if (role === Role.ADMIN) {
           navigate('/admin');

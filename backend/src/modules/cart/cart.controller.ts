@@ -33,7 +33,7 @@ export class CartController {
     async (req: Request, res: Response, next: NextFunction) => {
       const data = await this.cartService.removeFromCart(req.params.cartItemId);
 
-      res.status(204).json({
+      res.status(200).json({
         status: 'success',
         data,
       });

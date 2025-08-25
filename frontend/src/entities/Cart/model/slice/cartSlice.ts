@@ -140,6 +140,7 @@ export const cartSlice = createSlice({
       })
       .addCase(getCart.pending, (state) => {
         state.cartId = '';
+        state.loading = 'pending';
       })
       .addCase(getCart.fulfilled, (state, action) => {
         const { total, _id: id } = action.payload.data;
@@ -155,6 +156,9 @@ export const cartSlice = createSlice({
       })
       .addCase(getCartItemCount.rejected, (state) => {
         state.cartItemCount = 0;
+      })
+      .addCase(getCartItems.pending, (state) => {
+        state.loading = 'pending';
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
         state.cartItems = action.payload.data;
@@ -187,13 +191,6 @@ export const cartSlice = createSlice({
           action.type.endsWith('/fulfilled'),
         (state) => {
           state.loading = 'succeeded';
-        }
-      )
-      .addMatcher(
-        (action) =>
-          action.type.startsWith('@@cart') && action.type.endsWith('/pending'),
-        (state) => {
-          state.loading = 'pending';
         }
       )
       .addMatcher(

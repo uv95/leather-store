@@ -5,6 +5,7 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
+import { getUserOrders } from '../getUserOrders/getUserOrders';
 
 export interface CreateOrderInput {
   cartId: string;
@@ -20,10 +21,14 @@ export const createOrder = createAsyncThunk<
   CreateOrderInput,
   ThunkConfig<string>
 >('@@orders/createOrder', async (dto, thunkAPI) => {
-  const { extra, rejectWithValue } = thunkAPI;
+  const { extra, rejectWithValue, dispatch } = thunkAPI;
 
   try {
     const response = await extra.api.post('/order', dto);
+
+    if (response.data) {
+      dispatch(getUserOrders());
+    }
 
     return response.data;
   } catch (error) {

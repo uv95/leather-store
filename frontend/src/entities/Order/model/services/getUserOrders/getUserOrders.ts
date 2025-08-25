@@ -9,7 +9,7 @@ import { UserOrder } from '../../types/order';
 
 export const getUserOrders = createAsyncThunk<
   ApiSuccessResponse<UserOrder[]>,
-  {},
+  void,
   ThunkConfig<string>
 >('@@orders/getUserOrders', async (_, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;

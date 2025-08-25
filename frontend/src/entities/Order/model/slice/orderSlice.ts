@@ -59,7 +59,6 @@ export const orderSlice = createSlice({
         state.userActiveOrderCount = 0;
       })
       .addCase(getUserOrders.pending, (state) => {
-        state.userOrders = [];
         state.loading = 'pending';
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {

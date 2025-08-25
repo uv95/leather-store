@@ -156,6 +156,12 @@ export class CartService {
         {
           cart: cartId,
           item: cartItem.item,
+          leatherType: cartItem.leatherType,
+          colors: {
+            leather: cartItem.colors.leather,
+            thread: cartItem.colors.thread,
+          },
+          price: cartItem.price,
         },
         {
           $inc: { quantity: cartItem.quantity },

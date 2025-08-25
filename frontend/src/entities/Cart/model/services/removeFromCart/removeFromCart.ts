@@ -20,6 +20,7 @@ export const removeFromCart = createAsyncThunk<
   const { cartItemId } = removeFromCartInput;
 
   try {
+    console.log('removeFromCart ♲', cartItemId);
     const response = await extra.api.delete(`/cart/item/${cartItemId}`);
 
     return response.data;

@@ -8,7 +8,7 @@ import {
   clearCart,
   getCartId,
   getCartItemCountSelector,
-  getCartItemsSelector,
+  getCartItems,
   getCartLoading,
 } from '../../entities/Cart';
 import { createOrder } from '../../entities/Order';
@@ -74,8 +74,14 @@ const Cart = () => {
         .unwrap()
         .then()
         .catch((error: string) => toast.error(error));
+
+      cartId &&
+        dispatch(getCartItems({ cartId }))
+          .unwrap()
+          .then()
+          .catch((error: string) => toast.error(error));
     }
-  }, [dispatch, isLoggedIn]);
+  }, [dispatch, isLoggedIn, cartId]);
 
   return (
     <>
