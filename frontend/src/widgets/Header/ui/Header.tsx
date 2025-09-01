@@ -29,13 +29,13 @@ const Header = () => {
   const cartId = useSelector(getCartId);
 
   useEffect(() => {
-    if (user && user.role === Role.USER) {
+    if (user?.role === Role.USER) {
       dispatch(getUserActiveOrderCount(user._id))
         .unwrap()
         .then()
         .catch((error: string) => toast.error(error));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user?.role]);
 
   useEffect(() => {
     if (cartId) {

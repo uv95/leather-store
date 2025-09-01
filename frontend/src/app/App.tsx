@@ -1,7 +1,7 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getCart, getCartItemsLS } from '../entities/Cart';
-import { getUser, getUserSelector } from '../entities/User';
+import { getUser, getUserId } from '../entities/User';
 import { getIsLoggedIn } from '../features/auth';
 import { useAppDispatch } from '../shared/lib/hooks/useAppDispatch';
 import { useScrollToTop } from '../shared/lib/hooks/useScrollToTop';
@@ -14,12 +14,12 @@ import './styles/index.scss';
 const App = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useSelector(getIsLoggedIn);
-  const user = useSelector(getUserSelector);
+  const userId = useSelector(getUserId);
 
   useScrollToTop();
 
   const init = useCallback(() => {
-    if (isLoggedIn && !user) {
+    if (isLoggedIn && !userId) {
       dispatch(getUser())
         .unwrap()
         .then(() => dispatch(getCart()))
@@ -27,7 +27,7 @@ const App = () => {
     } else {
       dispatch(getCartItemsLS());
     }
-  }, [dispatch, isLoggedIn, user]);
+  }, [dispatch, isLoggedIn, userId]);
 
   useEffect(() => {
     init();
