@@ -1,4 +1,7 @@
-export interface RegisterData {
+import { User } from '../../../../entities/User';
+import { ApiSuccessResponse } from '../../../../shared/types/apiResponse';
+
+export interface SignupInput {
   name: string;
   email: string;
   phone: string;
@@ -6,12 +9,12 @@ export interface RegisterData {
   passwordConfirm: string;
 }
 
-export interface LoginData {
+export interface LoginInput {
   email: string;
   password: string;
 }
 
-export interface PasswordUpdateData {
+export interface UpdatePasswordInput {
   passwordCurrent: string;
   password: string;
   passwordConfirm: string;
@@ -19,5 +22,7 @@ export interface PasswordUpdateData {
 
 export interface AuthSchema {
   isLoggedIn: boolean;
-  isLoading: boolean;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
+
+export type AuthApiResponseData = ApiSuccessResponse<User> & { token: string };

@@ -1,22 +1,27 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
 
-export const deleteAddress = createAsyncThunk(
-  '@@address/delete',
-  async (addressId: string, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.delete(
-        `${BASE_URL}users/me/address/${addressId}`,
-        config
-      );
+export interface DeleteAddressInput {
+  addressId: string;
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export const deleteAddress = createAsyncThunk<
+  ApiSuccessResponse<null>,
+  DeleteAddressInput,
+  ThunkConfig<string>
+>('@@address/deleteAddress', async ({ addressId }, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+
+  try {
+    const response = await extra.api.delete(`/address/${addressId}`);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

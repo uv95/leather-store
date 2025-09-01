@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { updateOrder } from '../../../../entities/Order';
+import { OrderStatus } from '../../../../entities/Order/model/types/order';
+import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
 import OrderStatusBadge from '../../../../shared/ui/OrderStatusBadge/OrderStatusBadge';
 import './changeStatus.scss';
-import { OrderStatus } from '../../../../entities/Order/model/types/order';
-import { updateOrder } from '../../../../entities/Order';
-import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 type ChangeStatusProps = { currentStatus: OrderStatus; orderId: string };
 
 const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
   const dispatch = useAppDispatch();
-  const [newStatus, setNewStatus] = useState<OrderStatus>(currentStatus);
 
-  useEffect(() => {
-    dispatch(updateOrder({ orderId, newData: { status: newStatus } }))
-      .unwrap()
-      .then()
-      .catch((error) => toast.error(error));
-  }, [newStatus, dispatch, orderId]);
+  const updateStaus = useCallback(
+    (status: OrderStatus) => {
+      dispatch(updateOrder({ orderId, dto: { status } }))
+        .unwrap()
+        .then()
+        .catch((error) => toast.error(error));
+    },
+    [dispatch, orderId]
+  );
 
   return (
     <div className="changeStatus">
@@ -28,7 +30,7 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
           classNames={`${
             currentStatus !== status ? 'statusBadge-inactive' : ''
           }`}
-          onClick={() => setNewStatus(status)}
+          onClick={() => updateStaus(status)}
         />
       ))}
     </div>

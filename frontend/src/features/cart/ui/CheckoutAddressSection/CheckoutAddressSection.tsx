@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getAllAddressesSelector } from '../../../../entities/Address';
+import { getUserAddressesSelector } from '../../../../entities/Address';
 import { getIsLoggedIn } from '../../../auth';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
 import CheckoutAddressCard from '../CheckoutAddressCard/CheckoutAddressCard';
@@ -16,7 +16,7 @@ const CheckoutAddressSection = ({
   setCurrentAddressIndex,
   currentAddressIndex,
 }: CheckoutAddressSectionProps) => {
-  const addresses = useSelector(getAllAddressesSelector);
+  const addresses = useSelector(getUserAddressesSelector);
   const isLoggedIn = useSelector(getIsLoggedIn);
 
   if (!addresses.length) {

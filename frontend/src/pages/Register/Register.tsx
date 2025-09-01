@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { updateCart } from '../../entities/Cart';
+import { mergeCartItems } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
-import { register } from '../../features/auth';
+import { getAuthLoading, signup } from '../../features/auth';
 import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
@@ -17,6 +17,7 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useSelector(getUserSelector);
+  const loading = useSelector(getAuthLoading);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,22 +43,24 @@ const Register = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(register(formData))
+    dispatch(signup(formData))
       .unwrap()
       .then((data) => {
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!)
-          ? dispatch(
-              updateCart({
-                ...JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!),
-                user: data.data.user._id,
-              })
-            )
-              .unwrap()
-              .then((_) => {
-                localStorage.removeItem(LOCAL_STORAGE_CART);
-                navigate('/');
-              })
-          : navigate(-1);
+        const cartItemsStringified = localStorage.getItem(LOCAL_STORAGE_CART);
+        const cartItems = cartItemsStringified
+          ? JSON.parse(cartItemsStringified)
+          : [];
+
+        if (cartItems.length) {
+          dispatch(
+            mergeCartItems({
+              dto: cartItems,
+              navigate,
+            })
+          );
+        } else {
+          navigate(-1);
+        }
       })
       .catch((error) => toast.error(error));
   };
@@ -115,7 +118,9 @@ const Register = () => {
       />
 
       <div className={styles.buttons}>
-        <Button type="submit">Register</Button>
+        <Button type="submit" disabled={loading === 'pending'}>
+          Register
+        </Button>
         <p>
           Already registered?{' '}
           <Link to={RoutePath.LOGIN} className="redLink">

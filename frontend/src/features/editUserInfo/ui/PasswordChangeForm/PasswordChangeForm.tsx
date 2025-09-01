@@ -7,7 +7,7 @@ import Button, {
 } from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
 import './passwordChangeForm.scss';
-import { PasswordUpdateData, updatePassword } from '../../../auth';
+import { UpdatePasswordInput, updatePassword } from '../../../auth';
 import { logout } from '../../../../entities/User';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
@@ -15,7 +15,7 @@ const PasswordChangeForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [passwordData, setPasswordData] = useState<PasswordUpdateData>({
+  const [passwordData, setPasswordData] = useState<UpdatePasswordInput>({
     passwordCurrent: '',
     password: '',
     passwordConfirm: '',

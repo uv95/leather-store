@@ -1,0 +1,63 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.itemDetails {
+  padding: 2rem;
+  font-size: 2rem;
+
+  &__form {
+    &-delete {
+      text-align: center;
+      @include hover;
+    }
+
+    &__section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+
+      @include max700 {
+        gap: 1rem;
+      }
+      @include max500 {
+        display: block;
+        gap: 2rem;
+      }
+      & textarea {
+        height: 8rem;
+        padding-left: 1rem;
+        font-family: inherit;
+      }
+    }
+    &__box {
+      &:not(:has(textarea)) {
+        @include input-box;
+      }
+      &:has(textarea),
+      &:has(input[type='file']) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+      }
+
+      &-select {
+        height: 4rem;
+        padding-left: 1rem;
+      }
+    }
+
+    &-buttons {
+      margin: 0 auto;
+      margin-top: 2rem;
+      @include center;
+      gap: 1rem;
+    }
+  }
+
+  @include max700 {
+    padding: 1rem 0rem;
+  }
+  @include max500 {
+    padding: 1rem;
+  }
+}

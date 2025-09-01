@@ -7,7 +7,7 @@ import SelectedItemColors from '../SelectedItemColors/SelectedItemColors';
 import './cartItemCard.scss';
 
 interface CartItemCardProps {
-  item: CartItem;
+  cartItem: CartItem;
   onDelete: (arg: string) => void;
   onIncreaseQuantity: (
     id: string,
@@ -23,50 +23,50 @@ interface CartItemCardProps {
 
 const CartItemCard = memo(
   ({
-    item,
+    cartItem,
     onDelete,
     onIncreaseQuantity,
     onReduceQuantity,
   }: CartItemCardProps) => {
-    const { item: itemData, colors, leather, _id: itemId } = item;
-    const [quantity, setQuantity] = useState(item.quantity);
+    const { item, colors, leatherType, price } = cartItem;
+    const [quantity, setQuantity] = useState(cartItem.quantity);
 
     return (
       <div className="cart-item">
         <div className="cart-item__left">
           <img
-            src={itemData.imageCover.url}
-            alt={itemData.name || ''}
+            src={item.imageCover.url}
+            alt={item.name || ''}
             className="cart-item__left-img"
           />
           <div className="cart-item__left__info">
-            <h2 className="cart-item__left__info-title">{itemData.name}</h2>
-            <p>Leather type: {leather}</p>
+            <h2 className="cart-item__left__info-title">{item.name}</h2>
+            <p>Leather type: {leatherType}</p>
             <SelectedItemColors
-              leatherColor={colors.leatherColor}
-              threadColor={colors.threadsColor}
+              leatherColor={colors.leather}
+              threadColor={colors.thread}
             />
             <div className="cart-item__left__info__qty">
               <Quantity
                 onDecrement={() =>
-                  onReduceQuantity(itemId, setQuantity, quantity)
+                  onReduceQuantity(cartItem._id, setQuantity, quantity)
                 }
                 onIncrement={() =>
-                  onIncreaseQuantity(itemId, setQuantity, quantity)
+                  onIncreaseQuantity(cartItem._id, setQuantity, quantity)
                 }
                 quantity={quantity}
               />
               <p className="cart-item__left__info__qty-price">
-                ${itemData.price * quantity}
+                ${price * quantity}
               </p>
             </div>
           </div>
         </div>
         <div className="cart-item__right">
           <div className="cart-item__right-remove">
-            <Delete onClick={() => onDelete(item._id!)} />
+            <Delete onClick={() => onDelete(cartItem._id)} />
             <Button
-              onClick={() => onDelete(item._id!)}
+              onClick={() => onDelete(cartItem._id)}
               theme={ButtonTheme.BLACK}
             >
               Remove

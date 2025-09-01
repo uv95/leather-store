@@ -1,27 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
 import { Address } from '../../types/address';
 
-export const updateAddress = createAsyncThunk(
-  '@@address/update',
-  async (
-    { addressId, newData }: { addressId: string; newData: Partial<Address> },
-    thunkAPI
-  ) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.patch(
-        `${BASE_URL}users/me/address/${addressId}`,
-        newData,
-        config
-      );
+export interface UpdateAddressInput {
+  addressId: string;
+  dto: AllOptional<Address>;
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export const updateAddress = createAsyncThunk<
+  ApiSuccessResponse<Address>,
+  UpdateAddressInput,
+  ThunkConfig<string>
+>('@@address/updateAddress', async (updateAdressInput, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+  const { addressId, dto } = updateAdressInput;
+
+  try {
+    const response = await extra.api.patch(`/address/${addressId}`, dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

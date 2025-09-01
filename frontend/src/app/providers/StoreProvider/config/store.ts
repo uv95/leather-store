@@ -1,27 +1,41 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer } from '../../../../features/auth';
-import { userReducer } from '../../../../entities/User';
 import { addressReducer } from '../../../../entities/Address';
 import { cartReducer } from '../../../../entities/Cart';
 import { itemsReducer } from '../../../../entities/Item';
+import { orderReducer } from '../../../../entities/Order';
+import { userReducer } from '../../../../entities/User';
 import { filterReducer } from '../../../../features/CatalogFilter';
 import { analyticsReducer } from '../../../../features/analytics';
-import { orderReducer } from '../../../../entities/Order';
+import { authReducer } from '../../../../features/auth';
+import { $api } from '../../../../shared/api/api';
+import { ThunkExtraArg } from './StateSchema';
 
-const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    user: userReducer,
-    items: itemsReducer,
-    address: addressReducer,
-    cart: cartReducer,
-    orders: orderReducer,
-    filters: filterReducer,
-    analytics: analyticsReducer,
-  },
-});
+export function createReduxStore() {
+  const extraArg: ThunkExtraArg = {
+    api: $api,
+  };
 
-export default store;
+  const store = configureStore({
+    reducer: {
+      auth: authReducer,
+      user: userReducer,
+      items: itemsReducer,
+      address: addressReducer,
+      cart: cartReducer,
+      orders: orderReducer,
+      filters: filterReducer,
+      analytics: analyticsReducer,
+    },
+    devTools: process.env.NODE_ENV === 'development',
+    middleware: (getDefaulMiddleware) =>
+      getDefaulMiddleware({
+        thunk: {
+          extraArgument: extraArg,
+        },
+      }),
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+  return store;
+}
+
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

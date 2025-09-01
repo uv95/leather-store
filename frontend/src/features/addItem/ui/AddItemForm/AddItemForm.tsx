@@ -6,27 +6,23 @@ import Button, {
 import Input from '../../../../shared/ui/Input/Input';
 import './addItemForm.scss';
 import toast from '../../../../shared/lib/toast/toast';
-import { ItemType, addItem } from '../../../../entities/Item';
+import { ItemDto, ItemType, createItem } from '../../../../entities/Item';
 import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 
 interface AddItemFormProps {
   onSuccess: () => void;
 }
-interface IFormData {
-  name: string;
-  type: string;
-  description: string;
-  price: string;
-}
 
 const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   const dispatch = useAppDispatch();
 
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<
+    Omit<ItemDto, 'imageCover' | 'images'>
+  >({
     name: '',
     type: ItemType.WALLETS,
     description: '',
-    price: '',
+    price: 0,
   });
 
   const [imageCover, setImageCover] = useState<File | null>(null);
@@ -36,30 +32,30 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = new FormData();
-    form.append('name', formData.name);
-    form.append('type', formData.type);
-    form.append('description', formData.description);
-    form.append('price', formData.price);
+    const itemDto = new FormData();
+    itemDto.append('name', formData.name);
+    itemDto.append('type', formData.type);
+    itemDto.append('description', formData.description);
+    itemDto.append('price', String(formData.price));
 
     if (imageCover) {
-      form.append('imageCover', imageCover);
+      itemDto.append('imageCover', imageCover);
     }
     if (images) {
       for (let i = 0; i < 2; i++) {
-        form.append('images', Object.values(images!)[i]);
+        itemDto.append('images', Object.values(images!)[i]);
       }
     }
 
     setIsLoading(true);
 
-    dispatch(addItem(form))
+    dispatch(createItem(itemDto))
       .unwrap()
       .then(() => {
         onSuccess();
         toast.success('New item successfully added');
       })
-      .catch((error) => toast.error(error))
+      .catch((error: string) => toast.error(error))
       .finally(() => setIsLoading(false));
   };
 

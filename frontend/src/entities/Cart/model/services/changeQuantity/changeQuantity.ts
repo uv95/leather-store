@@ -1,24 +1,32 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_URL } from '../../../../../shared/const/consts';
-import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/errorMessage';
-import { getAuthConfig } from '../../../../../shared/lib/getAuthConfig/getAuthConfig';
-import { UpdatedQuantity } from '../../types/cart';
+import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
+import { CartData } from '../../types/cart';
 
-export const changeQuantity = createAsyncThunk(
-  '@@cart/changeQuantity',
-  async ({ cartItemId, quantity }: UpdatedQuantity, thunkAPI) => {
-    try {
-      const config = getAuthConfig();
-      const result = await axios.post(
-        `${BASE_URL}cart/${cartItemId}/changeQuantity`,
-        quantity,
-        config
-      );
+export interface ChangeQuantityInput {
+  cartItemId: string;
+  dto: {
+    quantity: number;
+  };
+}
 
-      return result.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error));
-    }
+export const changeQuantity = createAsyncThunk<
+  ApiSuccessResponse<CartData>,
+  ChangeQuantityInput,
+  ThunkConfig<string>
+>('@@cart/changeQuantity', async (changeQuantityInput, thunkAPI) => {
+  const { extra, rejectWithValue } = thunkAPI;
+  const { cartItemId, dto } = changeQuantityInput;
+
+  try {
+    const response = await extra.api.patch(`/cart/item/${cartItemId}`, dto);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
   }
-);
+});

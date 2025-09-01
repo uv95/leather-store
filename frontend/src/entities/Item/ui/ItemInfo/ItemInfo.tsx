@@ -29,22 +29,20 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
   const [leatherColor, setLeatherColor] = useState<Color>(Color.BLACK);
   const [threadColor, setThreadColor] = useState<Color>(Color.BLACK);
 
-  const itemData = useMemo(() => {
+  const cartItemDto = useMemo(() => {
     return {
-      _id: item._id,
-      total: +item.price,
       item: {
+        _id: item._id,
         name: item.name,
-        price: +item.price,
         imageCover: item.imageCover,
-        type: item.type as ItemType,
       },
       quantity: 1,
+      price: item.price,
       colors: {
-        leatherColor,
-        threadsColor: threadColor,
+        leather: leatherColor,
+        thread: threadColor,
       },
-      leather: leatherType,
+      leatherType: leatherType,
     };
   }, [item, leatherType, leatherColor, threadColor]);
 
@@ -93,7 +91,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
 
       {role !== Role.ADMIN && (
         <Button
-          onClick={() => addItemToCart(itemData)}
+          onClick={() => addItemToCart(cartItemDto)}
           theme={ButtonTheme.BLACK}
           size={ButtonSize.L}
         >

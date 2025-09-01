@@ -1,11 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Order, OrderStatus } from '../../types/order';
-import { RootState } from '../../../../../app/providers/StoreProvider/config/store';
+import { StateSchema } from '../../../../../app/providers/StoreProvider';
+import { OrderStatus, UserOrder } from '../../types/order';
 
 export const getUserCompletedOrders = createSelector(
-  (state: RootState) => state.orders,
+  (state: StateSchema) => state.orders,
   (order) =>
-    order.myOrders.filter(
-      (order: Order) => order.status === OrderStatus.COMPLETED
+    order.userOrders.filter(
+      (order: UserOrder) => order.status === OrderStatus.COMPLETED
     )
 );

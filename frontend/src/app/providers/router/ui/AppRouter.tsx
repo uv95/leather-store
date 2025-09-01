@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { getUserRole, Role } from '../../../../entities/User';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { getUserLoading, getUserRole, Role } from '../../../../entities/User';
 import NotFound from '../../../../pages/NotFound/NotFound';
 import {
   adminRoutes,
@@ -10,6 +10,16 @@ import {
 
 export const AppRouter = () => {
   const role = useSelector(getUserRole);
+  const location = useLocation();
+  const loading = useSelector(getUserLoading);
+
+  if (location.pathname !== '/' && loading === 'failed') {
+    return <Navigate to="/" replace />;
+  }
+
+  if (loading === 'pending') {
+    return null;
+  }
 
   return (
     <Routes>

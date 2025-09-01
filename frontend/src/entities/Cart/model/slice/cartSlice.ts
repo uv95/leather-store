@@ -1,15 +1,40 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOCAL_STORAGE_CART } from '../../../../shared/const/consts';
 import { addToCart } from '../services/addToCart/addToCart';
 import { changeQuantity } from '../services/changeQuantity/changeQuantity';
-import { deleteItemFromCart } from '../services/deleteItemFromCart/deleteItemFromCart';
-import { emptyCart } from '../services/emptyCart/emptyCart';
 import { getCart } from '../services/getCart/getCart';
-import { updateCart } from '../services/updateCart/updateCart';
-import { CartSchema } from '../types/cart';
-import { LOCAL_STORAGE_CART } from '../../../../shared/const/consts';
+import { CartItem, CartItemDto, CartSchema } from '../types/cart';
+import { clearCart } from '../services/clearCart/clearCart';
+import { getCartItemCount } from '../services/getCartItemCount/getCartItemCount';
+import { getCartItems } from '../services/getCartItems/getCartItems';
+import { mergeCartItems } from '../services/mergeCartItems/mergeCartItems';
+import { removeFromCart } from '../services/removeFromCart/removeFromCart';
+
+function areCartItemsEqual(item1: CartItemDto, item2: CartItemDto) {
+  return (
+    item1.colors.leather === item2.colors.leather &&
+    item1.colors.thread === item2.colors.thread &&
+    item1.item._id === item2.item._id &&
+    item1.leatherType === item2.leatherType
+  );
+}
+
+function getGuestCartItemsCount(cartItems: CartItemDto[]) {
+  return cartItems.reduce((count, cartItem) => count + cartItem.quantity, 0);
+}
+
+function getGuestTotal(cartItems: CartItemDto[]) {
+  return cartItems.reduce(
+    (total, cartItem) => total + cartItem.price * cartItem.quantity,
+    0
+  );
+}
 
 const initialState: CartSchema = {
-  cart: undefined,
+  cartId: '',
+  total: 0,
+  cartItems: [],
+  cartItemCount: 0,
   loading: 'idle',
 };
 
@@ -17,120 +42,148 @@ export const cartSlice = createSlice({
   name: '@@cart',
   initialState,
   reducers: {
-    //if user not loggged in (LS - LocalStorage)
-    addToCartLS: (state, action) => {
-      if (state.cart) {
-        //check if there is item in cart with the same ID and COLORS (same logic as in cartController)
-        const itemIndex = state.cart.items.findIndex(
-          (item) =>
-            item.item.name === action.payload.item.name &&
-            Object.values(item.colors).every(
-              (color, i) => color === Object.values(action.payload.colors)[i]
-            ) &&
-            item.leather === action.payload.leather
-        );
+    addToCartLS: (state, action: PayloadAction<CartItem>) => {
+      const newCartItem = action.payload;
 
-        if (itemIndex > -1) {
-          let product = state.cart.items[itemIndex];
-          product.quantity += 1;
+      const existingCartItem = state.cartItems.find((cartItem) =>
+        areCartItemsEqual(cartItem, newCartItem)
+      );
 
-          if (product.total) {
-            product.total += product.item.price;
-          }
-
-          state.cart.items[itemIndex] = product;
-          state.cart.totalQuantity += 1;
-          state.cart.total += product.item.price;
-        } else {
-          state.cart.items.push(action.payload);
-          state.cart.totalQuantity += 1;
-          state.cart.total += action.payload.item.price;
-        }
+      if (existingCartItem) {
+        existingCartItem.quantity += newCartItem.quantity;
       }
-      if (!state.cart)
-        state.cart = {
-          items: [action.payload],
-          total: action.payload.item.price,
-          totalQuantity: 1,
-        };
-      localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(state.cart));
+      if (!existingCartItem) {
+        state.cartItems.push(newCartItem);
+      }
+
+      state.total = getGuestTotal(state.cartItems);
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
+      localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(state.cartItems));
     },
 
-    getCartLS: (state) => {
-      state.cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART)!);
+    getCartItemsLS: (state) => {
+      const cartItemsStringified = localStorage.getItem(LOCAL_STORAGE_CART);
+      state.cartItems = cartItemsStringified
+        ? JSON.parse(cartItemsStringified)
+        : [];
       state.loading = 'succeeded';
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
+      state.total = getGuestTotal(state.cartItems);
     },
 
-    deleteItemFromCartLS: (state, action) => {
-      if (state.cart) {
-        const itemIndex = state.cart.items.findIndex(
-          (item) => item._id === action.payload
-        );
+    removeFromCartLS: (state, action: PayloadAction<string>) => {
+      const cartItemId = action.payload;
+      const cartItemIndex = state.cartItems.findIndex(
+        (existingCartItem) => existingCartItem._id === cartItemId
+      );
 
-        if (itemIndex > -1) {
-          let item = state.cart.items[itemIndex];
-          if (item.total && item.total < 0) item.total = 0;
-          state.cart.items.splice(itemIndex, 1);
-          state.cart.total -= item.item.price * item.quantity;
-          state.cart.totalQuantity -= item.quantity;
-        }
-        if (!state.cart.items.length) {
-          state.cart.total = 0;
-          state.cart.totalQuantity = 0;
-        }
-        localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(state.cart));
+      if (cartItemIndex > -1) {
+        state.cartItems.splice(cartItemIndex, 1);
+        localStorage.setItem(
+          LOCAL_STORAGE_CART,
+          JSON.stringify(state.cartItems)
+        );
       }
+
+      state.total = getGuestTotal(state.cartItems);
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
     },
 
-    changeQuantityLS: (state, action) => {
-      if (state.cart) {
-        const itemIndex = state.cart.items.findIndex(
-          (item) => item._id === action.payload.cartItemId
-        );
+    changeQuantityLS: (
+      state,
+      action: PayloadAction<{ cartItemId: string; quantity: number }>
+    ) => {
+      const { cartItemId, quantity } = action.payload;
+      const cartItemIndex = state.cartItems.findIndex(
+        (existingCartItem) => existingCartItem._id === cartItemId
+      );
 
-        if (itemIndex > -1) {
-          let item = state.cart.items[itemIndex];
-          item.quantity = action.payload.quantity;
-          item.total = item.item.price * action.payload.quantity;
-          state.cart.total = state.cart.items
-            .map((item) => item.total!)
-            .reduce((prev, curr) => prev! + curr!, 0);
-          state.cart.totalQuantity = state.cart.items
-            .map((item) => item.quantity)
-            .reduce((prev, curr) => prev! + curr!, 0);
-          if (item.total < 0) item.total = 0;
-          if (item.quantity === 0) state.cart.items.splice(itemIndex, 1);
+      if (cartItemIndex > -1) {
+        if (quantity <= 0) {
+          state.cartItems.splice(cartItemIndex, 1);
+        } else {
+          state.cartItems[cartItemIndex].quantity = quantity;
         }
-        localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(state.cart));
+
+        state.total = state.cartItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        localStorage.setItem(
+          LOCAL_STORAGE_CART,
+          JSON.stringify(state.cartItems)
+        );
       }
+
+      state.cartItemCount = getGuestCartItemsCount(state.cartItems);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(deleteItemFromCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data;
-      })
-      .addCase(emptyCart.fulfilled, (state) => {
-        state.cart = undefined;
-      })
-      .addCase(updateCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data;
+      .addCase(addToCart.fulfilled, (state, action) => {
+        const { total, itemCount } = action.payload.data;
+
+        state.cartItemCount = itemCount;
+        state.total = total;
       })
       .addCase(changeQuantity.fulfilled, (state, action) => {
-        state.cart = action.payload.data;
+        const { total, cartItems, itemCount } = action.payload.data;
+
+        state.cartItems = cartItems;
+        state.total = total;
+        state.cartItemCount = itemCount;
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.total = 0;
+        state.cartItems = [];
+        state.cartItemCount = 0;
       })
       .addCase(getCart.pending, (state) => {
-        state.cart = undefined;
+        state.cartId = '';
         state.loading = 'pending';
       })
       .addCase(getCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data;
+        const { total, _id: id } = action.payload.data;
+
+        state.cartId = id;
+        state.total = total;
       })
       .addCase(getCart.rejected, (state) => {
-        state.cart = undefined;
+        state.cartId = '';
       })
-      .addCase(addToCart.fulfilled, (state, action) => {
-        state.cart = action.payload.data;
+      .addCase(getCartItemCount.fulfilled, (state, action) => {
+        state.cartItemCount = action.payload.data;
+      })
+      .addCase(getCartItemCount.rejected, (state) => {
+        state.cartItemCount = 0;
+      })
+      .addCase(getCartItems.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(getCartItems.fulfilled, (state, action) => {
+        state.cartItems = action.payload.data;
+      })
+      .addCase(getCartItems.rejected, (state) => {
+        state.cartItems = [];
+      })
+      .addCase(mergeCartItems.fulfilled, (state, action) => {
+        const { total, cartItems, itemCount } = action.payload.data;
+
+        state.cartItems = cartItems;
+        state.total = total;
+        state.cartItemCount = itemCount;
+      })
+      .addCase(mergeCartItems.rejected, (state) => {
+        state.cartItems = [];
+        state.total = 0;
+        state.cartItemCount = 0;
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        const { total, cartItems, itemCount } = action.payload.data;
+
+        state.cartItems = cartItems;
+        state.total = total;
+        state.cartItemCount = itemCount;
       })
       .addMatcher(
         (action) =>
@@ -152,8 +205,8 @@ export const cartSlice = createSlice({
 
 export const {
   addToCartLS,
-  getCartLS,
-  deleteItemFromCartLS,
+  getCartItemsLS,
+  removeFromCartLS,
   changeQuantityLS,
 } = cartSlice.actions;
 
