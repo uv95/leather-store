@@ -50,6 +50,8 @@ app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/analytics', analyticsRouter);
 
+app.get('/healthz', (_req, res) => res.status(200).send('ok'));
+
 app.use((req, res, next) => {
   next(new AppError('Page not found', 404));
 });
