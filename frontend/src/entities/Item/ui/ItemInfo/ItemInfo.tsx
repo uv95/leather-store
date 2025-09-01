@@ -1,17 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Color, Item, ItemType, LeatherType } from '../../model/types/item';
 import { useAddToCart } from '../../../../features/cart/api/useAddToCart';
 import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
 import Button, {
   ButtonSize,
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
+import Input from '../../../../shared/ui/Input/Input';
 import { getUserRole, Role } from '../../../User';
+import { Color, Item, LeatherType } from '../../model/types/item';
 import ItemColorSelector from '../ItemColorSelector/ItemColorSelector';
 import styles from './ItemInfo.module.scss';
-import Input from '../../../../shared/ui/Input/Input';
 
 interface ItemInfoProps {
   item: Item;

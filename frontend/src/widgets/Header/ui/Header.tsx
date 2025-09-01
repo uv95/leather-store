@@ -35,7 +35,7 @@ const Header = () => {
         .then()
         .catch((error: string) => toast.error(error));
     }
-  }, [dispatch, user?.role]);
+  }, [dispatch, user?.role, user?._id]);
 
   useEffect(() => {
     if (cartId) {
