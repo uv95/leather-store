@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { Item, ItemDto } from '../../types/item';
+import { AxiosError } from 'axios';
 
 interface UpdateItemInput {
   itemId: string;
@@ -25,6 +26,6 @@ export const updateItem = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

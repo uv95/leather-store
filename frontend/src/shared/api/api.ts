@@ -4,8 +4,8 @@ import { LOCAL_STORAGE_USER_KEY } from '../const/consts';
 export const $api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5000'
-      : 'https://leather-store.fly.dev',
+      ? 'http://localhost:8080'
+    :  'https://leather-store.fly.dev',
 });
 
 $api.interceptors.request.use((config) => {

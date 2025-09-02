@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { AdminOrder, OrderStatus } from '../../types/order';
+import { AxiosError } from 'axios';
 
 export interface UpdateOrderInput {
   orderId: string;
@@ -28,6 +29,6 @@ export const updateOrder = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

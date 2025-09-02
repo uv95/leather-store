@@ -8,6 +8,7 @@ import {
 import { CartData, CartItemDto } from '../../types/cart';
 import { LOCAL_STORAGE_CART } from '../../../../../shared/const/consts';
 import { To } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 export interface MergeCartItemsInput {
   dto: CartItemDto[];
@@ -33,6 +34,6 @@ export const mergeCartItems = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

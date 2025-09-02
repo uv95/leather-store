@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { OrdersByCategory } from '../../types/analytics';
+import { AxiosError } from 'axios';
 
 export const getOrdersByCategory = createAsyncThunk<
   ApiSuccessResponse<OrdersByCategory[]>,
@@ -19,6 +20,6 @@ export const getOrdersByCategory = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

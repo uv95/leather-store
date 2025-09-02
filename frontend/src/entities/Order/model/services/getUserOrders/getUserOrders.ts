@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { UserOrder } from '../../types/order';
+import { AxiosError } from 'axios';
 
 export const getUserOrders = createAsyncThunk<
   ApiSuccessResponse<UserOrder[]>,
@@ -19,6 +20,6 @@ export const getUserOrders = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

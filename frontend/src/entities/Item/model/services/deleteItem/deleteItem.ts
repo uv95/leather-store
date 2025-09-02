@@ -5,6 +5,7 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
+import { AxiosError } from 'axios';
 
 interface DeleteItemInput {
   itemId: string;
@@ -22,6 +23,6 @@ export const deleteItem = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

@@ -3,6 +3,7 @@ import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
 import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
 import { AuthApiResponseData, UpdatePasswordInput } from '../../types/auth';
+import { AxiosError } from 'axios';
 
 export const updatePassword = createAsyncThunk<
   AuthApiResponseData,
@@ -16,6 +17,6 @@ export const updatePassword = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

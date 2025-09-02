@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { getUserOrders } from '../getUserOrders/getUserOrders';
+import { AxiosError } from 'axios';
 
 export interface CreateOrderInput {
   cartId: string;
@@ -32,6 +33,6 @@ export const createOrder = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

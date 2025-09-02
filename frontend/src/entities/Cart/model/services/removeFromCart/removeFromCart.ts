@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { CartData } from '../../types/cart';
+import { AxiosError } from 'axios';
 
 export interface RemoveFromCartInput {
   cartItemId: string;
@@ -24,6 +25,6 @@ export const removeFromCart = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { Item } from '../../types/item';
+import { AxiosError } from 'axios';
 
 interface GetItemByIdInput {
   itemId: string;
@@ -23,6 +24,6 @@ export const getItemById = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

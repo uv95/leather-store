@@ -5,6 +5,7 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
+import { AxiosError } from 'axios';
 
 export const getUserActiveOrderCount = createAsyncThunk<
   ApiSuccessResponse<number>,
@@ -18,6 +19,6 @@ export const getUserActiveOrderCount = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

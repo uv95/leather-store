@@ -5,6 +5,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
+import { AxiosError } from 'axios';
 
 export interface ClearCartInput {
   cartId: string;
@@ -23,6 +24,6 @@ export const clearCart = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

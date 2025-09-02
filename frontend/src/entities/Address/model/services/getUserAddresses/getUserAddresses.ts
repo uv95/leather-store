@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { Address } from '../../types/address';
+import { AxiosError } from 'axios';
 
 export const getUserAddresses = createAsyncThunk<
   ApiSuccessResponse<Address[]>,
@@ -19,6 +20,6 @@ export const getUserAddresses = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

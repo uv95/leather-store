@@ -5,6 +5,7 @@ import { LOCAL_STORAGE_USER_KEY } from '../../../../../shared/const/consts';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
 import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
 import { AuthApiResponseData, LoginInput } from '../../types/auth';
+import { AxiosError } from 'axios';
 
 export const login = createAsyncThunk<
   AuthApiResponseData,
@@ -27,6 +28,6 @@ export const login = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

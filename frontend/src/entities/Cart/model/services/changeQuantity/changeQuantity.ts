@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { CartData } from '../../types/cart';
+import { AxiosError } from 'axios';
 
 export interface ChangeQuantityInput {
   cartItemId: string;
@@ -27,6 +28,6 @@ export const changeQuantity = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });

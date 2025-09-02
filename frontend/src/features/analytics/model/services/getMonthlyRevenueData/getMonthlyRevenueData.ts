@@ -6,6 +6,7 @@ import {
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
 import { MonthleRevenue } from '../../types/analytics';
+import { AxiosError } from 'axios';
 
 export const getMonthlyRevenueData = createAsyncThunk<
   ApiSuccessResponse<MonthleRevenue[]>,
@@ -19,6 +20,6 @@ export const getMonthlyRevenueData = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as ApiErrorResponse));
+    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
   }
 });
