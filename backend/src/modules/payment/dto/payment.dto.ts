@@ -3,8 +3,3 @@ export interface CreatePaymentIntentDto {
   amount: number;
   currency: string;
 }
-
-export interface ConfirmPaymentIntentDto {
-  paymentIntentId: string;
-  paymentMethodId: string;
-}

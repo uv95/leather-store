@@ -2,10 +2,7 @@ import { Request } from 'express';
 import AppError from 'src/utils/appError';
 import Stripe from 'stripe';
 import Order, { OrderStatus } from '../order/model/order.model';
-import {
-  ConfirmPaymentIntentDto,
-  CreatePaymentIntentDto,
-} from './dto/payment.dto';
+import { CreatePaymentIntentDto } from './dto/payment.dto';
 
 export class PaymentService {
   private stripe: Stripe;
@@ -61,10 +58,10 @@ export class PaymentService {
     };
   }
 
-  async confirmPaymentIntent({
-    paymentIntentId,
-    paymentMethodId = 'pm_card_visa',
-  }: ConfirmPaymentIntentDto) {
+  async confirmPaymentIntent(
+    paymentIntentId: string,
+    paymentMethodId = 'pm_card_visa'
+  ) {
     const confirmedIntent = await this.stripe.paymentIntents.confirm(
       paymentIntentId,
       { payment_method: paymentMethodId }
@@ -109,17 +106,19 @@ export class PaymentService {
       case 'payment_intent.succeeded':
         const { metadata } = event.data.object;
         return await this.handlePaymentIntentSucceeded(metadata.orderId);
-        break;
+
       case 'payment_intent.payment_failed':
         return {
           status: 'failed',
           message: 'Payment failed. Please try another card.',
         };
+
       case 'payment_intent.canceled':
         return {
           status: 'canceled',
           message: 'Payment was canceled by user.',
         };
+
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
@@ -138,10 +137,5 @@ export class PaymentService {
         runValidators: true,
       }
     );
-
-    return {
-      status: 'succeeded',
-      message: 'The order is paid!',
-    };
   }
 }
