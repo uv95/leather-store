@@ -1,8 +1,10 @@
 import { Request } from 'express';
+import { Types } from 'mongoose';
 import AppError from 'src/utils/appError';
 import Stripe from 'stripe';
 import Order, { OrderStatus } from '../order/model/order.model';
-import { CreatePaymentIntentDto } from './dto/payment.dto';
+import { CreatePaymentIntentDto, UpdatePaymentDto } from './dto/payment.dto';
+import Payment from './model/payment.model';
 
 export class PaymentService {
   private stripe: Stripe;
@@ -15,11 +17,41 @@ export class PaymentService {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   }
 
-  async createPaymentIntent({
-    orderId,
-    amount,
-    currency = 'cad',
-  }: CreatePaymentIntentDto) {
+  private validateId(
+    id: string,
+    entity: 'User' | 'Order' | 'Payment' = 'Payment'
+  ) {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new AppError(`${entity} id is invalid`, 400);
+    }
+  }
+
+  async getAllPayments() {
+    return await Payment.find();
+  }
+
+  async getAllPaymentsByUser(userId: string) {
+    this.validateId(userId, 'User');
+
+    return await Payment.find({ user: userId });
+  }
+
+  async getPayment(orderId: string) {
+    this.validateId(orderId, 'Order');
+
+    const payment = await Payment.findOne({ order: orderId });
+
+    if (!payment) {
+      throw new AppError('Payment data not found', 404);
+    }
+
+    return payment;
+  }
+
+  async createPaymentIntent(
+    userId: string,
+    { orderId, amount, currency = 'cad' }: CreatePaymentIntentDto
+  ) {
     if (!amount || amount <= 0) {
       throw new AppError('Incorrect amount', 400);
     }
@@ -28,10 +60,20 @@ export class PaymentService {
       throw new AppError('Order id not defined', 400);
     }
 
+    this.validateId(userId, 'User');
+
+    const payment = await Payment.create({
+      order: orderId,
+      user: userId,
+      status: 'pending',
+      amount,
+    });
+
     const paymentIntent = await this.stripe.paymentIntents.create({
       amount,
+      customer: userId,
       currency,
-      metadata: { orderId },
+      metadata: { orderId, paymentId: String(payment._id) },
     });
 
     return {
@@ -54,6 +96,7 @@ export class PaymentService {
       status: paymentIntent.status,
       amount: paymentIntent.amount,
       currency: paymentIntent.currency,
+      customer: paymentIntent.customer,
       metadata: paymentIntent.metadata,
     };
   }
@@ -103,21 +146,28 @@ export class PaymentService {
     }
 
     switch (event.type) {
-      case 'payment_intent.succeeded':
+      case 'payment_intent.succeeded': {
         const { metadata } = event.data.object;
-        return await this.handlePaymentIntentSucceeded(metadata.orderId);
+        const { orderId, paymentId } = metadata;
 
-      case 'payment_intent.payment_failed':
-        return {
+        return await this.handlePaymentIntentSucceeded({ orderId, paymentId });
+      }
+
+      case 'payment_intent.payment_failed': {
+        const { metadata } = event.data.object;
+
+        return await this.updatePayment(metadata.paymentId, {
           status: 'failed',
-          message: 'Payment failed. Please try another card.',
-        };
+        });
+      }
 
-      case 'payment_intent.canceled':
-        return {
+      case 'payment_intent.canceled': {
+        const { metadata } = event.data.object;
+
+        return await this.updatePayment(metadata.paymentId, {
           status: 'canceled',
-          message: 'Payment was canceled by user.',
-        };
+        });
+      }
 
       default:
         console.log(`Unhandled event type ${event.type}`);
@@ -126,7 +176,13 @@ export class PaymentService {
     return { received: true };
   }
 
-  private async handlePaymentIntentSucceeded(orderId: string) {
+  private async handlePaymentIntentSucceeded({
+    paymentId,
+    orderId,
+  }: {
+    paymentId: string;
+    orderId: string;
+  }) {
     await Order.findByIdAndUpdate(
       orderId,
       {
@@ -137,5 +193,22 @@ export class PaymentService {
         runValidators: true,
       }
     );
+
+    await this.updatePayment(paymentId, { status: 'paid' });
+  }
+
+  private async updatePayment(paymentId: string, dto: UpdatePaymentDto) {
+    this.validateId(paymentId);
+
+    const payment = await Payment.findById(paymentId);
+
+    if (!payment) {
+      throw new AppError('Item not found', 404);
+    }
+
+    return await Payment.findByIdAndUpdate(paymentId, dto, {
+      runValidators: true,
+      new: true,
+    });
   }
 }

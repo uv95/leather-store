@@ -17,6 +17,7 @@ import { addressRouter } from './modules/address/address.router';
 import { analyticsRouter } from './modules/analytics/analytics.router';
 import { userRouter } from './modules/user/user.router';
 import { authRouter } from './modules/auth/auth.router';
+import { paymentRouter } from './modules/payment/payment.router';
 
 import AppError from './utils/appError';
 import { errorController } from './utils/errorController';
@@ -49,6 +50,7 @@ app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/analytics', analyticsRouter);
+app.use('/payment', paymentRouter);
 
 app.get('/healthz', (_req, res) => res.status(200).send('ok'));
 

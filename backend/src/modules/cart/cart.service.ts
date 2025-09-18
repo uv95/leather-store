@@ -130,7 +130,7 @@ export class CartService {
       return await CartItem.findByIdAndDelete(cartItemId);
     }
 
-    const updatedCartItem = await CartItem.findByIdAndUpdate(
+    await CartItem.findByIdAndUpdate(
       cartItemId,
       {
         quantity: dto.quantity,

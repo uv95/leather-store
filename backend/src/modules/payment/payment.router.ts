@@ -1,19 +1,21 @@
 import express from 'express';
 import { protect, restrictTo } from '../auth/auth.middleware';
-import { PaymentController } from './payment.controller';
-import { PaymentService } from './payment.service';
+import { paymentController } from './payment.module';
 
-const paymentService = new PaymentService();
-const paymentController = new PaymentController(paymentService);
-
-const paymentRouter = express.Router();
+const paymentRouter = express.Router({ mergeParams: true });
 
 paymentRouter.use(protect);
+
+paymentRouter
+  .route('/')
+  .get(restrictTo('admin'), paymentController.getAllPayments);
+
 paymentRouter.use(restrictTo('user'));
 
 paymentRouter
-  .route('/create')
-  .post(restrictTo('user'), paymentController.createPayment);
+  .route('/')
+  .post(paymentController.createPayment)
+  .get(paymentController.getPayment);
 
 paymentRouter
   .route('/:paymentIntentId/confirm')

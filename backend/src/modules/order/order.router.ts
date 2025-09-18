@@ -3,6 +3,7 @@ import { protect, restrictTo } from '../../modules/auth/auth.middleware';
 import express from 'express';
 import { OrderService } from './order.service';
 import { OrderController } from './order.controller';
+import { paymentRouter } from '../payment/payment.router';
 
 const cartService = new CartService();
 const orderService = new OrderService(cartService);
@@ -11,6 +12,8 @@ const orderController = new OrderController(orderService);
 const orderRouter = express.Router();
 
 orderRouter.use(protect);
+
+orderRouter.use('/:orderId/payment', paymentRouter);
 
 orderRouter
   .route('/')
