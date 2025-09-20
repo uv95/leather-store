@@ -9,12 +9,13 @@ export class PaymentController {
 
   createPayment = catchAsync(
     async (
-      req: RequestWithUser<{}, {}, CreatePaymentIntentDto>,
+      req: RequestWithUser<{ orderId: string }, {}, CreatePaymentIntentDto>,
       res: Response,
       next: NextFunction
     ) => {
       const data = await this.paymentService.createPaymentIntent(
         req.user?.id,
+        req.params.orderId,
         req.body
       );
 

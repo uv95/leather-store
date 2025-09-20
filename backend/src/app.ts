@@ -21,6 +21,7 @@ import { paymentRouter } from './modules/payment/payment.router';
 
 import AppError from './utils/appError';
 import { errorController } from './utils/errorController';
+import { paymentController } from './modules/payment/payment.module';
 
 const app = express();
 
@@ -33,6 +34,12 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, try again in an hour',
 });
 app.use('/', limiter);
+
+app.post(
+  '/payment/webhook',
+  express.raw({ type: 'application/json' }),
+  paymentController.handleWebhook
+);
 
 app.use(express.json());
 app.use(mongoSanitize());

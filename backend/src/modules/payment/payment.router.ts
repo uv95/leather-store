@@ -27,10 +27,4 @@ paymentRouter
 
 paymentRouter.route('/:paymentIntentId').get(paymentController.retrievePayment);
 
-paymentRouter.post(
-  '/webhook',
-  express.raw({ type: 'application/json' }),
-  paymentController.handleWebhook
-);
-
 export { paymentRouter };

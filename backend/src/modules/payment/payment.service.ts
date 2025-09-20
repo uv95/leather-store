@@ -1,10 +1,13 @@
 import { Request } from 'express';
 import { Types } from 'mongoose';
-import AppError from 'src/utils/appError';
+import AppError from '../../utils/appError';
 import Stripe from 'stripe';
 import Order, { OrderStatus } from '../order/model/order.model';
 import { CreatePaymentIntentDto, UpdatePaymentDto } from './dto/payment.dto';
 import Payment from './model/payment.model';
+import User from '../user/model/user.model';
+
+const CENTS_IN_DOLLAR = 100;
 
 export class PaymentService {
   private stripe: Stripe;
@@ -50,7 +53,8 @@ export class PaymentService {
 
   async createPaymentIntent(
     userId: string,
-    { orderId, amount, currency = 'cad' }: CreatePaymentIntentDto
+    orderId: string,
+    { amount, currency = 'cad' }: CreatePaymentIntentDto
   ) {
     if (!amount || amount <= 0) {
       throw new AppError('Incorrect amount', 400);
@@ -62,17 +66,39 @@ export class PaymentService {
 
     this.validateId(userId, 'User');
 
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    let customer: Stripe.Customer | undefined;
+
+    if (!user.stripeCustomerId) {
+      customer = await this.stripe.customers.create({
+        name: user.name,
+        email: user.email,
+      });
+
+      await User.findByIdAndUpdate(userId, {
+        stripeCustomerId: customer.id,
+      });
+    }
+
     const payment = await Payment.create({
       order: orderId,
       user: userId,
-      status: 'pending',
       amount,
     });
 
     const paymentIntent = await this.stripe.paymentIntents.create({
-      amount,
-      customer: userId,
+      amount: amount * CENTS_IN_DOLLAR,
       currency,
+      customer: customer?.id || user.stripeCustomerId,
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never',
+      },
       metadata: { orderId, paymentId: String(payment._id) },
     });
 
@@ -94,7 +120,7 @@ export class PaymentService {
     return {
       id: paymentIntent.id,
       status: paymentIntent.status,
-      amount: paymentIntent.amount,
+      amount: paymentIntent.amount / CENTS_IN_DOLLAR,
       currency: paymentIntent.currency,
       customer: paymentIntent.customer,
       metadata: paymentIntent.metadata,
@@ -107,7 +133,9 @@ export class PaymentService {
   ) {
     const confirmedIntent = await this.stripe.paymentIntents.confirm(
       paymentIntentId,
-      { payment_method: paymentMethodId }
+      {
+        payment_method: paymentMethodId,
+      }
     );
 
     return {

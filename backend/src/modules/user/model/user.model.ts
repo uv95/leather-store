@@ -8,6 +8,7 @@ export interface User {
   email: string;
   role: 'user' | 'admin';
   phone: string;
+  stripeCustomerId?: string;
   password: string;
   passwordConfirm: string | undefined;
   passwordChangedAt: NativeDate;
@@ -57,6 +58,9 @@ const userSchema = new Schema<User, Model<User>, UserMethods>(
       type: String,
       enum: ['user', 'admin'],
       default: 'user',
+    },
+    stripeCustomerId: {
+      type: String,
     },
     password: {
       type: String,
