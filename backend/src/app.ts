@@ -17,9 +17,11 @@ import { addressRouter } from './modules/address/address.router';
 import { analyticsRouter } from './modules/analytics/analytics.router';
 import { userRouter } from './modules/user/user.router';
 import { authRouter } from './modules/auth/auth.router';
+import { paymentRouter } from './modules/payment/payment.router';
 
 import AppError from './utils/appError';
 import { errorController } from './utils/errorController';
+import { paymentController } from './modules/payment/payment.module';
 
 const app = express();
 
@@ -32,6 +34,12 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, try again in an hour',
 });
 app.use('/', limiter);
+
+app.post(
+  '/payment/webhook',
+  express.raw({ type: 'application/json' }),
+  paymentController.handleWebhook
+);
 
 app.use(express.json());
 app.use(mongoSanitize());
@@ -49,6 +57,7 @@ app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/analytics', analyticsRouter);
+app.use('/payment', paymentRouter);
 
 app.get('/healthz', (_req, res) => res.status(200).send('ok'));
 
