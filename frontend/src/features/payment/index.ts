@@ -9,6 +9,7 @@ import { getAllPayments as getAllPaymentsSelector } from './model/selectors/getA
 import { getPayment as getPaymentSelector } from './model/selectors/getPayment/getPayment';
 import { getPaymentIntentId } from './model/selectors/getPaymentIntentId/getPaymentIntentId';
 import { getPaymentLoading } from './model/selectors/getPaymentLoading/getPaymentLoading';
+import { getClientSecret } from './model/selectors/getClientSecret/getClientSecret';
 
 export {
   cancelPayment,
@@ -23,4 +24,5 @@ export {
   getPaymentSelector,
   getPaymentIntentId,
   getPaymentLoading,
+  getClientSecret,
 };

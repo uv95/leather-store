@@ -11,6 +11,7 @@ export enum RoutePath {
   CATALOG = '/catalog',
   CART = '/cart',
   HOME = '/',
+  CHECKOUT = '/checkout',
   CONTACTS = '/contacts',
   LEATHERS = '/leathers',
   NOT_FOUND = '/not_found',
@@ -22,6 +23,7 @@ const Login = lazy(() => import('../../../pages/Login/Login'));
 const Register = lazy(() => import('../../../pages/Register/Register'));
 const ItemPage = lazy(() => import('../../../pages/ItemPage/ItemPage'));
 const Home = lazy(() => import('../../../pages/Home'));
+const Checkout = lazy(() => import('../../../pages/Checkout'));
 const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
 const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));
@@ -49,6 +51,7 @@ export const adminRoutes: Routes[] = [
 ];
 export const userRoutes: Routes[] = [
   { path: RoutePath.USER_PROFILE, Component: UserProfile },
+  { path: RoutePath.CHECKOUT, Component: Checkout },
 ];
 
 export const publicRoutes: Routes[] = [

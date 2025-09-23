@@ -3,6 +3,7 @@ import Button, {
   ButtonSize,
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
+import styles from './CartButton.module.scss';
 
 interface CartButtonProps {
   onClick: () => void;
@@ -16,7 +17,7 @@ const CartButton = ({
   addressNum,
 }: CartButtonProps) => {
   return (
-    <div className="cart__container__btn">
+    <div className={styles.CartButton}>
       <Button
         onClick={onClick}
         theme={ButtonTheme.BLACK}

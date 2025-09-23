@@ -22,7 +22,7 @@ import {
 import CartItemListSkeleton from '../../features/cart/ui/CartItemListSkeleton/CartItemListSkeleton';
 import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 import toast from '../../shared/lib/toast/toast';
-import Back from '../../shared/ui/Back/Back';
+import Wrapper from '../../shared/ui/Wrapper/Wrapper';
 import './cart.scss';
 
 const Cart = () => {
@@ -89,35 +89,31 @@ const Cart = () => {
         <CartOrderStatusModal isOpen={isModalOpen} onClose={onCloseModal} />
       )}
 
-      <div className="cart">
-        <Back />
-        <h1 className="cart__heading">Cart</h1>
-        <div className="cart__container">
-          {loading === 'pending' && <CartItemListSkeleton />}
+      <Wrapper heading="Cart">
+        {loading === 'pending' && <CartItemListSkeleton />}
 
-          {loading === 'succeeded' && cartItemsCount === 0 && (
-            <p className="cart__container-empty">Cart is empty</p>
-          )}
+        {loading === 'succeeded' && cartItemsCount === 0 && (
+          <p className="cart__container-empty">Cart is empty</p>
+        )}
 
-          {loading === 'succeeded' && cartItemsCount !== 0 && (
-            <>
-              <CartItemList />
+        {loading === 'succeeded' && cartItemsCount !== 0 && (
+          <>
+            <CartItemList />
 
-              {isSelectAddressOpen && (
-                <CheckoutAddressSection
-                  setCurrentAddressIndex={setCurrentAddressIndex}
-                  currentAddressIndex={currentAddressIndex}
-                />
-              )}
-              <CartButton
-                addressNum={addresses.length}
-                isSelectAddressOpen={isSelectAddressOpen}
-                onClick={handleCartButton}
+            {isSelectAddressOpen && (
+              <CheckoutAddressSection
+                setCurrentAddressIndex={setCurrentAddressIndex}
+                currentAddressIndex={currentAddressIndex}
               />
-            </>
-          )}
-        </div>
-      </div>
+            )}
+            <CartButton
+              addressNum={addresses.length}
+              isSelectAddressOpen={isSelectAddressOpen}
+              onClick={handleCartButton}
+            />
+          </>
+        )}
+      </Wrapper>
     </>
   );
 };
