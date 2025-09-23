@@ -3,18 +3,14 @@ import { AxiosError } from 'axios';
 import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
 import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
+import { PaymentIntent } from '../../types/payment';
 
 export interface ConfirmPaymentInput {
   paymentIntentId: string;
 }
 
-interface ConfirmPaymentResponseData {
-  id: string;
-  status: string;
-}
-
 export const confirmPayment = createAsyncThunk<
-  ConfirmPaymentResponseData,
+  PaymentIntent,
   ConfirmPaymentInput,
   ThunkConfig<string>
 >('@@payment/confirmPayment', async ({ paymentIntentId }, thunkAPI) => {

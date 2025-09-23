@@ -6,7 +6,7 @@ import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
 import { Payment } from '../../types/payment';
 
 export const getAllPayments = createAsyncThunk<
-  Payment,
+  Payment[],
   void,
   ThunkConfig<string>
 >('@@payment/getAllPayments', async (_, thunkAPI) => {
