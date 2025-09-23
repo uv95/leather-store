@@ -29,6 +29,17 @@ export class OrderController {
     }
   );
 
+  getOrder = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const data = await this.orderService.getOrder(req.params.orderId);
+
+      res.status(200).json({
+        status: 'success',
+        data,
+      });
+    }
+  );
+
   createOrder = catchAsync(
     async (
       req: RequestWithUser<{}, {}, CreateOrderDto>,

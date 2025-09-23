@@ -1,31 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
 import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { AdminOrder, OrderStatus } from '../../types/order';
-import { AxiosError } from 'axios';
+import { UserOrder } from '../../types/order';
 
-export interface UpdateOrderInput {
-  orderId: string;
-  dto: {
-    status?: OrderStatus;
-    address?: string;
-  };
-}
-
-export const updateOrder = createAsyncThunk<
-  ApiSuccessResponse<AdminOrder>,
-  UpdateOrderInput,
+export const getOrder = createAsyncThunk<
+  ApiSuccessResponse<UserOrder>,
+  { orderId: string },
   ThunkConfig<string>
->('@@orders/updateOrder', async (updateOrderInput, thunkAPI) => {
+>('@@orders/getOrder', async ({ orderId }, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
-  const { orderId, dto } = updateOrderInput;
 
   try {
-    const response = await extra.api.patch(`/order/${orderId}`, dto);
+    const response = await extra.api.get(`/order/${orderId}`);
 
     return response.data;
   } catch (error) {

@@ -15,6 +15,7 @@ export interface CreateOrderInput {
 
 export interface CreateOrderData {
   userActiveOrderCount: number;
+  orderId: string;
 }
 
 export const createOrder = createAsyncThunk<
@@ -33,6 +34,8 @@ export const createOrder = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
+    return rejectWithValue(
+      extractErrorMessage(error as AxiosError | ApiErrorResponse)
+    );
   }
 });

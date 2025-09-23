@@ -22,6 +22,7 @@ orderRouter
 
 orderRouter
   .route('/:orderId')
+  .get(orderController.getOrder)
   .delete(orderController.deleteOrder)
   .patch(orderController.updateOrder);
 

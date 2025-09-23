@@ -122,6 +122,7 @@ export class PaymentService {
       status: paymentIntent.status,
       amount: paymentIntent.amount / CENTS_IN_DOLLAR,
       currency: paymentIntent.currency,
+      clientSecret: paymentIntent.client_secret,
       customer: paymentIntent.customer,
       metadata: paymentIntent.metadata,
     };

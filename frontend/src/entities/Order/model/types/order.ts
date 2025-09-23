@@ -21,6 +21,8 @@ export enum OrderStatus {
 
 export interface OrderSchema {
   orders: AdminOrder[];
+  currentOrderId?: string;
+  order?: UserOrder;
   userOrders: UserOrder[];
   userActiveOrderCount: number;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
