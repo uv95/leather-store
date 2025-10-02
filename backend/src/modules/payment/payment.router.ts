@@ -8,14 +8,14 @@ paymentRouter.use(protect);
 
 paymentRouter
   .route('/')
-  .get(restrictTo('admin'), paymentController.getAllPayments);
-
-paymentRouter.use(restrictTo('user'));
+  .post(restrictTo('user'), paymentController.createPayment)
+  .get(restrictTo('user'), paymentController.getPayment);
 
 paymentRouter
   .route('/')
-  .post(paymentController.createPayment)
-  .get(paymentController.getPayment);
+  .get(restrictTo('admin'), paymentController.getAllPayments);
+
+paymentRouter.use(restrictTo('user'));
 
 paymentRouter
   .route('/:paymentIntentId/confirm')

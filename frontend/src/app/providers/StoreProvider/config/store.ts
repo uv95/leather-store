@@ -7,6 +7,7 @@ import { userReducer } from '../../../../entities/User';
 import { filterReducer } from '../../../../features/CatalogFilter';
 import { analyticsReducer } from '../../../../features/analytics';
 import { authReducer } from '../../../../features/auth';
+import { paymentReducer } from '../../../../features/payment';
 import { $api } from '../../../../shared/api/api';
 import { ThunkExtraArg } from './StateSchema';
 
@@ -25,6 +26,7 @@ export function createReduxStore() {
       orders: orderReducer,
       filters: filterReducer,
       analytics: analyticsReducer,
+      payment: paymentReducer,
     },
     devTools: process.env.NODE_ENV === 'development',
     middleware: (getDefaulMiddleware) =>

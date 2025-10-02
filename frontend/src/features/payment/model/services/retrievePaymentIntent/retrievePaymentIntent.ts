@@ -6,17 +6,17 @@ import {
   ApiErrorResponse,
   ApiSuccessResponse,
 } from '../../../../../shared/types/apiResponse';
-import { Payment } from '../../types/payment';
+import { PaymentIntent } from '../../types/payment';
 
-export const getAllPayments = createAsyncThunk<
-  ApiSuccessResponse<Payment[]>,
-  void,
+export const retrievePaymentIntent = createAsyncThunk<
+  ApiSuccessResponse<PaymentIntent>,
+  { paymentIntentId: string },
   ThunkConfig<string>
->('@@payment/getAllPayments', async (_, thunkAPI) => {
+>('@@payment/retrievePaymentIntent', async ({ paymentIntentId }, thunkAPI) => {
   const { extra, rejectWithValue } = thunkAPI;
 
   try {
-    const response = await extra.api.get('payment');
+    const response = await extra.api.get(`payment/${paymentIntentId}`);
 
     return response.data;
   } catch (error) {

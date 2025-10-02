@@ -2,7 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { ThunkConfig } from '../../../../../app/providers/StoreProvider';
 import { extractErrorMessage } from '../../../../../shared/lib/extractErrorMessage/extractErrorMessage';
-import { ApiErrorResponse } from '../../../../../shared/types/apiResponse';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+} from '../../../../../shared/types/apiResponse';
 import { PaymentIntent } from '../../types/payment';
 
 export interface ConfirmPaymentInput {
@@ -10,7 +13,7 @@ export interface ConfirmPaymentInput {
 }
 
 export const confirmPayment = createAsyncThunk<
-  PaymentIntent,
+  ApiSuccessResponse<Pick<PaymentIntent, 'id' | 'status'>>,
   ConfirmPaymentInput,
   ThunkConfig<string>
 >('@@payment/confirmPayment', async ({ paymentIntentId }, thunkAPI) => {

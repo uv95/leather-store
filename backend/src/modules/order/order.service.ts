@@ -1,10 +1,10 @@
-import { AggregateOptions, PipelineStage, Types } from 'mongoose';
-import AppError from '../../utils/appError';
-import Order, { OrderStatus } from './model/order.model';
+import { PipelineStage, Types } from 'mongoose';
 import { CartService } from '../../modules/cart/cart.service';
 import CartItem from '../../modules/cart/model/cartItem.model';
-import OrderItem from './model/orderItem.model';
+import AppError from '../../utils/appError';
 import { CreateOrderDto, UpdateOrderDto } from './dto/order.dto';
+import Order, { OrderStatus } from './model/order.model';
+import OrderItem from './model/orderItem.model';
 
 export class OrderService {
   constructor(private cartService: CartService) {}
@@ -104,6 +104,7 @@ export class OrderService {
     aggregationOptions.push({
       $sort: { createdAt: -1 },
     });
+
     const orders = await Order.aggregate(aggregationOptions);
 
     return orders;

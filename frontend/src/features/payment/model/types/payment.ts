@@ -5,12 +5,20 @@ export interface Payment {
   user: string;
   amount: number;
   status: PaymentStatus;
+  paymentIntentId: string;
   createdAt: string;
 }
 
 export interface PaymentIntent {
   id: string;
   status: string;
+  amount: number;
+  currency: string;
+  clientSecret: string;
+  customer: string;
+  metadata: {
+    orderId: string;
+  };
 }
 
 export interface PaymentSchema {

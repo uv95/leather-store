@@ -1,0 +1,124 @@
+@import '../../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/animations/global.scss';
+
+.UserOrderDetails {
+  background-color: #fff;
+}
+
+.bottom {
+  @include max300 {
+    @include list;
+    @include center;
+    gap: 0rem;
+    margin-top: 1rem;
+  }
+}
+
+.buttons {
+  background-color: #fff;
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+
+  @include max400 {
+    padding: 1rem;
+  }
+  @include max300 {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.orderTotal {
+  background-color: #fff;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+
+  & p {
+    width: fit-content;
+    margin-left: auto;
+    font-weight: bold;
+  }
+}
+
+.address {
+  padding: 2rem;
+  @include max400 {
+    padding: 1rem;
+  }
+  @include max300 {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.item {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  @include max400 {
+    padding: 1rem;
+  }
+
+  @include max300 {
+    @include list;
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  &:first-of-type {
+    border-top: 2px solid var(--color-grey--light);
+  }
+  &:not(:first-of-type) {
+    padding-top: 2rem;
+  }
+}
+
+.itemInfoContainer {
+  display: flex;
+  gap: 2rem;
+
+  @include max400 {
+    @include list;
+    gap: 1rem;
+  }
+}
+
+.itemInfo {
+  font-size: 1.2rem;
+  color: var(--color-grey--dark);
+  position: relative;
+}
+
+.itemTitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.itemQuantity {
+  margin-top: 1rem;
+}
+
+.imageCover {
+  width: 25%;
+  height: 100%;
+  object-fit: cover;
+
+  @include max400 {
+    width: 60%;
+  }
+}
+
+.itemTotal {
+  margin-top: 0.5rem;
+  min-width: fit-content;
+  font-weight: bold;
+
+  @include max700 {
+    align-self: flex-end;
+  }
+  @include max300 {
+    align-self: flex-start;
+  }
+}

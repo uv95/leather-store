@@ -39,13 +39,23 @@ export class PaymentService {
     return await Payment.find({ user: userId });
   }
 
-  async getPayment(orderId: string) {
+  async getPayment(userId: string, orderId: string) {
     this.validateId(orderId, 'Order');
 
-    const payment = await Payment.findOne({ order: orderId });
+    let payment = await Payment.findOne({ order: orderId });
 
     if (!payment) {
-      throw new AppError('Payment data not found', 404);
+      const order = await Order.findById(orderId);
+
+      if (!order) {
+        throw new AppError('Order not found', 404);
+      }
+
+      await this.createPaymentIntent(userId, orderId, {
+        amount: order.total,
+        currency: 'cad',
+      });
+      payment = await Payment.findOne({ order: orderId });
     }
 
     return payment;
@@ -85,12 +95,6 @@ export class PaymentService {
       });
     }
 
-    const payment = await Payment.create({
-      order: orderId,
-      user: userId,
-      amount,
-    });
-
     const paymentIntent = await this.stripe.paymentIntents.create({
       amount: amount * CENTS_IN_DOLLAR,
       currency,
@@ -99,7 +103,14 @@ export class PaymentService {
         enabled: true,
         allow_redirects: 'never',
       },
-      metadata: { orderId, paymentId: String(payment._id) },
+      metadata: { orderId },
+    });
+
+    await Payment.create({
+      order: orderId,
+      user: userId,
+      paymentIntentId: paymentIntent.id,
+      amount,
     });
 
     return {
@@ -176,24 +187,27 @@ export class PaymentService {
 
     switch (event.type) {
       case 'payment_intent.succeeded': {
-        const { metadata } = event.data.object;
-        const { orderId, paymentId } = metadata;
+        const { metadata, id: paymentIntentId } = event.data.object;
+        const { orderId } = metadata;
 
-        return await this.handlePaymentIntentSucceeded({ orderId, paymentId });
+        return await this.handlePaymentIntentSucceeded({
+          orderId,
+          paymentIntentId,
+        });
       }
 
       case 'payment_intent.payment_failed': {
-        const { metadata } = event.data.object;
+        const { id: paymentIntentId } = event.data.object;
 
-        return await this.updatePayment(metadata.paymentId, {
+        return await this.updatePayment(paymentIntentId, {
           status: 'failed',
         });
       }
 
       case 'payment_intent.canceled': {
-        const { metadata } = event.data.object;
+        const { id: paymentIntentId } = event.data.object;
 
-        return await this.updatePayment(metadata.paymentId, {
+        return await this.updatePayment(paymentIntentId, {
           status: 'canceled',
         });
       }
@@ -206,10 +220,10 @@ export class PaymentService {
   }
 
   private async handlePaymentIntentSucceeded({
-    paymentId,
+    paymentIntentId,
     orderId,
   }: {
-    paymentId: string;
+    paymentIntentId: string;
     orderId: string;
   }) {
     await Order.findByIdAndUpdate(
@@ -223,19 +237,17 @@ export class PaymentService {
       }
     );
 
-    await this.updatePayment(paymentId, { status: 'paid' });
+    await this.updatePayment(paymentIntentId, { status: 'paid' });
   }
 
-  private async updatePayment(paymentId: string, dto: UpdatePaymentDto) {
-    this.validateId(paymentId);
-
-    const payment = await Payment.findById(paymentId);
+  private async updatePayment(paymentIntentId: string, dto: UpdatePaymentDto) {
+    const payment = await Payment.findOne({ paymentIntentId });
 
     if (!payment) {
       throw new AppError('Item not found', 404);
     }
 
-    return await Payment.findByIdAndUpdate(paymentId, dto, {
+    return await Payment.findOneAndUpdate({ paymentIntentId }, dto, {
       runValidators: true,
       new: true,
     });

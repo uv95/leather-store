@@ -5,6 +5,7 @@ import { createPayment } from '../services/createPayment/createPayment';
 import { getAllPayments } from '../services/getAllPayments/getAllPayments';
 import { getPayment } from '../services/getPayment/getPayment';
 import { PaymentSchema } from '../types/payment';
+import { retrievePaymentIntent } from '../services/retrievePaymentIntent/retrievePaymentIntent';
 
 const initialState: PaymentSchema = {
   payments: [],
@@ -42,9 +43,11 @@ export const paymentSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(createPayment.fulfilled, (state, action) => {
+        const { clientSecret, paymentIntentId } = action.payload.data;
+
         state.loading = 'succeeded';
-        state.clientSecret = action.payload.clientSecret;
-        state.paymentIntentId = action.payload.paymentIntentId;
+        state.clientSecret = clientSecret;
+        state.paymentIntentId = paymentIntentId;
       })
       .addCase(createPayment.rejected, (state) => {
         state.loading = 'failed';
@@ -56,7 +59,7 @@ export const paymentSlice = createSlice({
       })
       .addCase(getAllPayments.fulfilled, (state, action) => {
         state.loading = 'succeeded';
-        state.payments = action.payload;
+        state.payments = action.payload.data;
       })
       .addCase(getAllPayments.rejected, (state) => {
         state.loading = 'failed';
@@ -66,11 +69,24 @@ export const paymentSlice = createSlice({
       })
       .addCase(getPayment.fulfilled, (state, action) => {
         state.loading = 'succeeded';
-        state.payment = action.payload;
+        state.payment = action.payload.data;
+        state.paymentIntentId = action.payload.data.paymentIntentId;
       })
       .addCase(getPayment.rejected, (state) => {
         state.loading = 'failed';
         state.payment = undefined;
+        state.paymentIntentId = undefined;
+      })
+      .addCase(retrievePaymentIntent.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(retrievePaymentIntent.fulfilled, (state, action) => {
+        state.loading = 'succeeded';
+        state.paymentIntentId = action.payload.data.id;
+      })
+      .addCase(retrievePaymentIntent.rejected, (state) => {
+        state.loading = 'failed';
+        state.paymentIntentId = undefined;
       });
   },
 });
