@@ -52,8 +52,6 @@ const PaymentForm = () => {
 
     if (error) {
       toast.error(error.message || 'Payment failed');
-    } else {
-      toast.success('The order is successfully paid');
     }
   };
 

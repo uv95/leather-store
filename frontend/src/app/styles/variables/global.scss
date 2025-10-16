@@ -1,14 +1,18 @@
 :root {
-    --color-grey--light: #f9f9f9;
-    --color-grey--medium: #dddddd;
-    --color-grey--dark: #6f6f6f;
-    --color-grey--transparent: #a5a5a579;
+  --color-grey--light: #f9f9f9;
+  --color-grey--medium: #dddddd;
+  --color-grey--dark: #6f6f6f;
+  --color-grey--transparent: #a5a5a579;
+  --color-orange: rgb(240, 146, 32);
+  --color-blue: rgb(32, 67, 240);
+  --color-red: rgb(240, 32, 32);
+  --color-green: rgb(27, 199, 56);
 
-    --header-height: 6rem;
-    --footer-height: 12rem;
-    --footer-height-l: 22rem;
+  --header-height: 6rem;
+  --footer-height: 12rem;
+  --footer-height-l: 22rem;
 
-    --length-s: 1rem;
-    --length-m: 2rem;
-    --length-l: 4rem;
+  --length-s: 1rem;
+  --length-m: 2rem;
+  --length-l: 4rem;
 }
