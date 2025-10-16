@@ -25,7 +25,7 @@ const CartButton = ({
         isAnimated={isSelectAddressOpen}
         disabled={!isSelectAddressOpen ? false : !addressNum}
       >
-        {isSelectAddressOpen ? 'Order' : 'Checkout'}
+        {isSelectAddressOpen ? 'Checkout' : 'Select delivery address'}
       </Button>
     </div>
   );

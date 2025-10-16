@@ -24,8 +24,10 @@ import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 import toast from '../../shared/lib/toast/toast';
 import Wrapper from '../../shared/ui/Wrapper/Wrapper';
 import './cart.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const cartId = useSelector(getCartId);
   const cartItemsCount = useSelector(getCartItemCountSelector);
@@ -106,6 +108,7 @@ const Cart = () => {
                 currentAddressIndex={currentAddressIndex}
               />
             )}
+
             <CartButton
               addressNum={addresses.length}
               isSelectAddressOpen={isSelectAddressOpen}

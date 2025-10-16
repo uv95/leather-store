@@ -23,7 +23,7 @@ const Login = lazy(() => import('../../../pages/Login/Login'));
 const Register = lazy(() => import('../../../pages/Register/Register'));
 const ItemPage = lazy(() => import('../../../pages/ItemPage/ItemPage'));
 const Home = lazy(() => import('../../../pages/Home'));
-const Checkout = lazy(() => import('../../../pages/Checkout'));
+const Checkout = lazy(() => import('../../../pages/Checkout/Checkout'));
 const NotFound = lazy(() => import('../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../pages/Contacts/Contacts'));
 const Analytics = lazy(() => import('../../../pages/Analytics/Analytics'));

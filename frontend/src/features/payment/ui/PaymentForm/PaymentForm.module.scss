@@ -1,0 +1,17 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.PaymentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.payment {
+  width: 100%;
+}
+
+.button {
+  margin-top: 2rem;
+  @include center;
+}

@@ -81,12 +81,16 @@ export const paymentSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(retrievePaymentIntent.fulfilled, (state, action) => {
+        const { id, clientSecret } = action.payload.data;
+
         state.loading = 'succeeded';
-        state.paymentIntentId = action.payload.data.id;
+        state.paymentIntentId = id;
+        state.clientSecret = clientSecret;
       })
       .addCase(retrievePaymentIntent.rejected, (state) => {
         state.loading = 'failed';
         state.paymentIntentId = undefined;
+        state.clientSecret = undefined;
       });
   },
 });
