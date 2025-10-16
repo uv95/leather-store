@@ -1,4 +1,4 @@
-import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../shared/types/routePaths';
 
 export enum Tab {
   ORDERS = 'Orders',

@@ -31,7 +31,9 @@ const Toast = () => {
       }}
       className="toast"
     >
-      {toastState.message}
+      {typeof toastState.message === 'string'
+        ? toastState.message
+        : 'Something went wrong!'}
     </div>,
     document.getElementById('root') as HTMLElement
   );

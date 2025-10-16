@@ -12,6 +12,7 @@ import { getPaymentIntentId } from './model/selectors/getPaymentIntentId/getPaym
 import { getPaymentLoading } from './model/selectors/getPaymentLoading/getPaymentLoading';
 import { getClientSecret } from './model/selectors/getClientSecret/getClientSecret';
 import PaymentForm from './ui/PaymentForm/PaymentForm';
+import StripeElementsProvider from './ui/StripeElementsProvider/StripeElementsProvider';
 
 export {
   cancelPayment,
@@ -29,4 +30,5 @@ export {
   getPaymentLoading,
   getClientSecret,
   PaymentForm,
+  StripeElementsProvider,
 };

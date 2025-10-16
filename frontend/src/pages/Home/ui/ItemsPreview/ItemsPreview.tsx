@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../../shared/types/routePaths';
 import { useGetItems } from '../../../../shared/lib/hooks/useGetItems';
 import ItemCard from '../../../../shared/ui/ItemCard/ItemCard';
 import styles from './ItemsPreview.module.scss';
@@ -20,15 +20,22 @@ const ItemsPreview = () => {
           View all
         </Link>
       </div>
-      <div className={styles.items}>
-        {loading === 'pending' && <ItemsPreviewSkeleton />}
-        {loading === 'succeeded' &&
-          items?.slice(0, 4).map((item) => (
-            <div key={item._id} className={styles.item}>
-              <ItemCard item={item} />
-            </div>
-          ))}
-      </div>
+      {loading === 'failed' && (
+        <p className={styles.error}>
+          Something went wrong. Try reloading the page
+        </p>
+      )}
+      {loading !== 'failed' && (
+        <div className={styles.items}>
+          {loading === 'pending' && <ItemsPreviewSkeleton />}
+          {loading === 'succeeded' &&
+            items?.slice(0, 4).map((item) => (
+              <div key={item._id} className={styles.item}>
+                <ItemCard item={item} />
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { ConfirmationModal } from '../../../../shared/ui/ConfirmationModal';
 import styles from './UserOrderDetails.module.scss';
 import { getPayment } from '../../../../features/payment';
 import { useNavigate } from 'react-router-dom';
-import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../../shared/types/routePaths';
 
 type UserOrderDetailsProps = { order: UserOrder };
 

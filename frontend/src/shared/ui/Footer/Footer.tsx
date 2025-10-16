@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import ig from '../../assets/icons/instagram-512.svg';
 import './footer.scss';
 import { memo } from 'react';
-import { RoutePath } from '../../config/routeConfig/routeConfig';
+import { RoutePath } from '../../types/routePaths';
 
 function Footer() {
   return (

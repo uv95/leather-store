@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../../entities/User';
-import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../shared/types/routePaths';
 import { ConfirmationModal } from '../../../shared/ui/ConfirmationModal';
 import { Tab, tabs } from '../model/tabs';
 import './adminNavbar.scss';

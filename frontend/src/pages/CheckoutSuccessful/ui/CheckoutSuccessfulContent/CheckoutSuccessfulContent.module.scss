@@ -1,6 +1,6 @@
-@import '../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/mixins/global.scss';
 
-.CheckoutSuccessful {
+.CheckoutSuccessfulContent {
   text-align: center;
   @include main-block;
   @include header-footer;
@@ -11,8 +11,15 @@
 
 .icon {
   height: 4rem;
-  stroke: var(--color-green);
   stroke-width: 2.5rem;
+}
+
+.successIcon {
+  stroke: var(--color-green);
+}
+
+.errorIcon {
+  stroke: var(--color-red);
 }
 
 .button {

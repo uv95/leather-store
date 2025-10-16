@@ -15,7 +15,7 @@ import { ReactComponent as AdminIcon } from '../../../shared/assets/icons/admin.
 import { ReactComponent as CartIcon } from '../../../shared/assets/icons/cart.svg';
 import { ReactComponent as LoginIcon } from '../../../shared/assets/icons/sign-in.svg';
 import { ReactComponent as UserIcon } from '../../../shared/assets/icons/user.svg';
-import { RoutePath } from '../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../shared/types/routePaths';
 import { useAppDispatch } from '../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../shared/lib/toast/toast';
 import Badge from '../../../shared/ui/Badge/Badge';

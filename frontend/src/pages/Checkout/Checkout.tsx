@@ -17,7 +17,7 @@ import Wrapper from '../../shared/ui/Wrapper/Wrapper';
 import styles from './Checkout.module.scss';
 import { getOrder, getOrderStatus, OrderStatus } from '../../entities/Order';
 import { Navigate, useSearchParams } from 'react-router-dom';
-import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../shared/types/routePaths';
 
 if (!process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY) {
   throw new Error();
