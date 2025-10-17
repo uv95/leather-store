@@ -12,6 +12,7 @@ export default {
   transform: {
     '^.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!axios)'],
   setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
   moduleNameMapper: {
     '\\.s?css$': 'identity-obj-proxy',

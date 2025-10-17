@@ -12,7 +12,7 @@ export interface CreatePaymentInput {
   amount: number;
 }
 
-interface CreatePaymentResponseData {
+export interface CreatePaymentResponseData {
   clientSecret: string;
   paymentIntentId: string;
 }
