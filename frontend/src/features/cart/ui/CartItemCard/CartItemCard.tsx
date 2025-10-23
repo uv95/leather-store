@@ -4,7 +4,7 @@ import { ReactComponent as Delete } from '../../../../shared/assets/icons/trash.
 import Button, { ButtonTheme } from '../../../../shared/ui/Button/Button';
 import Quantity from '../../../../shared/ui/Quantity/Quantity';
 import SelectedItemColors from '../SelectedItemColors/SelectedItemColors';
-import './cartItemCard.scss';
+import styles from './CartItemCard.module.scss';
 
 interface CartItemCardProps {
   cartItem: CartItem;
@@ -32,21 +32,21 @@ const CartItemCard = memo(
     const [quantity, setQuantity] = useState(cartItem.quantity);
 
     return (
-      <div className="cart-item">
-        <div className="cart-item__left">
+      <div className={styles.CartItemCard}>
+        <div className={styles.left}>
           <img
             src={item.imageCover.url}
             alt={item.name || ''}
-            className="cart-item__left-img"
+            className={styles.imageCover}
           />
-          <div className="cart-item__left__info">
-            <h2 className="cart-item__left__info-title">{item.name}</h2>
+          <div className={styles.itemInfo}>
+            <h2 className={styles.title}>{item.name}</h2>
             <p>Leather type: {leatherType}</p>
             <SelectedItemColors
               leatherColor={colors.leather}
               threadColor={colors.thread}
             />
-            <div className="cart-item__left__info__qty">
+            <div className={styles.quantityAndCost}>
               <Quantity
                 onDecrement={() =>
                   onReduceQuantity(cartItem._id, setQuantity, quantity)
@@ -56,22 +56,18 @@ const CartItemCard = memo(
                 }
                 quantity={quantity}
               />
-              <p className="cart-item__left__info__qty-price">
-                ${price * quantity}
-              </p>
+              <p className={styles.cost}>${price * quantity}</p>
             </div>
           </div>
         </div>
-        <div className="cart-item__right">
-          <div className="cart-item__right-remove">
-            <Delete onClick={() => onDelete(cartItem._id)} />
-            <Button
-              onClick={() => onDelete(cartItem._id)}
-              theme={ButtonTheme.BLACK}
-            >
-              Remove
-            </Button>
-          </div>
+        <div className={styles.button}>
+          <Delete onClick={() => onDelete(cartItem._id)} />
+          <Button
+            onClick={() => onDelete(cartItem._id)}
+            theme={ButtonTheme.BLACK}
+          >
+            Remove
+          </Button>
         </div>
       </div>
     );
