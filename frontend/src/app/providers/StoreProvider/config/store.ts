@@ -9,9 +9,9 @@ import { analyticsReducer } from '../../../../features/analytics';
 import { authReducer } from '../../../../features/auth';
 import { paymentReducer } from '../../../../features/payment';
 import { $api } from '../../../../shared/api/api';
-import { ThunkExtraArg } from './StateSchema';
+import { StateSchema, ThunkExtraArg } from './StateSchema';
 
-export function createReduxStore() {
+export function createReduxStore(initialState?: StateSchema) {
   const extraArg: ThunkExtraArg = {
     api: $api,
   };
@@ -29,6 +29,7 @@ export function createReduxStore() {
       payment: paymentReducer,
     },
     devTools: process.env.NODE_ENV === 'development',
+    preloadedState: initialState,
     middleware: (getDefaulMiddleware) =>
       getDefaulMiddleware({
         thunk: {

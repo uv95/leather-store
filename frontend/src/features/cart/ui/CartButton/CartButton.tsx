@@ -6,9 +6,9 @@ import Button, {
 import styles from './CartButton.module.scss';
 
 interface CartButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   isSelectAddressOpen: boolean;
-  addressNum: number;
+  addressNum?: number;
 }
 
 const CartButton = ({

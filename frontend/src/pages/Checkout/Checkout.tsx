@@ -1,64 +1,62 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Navigate, useSearchParams } from 'react-router-dom';
+import { getCartTotal } from '../../entities/Cart';
+import { getOrder, getOrderStatus, OrderStatus } from '../../entities/Order';
 import {
   createPayment,
   getClientSecret,
   getPayment,
+  getPaymentIntentId,
   getPaymentLoading,
-  getPaymentSelector,
-  retrievePaymentIntent,
   PaymentForm,
+  retrievePaymentIntent,
 } from '../../features/payment';
-import { useEffect } from 'react';
-import { getCartTotal } from '../../entities/Cart';
-import Wrapper from '../../shared/ui/Wrapper/Wrapper';
-import styles from './Checkout.module.scss';
-import { getOrder, getOrderStatus, OrderStatus } from '../../entities/Order';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../shared/lib/hooks/useAppDispatch';
 import { RoutePath } from '../../shared/types/routePaths';
-
-if (!process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY) {
-  throw new Error();
-}
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+import Wrapper from '../../shared/ui/Wrapper/Wrapper';
 
 const Checkout = () => {
+  if (!process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error();
+  }
+
+  const stripePromise = loadStripe(
+    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+  );
+
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('orderId');
   const orderStatus = useSelector(getOrderStatus);
   const clientSecret = useSelector(getClientSecret);
   const cartTotal = useSelector(getCartTotal);
-  const payment = useSelector(getPaymentSelector);
+  const paymentIntentId = useSelector(getPaymentIntentId);
   const loading = useSelector(getPaymentLoading);
 
   useEffect(() => {
     if (orderId) {
-      dispatch(getOrder({ orderId }));
-      dispatch(getPayment({ orderId }));
+      dispatch(getOrder({ orderId }))
+        .unwrap()
+        .then(() => {
+          !paymentIntentId && dispatch(getPayment({ orderId }));
+        });
     }
   }, [dispatch, orderId]);
 
   useEffect(() => {
-    if (
-      orderStatus &&
-      orderStatus === OrderStatus.AWAITING_PAYMENT &&
-      payment?.paymentIntentId
-    ) {
-      dispatch(
-        retrievePaymentIntent({ paymentIntentId: payment.paymentIntentId })
-      );
+    if (orderStatus === OrderStatus.AWAITING_PAYMENT && paymentIntentId) {
+      dispatch(retrievePaymentIntent({ paymentIntentId }));
     }
-  }, [dispatch, orderStatus, payment?.paymentIntentId]);
+  }, [dispatch, orderStatus, paymentIntentId]);
 
   useEffect(() => {
-    if (orderId && cartTotal && !payment) {
+    if (orderId && cartTotal && !paymentIntentId) {
       dispatch(createPayment({ orderId, amount: cartTotal }));
     }
-  }, [dispatch, orderId, cartTotal, payment]);
+  }, [dispatch, orderId, cartTotal, paymentIntentId]);
 
   if (orderStatus && orderStatus !== OrderStatus.AWAITING_PAYMENT) {
     return <Navigate to={RoutePath.NOT_FOUND} replace />;
@@ -66,7 +64,7 @@ const Checkout = () => {
 
   return (
     <Wrapper heading="Checkout">
-      {loading === 'succeeded' && (
+      {loading === 'succeeded' && clientSecret && (
         <Elements
           stripe={stripePromise}
           options={{ clientSecret, loader: 'never' }}
