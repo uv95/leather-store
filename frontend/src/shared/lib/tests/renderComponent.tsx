@@ -8,7 +8,7 @@ import {
 
 export interface ComponentRenderOptions {
   route?: string;
-  initialState?: StateSchema;
+  initialState?: DeepPartial<StateSchema>;
 }
 
 export function renderComponent(

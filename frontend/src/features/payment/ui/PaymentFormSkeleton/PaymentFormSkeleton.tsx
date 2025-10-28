@@ -6,7 +6,10 @@ interface PaymentFormSkeletonProps {}
 const PaymentFormSkeleton = ({}: PaymentFormSkeletonProps) => {
   return (
     <>
-      <Skeleton className={styles.paymentElement} />
+      <Skeleton
+        className={styles.paymentElement}
+        data-testid="payment-skeleton"
+      />
       <Skeleton width={14} height={5.3} className={styles.button} />
     </>
   );

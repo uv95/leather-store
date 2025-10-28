@@ -68,6 +68,7 @@ const PaymentForm = () => {
           disabled={!stripe || loading === 'pending'}
           type="submit"
           onClick={onSubmit}
+          data-testid="payment-button"
         >
           {loading === 'pending' ? 'Processing...' : 'Pay Now'}
         </Button>
