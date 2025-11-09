@@ -1,0 +1,15 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.Wrapper {
+  @include main-block;
+  @include header-footer;
+  margin-top: 2rem;
+}
+
+.heading {
+  @include heading;
+}
+
+.container {
+  margin-bottom: 4rem;
+}

@@ -7,6 +7,7 @@ import { getAllOrders } from '../services/getAllOrders/getAllOrders';
 import { updateOrder } from '../services/updateOrder/updateOrder';
 import { getUserActiveOrderCount } from '../services/getUserActiveOrderCount/getUserActiveOrderCount';
 import { logout } from '../../../User';
+import { getOrder } from '../services/getOrder/getOrder';
 
 const initialState: OrderSchema = {
   orders: [],
@@ -28,9 +29,10 @@ export const orderSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        const { userActiveOrderCount } = action.payload.data;
+        const { userActiveOrderCount, orderId } = action.payload.data;
 
         state.userActiveOrderCount = userActiveOrderCount;
+        state.currentOrderId = orderId;
         state.loading = 'succeeded';
       })
       .addCase(deleteOrder.fulfilled, (state, action) => {
@@ -54,6 +56,17 @@ export const orderSlice = createSlice({
       })
       .addCase(getAllOrders.rejected, (state) => {
         state.orders = [];
+      })
+      .addCase(getOrder.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.order = action.payload.data;
+        state.currentOrderId = state.order.status;
+        state.loading = 'succeeded';
+      })
+      .addCase(getOrder.rejected, (state) => {
+        state.order = undefined;
       })
       .addCase(getUserActiveOrderCount.fulfilled, (state, action) => {
         state.userActiveOrderCount = action.payload.data;

@@ -1,18 +1,12 @@
-import './leathers.scss';
-import nappa from '../../shared/assets/img/nappa.jpg';
 import crazyHorse from '../../shared/assets/img/crazyHorse.jpg';
+import nappa from '../../shared/assets/img/nappa.jpg';
 import pullUp from '../../shared/assets/img/pullUp.jpg';
-import Back from '../../shared/ui/Back/Back';
+import Wrapper from '../../shared/ui/Wrapper/Wrapper';
+import './leathers.scss';
 
-type Props = {};
-
-const Leathers = (props: Props) => {
+const Leathers = () => {
   return (
-    <div className="leathers">
-      <div className="leathers-heading">
-        <Back />
-        <h1>Types of Leather</h1>
-      </div>
+    <Wrapper heading="Types of Leather">
       <div className="leathers__container">
         <div className="leathers__container__leather">
           <h1 className="leathers__container__leather-heading">Crazy Horse</h1>
@@ -110,7 +104,7 @@ const Leathers = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RoutePath } from '../../config/routeConfig/routeConfig';
+import { RoutePath } from '../../types/routePaths';
 import './itemCard.scss';
 import { Item } from '../../../entities/Item';
 

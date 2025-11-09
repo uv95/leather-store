@@ -1,18 +1,6 @@
 @import '../../app/styles/mixins/global.scss';
 
 .leathers {
-  // margin: 0 auto;
-  @include main-block;
-  @include header-footer;
-  margin-top: 2rem;
-
-  &-heading {
-    // @include main-block;
-    & h1 {
-      @include heading;
-    }
-  }
-
   &__container {
     &__leather {
       padding: 4rem 2rem;

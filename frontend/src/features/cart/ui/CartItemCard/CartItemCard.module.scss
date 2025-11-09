@@ -1,0 +1,108 @@
+@import '../../../../app/styles/mixins/global.scss';
+
+.CartItemCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-grey--medium);
+  min-height: 18rem;
+
+  @include max500 {
+    padding: 1rem;
+  }
+  @include max400 {
+    @include list;
+    overflow-x: hidden;
+  }
+  @include max300 {
+    padding: 1rem 0.5rem;
+  }
+
+  &:not(:first-of-type) {
+    padding-top: 2rem;
+  }
+}
+
+.left {
+  display: flex;
+  gap: 2rem;
+
+  @include max500 {
+    @include list;
+  }
+}
+
+.itemInfo {
+  font-size: 1.2rem;
+  color: var(--color-grey--dark);
+  position: relative;
+  @include max500 {
+    position: static;
+  }
+}
+
+.quantityAndCost {
+  color: black;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-width: 20rem;
+
+  @include max500 {
+    position: static;
+    margin-top: 1rem;
+  }
+  @include max300 {
+    @include list;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.cost {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.imageCover {
+  width: 14rem;
+  height: 14rem;
+  object-fit: cover;
+
+  @include max300 {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+.button {
+  & svg {
+    width: 2rem;
+    height: 2rem;
+    @include hover;
+
+    @include max500 {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    @include max400 {
+      display: none;
+    }
+  }
+  & button {
+    display: none;
+    @include max400 {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}

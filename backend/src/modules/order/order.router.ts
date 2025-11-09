@@ -13,17 +13,10 @@ const orderRouter = express.Router();
 
 orderRouter.use(protect);
 
-orderRouter.use('/:orderId/payment', paymentRouter);
-
 orderRouter
   .route('/')
   .get(restrictTo('admin'), orderController.getAllOrders)
   .post(restrictTo('user'), orderController.createOrder);
-
-orderRouter
-  .route('/:orderId')
-  .delete(orderController.deleteOrder)
-  .patch(orderController.updateOrder);
 
 orderRouter
   .route('/userOrders')
@@ -32,5 +25,13 @@ orderRouter
 orderRouter
   .route('/userOrders/count')
   .get(restrictTo('user'), orderController.getUserActiveOrderCount);
+
+orderRouter.use('/:orderId/payment', paymentRouter);
+
+orderRouter
+  .route('/:orderId')
+  .get(orderController.getOrder)
+  .delete(orderController.deleteOrder)
+  .patch(orderController.updateOrder);
 
 export { orderRouter };

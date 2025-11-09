@@ -1,10 +1,10 @@
-import { AggregateOptions, PipelineStage, Types } from 'mongoose';
-import AppError from '../../utils/appError';
-import Order, { OrderStatus } from './model/order.model';
+import { PipelineStage, Types } from 'mongoose';
 import { CartService } from '../../modules/cart/cart.service';
 import CartItem from '../../modules/cart/model/cartItem.model';
-import OrderItem from './model/orderItem.model';
+import AppError from '../../utils/appError';
 import { CreateOrderDto, UpdateOrderDto } from './dto/order.dto';
+import Order, { OrderStatus } from './model/order.model';
+import OrderItem from './model/orderItem.model';
 
 export class OrderService {
   constructor(private cartService: CartService) {}
@@ -104,6 +104,7 @@ export class OrderService {
     aggregationOptions.push({
       $sort: { createdAt: -1 },
     });
+
     const orders = await Order.aggregate(aggregationOptions);
 
     return orders;
@@ -160,7 +161,7 @@ export class OrderService {
     await this.cartService.clearCart(dto.cartId);
     const userActiveOrderCount = await this.getUserActiveOrderCount(userId);
 
-    return { userActiveOrderCount };
+    return { userActiveOrderCount, orderId: String(newOrder._id) };
   }
 
   async deleteOrder(orderId: string, userId: string) {
@@ -211,5 +212,17 @@ export class OrderService {
     });
 
     return orderCount;
+  }
+
+  async getOrder(orderId: string) {
+    this.validateId(orderId, 'Order');
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new AppError('Order not found!', 404);
+    }
+
+    return order;
   }
 }

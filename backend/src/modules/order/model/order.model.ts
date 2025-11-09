@@ -16,7 +16,7 @@ export interface Order {
 
 const orderStatuses = Object.values(OrderStatus);
 
-const orderSchema = new Schema({
+const orderSchema = new Schema<Order>({
   total: Number,
   user: {
     type: Schema.Types.ObjectId,

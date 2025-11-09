@@ -29,6 +29,8 @@ export const updateOrder = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
+    return rejectWithValue(
+      extractErrorMessage(error as AxiosError | ApiErrorResponse)
+    );
   }
 });

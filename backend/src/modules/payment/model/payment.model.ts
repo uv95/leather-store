@@ -7,6 +7,7 @@ export interface Payment {
   user: Types.ObjectId;
   amount: number;
   status: PaymentStatus;
+  paymentIntentId: string;
   createdAt: NativeDate;
 }
 
@@ -30,6 +31,9 @@ const paymentSchema = new Schema<Payment>({
   },
   amount: {
     type: Number,
+  },
+  paymentIntentId: {
+    type: String,
   },
   status: {
     type: String,

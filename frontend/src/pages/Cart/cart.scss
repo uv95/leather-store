@@ -1,57 +1,41 @@
 @import '../../app/styles/mixins/global.scss';
 
 .cart {
-  @include main-block;
-  @include header-footer;
-  margin-top: 2rem;
-
-  &__heading {
-    @include heading;
+  & .spinner {
+    height: 24rem;
   }
 
-  &__container {
-    margin-bottom: 4rem;
+  &-empty {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-grey--dark);
+  }
+  &__order {
+    border: 1px solid var(--color-grey--medium);
+    &__total {
+      padding: 2rem 1rem;
+      background-color: var(--color-grey--medium);
+      font-size: 2.5rem;
+      font-weight: 700;
 
-    & .spinner {
-      height: 24rem;
-    }
-
-    &-empty {
-      font-size: 2rem;
-      text-align: center;
-      color: var(--color-grey--dark);
-    }
-    &__order {
-      border: 1px solid var(--color-grey--medium);
-      &__total {
-        padding: 2rem 1rem;
-        background-color: var(--color-grey--medium);
-        font-size: 2.5rem;
-        font-weight: 700;
-
-        & p {
-          width: fit-content;
-          margin-left: auto;
-          font-size: 2rem;
-          @include max400 {
-            margin: 0 auto;
-          }
+      & p {
+        width: fit-content;
+        margin-left: auto;
+        font-size: 2rem;
+        @include max400 {
+          margin: 0 auto;
         }
       }
     }
+  }
 
-    &__btn {
-      margin-top: 2rem;
-      @include center;
-    }
-    & svg {
-      width: 2rem;
-      height: 2rem;
-      cursor: pointer;
+  & svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
 
-      &:hover {
-        filter: invert(30%);
-      }
+    &:hover {
+      filter: invert(30%);
     }
   }
 }

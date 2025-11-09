@@ -4,7 +4,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mergeCartItems } from '../../entities/Cart';
 import { getUserSelector } from '../../entities/User';
 import { getAuthLoading, signup } from '../../features/auth';
-import { RoutePath } from '../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../shared/types/routePaths';
 import { LOCAL_STORAGE_CART } from '../../shared/const/consts';
 import toast from '../../shared/lib/toast/toast';
 import Input from '../../shared/ui/Input/Input';

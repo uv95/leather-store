@@ -1,0 +1,17 @@
+export enum RoutePath {
+  ADMIN_ORDERS = '/admin/orders',
+  USER_PROFILE = '/profile',
+  ANALYTICS = '/admin/analytics',
+  ITEM_PAGE = '/catalog/:slug',
+  ITEMS_MANAGEMENT = '/admin/items-management',
+  LOGIN = '/login',
+  REGISTRATION = '/registration',
+  CATALOG = '/catalog',
+  CART = '/cart',
+  HOME = '/',
+  CHECKOUT = '/checkout',
+  CHECKOUT_SUCCESSFUL = '/checkout/success',
+  CONTACTS = '/contacts',
+  LEATHERS = '/leathers',
+  NOT_FOUND = '/not_found',
+}

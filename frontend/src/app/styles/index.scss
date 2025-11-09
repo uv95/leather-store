@@ -106,15 +106,15 @@ input {
     padding: 0.3rem 0.7rem;
   }
   &-waitsForPayment {
-    background-color: rgb(240, 146, 32);
+    background-color: var(--color-orange);
   }
   &-accepted {
-    background-color: rgb(32, 67, 240);
+    background-color: var(--color-blue);
   }
   // &-canceled {
-  //   background-color: rgb(240, 32, 32);
+  //   background-color:  var(--color-red);
   // }
   &-completed {
-    background-color: rgb(27, 199, 56);
+    background-color: var(--color-green);
   }
 }

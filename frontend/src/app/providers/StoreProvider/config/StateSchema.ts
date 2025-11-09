@@ -8,6 +8,7 @@ import { AnalyticsSchema } from '../../../../features/analytics';
 import { AuthSchema } from '../../../../features/auth';
 import { FilterSchema } from '../../../../features/CatalogFilter';
 import { NavigateOptions, To } from 'react-router-dom';
+import { PaymentSchema } from '../../../../features/payment';
 
 export interface StateSchema {
   items: ItemsSchema;
@@ -18,6 +19,7 @@ export interface StateSchema {
   auth: AuthSchema;
   cart: CartSchema;
   filters: FilterSchema;
+  payment: PaymentSchema;
 }
 
 export interface ThunkExtraArg {

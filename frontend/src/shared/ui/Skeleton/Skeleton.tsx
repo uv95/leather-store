@@ -6,6 +6,7 @@ interface SkeletonProps {
   width?: number;
   height?: number;
   className?: string;
+  [key: string]: any;
 }
 
 interface Dimensions {
@@ -13,7 +14,7 @@ interface Dimensions {
   height?: string;
 }
 
-const Skeleton = ({ width, height, className }: SkeletonProps) => {
+const Skeleton = ({ width, height, className, ...rest }: SkeletonProps) => {
   const getStyles = useCallback(() => {
     const styles: Dimensions = {};
 
@@ -31,6 +32,7 @@ const Skeleton = ({ width, height, className }: SkeletonProps) => {
     <div
       className={classNames(styles.Skeleton, {}, [className])}
       style={getStyles()}
+      {...rest}
     ></div>
   );
 };

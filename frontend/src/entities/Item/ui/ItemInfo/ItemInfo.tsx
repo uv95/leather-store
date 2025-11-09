@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAddToCart } from '../../../../features/cart/api/useAddToCart';
-import { RoutePath } from '../../../../shared/config/routeConfig/routeConfig';
+import { RoutePath } from '../../../../shared/types/routePaths';
 import Button, {
   ButtonSize,
   ButtonTheme,

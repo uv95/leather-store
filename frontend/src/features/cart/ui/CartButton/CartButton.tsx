@@ -3,11 +3,12 @@ import Button, {
   ButtonSize,
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
+import styles from './CartButton.module.scss';
 
 interface CartButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   isSelectAddressOpen: boolean;
-  addressNum: number;
+  addressNum?: number;
 }
 
 const CartButton = ({
@@ -16,7 +17,7 @@ const CartButton = ({
   addressNum,
 }: CartButtonProps) => {
   return (
-    <div className="cart__container__btn">
+    <div className={styles.CartButton}>
       <Button
         onClick={onClick}
         theme={ButtonTheme.BLACK}
@@ -24,7 +25,7 @@ const CartButton = ({
         isAnimated={isSelectAddressOpen}
         disabled={!isSelectAddressOpen ? false : !addressNum}
       >
-        {isSelectAddressOpen ? 'Order' : 'Checkout'}
+        {isSelectAddressOpen ? 'Checkout' : 'Select delivery address'}
       </Button>
     </div>
   );

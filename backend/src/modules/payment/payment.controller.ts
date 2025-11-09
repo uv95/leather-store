@@ -99,8 +99,15 @@ export class PaymentController {
   );
 
   getPayment = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-      const data = await this.paymentService.getPayment(req.params.orderId);
+    async (
+      req: RequestWithUser<{ orderId: string }, {}, {}>,
+      res: Response,
+      next: NextFunction
+    ) => {
+      const data = await this.paymentService.getPayment(
+        req.user?.id,
+        req.params.orderId
+      );
 
       res.status(200).json({
         status: 'success',
