@@ -40,7 +40,7 @@ const CheckoutSuccessfulContent = () => {
           setStatus('failed');
       }
     });
-  }, [stripe]);
+  }, [stripe, clientSecret]);
 
   return (
     <div className={styles.CheckoutSuccessfulContent}>

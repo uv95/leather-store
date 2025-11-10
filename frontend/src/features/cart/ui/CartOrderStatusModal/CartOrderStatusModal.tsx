@@ -22,7 +22,7 @@ const CartOrderStatusModal = memo(
           navigate(`/checkout?orderId=${orderId}`);
         }, 1500);
       }
-    }, [loading]);
+    }, [loading, navigate, orderId]);
 
     return (
       <Modal isOpen={isOpen} onClose={onClose}>

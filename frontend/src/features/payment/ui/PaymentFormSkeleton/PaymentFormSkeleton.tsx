@@ -1,9 +1,7 @@
 import Skeleton from '../../../../shared/ui/Skeleton/Skeleton';
 import styles from './PaymentFormSkeleton.module.scss';
 
-interface PaymentFormSkeletonProps {}
-
-const PaymentFormSkeleton = ({}: PaymentFormSkeletonProps) => {
+const PaymentFormSkeleton = () => {
   return (
     <>
       <Skeleton

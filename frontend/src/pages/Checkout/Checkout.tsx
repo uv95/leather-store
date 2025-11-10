@@ -44,7 +44,7 @@ const Checkout = () => {
           !paymentIntentId && dispatch(getPayment({ orderId }));
         });
     }
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, paymentIntentId]);
 
   useEffect(() => {
     if (orderStatus === OrderStatus.AWAITING_PAYMENT && paymentIntentId) {

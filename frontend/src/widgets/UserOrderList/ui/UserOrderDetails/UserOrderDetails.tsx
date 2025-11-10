@@ -45,7 +45,7 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
     if (status === OrderStatus.AWAITING_PAYMENT) {
       dispatch(getPayment({ orderId }));
     }
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, status]);
 
   const makePayment = useCallback(() => {
     navigate(`${RoutePath.CHECKOUT}?orderId=${orderId}`);
