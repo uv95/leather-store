@@ -34,9 +34,13 @@ const mockPaymentElement = {
   }),
 };
 
-const toastErrorSpy = jest.spyOn(toast, 'error');
-
 describe('PaymentForm', () => {
+  let toastErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    toastErrorSpy = jest.spyOn(toast, 'error');
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
     toastErrorSpy.mockRestore();
