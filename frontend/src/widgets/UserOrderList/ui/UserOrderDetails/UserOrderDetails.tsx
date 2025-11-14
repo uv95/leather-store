@@ -58,7 +58,8 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
           isOpen={isModalOpen}
           onClose={onCloseModal}
           confirmAction={() => handleCancelOrder(orderId)}
-          text="Are you sure you want to cancel the order?"
+          title="Are you sure you want to cancel the order?"
+          buttonTexts={{ yes: 'Cancel order', no: 'No' }}
         />
       )}
       <div className={styles.UserOrderDetails}>

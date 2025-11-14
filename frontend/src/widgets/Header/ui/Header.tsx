@@ -58,7 +58,12 @@ const Header = () => {
           {user?.role !== Role.ADMIN && (
             <Link to={RoutePath.CART} className={styles.cartLink}>
               <CartIcon className={styles.icon} />
-              {cartItemCount !== 0 && <Badge value={cartItemCount} />}
+              {cartItemCount !== 0 && (
+                <Badge
+                  value={cartItemCount}
+                  label={`${cartItemCount === 1 ? 'item' : 'items'} in cart`}
+                />
+              )}
             </Link>
           )}
         </div>
@@ -96,7 +101,12 @@ function UserOrAdminLink() {
             <LoginIcon className={styles.icon} />
           )}
           {user && userActiveOrderCount !== 0 && (
-            <Badge value={userActiveOrderCount} />
+            <Badge
+              value={userActiveOrderCount}
+              label={`active ${
+                userActiveOrderCount === 1 ? 'order' : 'orders'
+              }`}
+            />
           )}
         </>
       )}

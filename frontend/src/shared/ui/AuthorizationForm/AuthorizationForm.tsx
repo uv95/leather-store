@@ -15,8 +15,14 @@ const AuthorizationForm = ({
   return (
     <div className={styles.AuthorizationForm}>
       <div className={styles.container}>
-        <h1 className={styles.title}>{title}</h1>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <h1 className={styles.title} id="auth-form-title">
+          {title}
+        </h1>
+        <form
+          className={styles.form}
+          onSubmit={onSubmit}
+          aria-labelledby="auth-form-title"
+        >
           {children}
         </form>
       </div>

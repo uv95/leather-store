@@ -42,7 +42,8 @@ const AdminNavbar = () => {
           isOpen={isModalOpen}
           onClose={onCloseModal}
           confirmAction={onLogout}
-          text="Are you sure you want to log out?"
+          title="Are you sure you want to log out?"
+          buttonTexts={{ yes: 'Log out', no: 'Cancel' }}
         />
       )}
       <div className="header__container__admin">

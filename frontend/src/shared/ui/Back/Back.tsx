@@ -1,15 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import './back.scss';
 
-type Props = {};
-
-const Back = (props: Props) => {
+const Back = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="back" onClick={() => navigate(-1)}>
+    <button type="button" className="back" onClick={() => navigate(-1)}>
       Back
-    </div>
+    </button>
   );
 };
 
