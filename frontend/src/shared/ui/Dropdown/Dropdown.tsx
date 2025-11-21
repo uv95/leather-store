@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { KeyboardEvent, ReactNode, useState } from 'react';
 import Button from '../Button/Button';
 import './dropdown.scss';
 
@@ -8,19 +8,33 @@ interface DropdownProps {
 }
 
 const Dropdown = ({ children, buttonText }: DropdownProps) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape' && isOpen) {
+      e.stopPropagation();
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <div className="dropdown-container">
-      <Button onClick={() => setOpen(!open)}>{buttonText}</Button>
+    <div className="dropdown-container" onKeyDown={handleKeyDown}>
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        {buttonText}
+      </Button>
 
-      {open && (
+      {isOpen && (
         <>
           <div
             className="dropdown-container__background"
-            onClick={() => setOpen(false)}
+            aria-hidden="true"
+            onClick={() => setIsOpen(false)}
           ></div>
-          <div className={`dropdown dropdown--${open ? 'open' : 'closed'}`}>
+          <div className={`dropdown dropdown--${isOpen ? 'open' : 'closed'}`}>
             <div className="dropdown__content">{children}</div>
           </div>
         </>

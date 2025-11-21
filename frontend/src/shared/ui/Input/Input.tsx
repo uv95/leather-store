@@ -27,15 +27,14 @@ const Input = (props: InputProps) => {
     ...otherProps
   } = props;
 
+  const mods = { [styles.required]: isRequired };
+  const isCheckbox = type === 'checkbox' || type === 'radio';
+
   return (
     <div className={classNames(styles.inputWrapper, {}, [className])}>
       {label && (
         <label
-          className={classNames(
-            styles.label,
-            { [styles.required]: isRequired },
-            []
-          )}
+          className={classNames(styles.label, mods, [])}
           htmlFor={name || label}
         >
           {label}
@@ -45,10 +44,11 @@ const Input = (props: InputProps) => {
         id={name || label}
         name={name}
         type={type}
-        value={value}
+        value={isCheckbox ? undefined : value}
         onChange={onChange}
-        checked={isChecked}
+        checked={isCheckbox ? isChecked : undefined}
         className={classNames(styles.input, { [styles.fileInput]: accept }, [])}
+        aria-required={isRequired}
         {...otherProps}
       />
     </div>
