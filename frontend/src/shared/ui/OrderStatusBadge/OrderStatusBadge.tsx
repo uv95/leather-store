@@ -10,21 +10,16 @@ const statusClassName = {
 interface OrderStatusBadgeProps {
   status: OrderStatus;
   classNames?: string;
-  onClick?: () => void;
 }
 
-const OrderStatusBadge = ({
-  status,
-  classNames,
-  onClick,
-}: OrderStatusBadgeProps) => {
+const OrderStatusBadge = ({ status, classNames }: OrderStatusBadgeProps) => {
   return (
-    <div
+    <span
       className={`statusBadge statusBadge--${statusClassName[status]} ${classNames}`}
-      onClick={onClick}
+      aria-label={`Order status: ${status}`}
     >
       {status}
-    </div>
+    </span>
   );
 };
 

@@ -31,7 +31,11 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className="modal-background" onClick={onClose}></div>
+      <div
+        className="modal-background"
+        aria-hidden="true"
+        onClick={onClose}
+      ></div>
       <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
         <div
           className="modal"

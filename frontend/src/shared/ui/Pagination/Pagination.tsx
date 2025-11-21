@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './pagination.scss';
 
 interface PaginationProps {
@@ -13,21 +14,31 @@ const Pagination = ({
   setCurrentPage,
 }: PaginationProps) => {
   return (
-    <div className="pagination">
-      {Array.from({ length: maxPages }, (_, i) => i).map((number) => (
-        <div
-          key={number}
-          className={`${
-            currentPage === number + 1
-              ? 'pagination-item pagination-item-active'
-              : 'pagination-item'
-          }`}
-          onClick={() => setCurrentPage(number + 1)}
-        >
-          {number + 1}
-        </div>
-      ))}
-    </div>
+    <nav aria-label="Pagination">
+      <ol className="pagination">
+        {Array.from({ length: maxPages }, (_, i) => i).map((number) => {
+          const pageNumber = number + 1;
+          const isActive = currentPage === pageNumber;
+
+          return (
+            <li key={number}>
+              <Button
+                isSquare
+                className={`${
+                  isActive
+                    ? 'pagination-item pagination-item-active'
+                    : 'pagination-item'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+                onClick={() => setCurrentPage(pageNumber)}
+              >
+                {pageNumber}
+              </Button>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   );
 };
 

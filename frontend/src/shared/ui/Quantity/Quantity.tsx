@@ -1,3 +1,4 @@
+import Button from '../Button/Button';
 import './quantity.scss';
 
 interface QuantityProps {
@@ -9,13 +10,25 @@ interface QuantityProps {
 const Quantity = ({ onDecrement, quantity, onIncrement }: QuantityProps) => {
   return (
     <div className="quantity">
-      <div className="quantity__cell" onClick={onDecrement}>
+      <Button
+        isSquare
+        className="quantity__cell"
+        onClick={onDecrement}
+        aria-label="Decrease quantity"
+      >
         -
+      </Button>
+      <div className="quantity__cell-num" role="status" aria-live="polite">
+        {quantity}
       </div>
-      <div className="quantity__cell-num">{quantity}</div>
-      <div className="quantity__cell" onClick={onIncrement}>
+      <Button
+        isSquare
+        className="quantity__cell"
+        onClick={onIncrement}
+        aria-label="Increase quantity"
+      >
         +
-      </div>
+      </Button>
     </div>
   );
 };
