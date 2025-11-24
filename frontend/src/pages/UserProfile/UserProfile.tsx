@@ -16,9 +16,7 @@ const UserProfile = () => {
     <div className="profile">
       <h1 className="profile__heading">{user?.name}</h1>
       <div className="profile__container">
-        <div className="profile__container__nav">
-          <UserSidebar setCurrentTab={setCurrentTab} currentTab={currentTab} />
-        </div>
+        <UserSidebar setCurrentTab={setCurrentTab} currentTab={currentTab} />
         <div className="profile__container__content">
           {currentTab === Tab.MY_ORDERS && <UserOrderList />}
           {currentTab === Tab.DELIVERY_ADDRESSES && <DeliveryAddresses />}

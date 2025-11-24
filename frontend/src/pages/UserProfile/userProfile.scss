@@ -4,15 +4,26 @@
   @include main-block;
   @include header-footer;
 
+  @include max700 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   &__heading {
     @include heading;
     height: 3.5rem;
+
+    @include max700 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 
   &__container {
     display: flex;
     gap: 4rem;
     margin-bottom: 4rem;
+    position: relative;
 
     @include max1000 {
       gap: 2rem;
@@ -47,9 +58,18 @@
 }
 
 .nav {
+  height: fit-content;
+  position: sticky;
+  background-color: white;
+  top: calc(var(--header-height) + 1rem);
+
   @include max700 {
     display: flex;
     justify-content: space-between;
+    padding: 1rem 0 0 0;
+    top: var(--header-height);
+    z-index: 1;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.071);
   }
   @include max500 {
     justify-content: space-evenly;
