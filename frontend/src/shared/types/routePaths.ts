@@ -1,9 +1,7 @@
 export enum RoutePath {
-  ADMIN_ORDERS = '/admin/orders',
+  ADMIN_PROFILE = '/admin',
   USER_PROFILE = '/profile',
-  ANALYTICS = '/admin/analytics',
   ITEM_PAGE = '/catalog/:slug',
-  ITEMS_MANAGEMENT = '/admin/items-management',
   LOGIN = '/login',
   REGISTRATION = '/registration',
   CATALOG = '/catalog',

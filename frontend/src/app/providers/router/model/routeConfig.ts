@@ -1,6 +1,9 @@
 import { lazy } from 'react';
 import { RoutePath } from '../../../../shared/types/routePaths';
 
+const AdminProfile = lazy(
+  () => import('../../../../pages/AdminProfile/AdminProfile')
+);
 const Cart = lazy(() => import('../../../../pages/Cart/Cart'));
 const Catalog = lazy(() => import('../../../../pages/Catalog'));
 const Login = lazy(() => import('../../../../pages/Login/Login'));
@@ -16,20 +19,10 @@ const CheckoutSuccessfulPage = lazy(
 );
 const NotFound = lazy(() => import('../../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../../pages/Contacts/Contacts'));
-const Analytics = lazy(() => import('../../../../pages/Analytics/Analytics'));
-const ItemsManagement = lazy(
-  () =>
-    import(
-      '../../../../pages/ItemsManagement/ui/ItemsManagement/ItemsManagement'
-    )
-);
 const UserProfile = lazy(
   () => import('../../../../pages/UserProfile/UserProfile')
 );
 const Leathers = lazy(() => import('../../../../pages/Leathers/Leathers'));
-const OrdersAdmin = lazy(
-  () => import('../../../../pages/OrdersAdmin/ui/OrdersAdmin/OrdersAdmin')
-);
 
 interface Routes {
   path: RoutePath;
@@ -37,9 +30,7 @@ interface Routes {
 }
 
 export const adminRoutes: Routes[] = [
-  { path: RoutePath.ADMIN_ORDERS, Component: OrdersAdmin },
-  { path: RoutePath.ANALYTICS, Component: Analytics },
-  { path: RoutePath.ITEMS_MANAGEMENT, Component: ItemsManagement },
+  { path: RoutePath.ADMIN_PROFILE, Component: AdminProfile },
 ];
 export const userRoutes: Routes[] = [
   { path: RoutePath.USER_PROFILE, Component: UserProfile },

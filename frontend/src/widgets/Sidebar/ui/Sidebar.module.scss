@@ -1,0 +1,103 @@
+@import '../../../app/styles/mixins/global.scss';
+
+.nav {
+  height: fit-content;
+  position: sticky;
+  background-color: white;
+  top: calc(var(--header-height) + 1rem);
+
+  @include max700 {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0 0 0;
+    top: var(--header-height);
+    z-index: 1;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.071);
+  }
+  @include max500 {
+    justify-content: space-evenly;
+  }
+  @include max400 {
+    justify-content: space-between;
+  }
+}
+
+.button {
+  width: 24rem;
+  padding: 1rem;
+  font-size: 2rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  cursor: pointer;
+
+  @include max1000 {
+    width: 22rem;
+  }
+  @include max900 {
+    gap: 1rem;
+    width: 20rem;
+  }
+  @include max800 {
+    width: fit-content;
+    margin-bottom: 1rem;
+  }
+
+  @include max500 {
+    justify-content: center;
+  }
+
+  &Active {
+    color: inherit;
+    background-color: var(--color-grey--medium);
+
+    &:hover {
+      color: inherit;
+      background-color: var(--color-grey--medium);
+    }
+  }
+
+  &:hover:not(.buttonActive) {
+    color: inherit;
+    filter: invert(30%);
+  }
+}
+
+.icon {
+  @include center;
+
+  @include max700 {
+    display: none;
+  }
+  @include max500 {
+    display: block;
+    height: 2.5rem;
+  }
+  @include max300 {
+    height: 2rem;
+  }
+
+  & img {
+    width: 2rem;
+
+    @include max800 {
+      width: 2.5rem;
+    }
+
+    @include max300 {
+      width: 2rem;
+    }
+  }
+}
+
+.text {
+  @include max800 {
+    display: none;
+  }
+  @include max700 {
+    display: inline-block;
+  }
+  @include max500 {
+    display: none;
+  }
+}

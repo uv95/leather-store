@@ -83,7 +83,9 @@ function UserOrAdminLink() {
     if (!user) {
       return RoutePath.LOGIN;
     }
-    return role === Role.USER ? RoutePath.USER_PROFILE : RoutePath.ADMIN_ORDERS;
+    return role === Role.USER
+      ? RoutePath.USER_PROFILE
+      : RoutePath.ADMIN_PROFILE;
   };
 
   return (

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { getUserRole, Role } from '../../../entities/User';
 import Footer from '../../../shared/ui/Footer/Footer';
-import { AdminNavbar } from '../../AdminNavbar';
+// import { AdminNavbar } from '../../AdminNavbar';
 import { Header } from '../../Header';
 import './mainLayout.scss';
 
@@ -11,16 +11,16 @@ function MainLayout({ children }: { children: ReactNode }) {
   const role = useSelector(getUserRole);
   const location = useLocation();
 
-  const isAdminPage = useMemo(
-    () => location.pathname.startsWith('/admin') && role === Role.ADMIN,
-    [location, role]
-  );
+  // const isAdminPage = useMemo(
+  //   () => location.pathname.startsWith('/admin') && role === Role.ADMIN,
+  //   [location, role]
+  // );
 
   return (
     <>
       <header className="header">
         <div className="header__container">
-          {isAdminPage ? <AdminNavbar /> : <Header />}
+          <Header />
         </div>
       </header>
       <main>{children}</main>
