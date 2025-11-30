@@ -44,31 +44,33 @@ const Header = () => {
   }, [dispatch, cartId]);
 
   return (
-    <>
-      <div className={styles.Header}>
-        <Link to={RoutePath.HOME} className={styles.logo}>
-          ANNE LEATHER
+    <header className={styles.Header}>
+      <Link
+        to={RoutePath.HOME}
+        className={styles.logo}
+        aria-label="Go to homepage"
+      >
+        ANNE LEATHER
+      </Link>
+      <div className={styles.navbar}>
+        <Link to={RoutePath.CATALOG} className={styles.catalogLink}>
+          CATALOG
         </Link>
-        <div className={styles.navbar}>
-          <Link to={RoutePath.CATALOG} className={styles.catalogLink}>
-            CATALOG
-          </Link>
-          <UserOrAdminLink />
+        <UserOrAdminLink />
 
-          {user?.role !== Role.ADMIN && (
-            <Link to={RoutePath.CART} className={styles.cartLink}>
-              <CartIcon className={styles.icon} />
-              {cartItemCount !== 0 && (
-                <Badge
-                  value={cartItemCount}
-                  label={`${cartItemCount === 1 ? 'item' : 'items'} in cart`}
-                />
-              )}
-            </Link>
-          )}
-        </div>
+        {user?.role !== Role.ADMIN && (
+          <Link to={RoutePath.CART} className={styles.cartLink}>
+            <CartIcon className={styles.icon} />
+            {cartItemCount !== 0 && (
+              <Badge
+                value={cartItemCount}
+                label={`${cartItemCount === 1 ? 'item' : 'items'} in cart`}
+              />
+            )}
+          </Link>
+        )}
       </div>
-    </>
+    </header>
   );
 };
 
@@ -94,13 +96,13 @@ function UserOrAdminLink() {
       className={role === Role.USER ? styles.userLink : ''}
     >
       {role === Role.ADMIN ? (
-        <AdminIcon className={styles.icon} />
+        <AdminIcon className={styles.icon} aria-label="Go to admin profile" />
       ) : (
         <>
           {user ? (
-            <UserIcon className={styles.icon} />
+            <UserIcon className={styles.icon} aria-label="Go to user profile" />
           ) : (
-            <LoginIcon className={styles.icon} />
+            <LoginIcon className={styles.icon} aria-label="Go to login page" />
           )}
           {user && userActiveOrderCount !== 0 && (
             <Badge
