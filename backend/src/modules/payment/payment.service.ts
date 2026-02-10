@@ -22,7 +22,7 @@ export class PaymentService {
 
   private validateId(
     id: string,
-    entity: 'User' | 'Order' | 'Payment' = 'Payment'
+    entity: 'User' | 'Order' | 'Payment' = 'Payment',
   ) {
     if (!Types.ObjectId.isValid(id)) {
       throw new AppError(`${entity} id is invalid`, 400);
@@ -64,7 +64,7 @@ export class PaymentService {
   async createPaymentIntent(
     userId: string,
     orderId: string,
-    { amount, currency = 'cad' }: CreatePaymentIntentDto
+    { amount, currency = 'cad' }: CreatePaymentIntentDto,
   ) {
     if (!amount || amount <= 0) {
       throw new AppError('Incorrect amount', 400);
@@ -121,7 +121,7 @@ export class PaymentService {
 
   async retrievePaymentIntent(paymentIntentId: string) {
     const paymentIntent = await this.stripe.paymentIntents.retrieve(
-      paymentIntentId
+      paymentIntentId,
     );
 
     if (!paymentIntent) {
@@ -141,13 +141,13 @@ export class PaymentService {
 
   async confirmPaymentIntent(
     paymentIntentId: string,
-    paymentMethodId = 'pm_card_visa'
+    paymentMethodId = 'pm_card_visa',
   ) {
     const confirmedIntent = await this.stripe.paymentIntents.confirm(
       paymentIntentId,
       {
         payment_method: paymentMethodId,
-      }
+      },
     );
 
     return {
@@ -158,7 +158,7 @@ export class PaymentService {
 
   async cancelPaymentIntent(paymentIntentId: string) {
     const canceledPayment = await this.stripe.paymentIntents.cancel(
-      paymentIntentId
+      paymentIntentId,
     );
 
     return {
@@ -179,7 +179,7 @@ export class PaymentService {
       event = this.stripe.webhooks.constructEvent(
         request.body,
         signature,
-        process.env.STRIPE_WEBHOOK_SECRET
+        process.env.STRIPE_WEBHOOK_SECRET,
       );
     } catch (err) {
       throw new AppError('Webhook signature verification failed', 400);
@@ -234,7 +234,7 @@ export class PaymentService {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     await this.updatePayment(paymentIntentId, { status: 'paid' });

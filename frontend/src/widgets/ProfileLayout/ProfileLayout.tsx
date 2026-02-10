@@ -29,7 +29,7 @@ function ProfileLayout<T extends Tab>({
           setCurrentItem={setCurrentItem}
           currentItem={currentItem}
         />
-        <div className={styles.content}>{children}</div>
+        <section className={styles.content}>{children}</section>
       </div>
     </div>
   );

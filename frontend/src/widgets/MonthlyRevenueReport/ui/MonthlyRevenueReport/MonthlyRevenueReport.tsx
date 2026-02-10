@@ -24,7 +24,7 @@ const MonthlyRevenueReport = () => {
         .unwrap()
         .then()
         .catch((error) =>
-          toast.error(`Error getting monthly revenue: ${error}`)
+          toast.error(`Error getting monthly revenue: ${error}`),
         );
     }
   }, [monthlyRevenue.length, dispatch]);
@@ -36,12 +36,12 @@ const MonthlyRevenueReport = () => {
         data: months.map(
           (_, i) =>
             monthlyRevenue.find(({ _id: period }) => period.month - 1 === i)
-              ?.totalRevenue || 0
+              ?.totalRevenue || 0,
         ),
         backgroundColor: BAR_COLORS,
       },
     ],
-    [monthlyRevenue]
+    [monthlyRevenue],
   );
 
   const data = {
@@ -57,7 +57,12 @@ const MonthlyRevenueReport = () => {
         <>
           <h2>Monthly Revenue</h2>
           <div className="chart">
-            <Bar options={options} data={data} />
+            <Bar
+              options={options}
+              data={data}
+              role="img"
+              aria-label="Monthly Revenue"
+            />
           </div>
         </>
       )}

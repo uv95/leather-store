@@ -51,7 +51,7 @@ function Sidebar<T extends Tab>({
         />
       )}
 
-      <div className={styles.nav}>
+      <nav className={styles.nav} aria-label="Sidebar">
         {items.map((item) => (
           <Button
             theme={ButtonTheme.CLEAR}
@@ -64,6 +64,12 @@ function Sidebar<T extends Tab>({
             className={`${styles.button} ${
               currentItem === item.text ? styles.buttonActive : ''
             }`}
+            aria-current={currentItem === item.text ? 'page' : undefined}
+            aria-describedby={
+              item.text === UserSidebarTab.LOG_OUT
+                ? 'logout-description'
+                : undefined
+            }
           >
             <div className={styles.icon}>
               <img src={item.icon} alt={item.text} />
@@ -71,7 +77,10 @@ function Sidebar<T extends Tab>({
             <div className={styles.text}>{item.text}</div>
           </Button>
         ))}
-      </div>
+        <span id="logout-description" className={styles.visuallyHidden}>
+          This action will log you out of your account
+        </span>
+      </nav>
     </>
   );
 }
