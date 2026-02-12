@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '../../entities/User';
 import { SidebarItem, Tab } from '../../shared/config/sidebar/sidebarItems';

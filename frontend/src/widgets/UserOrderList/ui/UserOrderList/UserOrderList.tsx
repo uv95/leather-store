@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../../../shared/lib/hooks/useAppDispatch';
 import toast from '../../../../shared/lib/toast/toast';
 import UserOrderListItem from '../UserOrderListItem/UserOrderListItem';
 import UserOrderListSkeleton from '../UserOrderListSkeleton/UserOrderListSkeleton';
-import './userOrderList.scss';
+import styles from './UserOrderList.module.scss';
 
 const UserOrderList = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const UserOrderList = () => {
 
   const userOrders = useMemo(
     () => [...userActiveOrders, ...userCompletedOrders],
-    [userActiveOrders, userCompletedOrders]
+    [userActiveOrders, userCompletedOrders],
   );
 
   useEffect(() => {
@@ -33,35 +33,47 @@ const UserOrderList = () => {
   }, [dispatch, userOrders.length]);
 
   return (
-    <div className="userOrderList">
-      <h1 className="userOrderList-title">My Orders</h1>
+    <>
+      <h1 className={styles.heading}>My Orders</h1>
 
       {loading === 'pending' && <UserOrderListSkeleton />}
 
       {loading === 'succeeded' && (
-        <div className="userOrderList-container">
+        <div className={styles.container}>
           {!userOrders.length && (
-            <p className="userOrderList-empty">Order list is empty.</p>
+            <p className={styles.emptyList} role="status">
+              Order list is empty.
+            </p>
           )}
 
           {userActiveOrders.length !== 0 && (
-            <h2 className="userOrderList__section-title">Active</h2>
+            <>
+              <h2 className={styles.sectionTitle}>Active</h2>
+              <ul className={styles.orderList}>
+                {userActiveOrders.map((order) => (
+                  <li key={order._id}>
+                    <UserOrderListItem order={order} />
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
-
-          {userActiveOrders.map((order) => (
-            <UserOrderListItem key={order._id} order={order} />
-          ))}
 
           {userCompletedOrders.length !== 0 && (
-            <h2 className="userOrderList__section-title">Completed</h2>
+            <>
+              <h2 className={styles.sectionTitle}>Completed</h2>
+              <ul className={styles.orderList}>
+                {userCompletedOrders.map((order) => (
+                  <li key={order._id}>
+                    <UserOrderListItem order={order} />
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
-
-          {userCompletedOrders.map((order) => (
-            <UserOrderListItem key={order._id} order={order} />
-          ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

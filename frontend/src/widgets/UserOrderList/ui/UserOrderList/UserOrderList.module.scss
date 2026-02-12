@@ -1,0 +1,29 @@
+@import '../../../../app/styles/mixins/global.scss';
+@import '../../../../app/styles/animations/global.scss';
+
+.heading {
+  @include heading;
+}
+
+.container {
+  @include list;
+  margin-bottom: 1rem;
+
+  @include max500 {
+    margin-top: 2rem;
+  }
+}
+.sectionTitle {
+  @include subtitleWithUnderline;
+}
+
+.emptyList {
+  font-size: 2rem;
+}
+
+.orderList {
+  @include list;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  list-style-type: none;
+}

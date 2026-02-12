@@ -23,7 +23,7 @@ const UserOrderListItem = ({ order }: UserOrderListItemProps) => {
       })}`,
       status,
     }),
-    [orderId, status, createdAt]
+    [orderId, status, createdAt],
   );
 
   return (
