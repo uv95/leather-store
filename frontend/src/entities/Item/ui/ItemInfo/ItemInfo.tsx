@@ -23,7 +23,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
   const role = useSelector(getUserRole);
 
   const [leatherType, setLeatherType] = useState<LeatherType>(
-    LeatherType.CRAZY_HORSE
+    LeatherType.CRAZY_HORSE,
   );
 
   const [leatherColor, setLeatherColor] = useState<Color>(Color.BLACK);
@@ -48,7 +48,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    setLeatherType(target.name as LeatherType);
+    setLeatherType(target.value as LeatherType);
   };
 
   return (
@@ -62,7 +62,8 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
             {Object.values(LeatherType).map((type) => (
               <Input
                 key={type}
-                name={type}
+                name="leather type"
+                value={type}
                 label={type}
                 onChange={onChange}
                 isChecked={leatherType === type}
@@ -70,12 +71,15 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
               />
             ))}
           </div>
-          <div
+          <Button
             className={styles.leatherTypeInfo}
             onClick={() => navigate(RoutePath.LEATHERS)}
+            isSquare
+            aria-label="Learn more about leather types"
+            title="Learn more about leather types"
           >
             ?
-          </div>
+          </Button>
         </div>
       </div>
 

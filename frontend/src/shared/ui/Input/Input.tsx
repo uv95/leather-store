@@ -35,16 +35,16 @@ const Input = (props: InputProps) => {
       {label && (
         <label
           className={classNames(styles.label, mods, [])}
-          htmlFor={name || label}
+          htmlFor={label || name}
         >
           {label}
         </label>
       )}
       <input
-        id={name || label}
+        id={label || name}
         name={name}
         type={type}
-        value={isCheckbox ? undefined : value}
+        value={value}
         onChange={onChange}
         checked={isCheckbox ? isChecked : undefined}
         className={classNames(styles.input, { [styles.fileInput]: accept }, [])}

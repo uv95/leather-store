@@ -16,6 +16,8 @@ const CartButton = ({
   isSelectAddressOpen,
   addressNum,
 }: CartButtonProps) => {
+  const isDisabled = isSelectAddressOpen && !addressNum;
+
   return (
     <div className={styles.CartButton}>
       <Button
@@ -23,7 +25,7 @@ const CartButton = ({
         theme={ButtonTheme.BLACK}
         size={ButtonSize.L}
         isAnimated={isSelectAddressOpen}
-        disabled={!isSelectAddressOpen ? false : !addressNum}
+        disabled={isDisabled}
       >
         {isSelectAddressOpen ? 'Checkout' : 'Select delivery address'}
       </Button>
