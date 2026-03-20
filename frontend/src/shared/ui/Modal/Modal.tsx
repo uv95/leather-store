@@ -16,7 +16,7 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
         onClose();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
@@ -36,8 +36,14 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
         aria-hidden="true"
         onClick={onClose}
       ></div>
-      <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
+      <FocusTrap
+        focusTrapOptions={{
+          clickOutsideDeactivates: true,
+          fallbackFocus: '#dialog',
+        }}
+      >
         <div
+          id="dialog"
           className="modal"
           role="dialog"
           aria-modal="true"
@@ -47,7 +53,7 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
         </div>
       </FocusTrap>
     </>,
-    (document.getElementById('root') as HTMLElement) || document.body
+    (document.getElementById('root') as HTMLElement) || document.body,
   );
 };
 

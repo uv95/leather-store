@@ -19,4 +19,20 @@ export interface ClearCartDto {
   cartId: string;
 }
 
-export type MergeCartItemsDto = CreateCartItemDto[];
+export type MergeCartItemsDto = {
+  leatherType: LeatherType;
+  quantity: number;
+  price: number;
+  item: {
+    _id: string;
+    name: string;
+    imageCover: {
+      url: string;
+      public_id: string;
+    };
+  };
+  colors: {
+    leather: Color;
+    thread: Color;
+  };
+}[];

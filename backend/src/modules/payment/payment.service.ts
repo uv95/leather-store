@@ -195,6 +195,24 @@ export class PaymentService {
           paymentIntentId,
         });
       }
+      case 'charge.updated': {
+        const { metadata, id: paymentIntentId } = event.data.object;
+        const { orderId } = metadata;
+
+        return await this.handlePaymentIntentSucceeded({
+          orderId,
+          paymentIntentId,
+        });
+      }
+      case 'charge.succeeded': {
+        const { metadata, id: paymentIntentId } = event.data.object;
+        const { orderId } = metadata;
+
+        return await this.handlePaymentIntentSucceeded({
+          orderId,
+          paymentIntentId,
+        });
+      }
 
       case 'payment_intent.payment_failed': {
         const { id: paymentIntentId } = event.data.object;

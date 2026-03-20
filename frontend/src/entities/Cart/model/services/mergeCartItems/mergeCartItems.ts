@@ -29,11 +29,13 @@ export const mergeCartItems = createAsyncThunk<
       throw new Error();
     }
 
-    navigate('/');
+    // navigate('/cart');
     localStorage.removeItem(LOCAL_STORAGE_CART);
 
     return response.data;
   } catch (error) {
-    return rejectWithValue(extractErrorMessage(error as AxiosError | ApiErrorResponse));
+    return rejectWithValue(
+      extractErrorMessage(error as AxiosError | ApiErrorResponse),
+    );
   }
 });

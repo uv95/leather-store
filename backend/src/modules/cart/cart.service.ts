@@ -138,7 +138,7 @@ export class CartService {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     const cartId = String(cartItem.cart._id);
@@ -155,12 +155,10 @@ export class CartService {
       await CartItem.findOneAndUpdate(
         {
           cart: cartId,
-          item: cartItem.item,
+          item: cartItem.item._id,
           leatherType: cartItem.leatherType,
-          colors: {
-            leather: cartItem.colors.leather,
-            thread: cartItem.colors.thread,
-          },
+          'colors.leather': cartItem.colors.leather,
+          'colors.thread': cartItem.colors.thread,
           price: cartItem.price,
         },
         {
@@ -169,7 +167,7 @@ export class CartService {
         {
           upsert: true,
           new: true,
-        }
+        },
       );
     }
 
