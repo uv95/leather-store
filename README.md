@@ -28,9 +28,102 @@ Live: https://leather-store.netlify.app/
 - **Analytics / Reports**:
   - Monthly revenue (bar chart)
   - Revenue by product category (doughnut chart)
-  - Quantity sold by category (doughnut chart)
+  - Quantity sold by category (doughnut chart
+ 
+##
+
+## API Endpoints
+### Auth
+
+| Method | Endpoint                     | Description                  |
+| ------ | ---------------------------- | ---------------------------- |
+| POST   | `/auth/signup`               | Register new user            |
+| POST   | `/auth/login`                | Login user                   |
+| PATCH  | `/auth/resetPassword/:token` | Reset password via token     |
+| PATCH  | `/auth/updatePassword`       | Update current user password |
+
+### Users
+
+| Method | Endpoint             | Description         |
+| ------ | -------------------- | ------------------- |
+| GET    | `/user`             | Get all users       |
+| GET    | `/user/currentUser` | Get current user    |
+| PATCH  | `/user/currentUser` | Update current user |
+| DELETE | `/user/currentUser` | Delete current user |
+
+## Addresses
+
+| Method | Endpoint                | Description        |
+| ------ | ----------------------- | ------------------ |
+| GET    | `/address`            | Get user addresses |
+| POST   | `/address`            | Create new address |
+| PATCH  | `/address/:addressId` | Update address     |
+| DELETE | `/address/:addressId` | Delete address     |
+
+## Items
+
+| Method | Endpoint            | Description      |
+| ------ | ------------------- | ---------------- |
+| GET    | `/item`            | Get all items    |
+| GET    | `/item/:itemId`    | Get item by ID   |
+| GET    | `/item/slug/:slug` | Get item by slug |
+| POST   | `/item`            | Create new item  |
+| PATCH  | `/item/:itemId`    | Update item      |
+| DELETE | `/item/:itemId`    | Delete item      |
+
+
+## Cart
+
+| Method | Endpoint                 | Description           |
+| ------ | ------------------------ | --------------------- |
+| GET    | `/cart`                  | Get current cart      |
+| POST   | `/cart`                  | Merge cart items      |
+| POST   | `/cart/:cartId`          | Add item to cart      |
+| GET    | `/cart/:cartId`          | Get cart items        |
+| DELETE | `/cart/:cartId`          | Clear cart            |
+| GET    | `/cart/:cartId/count`    | Get cart items count  |
+| PATCH  | `/cart/item/:cartItemId` | Change item quantity  |
+| DELETE | `/cart/item/:cartItemId` | Remove item from cart |
+
+## Orders
+
+| Method | Endpoint                   | Description             |
+| ------ | -------------------------- | ----------------------- |
+| GET    | `/order`                  | Get all orders          |
+| POST   | `/order`                  | Create new order        |
+| GET    | `/order/userOrders`       | Get user orders         |
+| GET    | `/order/userOrders/count` | Get active orders count |
+| GET    | `/order/:orderId`         | Get order by ID         |
+| PATCH  | `/order/:orderId`         | Update order            |
+| DELETE | `/order/:orderId`         | Delete order            |
+
+## Payments
+
+| Method | Endpoint                             | Description      |
+| ------ | ------------------------------------ | ---------------- |
+| POST   | `/order/:orderId/payment`           | Create payment   |
+| GET    | `/order/:orderId/payment`           | Get payment      |
+| GET    | `/payment`                          | Get all payments |
+| POST   | `/payment/:paymentIntentId/confirm` | Confirm payment  |
+| POST   | `/payment/:paymentIntentId/cancel`  | Cancel payment   |
+| GET    | `/payment/:paymentIntentId`         | Retrieve payment |
+
+## Analytics
+
+| Method | Endpoint                        | Description            |
+| ------ | ------------------------------- | ---------------------- |
+| GET    | `/analytics/monthly-revenue`    | Get monthly revenue    |
+| GET    | `/analytics/orders-by-category` | Get orders by category |
+
 
 ##
+
+## Schema
+
+![Leather Store Schema](https://github.com/user-attachments/assets/57186896-b218-408b-8827-b80c76031d0e)
+
+##
+## UI
 
 <img width="914" alt="leather-store-main" src="https://github.com/user-attachments/assets/5dc2b427-52c9-454d-a24e-ca064d8bdbea" />
 
