@@ -1,6 +1,7 @@
 @import '../../../../app/styles/mixins/global.scss';
 
-.checkoutAddressCard {
+.CheckoutAddressCard {
+  border: none;
   height: fit-content;
   min-height: 8rem;
   width: 100%;
@@ -12,27 +13,27 @@
   transition: all 0.2s;
   cursor: pointer;
 
-  &:not(.checkoutAddressCard--selected):hover {
+  &:not(.selected):hover {
     transform: scale(0.99);
   }
 
   @include max500 {
     padding: 0.5rem 0;
   }
+}
 
-  &--selected {
-    outline: 2px solid var(--color-grey--medium);
-  }
+.selected {
+  outline: 2px solid var(--color-grey--medium);
+}
 
-  &-content {
-    width: 85%;
-    padding: 0 2rem;
-    padding-right: 1rem;
-    font-size: 2rem;
+.content {
+  width: 85%;
+  padding: 0 2rem;
+  padding-right: 1rem;
+  font-size: 2rem;
 
-    @include max500 {
-      font-size: 1.7rem;
-      padding: 0 1rem;
-    }
+  @include max500 {
+    font-size: 1.7rem;
+    padding: 0 1rem;
   }
 }

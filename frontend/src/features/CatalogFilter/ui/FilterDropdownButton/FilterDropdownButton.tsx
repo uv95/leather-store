@@ -1,4 +1,5 @@
-import './filterDropdownButton.scss';
+import styles from './FilterDropdownButton.module.scss';
+import { classNames } from '../../../../shared/lib/classNames/classNames';
 
 interface FilterDropdownButtonProps {
   onClick: () => void;
@@ -14,9 +15,11 @@ const FilterDropdownButton = ({
   return (
     <button
       onClick={onClick}
-      className={`filterDropdownButton ${
-        isSelected ? 'filterDropdownButton--selected' : ''
-      }`}
+      className={classNames(
+        styles.FilterDropdownButton,
+        { [styles.isSelected]: isSelected },
+        [],
+      )}
     >
       {text}
     </button>
