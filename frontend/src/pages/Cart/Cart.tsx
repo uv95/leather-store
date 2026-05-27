@@ -54,7 +54,7 @@ const Cart = () => {
         })
         .catch((error) => toast.error(error));
     },
-    [dispatch, cartId]
+    [dispatch, cartId],
   );
 
   function handleCartButton() {

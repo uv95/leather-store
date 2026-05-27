@@ -17,33 +17,37 @@ const CartOrderStatusModal = memo(
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (loading === 'succeeded') {
-        setTimeout(() => {
-          navigate(`/checkout?orderId=${orderId}`);
-        }, 1500);
-      }
+      if (loading !== 'succeeded') return;
+
+      const timer = setTimeout(() => {
+        navigate(`/checkout?orderId=${orderId}`);
+      }, 1500);
+
+      return () => clearTimeout(timer);
     }, [loading, navigate, orderId]);
 
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         {loading === 'pending' && (
-          <p className={styles.text}>Placing order...</p>
+          <p className={styles.text} role="status" aria-live="polite">
+            Placing order...
+          </p>
         )}
 
         {loading === 'failed' && (
-          <p className={styles.text}>
+          <p className={styles.text} role="status" aria-live="assertive">
             An error occurred! Please reload the page and try again.
           </p>
         )}
 
         {loading === 'succeeded' && (
-          <p className={styles.text}>
+          <p className={styles.text} role="status" aria-live="polite">
             Order created! You are being redirected to the payment page.
           </p>
         )}
       </Modal>
     );
-  }
+  },
 );
 
 export default CartOrderStatusModal;

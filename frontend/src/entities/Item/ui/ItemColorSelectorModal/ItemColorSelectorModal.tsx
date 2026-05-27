@@ -19,31 +19,72 @@ const ItemColorSelectorModal: React.FC<ItemColorSelectorModalProps> = ({
   isOpen,
 }) => {
   const colors = Object.values(Color);
+  const COLUMNS = 3;
+  const ROWS = Math.ceil(colors.length / COLUMNS);
 
   const handleOnKeyDown: KeyboardEventHandler<HTMLButtonElement> = (e) => {
     const currentIndex = colors.indexOf(selectedColor);
+    const row = Math.floor(currentIndex / COLUMNS);
+    const col = currentIndex % COLUMNS;
+
+    let newRow = row;
+    let newCol = col;
+
+    switch (e.key) {
+      case 'ArrowRight':
+        newCol = (col + 1) % COLUMNS;
+        break;
+
+      case 'ArrowLeft':
+        newCol = (col - 1 + COLUMNS) % COLUMNS;
+        break;
+
+      case 'ArrowDown':
+        newRow = (row + 1) % ROWS;
+        break;
+
+      case 'ArrowUp':
+        newRow = (row - 1 + ROWS) % ROWS;
+        break;
+
+      case 'Enter':
+        onClose();
+        return;
+
+      default:
+        return;
+    }
+
     e.preventDefault();
-    let nextIndex = currentIndex;
 
-    if (e.key === 'ArrowRight') {
-      nextIndex = currentIndex === colors.length - 1 ? 0 : currentIndex + 1;
-    }
-    if (e.key === 'ArrowLeft') {
-      nextIndex = currentIndex === 0 ? colors.length - 1 : currentIndex - 1;
-    }
-    if (e.key === 'ArrowDown') {
-      nextIndex = currentIndex > 5 ? currentIndex - 6 : currentIndex + 3;
-    }
-    if (e.key === 'ArrowUp') {
-      nextIndex = currentIndex < 3 ? currentIndex + 6 : currentIndex - 3;
-    }
+    const nextIndex = newRow * COLUMNS + newCol;
 
-    setColor(colors[nextIndex]);
-
-    if (e.key === 'Enter') {
-      onClose();
+    if (nextIndex < colors.length) {
+      setColor(colors[nextIndex]);
     }
   };
+  //   e.preventDefault();
+  //   let nextIndex = currentIndex;
+
+  //   if (e.key === 'ArrowRight') {
+  //     nextIndex = currentIndex === colors.length - 1 ? 0 : currentIndex + 1;
+  //   }
+  //   if (e.key === 'ArrowLeft') {
+  //     nextIndex = currentIndex === 0 ? colors.length - 1 : currentIndex - 1;
+  //   }
+  //   if (e.key === 'ArrowDown') {
+  //     nextIndex = currentIndex > 5 ? currentIndex - 6 : currentIndex + 3;
+  //   }
+  //   if (e.key === 'ArrowUp') {
+  //     nextIndex = currentIndex < 3 ? currentIndex + 6 : currentIndex - 3;
+  //   }
+
+  //   setColor(colors[nextIndex]);
+
+  //   if (e.key === 'Enter') {
+  //     onClose();
+  //   }
+  // };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
