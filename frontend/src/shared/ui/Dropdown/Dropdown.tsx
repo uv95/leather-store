@@ -22,7 +22,7 @@ const Dropdown = ({ children, buttonText }: DropdownProps) => {
       <Button
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-haspopup="listbox"
       >
         {buttonText}
       </Button>

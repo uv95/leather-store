@@ -10,11 +10,14 @@ interface ItemCardProps {
 
 const ItemCard: React.FC<ItemCardProps> = React.memo(({ item }) => {
   return (
-    <Link to={RoutePath.ITEM_PAGE.replace(':slug', item.slug)}>
+    <Link
+      to={RoutePath.ITEM_PAGE.replace(':slug', item.slug)}
+      aria-label={`${item.name}, $${item.price}`}
+    >
       <div className={styles.image}>
-        <img src={item.imageCover.url} alt={item.name} aria-hidden="true" />
+        <img src={item.imageCover.url} alt={''} />
       </div>
-      <div className={styles.info}>
+      <div className={styles.info} aria-hidden="true">
         <p className={styles.name}>{item.name}</p>
         <p>${item.price}</p>
       </div>

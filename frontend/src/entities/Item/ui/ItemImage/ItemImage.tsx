@@ -11,15 +11,18 @@ interface ItemImageProps {
 interface Slide {
   path: string;
   name: string;
+  alt: string;
 }
 
 const ItemImage: React.FC<ItemImageProps> = ({ item }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const allItemImages = [item.imageCover, ...item.images];
 
-  const slides: Slide[] = allItemImages.map((img) => ({
+  const slides: Slide[] = allItemImages.map((img, i) => ({
     path: img.url,
     name: img.url,
+    alt:
+      i === 0 ? `${item.name} — main photo` : `${item.name} — photo ${i + 1}`,
   }));
 
   const goToPrevious = useCallback(() => {
@@ -63,14 +66,19 @@ const ItemImage: React.FC<ItemImageProps> = ({ item }) => {
         className={styles.slider}
         role="region"
         aria-roledescription="slides"
-        aria-label="Product images"
+        aria-label={`${item.name} photos`}
+        aria-live="polite"
+        aria-atomic="true"
       >
+        <span className="sr-only">
+          {currentIndex + 1} of {slides.length}
+        </span>
         {slides.map((slide, index) => (
           <img
             key={slide.name}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             src={slide.path}
-            alt={'Product'}
+            alt={index === currentIndex ? slide.alt : ''}
             className={styles.sliderImage}
             aria-hidden={index !== currentIndex}
           />

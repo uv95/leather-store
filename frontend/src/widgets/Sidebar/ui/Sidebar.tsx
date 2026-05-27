@@ -72,7 +72,7 @@ function Sidebar<T extends Tab>({
             }
           >
             <div className={styles.icon}>
-              <img src={item.icon} alt={item.text} />
+              <img src={item.icon} alt={''} aria-hidden={true} />
             </div>
             <div className={styles.text}>{item.text}</div>
           </Button>

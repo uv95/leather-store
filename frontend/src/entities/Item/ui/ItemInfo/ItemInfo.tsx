@@ -90,14 +90,19 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ item }) => {
         threadColor={threadColor}
       />
 
-      <div className={styles.descriptionHeading}>DESCRIPTION</div>
-      <div className={styles.description}>{item.description}</div>
+      <section aria-labelledby="item-description-heading">
+        <h2 id="item-description-heading" className={styles.descriptionHeading}>
+          Description
+        </h2>
+        <p className={styles.description}>{item.description}</p>
+      </section>
 
       {role !== Role.ADMIN && (
         <Button
           onClick={() => addItemToCart(cartItemDto)}
           theme={ButtonTheme.BLACK}
           size={ButtonSize.L}
+          aria-label={`Add ${item.name} to cart`}
         >
           Add to cart
         </Button>

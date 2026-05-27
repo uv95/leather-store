@@ -59,13 +59,18 @@ const Header = () => {
         <UserOrAdminLink />
 
         {user?.role !== Role.ADMIN && (
-          <Link to={RoutePath.CART} className={styles.cartLink}>
-            <CartIcon className={styles.icon} />
+          <Link
+            to={RoutePath.CART}
+            className={styles.cartLink}
+            aria-label={
+              cartItemCount
+                ? `Cart, ${cartItemCount} ${cartItemCount === 1 ? 'item' : 'items'}`
+                : 'Cart'
+            }
+          >
+            <CartIcon className={styles.icon} aria-hidden="true" />
             {cartItemCount !== 0 && (
-              <Badge
-                value={cartItemCount}
-                label={`${cartItemCount === 1 ? 'item' : 'items'} in cart`}
-              />
+              <Badge value={cartItemCount} aria-hidden="true" />
             )}
           </Link>
         )}
@@ -94,15 +99,18 @@ function UserOrAdminLink() {
     <Link
       to={getHref(role)}
       className={role === Role.USER ? styles.userLink : ''}
+      aria-label={
+        role === Role.ADMIN ? 'Admin profile' : user ? 'My profile' : 'Log in'
+      }
     >
       {role === Role.ADMIN ? (
-        <AdminIcon className={styles.icon} aria-label="Go to admin profile" />
+        <AdminIcon className={styles.icon} aria-hidden="true" />
       ) : (
         <>
           {user ? (
-            <UserIcon className={styles.icon} aria-label="Go to user profile" />
+            <UserIcon className={styles.icon} aria-hidden="true" />
           ) : (
-            <LoginIcon className={styles.icon} aria-label="Go to login page" />
+            <LoginIcon className={styles.icon} aria-hidden="true" />
           )}
           {user && userActiveOrderCount !== 0 && (
             <Badge
