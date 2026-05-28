@@ -13,7 +13,7 @@ import Button, {
   ButtonTheme,
 } from '../../../../shared/ui/Button/Button';
 import Input from '../../../../shared/ui/Input/Input';
-import './itemDetails.scss';
+import styles from './ItemDetails.module.scss';
 
 type ItemDetailsProps = { item: Item };
 
@@ -50,7 +50,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
   const onChange = (
     e: React.FormEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const target = e.target as HTMLInputElement;
     setFormData((prev) => ({
@@ -60,10 +60,10 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
   };
 
   return (
-    <div className="itemDetails">
-      <form className="itemDetails__form" id="form">
-        <div className="itemDetails__form__section">
-          <div className="itemDetails__form__box">
+    <div className={styles.ItemDetails}>
+      <form className={styles.form} id="item-details-form">
+        <div className={styles.section}>
+          <div className={styles.inputContainer}>
             <Input
               name="name"
               label="Name"
@@ -73,16 +73,14 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
               placeholder="Crazy Horse Wallet"
             />
           </div>
-          <div className="itemDetails__form__box">
-            <label htmlFor="type" className="itemDetails__form__box-label">
-              Item type
-            </label>
+          <div className={styles.inputContainer}>
+            <label htmlFor="type">Item type</label>
             <select
               onChange={onChange}
               name="type"
               value={type}
               id="type"
-              className="itemDetails__form__box-select"
+              className={styles.select}
             >
               {Object.values(ItemType).map((option) => (
                 <option key={option} value={option}>
@@ -92,8 +90,8 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             </select>
           </div>
         </div>
-        <div className="itemDetails__form__section">
-          <div className="itemDetails__form__box">
+        <div className={styles.section}>
+          <div className={styles.inputContainer}>
             <Input
               name="price"
               label="Price"
@@ -103,24 +101,18 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
               placeholder="1000"
             />
           </div>
-          <div className="itemDetails__form__box">
-            <label
-              htmlFor="description"
-              className="itemDetails__form__box-label"
-            >
-              Description
-            </label>
+          <div className={styles.inputContainer}>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               name="description"
               value={description}
-              className="itemDetails__form__box-input"
               placeholder="Enter item description"
               onChange={onChange}
             />
           </div>
         </div>
-        <div className="itemDetails__form-buttons">
+        <div className={styles.buttons}>
           <Button
             theme={ButtonTheme.BLACK}
             size={ButtonSize.L}
@@ -134,6 +126,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
             size={ButtonSize.L}
             onClick={(e) => onClick(e, 'delete')}
             disabled={isLoading}
+            aria-label={`Delete item "${item.name}"`}
           >
             Delete
           </Button>

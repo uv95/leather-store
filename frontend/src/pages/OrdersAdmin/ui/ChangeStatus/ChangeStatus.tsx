@@ -19,16 +19,17 @@ const ChangeStatus = ({ currentStatus, orderId }: ChangeStatusProps) => {
         .then()
         .catch((error) => toast.error(error));
     },
-    [dispatch, orderId]
+    [dispatch, orderId],
   );
 
   return (
-    <div className="changeStatus">
+    <div className="changeStatus" role="group" aria-label="Change order status">
       {Object.values(OrderStatus).map((status) => (
         <Button
           key={status}
           onClick={() => updateStaus(status)}
           theme={ButtonTheme.CLEAR}
+          aria-label={`Set status to: ${status}`}
         >
           <OrderStatusBadge
             status={status}

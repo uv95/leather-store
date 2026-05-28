@@ -15,7 +15,7 @@ const CheckoutSuccessfulContent = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const [status, setStatus] = useState<'loading' | 'success' | 'failed'>(
-    'loading'
+    'loading',
   );
   const clientSecret = params.get('payment_intent_client_secret') || '';
 
@@ -44,10 +44,17 @@ const CheckoutSuccessfulContent = () => {
 
   return (
     <div className={styles.CheckoutSuccessfulContent}>
-      {status === 'loading' && <p>Processing...</p>}
+      {status === 'loading' && (
+        <p role="status" aria-live="polite">
+          Processing...
+        </p>
+      )}
       {status === 'success' && (
         <>
-          <Success className={`${styles.icon} ${styles.successIcon}`} />
+          <Success
+            className={`${styles.icon} ${styles.successIcon}`}
+            aria-hidden="true"
+          />
           <h1>Payment Successful</h1>
           <p>Thank you for your payment. Your order is being processed.</p>
           <Button
@@ -56,13 +63,16 @@ const CheckoutSuccessfulContent = () => {
             className={styles.button}
             onClick={() => navigate(RoutePath.USER_PROFILE)}
           >
-            View Orders
+            View My Orders
           </Button>
         </>
       )}
       {status === 'failed' && (
-        <>
-          <PaymentError className={`${styles.icon} ${styles.errorIcon}`} />
+        <div role="alert">
+          <PaymentError
+            className={`${styles.icon} ${styles.errorIcon}`}
+            aria-hidden="true"
+          />
           <h1>Payment Failed</h1>
           <p>Please try again </p>
           <Button
@@ -73,7 +83,7 @@ const CheckoutSuccessfulContent = () => {
           >
             Go Back
           </Button>
-        </>
+        </div>
       )}
     </div>
   );

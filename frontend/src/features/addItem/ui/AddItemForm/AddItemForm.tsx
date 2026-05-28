@@ -62,7 +62,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   const onChange = (
     e: React.FormEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const target = e.target as HTMLInputElement;
 
@@ -84,17 +84,28 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   return (
     <>
       <h1 className="title">Add Item</h1>
-      <form className="form" id="form" onSubmit={onSubmit}>
+      <form
+        className="form"
+        id="add-item-form"
+        aria-label="Add new item"
+        onSubmit={onSubmit}
+      >
+        <div role="status" aria-live="polite" className="sr-only">
+          {isLoading ? 'Saving item...' : ''}
+        </div>
+
         <div className="form__box">
-          <label htmlFor="type" className="form__box-label">
+          <label htmlFor="item-type" className="form__box-label">
             Item type
+            <span className="sr-only">(required)</span>
           </label>
           <select
             onChange={onChange}
             name="type"
-            id="type"
+            id="item-type"
             className="form__box-select"
             disabled={isLoading}
+            aria-required="true"
           >
             {Object.values(ItemType).map((option) => (
               <option key={option} value={option}>
@@ -126,11 +137,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
           />
         </div>
         <div className="form__box">
-          <label htmlFor="description" className="form__box-label">
+          <label htmlFor="item-description" className="form__box-label">
             Description
           </label>
           <textarea
-            id="description"
+            id="item-description"
             name="description"
             className="form__box-input"
             placeholder="Enter item description"
@@ -148,7 +159,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
             accept="image/jpeg, image/jpg"
             disabled={isLoading}
             required
+            aria-describedby="image-cover-hint"
           />
+          <span id="image-cover-hint" className="sr-only">
+            Accepted formats: JPEG, JPG
+          </span>
         </div>
         <div className="form__box">
           <Input
@@ -159,7 +174,11 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
             accept="image/jpeg, image/jpg"
             disabled={isLoading}
             multiple
+            aria-describedby="images-hint"
           />
+          <span id="images-hint" className="sr-only">
+            Accepted formats: JPEG, JPG. You can select up to 3 files.
+          </span>
         </div>
         <div className="form__btn">
           <Button
@@ -167,8 +186,9 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
             disabled={isLoading}
             theme={ButtonTheme.BLACK}
             size={ButtonSize.L}
+            aria-label={isLoading ? 'Saving item...' : 'Add item'}
           >
-            Add
+            {isLoading ? 'Saving...' : 'Add'}
           </Button>
         </div>
       </form>
