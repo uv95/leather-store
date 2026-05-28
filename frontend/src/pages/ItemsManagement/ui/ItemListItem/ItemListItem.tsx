@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { Item } from '../../../../entities/Item';
 import ListItemLayout from '../../../../shared/ui/ListItemLayout/ListItemLayout';
 import ItemDetails from '../ItemDetails/ItemDetails';
@@ -11,40 +11,39 @@ type ItemListItemProps = {
 const ItemListItem = ({ item }: ItemListItemProps) => {
   const { imageCover, _id: itemId, name, type, price } = item;
 
-  const itemData: Record<string, string> = useMemo(
-    () => ({
-      imageCover: imageCover.url,
-      itemId: `ID: ${itemId.slice(0, 8)}`,
-      name,
-      type: type.split('')[0].toUpperCase() + type.slice(1),
-      price: `$${price}`,
-    }),
-    [imageCover.url, itemId, name, type, price],
-  );
-
   return (
     <ListItemLayout Details={<ItemDetails item={item} />}>
-      <div
+      <dl
         className="itemListItem ItemListItem-withImage"
         style={{
-          gridTemplateColumns: `repeat(${Object.keys(itemData).length}, 1fr)`,
+          gridTemplateColumns: `repeat(5, 1fr)`,
         }}
       >
-        {Object.keys(itemData).map((dataKey) => (
-          <div key={dataKey} className={`itemListItem__field`}>
-            <div className="itemListItem__field-content">
-              {dataKey === 'imageCover' ? (
-                <img
-                  src={itemData.imageCover}
-                  alt={`${item.name} product photo`}
-                />
-              ) : (
-                itemData[dataKey]
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+        <div className="itemListItem__field">
+          <dt className="sr-only">Image cover</dt>
+          <dd className="itemListItem__field-content">
+            <img src={imageCover.url} alt={`${name} product photo`} />
+          </dd>
+        </div>
+        <div className="itemListItem__field">
+          <dt className="sr-only">Item id</dt>
+          <dd className="itemListItem__field-content">{`ID: ${itemId.slice(0, 8)}`}</dd>
+        </div>
+        <div className="itemListItem__field">
+          <dt className="sr-only">Item name</dt>
+          <dd className="itemListItem__field-content">{name}</dd>
+        </div>
+        <div className="itemListItem__field">
+          <dt className="sr-only">Item type</dt>
+          <dd className="itemListItem__field-content">
+            {type.split('')[0].toUpperCase() + type.slice(1)}
+          </dd>
+        </div>
+        <div className="itemListItem__field">
+          <dt className="sr-only">Item price</dt>
+          <dd className="itemListItem__field-content">{`$${price}`}</dd>
+        </div>
+      </dl>
     </ListItemLayout>
   );
 };

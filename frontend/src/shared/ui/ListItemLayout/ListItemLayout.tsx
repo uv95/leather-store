@@ -14,10 +14,17 @@ type ListItemLayoutProps = {
   Details: ReactElement;
   theme?: ListItemTheme;
   className?: string;
+  label?: string;
 };
 
 const ListItemLayout = (props: ListItemLayoutProps) => {
-  const { children, className, Details, theme = ListItemTheme.GREY } = props;
+  const {
+    children,
+    label,
+    className,
+    Details,
+    theme = ListItemTheme.GREY,
+  } = props;
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
@@ -28,13 +35,14 @@ const ListItemLayout = (props: ListItemLayoutProps) => {
           className={styles.iconContainer}
           theme={ButtonTheme.CLEAR}
           aria-expanded={isDetailsOpen}
+          aria-label={label}
           onClick={() => setIsDetailsOpen(!isDetailsOpen)}
         >
           <Arrow
             className={classNames(
               styles.icon,
               { [styles.iconOpen]: isDetailsOpen },
-              []
+              [],
             )}
             aria-hidden="true"
           />
@@ -44,7 +52,7 @@ const ListItemLayout = (props: ListItemLayoutProps) => {
         className={classNames(
           styles.details,
           { [styles.detailsOpen]: isDetailsOpen },
-          []
+          [],
         )}
         aria-hidden={!isDetailsOpen}
       >

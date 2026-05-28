@@ -26,6 +26,10 @@ const ItemPage = () => {
     }
   }, [dispatch, slug]);
 
+  useEffect(() => {
+    document.title = `${item?.name} - ${item?.type}`;
+  }, [item?.name]);
+
   return (
     <div className={styles.Item}>
       <Back />

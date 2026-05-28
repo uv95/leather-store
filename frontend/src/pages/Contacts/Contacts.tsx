@@ -1,9 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 import './contacts.scss';
 
-type Props = {};
+const Contacts = () => {
+  useEffect(() => {
+    document.title = 'Contacts';
+  }, []);
 
-const Contacts = (props: Props) => {
   return (
     <div className="contacts">
       <div className="contacts__container">

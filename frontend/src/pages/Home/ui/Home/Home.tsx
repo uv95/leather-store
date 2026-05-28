@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import author from '../../../../shared/assets/img/about-me.jpg';
 import banner from '../../../../shared/assets/img/bg-1.jpg';
 import ItemsPreview from '../ItemsPreview/ItemsPreview';
 import styles from './Home.module.scss';
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'Leather Store | Home';
+  }, []);
+
   return (
     <div className={styles.Home}>
       <div className={styles.banner} role="presentation">

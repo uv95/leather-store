@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import crazyHorse from '../../shared/assets/img/crazyHorse.jpg';
 import nappa from '../../shared/assets/img/nappa.jpg';
 import pullUp from '../../shared/assets/img/pullUp.jpg';
@@ -5,6 +6,10 @@ import Wrapper from '../../shared/ui/Wrapper/Wrapper';
 import styles from './Leathers.module.scss';
 
 const Leathers = () => {
+  useEffect(() => {
+    document.title = 'Types of Leather';
+  }, []);
+
   return (
     <Wrapper heading="Types of Leather">
       <section className={styles.section}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DeliveryAddresses } from '../../features/DeliveryAddresses';
 import { MyInfo } from '../../features/editUserInfo';
 import {
@@ -10,8 +10,12 @@ import { UserOrderList } from '../../widgets/UserOrderList';
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState<UserSidebarTab>(
-    UserSidebarTab.MY_ORDERS
+    UserSidebarTab.MY_ORDERS,
   );
+
+  useEffect(() => {
+    document.title = `My Profile | ${currentTab}`;
+  }, [currentTab]);
 
   return (
     <ProfileLayout

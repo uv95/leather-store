@@ -37,6 +37,10 @@ const Cart = () => {
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
   const [currentAddressIndex, setCurrentAddressIndex] = useState(0);
 
+  useEffect(() => {
+    document.title = 'Cart';
+  }, []);
+
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);

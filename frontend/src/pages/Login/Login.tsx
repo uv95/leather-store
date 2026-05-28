@@ -26,6 +26,10 @@ const Login = () => {
   });
 
   useEffect(() => {
+    document.title = 'Login';
+  }, []);
+
+  useEffect(() => {
     if (user?.role === Role.ADMIN) {
       navigate(RoutePath.ADMIN_PROFILE);
     }
@@ -67,7 +71,7 @@ const Login = () => {
             mergeCartItems({
               dto: cartItems,
               navigate,
-            })
+            }),
           );
         } else {
           navigate(-1);

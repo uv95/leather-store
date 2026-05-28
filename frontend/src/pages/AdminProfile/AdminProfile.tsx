@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   adminSidebarItems,
   AdminSidebarTab,
@@ -10,8 +10,12 @@ import OrdersAdmin from '../OrdersAdmin';
 
 const AdminProfile = () => {
   const [currentTab, setCurrentTab] = useState<AdminSidebarTab>(
-    AdminSidebarTab.ORDERS
+    AdminSidebarTab.ORDERS,
   );
+
+  useEffect(() => {
+    document.title = `Admin Profile | ${currentTab}`;
+  }, [currentTab]);
 
   return (
     <ProfileLayout
