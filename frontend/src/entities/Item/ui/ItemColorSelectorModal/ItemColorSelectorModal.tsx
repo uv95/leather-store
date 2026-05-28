@@ -1,11 +1,7 @@
-import React from 'react';
-import Button, {
-  ButtonSize,
-  ButtonTheme,
-} from '../../../../shared/ui/Button/Button';
+import React, { KeyboardEventHandler } from 'react';
 import Modal from '../../../../shared/ui/Modal/Modal';
-import styles from './ItemColorSelectorModal.module.scss';
 import { Color, HexColor } from '../../model/types/item';
+import styles from './ItemColorSelectorModal.module.scss';
 
 interface ItemColorSelectorModalProps {
   title: string;
@@ -22,13 +18,91 @@ const ItemColorSelectorModal: React.FC<ItemColorSelectorModalProps> = ({
   onClose,
   isOpen,
 }) => {
+  const colors = Object.values(Color);
+  const COLUMNS = 3;
+  const ROWS = Math.ceil(colors.length / COLUMNS);
+
+  const handleOnKeyDown: KeyboardEventHandler<HTMLButtonElement> = (e) => {
+    const currentIndex = colors.indexOf(selectedColor);
+    const row = Math.floor(currentIndex / COLUMNS);
+    const col = currentIndex % COLUMNS;
+
+    let newRow = row;
+    let newCol = col;
+
+    switch (e.key) {
+      case 'ArrowRight':
+        newCol = (col + 1) % COLUMNS;
+        break;
+
+      case 'ArrowLeft':
+        newCol = (col - 1 + COLUMNS) % COLUMNS;
+        break;
+
+      case 'ArrowDown':
+        newRow = (row + 1) % ROWS;
+        break;
+
+      case 'ArrowUp':
+        newRow = (row - 1 + ROWS) % ROWS;
+        break;
+
+      case 'Enter':
+        onClose();
+        return;
+
+      default:
+        return;
+    }
+
+    e.preventDefault();
+
+    const nextIndex = newRow * COLUMNS + newCol;
+
+    if (nextIndex < colors.length) {
+      setColor(colors[nextIndex]);
+    }
+  };
+  //   e.preventDefault();
+  //   let nextIndex = currentIndex;
+
+  //   if (e.key === 'ArrowRight') {
+  //     nextIndex = currentIndex === colors.length - 1 ? 0 : currentIndex + 1;
+  //   }
+  //   if (e.key === 'ArrowLeft') {
+  //     nextIndex = currentIndex === 0 ? colors.length - 1 : currentIndex - 1;
+  //   }
+  //   if (e.key === 'ArrowDown') {
+  //     nextIndex = currentIndex > 5 ? currentIndex - 6 : currentIndex + 3;
+  //   }
+  //   if (e.key === 'ArrowUp') {
+  //     nextIndex = currentIndex < 3 ? currentIndex + 6 : currentIndex - 3;
+  //   }
+
+  //   setColor(colors[nextIndex]);
+
+  //   if (e.key === 'Enter') {
+  //     onClose();
+  //   }
+  // };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.ItemColorSelectorModal}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.colorList}>
-          {Object.values(Color).map((color) => (
-            <div
+        <h2 className={styles.title} id="color-selector-title">
+          {title}
+        </h2>
+        <div
+          className={styles.colorList}
+          role="radiogroup"
+          aria-labelledby="color-selector-title"
+        >
+          {colors.map((color) => (
+            <button
+              role="radio"
+              aria-checked={selectedColor === color}
+              aria-label={color}
+              tabIndex={selectedColor === color ? 0 : -1}
               className={`${selectedColor === color ? styles.selected : ''} ${
                 styles.colorItem
               }`}
@@ -37,13 +111,11 @@ const ItemColorSelectorModal: React.FC<ItemColorSelectorModalProps> = ({
                 backgroundColor: HexColor[color],
                 outlineColor: HexColor[color],
               }}
+              onKeyDown={handleOnKeyDown}
               onClick={() => setColor(color)}
-            ></div>
+            ></button>
           ))}
         </div>
-        <Button theme={ButtonTheme.BLACK} size={ButtonSize.L} onClick={onClose}>
-          Select
-        </Button>
       </div>
     </Modal>
   );

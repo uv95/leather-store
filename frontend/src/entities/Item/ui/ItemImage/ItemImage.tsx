@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { KeyboardEventHandler, useCallback, useState } from 'react';
 import { ReactComponent as LeftArrow } from '../../../../shared/assets/icons/left.svg';
 import { ReactComponent as RightArrow } from '../../../../shared/assets/icons/right.svg';
 import { Item } from '../..';
 import styles from './ItemImage.module.scss';
+import Button, { ButtonTheme } from '../../../../shared/ui/Button/Button';
 
 interface ItemImageProps {
   item: Item;
@@ -10,15 +11,18 @@ interface ItemImageProps {
 interface Slide {
   path: string;
   name: string;
+  alt: string;
 }
 
 const ItemImage: React.FC<ItemImageProps> = ({ item }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const allItemImages = [item.imageCover, ...item.images];
 
-  const slides: Slide[] = allItemImages.map((img) => ({
+  const slides: Slide[] = allItemImages.map((img, i) => ({
     path: img.url,
     name: img.url,
+    alt:
+      i === 0 ? `${item.name} — main photo` : `${item.name} — photo ${i + 1}`,
   }));
 
   const goToPrevious = useCallback(() => {
@@ -33,18 +37,50 @@ const ItemImage: React.FC<ItemImageProps> = ({ item }) => {
     setCurrentIndex(newIndex);
   }, [currentIndex, slides.length]);
 
+  const onKeyDown: KeyboardEventHandler<HTMLButtonElement> = (e) => {
+    if (e.key === 'ArrowLeft') goToPrevious();
+    if (e.key === 'ArrowRight') goToNext();
+  };
+
   return (
     <div className={styles.ItemImage}>
-      <LeftArrow className={styles.leftArrow} onClick={goToPrevious} />
-      <RightArrow className={styles.rightArrow} onClick={goToNext} />
-      <div className={styles.slider}>
-        {slides.map((slide) => (
+      <Button
+        className={styles.leftArrow}
+        onClick={goToPrevious}
+        theme={ButtonTheme.CLEAR}
+        aria-label="Previous image"
+        onKeyDown={onKeyDown}
+      >
+        <LeftArrow aria-hidden="true" />
+      </Button>
+      <Button
+        className={styles.rightArrow}
+        onClick={goToNext}
+        theme={ButtonTheme.CLEAR}
+        aria-label="Next image"
+        onKeyDown={onKeyDown}
+      >
+        <RightArrow aria-hidden="true" />
+      </Button>
+      <div
+        className={styles.slider}
+        role="region"
+        aria-roledescription="slides"
+        aria-label={`${item.name} photos`}
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <span className="sr-only">
+          {currentIndex + 1} of {slides.length}
+        </span>
+        {slides.map((slide, index) => (
           <img
             key={slide.name}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             src={slide.path}
-            alt={'Product'}
+            alt={index === currentIndex ? slide.alt : ''}
             className={styles.sliderImage}
+            aria-hidden={index !== currentIndex}
           />
         ))}
       </div>

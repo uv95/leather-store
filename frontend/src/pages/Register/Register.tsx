@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mergeCartItems } from '../../entities/Cart';
@@ -25,6 +25,10 @@ const Register = () => {
     passwordConfirm: '',
     phone: '',
   });
+
+  useEffect(() => {
+    document.title = 'Register';
+  }, []);
 
   if (user) {
     return <Navigate to="/profile" replace />;
@@ -56,7 +60,7 @@ const Register = () => {
             mergeCartItems({
               dto: cartItems,
               navigate,
-            })
+            }),
           );
         } else {
           navigate(-1);

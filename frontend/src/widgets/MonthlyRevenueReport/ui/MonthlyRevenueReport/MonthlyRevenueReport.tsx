@@ -24,7 +24,7 @@ const MonthlyRevenueReport = () => {
         .unwrap()
         .then()
         .catch((error) =>
-          toast.error(`Error getting monthly revenue: ${error}`)
+          toast.error(`Error getting monthly revenue: ${error}`),
         );
     }
   }, [monthlyRevenue.length, dispatch]);
@@ -36,12 +36,12 @@ const MonthlyRevenueReport = () => {
         data: months.map(
           (_, i) =>
             monthlyRevenue.find(({ _id: period }) => period.month - 1 === i)
-              ?.totalRevenue || 0
+              ?.totalRevenue || 0,
         ),
         backgroundColor: BAR_COLORS,
       },
     ],
-    [monthlyRevenue]
+    [monthlyRevenue],
   );
 
   const data = {
@@ -55,10 +55,40 @@ const MonthlyRevenueReport = () => {
 
       {loading === 'succeeded' && (
         <>
-          <h2>Monthly Revenue</h2>
+          <h3>Monthly Revenue</h3>
           <div className="chart">
-            <Bar options={options} data={data} />
+            <Bar
+              options={options}
+              data={data}
+              role="img"
+              aria-label="Bar chart: Monthly Revenue"
+              aria-describedby="monthly-revenue-table"
+            />
           </div>
+
+          <table id="monthly-revenue-table" className="sr-only">
+            <caption>Monthly Revenue Data</caption>
+            <thead>
+              <tr>
+                <th scope="col">Month</th>
+                <th scope="col">Revenue ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {months.map((month, i) => {
+                const revenue =
+                  monthlyRevenue.find(
+                    ({ _id: period }) => period.month - 1 === i,
+                  )?.totalRevenue || 0;
+                return (
+                  <tr key={month}>
+                    <td>{month}</td>
+                    <td>{revenue}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </>
       )}
     </div>

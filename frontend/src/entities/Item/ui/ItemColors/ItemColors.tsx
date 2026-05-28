@@ -18,23 +18,27 @@ const ItemColors = ({
     <div className={styles.ItemColors}>
       <div className={styles.itemPartColor}>
         <p>Leather color:</p>
-        <div
+        <button
           className={styles.color}
           style={{
             backgroundColor: HexColor[leatherColor],
           }}
           onClick={openSelectLeatherColor}
-        ></div>
+          aria-label={`Select leather color. Current color: ${leatherColor}`}
+          aria-haspopup="dialog"
+        ></button>
       </div>
       <div className={styles.itemPartColor}>
         <p>Thread color:</p>
-        <div
+        <button
           className={styles.color}
           style={{
             backgroundColor: HexColor[threadColor],
           }}
           onClick={openSelectThreadsColor}
-        ></div>
+          aria-label={`Select thread color. Current color: ${threadColor}`}
+          aria-haspopup="dialog"
+        ></button>
       </div>
     </div>
   );

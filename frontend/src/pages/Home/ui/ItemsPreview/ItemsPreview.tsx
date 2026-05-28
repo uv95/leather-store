@@ -15,13 +15,17 @@ const ItemsPreview = () => {
   return (
     <div className={styles.ItemsPreview}>
       <div className={styles.heading}>
-        <h4>Store</h4>
-        <Link to={RoutePath.CATALOG} className={styles.link}>
+        <h3>Store</h3>
+        <Link
+          to={RoutePath.CATALOG}
+          className={styles.link}
+          aria-label="View all items in catalog"
+        >
           View all
         </Link>
       </div>
       {loading === 'failed' && (
-        <p className={styles.error}>
+        <p className={styles.error} role="alert">
           Something went wrong. Try reloading the page
         </p>
       )}

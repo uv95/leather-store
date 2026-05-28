@@ -9,6 +9,7 @@
   bottom: calc(var(--footer-height) + 4rem);
   left: 50%;
   transform: translateX(-50%);
+  list-style-type: none;
 
   @include max400 {
     bottom: calc(var(--footer-height-l) + 4rem);

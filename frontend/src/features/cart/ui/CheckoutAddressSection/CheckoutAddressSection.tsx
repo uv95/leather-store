@@ -38,7 +38,7 @@ const CheckoutAddressSection = ({
   return (
     <div className="checkoutAddressSection">
       <h2>Select address</h2>
-      <div className="checkoutAddressSection__container">
+      <div className="checkoutAddressSection__container" role="radiogroup">
         {addresses.map((address, i) => (
           <CheckoutAddressCard
             key={address._id}

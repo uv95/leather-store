@@ -25,7 +25,7 @@ const OrdersByCategoryReport = () => {
         .unwrap()
         .then()
         .catch((error) =>
-          toast.error(`Error getting orders by category: ${error}`)
+          toast.error(`Error getting orders by category: ${error}`),
         );
     }
   }, [dispatch, ordersByCategory.length]);
@@ -36,12 +36,12 @@ const OrdersByCategoryReport = () => {
     (data: 'totalRevenue' | 'totalQuantity') => {
       return labels.map((itemType) => {
         const dataObject = ordersByCategory.find(
-          (item) => item._id === itemType
+          (item) => item._id === itemType,
         );
         return dataObject ? dataObject[data] : 0;
       });
     },
-    [labels, ordersByCategory]
+    [labels, ordersByCategory],
   );
 
   const revenueDataset = useMemo(
@@ -50,7 +50,7 @@ const OrdersByCategoryReport = () => {
       data: getData('totalRevenue'),
       backgroundColor: DOUGHNUT_COLORS,
     }),
-    [getData]
+    [getData],
   );
 
   const quantityDataset = useMemo(
@@ -59,7 +59,7 @@ const OrdersByCategoryReport = () => {
       data: getData('totalQuantity'),
       backgroundColor: DOUGHNUT_COLORS,
     }),
-    [getData]
+    [getData],
   );
 
   const chartData = useMemo(() => {
@@ -93,7 +93,7 @@ const OrdersByCategoryReport = () => {
       {loading === 'succeeded' &&
         chartData.map((chart) => (
           <div key={chart.title} className="orders-by-category__item">
-            <h2>{chart.title}</h2>
+            <h3>{chart.title}</h3>
             <div className="chart-item">
               <div className="legend">
                 {labels.map((label, i) => (
@@ -101,13 +101,20 @@ const OrdersByCategoryReport = () => {
                     <div
                       className="legend-label"
                       style={{ backgroundColor: DOUGHNUT_COLORS[i] }}
+                      role="presentation"
+                      aria-hidden="true"
                     ></div>
                     <p>{label}</p>
                   </div>
                 ))}
               </div>
               <div className="chart">
-                <Doughnut data={chart.data} options={options} />
+                <Doughnut
+                  data={chart.data}
+                  options={options}
+                  role="img"
+                  aria-label={chart.title}
+                />
               </div>
             </div>
           </div>

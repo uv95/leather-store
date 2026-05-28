@@ -49,7 +49,7 @@ const ItemColorSelector: React.FC<ItemColorSelectorProps> = ({
         <ItemColorSelectorModal
           title="Select thread color"
           setColor={setThreadColor}
-          isOpen={isLeatherColorSelectorOpen}
+          isOpen={isThreadColorSelectorOpen}
           onClose={() => sethIsThreadColorSelectorOpen(false)}
           selectedColor={threadColor}
         />

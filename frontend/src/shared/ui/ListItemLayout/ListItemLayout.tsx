@@ -2,6 +2,7 @@ import { memo, ReactElement, ReactNode, useState } from 'react';
 import { ReactComponent as Arrow } from '../../../shared/assets/icons/right.svg';
 import styles from './ListItemLayout.module.scss';
 import { classNames } from '../../lib/classNames/classNames';
+import Button, { ButtonTheme } from '../Button/Button';
 
 export enum ListItemTheme {
   WHITE = 'white',
@@ -13,33 +14,47 @@ type ListItemLayoutProps = {
   Details: ReactElement;
   theme?: ListItemTheme;
   className?: string;
+  label?: string;
 };
 
 const ListItemLayout = (props: ListItemLayoutProps) => {
-  const { children, className, Details, theme = ListItemTheme.GREY } = props;
-  const [openDetails, setOpenDetails] = useState(false);
+  const {
+    children,
+    label,
+    className,
+    Details,
+    theme = ListItemTheme.GREY,
+  } = props;
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
     <div className={classNames(styles.ListItemLayout, {}, [className])}>
       <div className={classNames(styles.card, {}, [styles[theme]])}>
         {children}
-        <div className={styles.iconContainer}>
+        <Button
+          className={styles.iconContainer}
+          theme={ButtonTheme.CLEAR}
+          aria-expanded={isDetailsOpen}
+          aria-label={label}
+          onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+        >
           <Arrow
             className={classNames(
               styles.icon,
-              { [styles.iconOpen]: openDetails },
-              []
+              { [styles.iconOpen]: isDetailsOpen },
+              [],
             )}
-            onClick={() => setOpenDetails(!openDetails)}
+            aria-hidden="true"
           />
-        </div>
+        </Button>
       </div>
       <div
         className={classNames(
           styles.details,
-          { [styles.detailsOpen]: openDetails },
-          []
+          { [styles.detailsOpen]: isDetailsOpen },
+          [],
         )}
+        aria-hidden={!isDetailsOpen}
       >
         {Details}
       </div>

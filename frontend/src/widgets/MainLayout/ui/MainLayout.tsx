@@ -1,29 +1,17 @@
-import { ReactNode, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { getUserRole, Role } from '../../../entities/User';
+import { ReactNode } from 'react';
 import Footer from '../../../shared/ui/Footer/Footer';
-import { AdminNavbar } from '../../AdminNavbar';
 import { Header } from '../../Header';
-import './mainLayout.scss';
 
 function MainLayout({ children }: { children: ReactNode }) {
-  const role = useSelector(getUserRole);
-  const location = useLocation();
-
-  const isAdminPage = useMemo(
-    () => location.pathname.startsWith('/admin') && role === Role.ADMIN,
-    [location, role]
-  );
-
   return (
     <>
-      <header className="header">
-        <div className="header__container">
-          {isAdminPage ? <AdminNavbar /> : <Header />}
-        </div>
-      </header>
-      <main>{children}</main>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      <Header />
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
     </>
   );

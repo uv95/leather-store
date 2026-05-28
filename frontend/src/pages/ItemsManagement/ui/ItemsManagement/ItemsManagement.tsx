@@ -25,8 +25,12 @@ const ItemsManagement = () => {
   return (
     <>
       <div className="items">
-        <h1 className="items-heading">Items</h1>
-        <Button className="add-item-button" onClick={onOpenModal}>
+        <h2 className="items-heading">Items</h2>
+        <Button
+          className="add-item-button"
+          onClick={onOpenModal}
+          aria-haspopup="dialog"
+        >
           Add item
         </Button>
         <div className="items__container">

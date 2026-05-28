@@ -38,7 +38,7 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
         .then(() => toast.success('Order canceled'))
         .catch((error) => toast.error(error));
     },
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
@@ -58,12 +58,13 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
           isOpen={isModalOpen}
           onClose={onCloseModal}
           confirmAction={() => handleCancelOrder(orderId)}
-          text="Are you sure you want to cancel the order?"
+          title="Are you sure you want to cancel the order?"
+          buttonTexts={{ yes: 'Cancel order', no: 'No' }}
         />
       )}
-      <div className={styles.UserOrderDetails}>
+      <ul className={styles.UserOrderDetails}>
         {orderItems.map((orderItem) => (
-          <div key={orderItem._id} className={styles.item}>
+          <li key={orderItem._id} className={styles.item}>
             <div className={styles.itemInfoContainer}>
               <img
                 src={orderItem.item.imageCover.url}
@@ -77,20 +78,27 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
                   leatherColor={orderItem.colors.leather}
                   threadColor={orderItem.colors.thread}
                 />
-                <p className={styles.itemQuantity}>
-                  Quantity: {orderItem.quantity}
-                </p>
+                <dl className={styles.itemQuantity}>
+                  <dt>Quantity:</dt>
+                  <dd>{orderItem.quantity}</dd>
+                </dl>
               </div>
             </div>
-            <p className={styles.itemTotal}>
+            <p
+              className={styles.itemTotal}
+              aria-label={`Total price for ${orderItem.item.name}`}
+            >
               ${orderItem.price * orderItem.quantity}
             </p>
-          </div>
+          </li>
         ))}
 
-        <p className={styles.address}>
-          Delivery address: {address.city}, {address.address},{address.zipcode}
-        </p>
+        <dl className={styles.address}>
+          <dt>Delivery address:</dt>
+          <dd>
+            {address.city}, {address.address},{address.zipcode}
+          </dd>
+        </dl>
 
         <div className={styles.bottom}>
           <div className={styles.orderTotal}>
@@ -99,16 +107,25 @@ const UserOrderDetails = React.memo(({ order }: UserOrderDetailsProps) => {
           {status !== OrderStatus.COMPLETED && (
             <div className={styles.buttons}>
               {status === OrderStatus.AWAITING_PAYMENT && (
-                <Button theme={ButtonTheme.BLACK} onClick={makePayment}>
+                <Button
+                  theme={ButtonTheme.BLACK}
+                  onClick={makePayment}
+                  aria-label={`Make payment for order ${orderId}`}
+                >
                   Make Payment
                 </Button>
               )}
 
-              <Button onClick={onOpenModal}>Cancel order</Button>
+              <Button
+                onClick={onOpenModal}
+                aria-label={`Cancel order ${orderId}`}
+              >
+                Cancel order
+              </Button>
             </div>
           )}
         </div>
-      </div>
+      </ul>
     </>
   );
 });

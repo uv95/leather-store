@@ -1,15 +1,18 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import ig from '../../assets/icons/instagram-512.svg';
-import './footer.scss';
-import { memo } from 'react';
 import { RoutePath } from '../../types/routePaths';
+import './footer.scss';
 
 function Footer() {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="footer__container">
         <div className="footer__container__top">
-          <nav className="footer__container__top__nav">
+          <nav
+            className="footer__container__top__nav"
+            aria-label="Footer navigation"
+          >
             <Link to={RoutePath.HOME}>Home</Link>
             <Link to={RoutePath.CATALOG}>Catalog</Link>
             <Link to={RoutePath.LEATHERS}>Types of leather</Link>
@@ -19,17 +22,17 @@ function Footer() {
             <Link to="/">
               <img
                 src={ig}
-                alt=""
+                alt="Instagram"
                 className="footer__container__top__social--img"
               />
             </Link>
           </div>
         </div>
-        <div className="footer__container__bottom">
+        {/* <div className="footer__container__bottom">
           <p>2022 All rights reserved</p>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </footer>
   );
 }
 

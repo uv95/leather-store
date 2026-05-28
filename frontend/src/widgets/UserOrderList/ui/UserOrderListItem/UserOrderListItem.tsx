@@ -1,5 +1,5 @@
-import { memo, useMemo } from 'react';
-import { OrderStatus, UserOrder } from '../../../../entities/Order';
+import { memo } from 'react';
+import { UserOrder } from '../../../../entities/Order';
 import ListItemLayout, {
   ListItemTheme,
 } from '../../../../shared/ui/ListItemLayout/ListItemLayout';
@@ -14,39 +14,41 @@ type UserOrderListItemProps = {
 const UserOrderListItem = ({ order }: UserOrderListItemProps) => {
   const { _id: orderId, createdAt, status } = order;
 
-  const orderData: Record<string, string> = useMemo(
-    () => ({
-      number: `№ ${orderId?.slice(0, 8)}`,
-      createdAt: `Created ${new Date(createdAt).toLocaleDateString('ru-RU', {
-        hour: 'numeric',
-        minute: 'numeric',
-      })}`,
-      status,
-    }),
-    [orderId, status, createdAt]
-  );
-
   return (
     <ListItemLayout
       Details={<UserOrderDetails order={order} />}
       theme={ListItemTheme.WHITE}
+      label={`Order №${orderId?.slice(0, 8)}`}
     >
-      <div
+      <dl
         className={styles.UserOrderListItem}
         style={{
-          gridTemplateColumns: `repeat(${Object.keys(orderData).length}, 1fr)`,
+          gridTemplateColumns: `repeat(3, 1fr)`,
         }}
       >
-        {Object.keys(orderData).map((dataKey) => (
-          <div key={dataKey} className={styles.field}>
-            {dataKey === 'status' ? (
-              <OrderStatusBadge status={orderData.status as OrderStatus} />
-            ) : (
-              <div className={styles.content}>{orderData[dataKey]}</div>
-            )}
-          </div>
-        ))}
-      </div>
+        <div className={styles.field}>
+          <dt className="sr-only">Order number</dt>
+          <dd className={styles.content}>№ {orderId?.slice(0, 8)}</dd>
+        </div>
+        <div className={styles.field}>
+          <dt className="sr-only">Created</dt>
+          <dd className={styles.content}>
+            {new Date(createdAt).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
+          </dd>
+        </div>
+        <div className={styles.field}>
+          <dt className="sr-only">Status</dt>
+          <dd>
+            <OrderStatusBadge status={status} />
+          </dd>
+        </div>
+      </dl>
     </ListItemLayout>
   );
 };

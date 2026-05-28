@@ -24,7 +24,7 @@ const Checkout = () => {
   }
 
   const stripePromise = loadStripe(
-    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY,
   );
 
   const dispatch = useAppDispatch();
@@ -35,6 +35,10 @@ const Checkout = () => {
   const cartTotal = useSelector(getCartTotal);
   const paymentIntentId = useSelector(getPaymentIntentId);
   const loading = useSelector(getPaymentLoading);
+
+  useEffect(() => {
+    document.title = 'Checkout';
+  }, []);
 
   useEffect(() => {
     if (orderId) {

@@ -1,0 +1,58 @@
+@import '../../app/styles/mixins/global.scss';
+
+.ProfileLayout {
+  @include main-block;
+  @include header-footer;
+
+  @include max700 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.container {
+  display: flex;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  position: relative;
+
+  @include max1000 {
+    gap: 2rem;
+  }
+  @include max800 {
+    gap: 1rem;
+  }
+  @include max700 {
+    @include list;
+  }
+  @include max500 {
+    gap: 0.5rem;
+  }
+}
+
+.content {
+  background-color: var(--color-grey--light);
+  width: 100%;
+  padding: 2rem 4rem;
+  min-height: 30rem;
+
+  @include max1000 {
+    padding: 2rem;
+  }
+  @include max800 {
+    padding: 1rem;
+  }
+  @include max400 {
+    padding: 0.5rem;
+  }
+}
+
+.name {
+  @include heading;
+  height: 3.5rem;
+
+  @include max700 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

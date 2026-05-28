@@ -97,12 +97,12 @@
       display: none;
     }
   }
-  & button {
-    display: none;
-    @include max400 {
-      display: block;
-      width: 100%;
-      margin: 0 auto;
-    }
+}
+.buttonMobile {
+  display: none;
+  @include max400 {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
   }
 }

@@ -1,6 +1,6 @@
 @import '../../../../app/styles/mixins/global.scss';
 
-.filterDropdownButton {
+.FilterDropdownButton {
   @include center;
   cursor: pointer;
   border: none;
@@ -10,10 +10,6 @@
   padding-left: 1rem;
   justify-content: flex-start;
   background-color: var(--color-grey--light);
-
-  &--selected {
-    background-color: var(--color-grey--medium);
-  }
 
   &:hover {
     background-color: var(--color-grey--medium);
@@ -30,4 +26,8 @@
   @include max400 {
     font-size: 1.7rem;
   }
+}
+
+.isSelected {
+  background-color: var(--color-grey--medium);
 }

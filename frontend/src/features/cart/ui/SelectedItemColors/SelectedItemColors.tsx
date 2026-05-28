@@ -19,6 +19,9 @@ const SelectedItemColors = ({
           style={{
             backgroundColor: HexColor[leatherColor],
           }}
+          role="img"
+          aria-label={leatherColor}
+          title={leatherColor}
         ></div>
       </div>
       <div className={styles.itemPartColor}>
@@ -28,6 +31,9 @@ const SelectedItemColors = ({
           style={{
             backgroundColor: HexColor[threadColor],
           }}
+          role="img"
+          aria-label={threadColor}
+          title={threadColor}
         ></div>
       </div>
     </div>

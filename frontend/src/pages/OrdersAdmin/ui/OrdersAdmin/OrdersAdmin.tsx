@@ -35,19 +35,35 @@ const OrdersAdmin = () => {
 
       {loading === 'succeeded' && (
         <>
-          {!allOrders.length && <p>No orders</p>}
+          {!allOrders.length && <p role="status">No orders</p>}
           {activeOrders.length !== 0 && (
-            <h1 className="orders-heading">Active</h1>
+            <section aria-labelledby="active-orders-heading">
+              <h2 id="active-orders-heading" className="orders-heading">
+                Active
+              </h2>
+              <ul>
+                {activeOrders.map((order) => (
+                  <li key={order._id}>
+                    <OrdersAdminListItem order={order} />
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
-          {activeOrders.map((order) => (
-            <OrdersAdminListItem key={order._id} order={order} />
-          ))}
           {completedOrders.length !== 0 && (
-            <h1 className="orders-heading">Completed</h1>
+            <section aria-labelledby="completed-orders-heading">
+              <h2 id="completed-orders-heading" className="orders-heading">
+                Completed
+              </h2>
+              <ul>
+                {completedOrders.map((order) => (
+                  <li key={order._id}>
+                    <OrdersAdminListItem order={order} />
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
-          {completedOrders.map((order) => (
-            <OrdersAdminListItem key={order._id} order={order} />
-          ))}
         </>
       )}
     </div>

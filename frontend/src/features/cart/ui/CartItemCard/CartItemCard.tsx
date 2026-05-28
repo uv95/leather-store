@@ -12,12 +12,12 @@ interface CartItemCardProps {
   onIncreaseQuantity: (
     id: string,
     setQuantity: (arg: number) => void,
-    quantity: number
+    quantity: number,
   ) => void;
   onReduceQuantity: (
     id: string,
     setQuantity: (arg: number) => void,
-    quantity: number
+    quantity: number,
   ) => void;
 }
 
@@ -61,17 +61,26 @@ const CartItemCard = memo(
           </div>
         </div>
         <div className={styles.button}>
-          <Delete onClick={() => onDelete(cartItem._id)} />
           <Button
+            theme={ButtonTheme.CLEAR}
+            onClick={() => onDelete(cartItem._id)}
+            aria-label={`Remove ${item.name} from cart`}
+          >
+            <Delete aria-hidden="true" />
+          </Button>
+
+          <Button
+            className={styles.buttonMobile}
             onClick={() => onDelete(cartItem._id)}
             theme={ButtonTheme.BLACK}
+            aria-label={`Remove ${item.name} from cart`}
           >
             Remove
           </Button>
         </div>
       </div>
     );
-  }
+  },
 );
 
 export default CartItemCard;

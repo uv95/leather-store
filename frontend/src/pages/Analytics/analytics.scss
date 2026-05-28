@@ -1,15 +1,13 @@
 @import '../../app/styles/mixins/global.scss';
 
 .analytics {
-  @include main-block;
-  @include header-footer;
   // height: 80vh;
 
-  h1 {
+  h2 {
     margin-bottom: 4rem;
   }
 
-  h2 {
+  h3 {
     font-size: 2rem;
     margin-bottom: 2rem;
   }
@@ -30,4 +28,3 @@
     max-width: 100%;
   }
 }
-

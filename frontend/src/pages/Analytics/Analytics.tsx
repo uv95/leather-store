@@ -21,13 +21,13 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const Analytics = () => {
   return (
     <div className="analytics">
-      <h1>Analytics</h1>
+      <h2>Analytics</h2>
       <div className="analytics__reports">
         <MonthlyRevenueReport />
         <OrdersByCategoryReport />

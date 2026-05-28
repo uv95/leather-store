@@ -32,6 +32,8 @@ const Skeleton = ({ width, height, className, ...rest }: SkeletonProps) => {
     <div
       className={classNames(styles.Skeleton, {}, [className])}
       style={getStyles()}
+      aria-hidden="true"
+      role="presentation"
       {...rest}
     ></div>
   );

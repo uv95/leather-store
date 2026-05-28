@@ -6,20 +6,30 @@ interface ConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
   confirmAction: () => void;
-  text: string;
+  title: string;
+  buttonTexts: {
+    yes: string;
+    no: string;
+  };
 }
 
 const ConfirmationModal = ({
   isOpen,
   onClose,
-  text,
+  title,
   confirmAction,
+  buttonTexts,
 }: ConfirmationModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <>
-        <p>{text}</p>
+        <h2 className="confirmationModal-title" id="modal-title">
+          {title}
+        </h2>
         <div className="confirmationModal-buttons">
+          <Button onClick={onClose} className="confirmationModal-cancel">
+            {buttonTexts.no}
+          </Button>
           <Button
             className="cm-button-long"
             onClick={() => {
@@ -27,9 +37,8 @@ const ConfirmationModal = ({
               onClose();
             }}
           >
-            Yes
+            {buttonTexts.yes}
           </Button>
-          <Button onClick={onClose}>No</Button>
         </div>
       </>
     </Modal>

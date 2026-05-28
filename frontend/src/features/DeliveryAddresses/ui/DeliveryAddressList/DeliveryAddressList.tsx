@@ -58,7 +58,8 @@ const DeliveryAddressList = ({
           isOpen={isModalOpen}
           onClose={onCloseModal}
           confirmAction={onDelete}
-          text="Are you sure you want to delete the address?"
+          title="Are you sure you want to delete the address?"
+          buttonTexts={{ yes: 'Delete address', no: 'Cancel' }}
         />
       )}
       <div className="deliveryAddresses">

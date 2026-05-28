@@ -18,8 +18,12 @@ const Catalog = () => {
   const [maxPages, setMaxPages] = useState(1);
 
   useEffect(() => {
+    document.title = 'Catalog';
+  }, []);
+
+  useEffect(() => {
     setMaxPages(
-      items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1
+      items.length !== 0 ? Math.ceil(items.length / itemsPerPage) : 1,
     );
   }, [items, itemsPerPage]);
 

@@ -56,7 +56,11 @@ const PaymentForm = () => {
   };
 
   return (
-    <form className={styles.PaymentForm}>
+    <form
+      className={styles.PaymentForm}
+      aria-label="Payment form"
+      onSubmit={onSubmit}
+    >
       {isPaymentElementLoading && <PaymentFormSkeleton />}
 
       <PaymentElement className={styles.payment} />
@@ -67,10 +71,16 @@ const PaymentForm = () => {
           theme={ButtonTheme.BLACK}
           disabled={!stripe || loading === 'pending'}
           type="submit"
-          onClick={onSubmit}
           data-testid="payment-button"
+          aria-label={
+            loading === 'pending'
+              ? 'Processing payment, please wait'
+              : 'Pay now'
+          }
         >
-          {loading === 'pending' ? 'Processing...' : 'Pay Now'}
+          <span aria-live="polite" aria-atomic="true">
+            {loading === 'pending' ? 'Processing...' : 'Pay Now'}
+          </span>
         </Button>
       )}
     </form>

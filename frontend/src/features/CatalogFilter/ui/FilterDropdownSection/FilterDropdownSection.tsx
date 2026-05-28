@@ -10,9 +10,21 @@ const FilterDropdownSection = ({
   title,
   children,
 }: FilterDropdownSectionProps) => {
+  const sectionId = `filter-section-${title.toLowerCase().replace(/\s+/g, '-')}`;
+
   return (
-    <div className="filterDropdownSection">
-      <div className="filterDropdownSection-title">{title}</div>
+    <div
+      className="filterDropdownSection"
+      role="group"
+      aria-labelledby={sectionId}
+    >
+      <div
+        className="filterDropdownSection-title"
+        id={sectionId}
+        role="presentation"
+      >
+        {title}
+      </div>
       <div className="filterDropdownSection-content">{children}</div>
     </div>
   );

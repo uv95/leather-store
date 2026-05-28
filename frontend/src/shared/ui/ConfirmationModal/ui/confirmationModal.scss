@@ -7,7 +7,7 @@
   justify-content: space-between;
 
   & button {
-    width: 8rem;
+    min-width: 8rem;
   }
 
   @include max400 {
@@ -16,4 +16,13 @@
   @include max300 {
     padding: 0rem;
   }
+}
+
+.confirmationModal-title {
+  font-size: 2rem;
+}
+
+.confirmationModal-cancel {
+  background-color: var(--color-red);
+  color: white;
 }

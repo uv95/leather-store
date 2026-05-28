@@ -22,6 +22,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isSquare?: boolean;
   isAnimated?: boolean;
   className?: string;
+  type?: 'submit' | 'reset' | 'button';
 }
 
 const Button = (props: ButtonProps) => {
@@ -33,6 +34,7 @@ const Button = (props: ButtonProps) => {
     isSquare,
     disabled,
     className,
+    type = 'button',
     onClick,
     ...otherProps
   } = props;
@@ -52,6 +54,7 @@ const Button = (props: ButtonProps) => {
         styles[size],
       ])}
       disabled={disabled}
+      type={type}
       {...otherProps}
     >
       {children}

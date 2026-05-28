@@ -37,6 +37,10 @@ const Cart = () => {
   const [isSelectAddressOpen, setIsSelectAddressOpen] = useState(false);
   const [currentAddressIndex, setCurrentAddressIndex] = useState(0);
 
+  useEffect(() => {
+    document.title = 'Cart';
+  }, []);
+
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
@@ -54,7 +58,7 @@ const Cart = () => {
         })
         .catch((error) => toast.error(error));
     },
-    [dispatch, cartId]
+    [dispatch, cartId],
   );
 
   function handleCartButton() {

@@ -44,26 +44,38 @@ const Header = () => {
   }, [dispatch, cartId]);
 
   return (
-    <>
-      <div className={styles.Header}>
-        <Link to={RoutePath.HOME} className={styles.logo}>
-          ANNE LEATHER
+    <header className={styles.Header}>
+      <Link
+        to={RoutePath.HOME}
+        className={styles.logo}
+        aria-label="Go to homepage"
+      >
+        ANNE LEATHER
+      </Link>
+      <div className={styles.navbar}>
+        <Link to={RoutePath.CATALOG} className={styles.catalogLink}>
+          CATALOG
         </Link>
-        <div className={styles.navbar}>
-          <Link to={RoutePath.CATALOG} className={styles.catalogLink}>
-            CATALOG
-          </Link>
-          <UserOrAdminLink />
+        <UserOrAdminLink />
 
-          {user?.role !== Role.ADMIN && (
-            <Link to={RoutePath.CART} className={styles.cartLink}>
-              <CartIcon className={styles.icon} />
-              {cartItemCount !== 0 && <Badge value={cartItemCount} />}
-            </Link>
-          )}
-        </div>
+        {user?.role !== Role.ADMIN && (
+          <Link
+            to={RoutePath.CART}
+            className={styles.cartLink}
+            aria-label={
+              cartItemCount
+                ? `Cart, ${cartItemCount} ${cartItemCount === 1 ? 'item' : 'items'}`
+                : 'Cart'
+            }
+          >
+            <CartIcon className={styles.icon} aria-hidden="true" />
+            {cartItemCount !== 0 && (
+              <Badge value={cartItemCount} aria-hidden="true" />
+            )}
+          </Link>
+        )}
       </div>
-    </>
+    </header>
   );
 };
 
@@ -78,25 +90,35 @@ function UserOrAdminLink() {
     if (!user) {
       return RoutePath.LOGIN;
     }
-    return role === Role.USER ? RoutePath.USER_PROFILE : RoutePath.ADMIN_ORDERS;
+    return role === Role.USER
+      ? RoutePath.USER_PROFILE
+      : RoutePath.ADMIN_PROFILE;
   };
 
   return (
     <Link
       to={getHref(role)}
       className={role === Role.USER ? styles.userLink : ''}
+      aria-label={
+        role === Role.ADMIN ? 'Admin profile' : user ? 'My profile' : 'Log in'
+      }
     >
       {role === Role.ADMIN ? (
-        <AdminIcon className={styles.icon} />
+        <AdminIcon className={styles.icon} aria-hidden="true" />
       ) : (
         <>
           {user ? (
-            <UserIcon className={styles.icon} />
+            <UserIcon className={styles.icon} aria-hidden="true" />
           ) : (
-            <LoginIcon className={styles.icon} />
+            <LoginIcon className={styles.icon} aria-hidden="true" />
           )}
           {user && userActiveOrderCount !== 0 && (
-            <Badge value={userActiveOrderCount} />
+            <Badge
+              value={userActiveOrderCount}
+              label={`active ${
+                userActiveOrderCount === 1 ? 'order' : 'orders'
+              }`}
+            />
           )}
         </>
       )}

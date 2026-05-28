@@ -30,6 +30,8 @@ const Toast = () => {
         }`,
       }}
       className="toast"
+      role="alert"
+      aria-live="assertive"
     >
       {typeof toastState.message === 'string'
         ? toastState.message

@@ -4,6 +4,8 @@
   display: flex;
   &__cell {
     @include cell;
+    height: 3rem;
+    width: 3rem;
     &-num {
       @include center;
       width: 3rem;

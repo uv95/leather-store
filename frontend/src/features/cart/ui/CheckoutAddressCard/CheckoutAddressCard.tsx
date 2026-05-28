@@ -1,5 +1,5 @@
 import { Address } from '../../../../entities/Address';
-import './checkoutAddressCard.scss';
+import styles from './CheckoutAddressCard.module.scss';
 
 interface CheckoutAddressCardProps {
   address: Address;
@@ -13,16 +13,19 @@ const CheckoutAddressCard = ({
   onClick,
 }: CheckoutAddressCardProps) => {
   return (
-    <div
-      className={`checkoutAddressCard ${
-        isSelected ? 'checkoutAddressCard--selected' : ''
+    <button
+      className={`${styles.CheckoutAddressCard} ${
+        isSelected ? styles.selected : ''
       }`}
       onClick={onClick}
+      tabIndex={isSelected ? -1 : 0}
+      aria-checked={isSelected}
+      role="radio"
     >
-      <div className="checkoutAddressCard-content">
+      <div className={styles.content}>
         {address.city}, {address.address}, {address.zipcode}
       </div>
-    </div>
+    </button>
   );
 };
 

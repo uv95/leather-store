@@ -15,6 +15,7 @@ const FilterTag = ({ onClick, filter }: FilterTagProps) => {
         size={ButtonSize.S}
         theme={ButtonTheme.CLEAR}
         onClick={onClick}
+        aria-label={`Remove filter ${filter}`}
       >
         &#9587;
       </Button>

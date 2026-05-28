@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import './modal.scss';
+import { FocusTrap } from 'focus-trap-react';
 
 type Props = {
   onClose: () => void;
@@ -15,7 +16,7 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
         onClose();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
@@ -30,12 +31,29 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className="modal-background" onClick={onClose}></div>
-      <div className="modal">
-        <div className="modal__content">{children}</div>
-      </div>
+      <div
+        className="modal-background"
+        aria-hidden="true"
+        onClick={onClose}
+      ></div>
+      <FocusTrap
+        focusTrapOptions={{
+          clickOutsideDeactivates: true,
+          fallbackFocus: '#dialog',
+        }}
+      >
+        <div
+          id="dialog"
+          className="modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div className="modal__content">{children}</div>
+        </div>
+      </FocusTrap>
     </>,
-    (document.getElementById('root') as HTMLElement) || document.body
+    (document.getElementById('root') as HTMLElement) || document.body,
   );
 };
 

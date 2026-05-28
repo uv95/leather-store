@@ -26,13 +26,17 @@ const Login = () => {
   });
 
   useEffect(() => {
+    document.title = 'Login';
+  }, []);
+
+  useEffect(() => {
     if (user?.role === Role.ADMIN) {
-      navigate('/admin/orders');
+      navigate(RoutePath.ADMIN_PROFILE);
     }
   }, [user?.role, navigate]);
 
   if (user?.role === Role.USER) {
-    return <Navigate to="/profile" replace />;
+    return <Navigate to={RoutePath.USER_PROFILE} replace />;
   }
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -53,7 +57,7 @@ const Login = () => {
         const { role } = data.data;
 
         if (role === Role.ADMIN) {
-          navigate('/admin');
+          navigate(RoutePath.ADMIN_PROFILE);
           return;
         }
 
@@ -67,7 +71,7 @@ const Login = () => {
             mergeCartItems({
               dto: cartItems,
               navigate,
-            })
+            }),
           );
         } else {
           navigate(-1);
