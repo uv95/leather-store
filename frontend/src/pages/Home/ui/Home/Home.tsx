@@ -1,23 +1,26 @@
 import author from '../../../../shared/assets/img/about-me.jpg';
 import banner from '../../../../shared/assets/img/bg-1.jpg';
 import ItemsPreview from '../ItemsPreview/ItemsPreview';
-import './home.scss';
+import styles from './Home.module.scss';
 
 const Home = () => {
   return (
-    <div className="home">
-      <div className="banner">
-        <img src={banner} alt="banner" className="banner__img" />
+    <div className={styles.Home}>
+      <div className={styles.banner} role="presentation">
+        <img src={banner} alt="" />
       </div>
       <ItemsPreview />
-      <div className="about">
-        <div className="about__container">
-          <div className="about__container__img">
-            <img src={author} alt="author" />
+      <section className={styles.about} aria-labelledby="about-heading">
+        <div className={styles.aboutContainer}>
+          <div className={styles.authorImage}>
+            <img
+              src={author}
+              alt="Anne, the craftsperson behind Anne Leather"
+            />
           </div>
 
-          <div className="about__container__text">
-            <h3>About me</h3>
+          <div className={styles.aboutText}>
+            <h2 id="about-heading">About me</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
               quasi harum! Maiores nisi sequi corporis ab voluptatibus vel
@@ -33,12 +36,15 @@ const Home = () => {
             </p>
           </div>
         </div>
-      </div>
-      <div className="pd">
-        <div className="pd__container">
-          <h4 className="pd__container__heading">Delivery and Payment</h4>
-          <div className="pd__container__text">
-            <p className="pd__container__text--delivery">
+      </section>
+      <section
+        className={styles.deliveryPayment}
+        aria-labelledby="deliveryPayment-heading"
+      >
+        <div className={styles.deliveryPaymentContainer}>
+          <h2 id="deliveryPayment-heading">Delivery and Payment</h2>
+          <div>
+            <p className={styles.delivery}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Veritatis, nihil natus amet debitis ratione reiciendis accusantium
               corporis dolorum minus id deleniti quasi beatae odio nemo earum.
@@ -50,14 +56,14 @@ const Home = () => {
               debitis ratione reiciendis accusantium corporis dolorum minus id
               deleniti quasi beatae odio nemo earum. Quos ullam magni ab.
             </p>
-            <p className="pd__container__text--payment">
+            <p className={styles.payment}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
               esse non aut, sint labore, unde dolore facere nobis veritatis
               adipisci odit quia in quo a modi eos saepe distinctio dolorum.
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

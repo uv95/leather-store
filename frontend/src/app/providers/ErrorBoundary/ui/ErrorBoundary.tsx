@@ -22,7 +22,15 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <h2>Something broke.</h2>;
+      return (
+        <div role="alert" aria-live="assertive">
+          <h1>Something went wrong</h1>
+          <p>An unexpected error occurred. Please reload the page.</p>
+          <button type="button" onClick={() => window.location.reload()}>
+            Reload page
+          </button>
+        </div>
+      );
     }
 
     return this.props.children;
