@@ -3,6 +3,10 @@
 .orders {
   @include list;
 
+  li {
+    list-style: none;
+  }
+
   & .spinner {
     height: 24rem;
   }

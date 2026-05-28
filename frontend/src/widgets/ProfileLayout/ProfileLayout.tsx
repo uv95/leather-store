@@ -22,14 +22,22 @@ function ProfileLayout<T extends Tab>({
 
   return (
     <div className={styles.ProfileLayout}>
-      <h1 className={styles.name}>{user?.name}</h1>
+      <h1 className={styles.name}>
+        {user?.name ? `${user.name}'s Profile` : 'My Profile'}
+      </h1>
       <div className={styles.container}>
         <Sidebar
           items={sidebarItems}
           setCurrentItem={setCurrentItem}
           currentItem={currentItem}
         />
-        <section className={styles.content}>{children}</section>
+        <section
+          className={styles.content}
+          aria-label={`${currentItem} section`}
+          aria-live="polite"
+        >
+          {children}
+        </section>
       </div>
     </div>
   );

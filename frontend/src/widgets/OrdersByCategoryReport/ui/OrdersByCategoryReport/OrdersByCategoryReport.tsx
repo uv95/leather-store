@@ -93,7 +93,7 @@ const OrdersByCategoryReport = () => {
       {loading === 'succeeded' &&
         chartData.map((chart) => (
           <div key={chart.title} className="orders-by-category__item">
-            <h2>{chart.title}</h2>
+            <h3>{chart.title}</h3>
             <div className="chart-item">
               <div className="legend">
                 {labels.map((label, i) => (
@@ -101,6 +101,8 @@ const OrdersByCategoryReport = () => {
                     <div
                       className="legend-label"
                       style={{ backgroundColor: DOUGHNUT_COLORS[i] }}
+                      role="presentation"
+                      aria-hidden="true"
                     ></div>
                     <p>{label}</p>
                   </div>

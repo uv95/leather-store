@@ -19,7 +19,7 @@ const ItemListItem = ({ item }: ItemListItemProps) => {
       type: type.split('')[0].toUpperCase() + type.slice(1),
       price: `$${price}`,
     }),
-    [imageCover.url, itemId, name, type, price]
+    [imageCover.url, itemId, name, type, price],
   );
 
   return (
@@ -34,7 +34,10 @@ const ItemListItem = ({ item }: ItemListItemProps) => {
           <div key={dataKey} className={`itemListItem__field`}>
             <div className="itemListItem__field-content">
               {dataKey === 'imageCover' ? (
-                <img src={itemData.imageCover} alt="Product" />
+                <img
+                  src={itemData.imageCover}
+                  alt={`${item.name} product photo`}
+                />
               ) : (
                 itemData[dataKey]
               )}

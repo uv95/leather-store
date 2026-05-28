@@ -20,11 +20,16 @@ const FilterList = () => {
         ? dispatch(setSort(SortingOptions.DEFAULT))
         : dispatch(removeFilter(filter));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (
-    <div className="filterList">
+    <div
+      className="filterList"
+      role="region"
+      aria-label="Active filters"
+      aria-live="polite"
+    >
       {(sortBy === SortingOptions.DEFAULT ? filters : [...filters, sortBy]).map(
         (filter) => (
           <FilterTag
@@ -32,7 +37,7 @@ const FilterList = () => {
             filter={filter}
             onClick={() => onRemoveFilter(filter)}
           />
-        )
+        ),
       )}
     </div>
   );
