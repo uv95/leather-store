@@ -33,7 +33,7 @@ describe('CartButton', () => {
       </Routes>,
       {
         route: RoutePath.CART,
-      }
+      },
     );
     const button = screen.getByRole('button', {
       name: 'Checkout',

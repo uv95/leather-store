@@ -30,14 +30,14 @@ const CheckoutSuccessfulContent = () => {
       }
 
       switch (paymentIntent.status) {
-        case 'succeeded':
-          setStatus('success');
-          break;
-        case 'processing':
-          setStatus('loading');
-          break;
-        default:
-          setStatus('failed');
+      case 'succeeded':
+        setStatus('success');
+        break;
+      case 'processing':
+        setStatus('loading');
+        break;
+      default:
+        setStatus('failed');
       }
     });
   }, [stripe, clientSecret]);

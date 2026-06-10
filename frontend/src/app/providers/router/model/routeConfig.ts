@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { RoutePath } from '../../../../shared/types/routePaths';
 
 const AdminProfile = lazy(
-  () => import('../../../../pages/AdminProfile/AdminProfile')
+  () => import('../../../../pages/AdminProfile/AdminProfile'),
 );
 const Cart = lazy(() => import('../../../../pages/Cart/Cart'));
 const Catalog = lazy(() => import('../../../../pages/Catalog'));
@@ -13,14 +13,12 @@ const Home = lazy(() => import('../../../../pages/Home'));
 const Checkout = lazy(() => import('../../../../pages/Checkout/Checkout'));
 const CheckoutSuccessfulPage = lazy(
   () =>
-    import(
-      '../../../../pages/CheckoutSuccessful/ui/CheckoutSuccessfulPage/CheckoutSuccessfulPage'
-    )
+    import('../../../../pages/CheckoutSuccessful/ui/CheckoutSuccessfulPage/CheckoutSuccessfulPage'),
 );
 const NotFound = lazy(() => import('../../../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../../../pages/Contacts/Contacts'));
 const UserProfile = lazy(
-  () => import('../../../../pages/UserProfile/UserProfile')
+  () => import('../../../../pages/UserProfile/UserProfile'),
 );
 const Leathers = lazy(() => import('../../../../pages/Leathers/Leathers'));
 

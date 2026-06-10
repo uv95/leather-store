@@ -28,7 +28,7 @@ const ItemPage = () => {
 
   useEffect(() => {
     document.title = `${item?.name} - ${item?.type}`;
-  }, [item?.name]);
+  }, [item?.name, item?.type]);
 
   return (
     <div className={styles.Item}>

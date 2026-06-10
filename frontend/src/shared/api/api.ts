@@ -5,7 +5,7 @@ export const $api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:8080'
-    :  'https://leather-store.fly.dev',
+      : 'https://leather-store.fly.dev',
 });
 
 $api.interceptors.request.use((config) => {
