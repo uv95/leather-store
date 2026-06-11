@@ -9,7 +9,9 @@
     "build": "tsc",
     "start": "node ./dist/server.js",
     "client": "npm start --prefix frontend",
-    "debug": "ndb backend/src/server.ts"
+    "debug": "ndb backend/src/server.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +40,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcryptjs": "^3.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
@@ -48,18 +51,15 @@
     "@types/node": "^24.2.1",
     "@types/nodemailer": "^6.4.17",
     "@types/validator": "^13.15.2",
-    "eslint": "^8.25.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
+    "globals": "^17.6.0",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.61.0"
   },
   "engines": {
     "node": ">=8.3.0"

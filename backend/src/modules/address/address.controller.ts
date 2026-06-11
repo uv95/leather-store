@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
 import { AddressService } from './address.service';
@@ -11,7 +11,6 @@ export class AddressController {
     async (
       req: RequestWithUser<{}, {}, CreateAddressDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const address = await this.addressService.createAddress(
         req.user?.id,
@@ -29,7 +28,6 @@ export class AddressController {
     async (
       req: Request<{ addressId: string }, {}, UpdateAddressDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const updatedItem = await this.addressService.updateAddress(
         req.params.addressId,
@@ -44,7 +42,7 @@ export class AddressController {
   );
 
   deleteAddress = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       await this.addressService.deleteAddress(req.params.addressId);
 
       res.status(204).json({
@@ -55,7 +53,7 @@ export class AddressController {
   );
 
   getUserAddresses = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const addresses = await this.addressService.getUserAddresses(
         req.user?.id
       );

@@ -49,11 +49,11 @@ export const protect = catchAsync(
 
 export const restrictTo =
   (role: 'admin' | 'user') =>
-  (req: RequestWithUser, res: Response, next: NextFunction) => {
-    if (req.user && role !== req.user.role)
-      return next(
-        new AppError('You are not allowed to perform this action', 403)
-      );
+    (req: RequestWithUser, res: Response, next: NextFunction) => {
+      if (req.user && role !== req.user.role)
+        return next(
+          new AppError('You are not allowed to perform this action', 403)
+        );
 
-    next();
-  };
+      next();
+    };

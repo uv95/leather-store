@@ -1,7 +1,7 @@
+import { Response } from 'express';
+import type { MongoServerError } from 'mongodb';
 import { CastError, Error as MongooseError } from 'mongoose';
 import AppError, { AppErrorType } from './appError';
-import { Request, Response, NextFunction } from 'express';
-import type { MongoServerError } from 'mongodb';
 
 type KnownErrors =
   | AppErrorType
@@ -57,9 +57,7 @@ const sendErrorProd = (err: AppErrorType, res: Response) => {
 
 export const errorController = (
   err: KnownErrors,
-  req: Request,
   res: Response,
-  next: NextFunction
 ) => {
   let error = err;
 

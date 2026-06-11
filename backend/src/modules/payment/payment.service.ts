@@ -181,57 +181,58 @@ export class PaymentService {
         signature,
         process.env.STRIPE_WEBHOOK_SECRET,
       );
-    } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       throw new AppError('Webhook signature verification failed', 400);
     }
 
     switch (event.type) {
-      case 'payment_intent.succeeded': {
-        const { metadata, id: paymentIntentId } = event.data.object;
-        const { orderId } = metadata;
+    case 'payment_intent.succeeded': {
+      const { metadata, id: paymentIntentId } = event.data.object;
+      const { orderId } = metadata;
 
-        return await this.handlePaymentIntentSucceeded({
-          orderId,
-          paymentIntentId,
-        });
-      }
-      case 'charge.updated': {
-        const { metadata, id: paymentIntentId } = event.data.object;
-        const { orderId } = metadata;
+      return await this.handlePaymentIntentSucceeded({
+        orderId,
+        paymentIntentId,
+      });
+    }
+    case 'charge.updated': {
+      const { metadata, id: paymentIntentId } = event.data.object;
+      const { orderId } = metadata;
 
-        return await this.handlePaymentIntentSucceeded({
-          orderId,
-          paymentIntentId,
-        });
-      }
-      case 'charge.succeeded': {
-        const { metadata, id: paymentIntentId } = event.data.object;
-        const { orderId } = metadata;
+      return await this.handlePaymentIntentSucceeded({
+        orderId,
+        paymentIntentId,
+      });
+    }
+    case 'charge.succeeded': {
+      const { metadata, id: paymentIntentId } = event.data.object;
+      const { orderId } = metadata;
 
-        return await this.handlePaymentIntentSucceeded({
-          orderId,
-          paymentIntentId,
-        });
-      }
+      return await this.handlePaymentIntentSucceeded({
+        orderId,
+        paymentIntentId,
+      });
+    }
 
-      case 'payment_intent.payment_failed': {
-        const { id: paymentIntentId } = event.data.object;
+    case 'payment_intent.payment_failed': {
+      const { id: paymentIntentId } = event.data.object;
 
-        return await this.updatePayment(paymentIntentId, {
-          status: 'failed',
-        });
-      }
+      return await this.updatePayment(paymentIntentId, {
+        status: 'failed',
+      });
+    }
 
-      case 'payment_intent.canceled': {
-        const { id: paymentIntentId } = event.data.object;
+    case 'payment_intent.canceled': {
+      const { id: paymentIntentId } = event.data.object;
 
-        return await this.updatePayment(paymentIntentId, {
-          status: 'canceled',
-        });
-      }
+      return await this.updatePayment(paymentIntentId, {
+        status: 'canceled',
+      });
+    }
 
-      default:
-        console.log(`Unhandled event type ${event.type}`);
+    default:
+      console.log(`Unhandled event type ${event.type}`);
     }
 
     return { received: true };

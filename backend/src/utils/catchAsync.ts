@@ -8,6 +8,6 @@ type AsyncFunction<T, R extends Request> = (
 
 export const catchAsync =
   <T, R extends Request>(fn: AsyncFunction<T, R>) =>
-  (req: R, res: Response, next: NextFunction) => {
-    fn(req, res, next).catch(next);
-  };
+    (req: R, res: Response, next?: NextFunction | undefined) => {
+      fn(req, res, next as NextFunction).catch(next);
+    };

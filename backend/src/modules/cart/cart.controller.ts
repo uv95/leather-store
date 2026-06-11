@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
 import { CartService } from './cart.service';
@@ -14,9 +14,7 @@ export class CartController {
   addToCart = catchAsync(
     async (
       req: Request<{ cartId: string }, {}, CreateCartItemDto>,
-      res: Response,
-      next: NextFunction
-    ) => {
+      res: Response) => {
       const data = await this.cartService.addToCart(
         req.params.cartId,
         req.body
@@ -30,7 +28,7 @@ export class CartController {
   );
 
   removeFromCart = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.cartService.removeFromCart(req.params.cartItemId);
 
       res.status(200).json({
@@ -41,7 +39,7 @@ export class CartController {
   );
 
   getCart = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.cartService.getCart(req.user?.id);
 
       res.status(200).json({
@@ -52,7 +50,7 @@ export class CartController {
   );
 
   getCartItems = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.cartService.getCartItems(req.params.cartId);
 
       res.status(200).json({
@@ -63,7 +61,7 @@ export class CartController {
   );
 
   clearCart = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       await this.cartService.clearCart(req.params.cartId);
 
       res.status(204).json({
@@ -76,9 +74,7 @@ export class CartController {
   changeQuantity = catchAsync(
     async (
       req: Request<{ cartItemId: string }, {}, ChangeQuantityDto>,
-      res: Response,
-      next: NextFunction
-    ) => {
+      res: Response) => {
       const data = await this.cartService.changeQuantity(
         req.params.cartItemId,
         req.body
@@ -94,8 +90,7 @@ export class CartController {
   mergeCartItems = catchAsync(
     async (
       req: RequestWithUser<{}, {}, MergeCartItemsDto>,
-      res: Response,
-      next: NextFunction
+      res: Response
     ) => {
       const data = await this.cartService.mergeCartItems(
         req.user?.id,
@@ -110,7 +105,7 @@ export class CartController {
   );
 
   getCartItemCount = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.cartService.getCartItemCount(req.params.cartId);
 
       res.status(200).json({
