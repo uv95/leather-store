@@ -1,7 +1,7 @@
-import { PartialStoryFn } from 'storybook/internal/csf';
+import type { Decorator } from '@storybook/react';
 import { StoreProvider } from '../../../../app/providers/StoreProvider';
 
-export const StoreDecorator = (Story: PartialStoryFn) => {
+export const StoreDecorator: Decorator = (Story) => {
   return (
     <StoreProvider>
       <Story />
