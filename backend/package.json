@@ -11,7 +11,8 @@
     "client": "npm start --prefix frontend",
     "debug": "ndb backend/src/server.ts",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit"
   },
   "author": "",
   "license": "ISC",
