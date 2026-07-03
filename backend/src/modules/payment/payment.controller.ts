@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
+import { RequestWithUser } from 'src/utils/types';
 import { catchAsync } from '../../utils/catchAsync';
 import { CreatePaymentIntentDto } from './dto/payment.dto';
 import { PaymentService } from './payment.service';
-import { RequestWithUser } from 'src/utils/types';
 
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
@@ -11,7 +11,6 @@ export class PaymentController {
     async (
       req: RequestWithUser<{ orderId: string }, {}, CreatePaymentIntentDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const data = await this.paymentService.createPaymentIntent(
         req.user?.id,
@@ -27,7 +26,7 @@ export class PaymentController {
   );
 
   confirmPayment = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.paymentService.confirmPaymentIntent(
         req.params.paymentIntentId
       );
@@ -40,7 +39,7 @@ export class PaymentController {
   );
 
   cancelPayment = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.paymentService.cancelPaymentIntent(
         req.params.paymentIntentId
       );
@@ -53,7 +52,7 @@ export class PaymentController {
   );
 
   retrievePayment = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.paymentService.retrievePaymentIntent(
         req.params.paymentIntentId
       );
@@ -66,7 +65,7 @@ export class PaymentController {
   );
 
   handleWebhook = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.paymentService.handleWebhook(req);
 
       res.status(200).json({
@@ -77,7 +76,7 @@ export class PaymentController {
   );
 
   getAllPayments = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.paymentService.getAllPayments();
 
       res.status(200).json({
@@ -88,7 +87,7 @@ export class PaymentController {
   );
 
   getAllPaymentsByUser = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.paymentService.getAllPaymentsByUser(req.user?.id);
 
       res.status(200).json({
@@ -101,8 +100,7 @@ export class PaymentController {
   getPayment = catchAsync(
     async (
       req: RequestWithUser<{ orderId: string }, {}, {}>,
-      res: Response,
-      next: NextFunction
+      res: Response
     ) => {
       const data = await this.paymentService.getPayment(
         req.user?.id,

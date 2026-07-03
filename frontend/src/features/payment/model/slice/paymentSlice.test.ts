@@ -17,6 +17,12 @@ describe('paymentSlice', () => {
     loading: 'idle',
   };
 
+  const rejectedStateExpectations: Record<string, Partial<PaymentSchema>> = {
+    createPayment: { clientSecret: undefined, paymentIntentId: undefined },
+    retrievePaymentIntent: { clientSecret: undefined, paymentIntentId: undefined },
+    getPayment: { payment: undefined, paymentIntentId: undefined },
+  };
+
   test('should return the initial state', () => {
     expect(paymentSlice(undefined, { type: 'unknown' })).toEqual(initialState);
   });
@@ -43,16 +49,7 @@ describe('paymentSlice', () => {
       });
 
       expect(state.loading).toBe('failed');
-
-      if (['createPayment', 'retrievePaymentIntent'].includes(actionName)) {
-        expect(state.clientSecret).toBeUndefined();
-        expect(state.paymentIntentId).toBeUndefined();
-      }
-
-      if (actionName === 'getPayment') {
-        expect(state.payment).toBeUndefined();
-        expect(state.paymentIntentId).toBeUndefined();
-      }
+      expect(state).toMatchObject(rejectedStateExpectations[actionName] ?? {});
     });
   });
 

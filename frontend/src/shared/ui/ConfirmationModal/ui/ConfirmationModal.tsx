@@ -27,7 +27,7 @@ const ConfirmationModal = ({
           {title}
         </h2>
         <div className="confirmationModal-buttons">
-          <Button onClick={onClose} className="confirmationModal-cancel">
+          <Button onClick={() => onClose()} className="confirmationModal-cancel">
             {buttonTexts.no}
           </Button>
           <Button

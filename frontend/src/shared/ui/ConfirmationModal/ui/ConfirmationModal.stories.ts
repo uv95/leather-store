@@ -1,5 +1,5 @@
 import ConfirmationModal from './ConfirmationModal';
-import { action } from 'storybook/actions';
+import { fn } from 'storybook/test';
 
 export default {
   title: 'widgets/ConfirmationModal',
@@ -13,8 +13,12 @@ export default {
 export const Primary = {
   args: {
     isOpen: true,
-    text: 'Are you sure you want to cancel the order?',
-    confirmAction: action('confirmAction'),
-    onClose: action('onClose'),
-  },
+    title: 'Are you sure you want to cancel the order?',
+    confirmAction: fn(),
+    onClose: fn(),
+    buttonTexts: {
+      yes: 'Yes',
+      no: 'No',
+    }
+  }
 };

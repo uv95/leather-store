@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { AnalyticsService } from './analytics.service';
 
@@ -6,7 +6,7 @@ export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
   getMonthlyRevenue = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const stats = await this.analyticsService.getMonthlyRevenue();
 
       res.status(200).json({
@@ -17,7 +17,7 @@ export class AnalyticsController {
   );
 
   getOrdersByCategory = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const stats = await this.analyticsService.getOrdersByCategory();
 
       res.status(200).json({

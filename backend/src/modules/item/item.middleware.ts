@@ -24,9 +24,11 @@ const multerFilter: multer.Options['fileFilter'] = (
   file,
   cb: FileFilterCallback
 ) => {
-  file.mimetype.startsWith('image')
-    ? cb(null, true)
-    : cb(new Error('Not an image'));
+  if (!file.mimetype.startsWith('image')) {
+    return cb(new Error('Not an image'));
+  }
+
+  cb(null, true);
 };
 
 const upload = multer({

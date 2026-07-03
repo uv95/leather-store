@@ -31,28 +31,28 @@ const ItemColorSelectorModal: React.FC<ItemColorSelectorModalProps> = ({
     let newCol = col;
 
     switch (e.key) {
-      case 'ArrowRight':
-        newCol = (col + 1) % COLUMNS;
-        break;
+    case 'ArrowRight':
+      newCol = (col + 1) % COLUMNS;
+      break;
 
-      case 'ArrowLeft':
-        newCol = (col - 1 + COLUMNS) % COLUMNS;
-        break;
+    case 'ArrowLeft':
+      newCol = (col - 1 + COLUMNS) % COLUMNS;
+      break;
 
-      case 'ArrowDown':
-        newRow = (row + 1) % ROWS;
-        break;
+    case 'ArrowDown':
+      newRow = (row + 1) % ROWS;
+      break;
 
-      case 'ArrowUp':
-        newRow = (row - 1 + ROWS) % ROWS;
-        break;
+    case 'ArrowUp':
+      newRow = (row - 1 + ROWS) % ROWS;
+      break;
 
-      case 'Enter':
-        onClose();
-        return;
+    case 'Enter':
+      onClose();
+      return;
 
-      default:
-        return;
+    default:
+      return;
     }
 
     e.preventDefault();

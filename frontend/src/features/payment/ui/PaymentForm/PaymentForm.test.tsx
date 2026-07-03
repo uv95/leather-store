@@ -17,14 +17,15 @@ const initialState = {
   },
 };
 
-const mockUseStripe = jest.fn(() => mockStripe);
-
 jest.mock('@stripe/react-stripe-js', () => ({
-  useStripe: () => mockUseStripe(),
+  useStripe: jest.fn(),
   useElements: jest.fn(),
   Elements: ({ children }: { children: ReactNode }) => <div>{children}</div>,
   PaymentElement: () => <div data-testid="payment-element" />,
 }));
+
+const mockedUseStripe = useStripe as jest.Mock;
+const mockedUseElements = useElements as jest.Mock;
 
 const mockPaymentElement = {
   on: jest.fn((event, callback) => {
@@ -34,11 +35,20 @@ const mockPaymentElement = {
   }),
 };
 
+const setupReadyPaymentElement = (overrides: Record<string, unknown> = {}) => {
+  mockedUseElements.mockReturnValue({
+    getElement: jest.fn().mockReturnValue(mockPaymentElement),
+    ...overrides,
+  });
+};
+
 describe('PaymentForm', () => {
   let toastErrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
     toastErrorSpy = jest.spyOn(toast, 'error');
+    mockedUseStripe.mockReturnValue(mockStripe);
+    mockedUseElements.mockReturnValue(undefined);
   });
 
   afterEach(() => {
@@ -59,10 +69,7 @@ describe('PaymentForm', () => {
   });
 
   test('should hide PaymentFormSkeleton while payment element is ready', async () => {
-    (useElements as jest.Mock) = jest.fn(() => ({
-      getElement: jest.fn().mockReturnValue(mockPaymentElement),
-    }));
-
+    setupReadyPaymentElement();
     renderComponent(<PaymentForm />);
 
     await waitFor(() => {
@@ -71,6 +78,7 @@ describe('PaymentForm', () => {
   });
 
   test('should show payment button when clientSecret exists and element is ready', async () => {
+    setupReadyPaymentElement();
     renderComponent(<PaymentForm />, initialState);
     const button = screen.getByRole('button');
 
@@ -87,7 +95,8 @@ describe('PaymentForm', () => {
   });
 
   test('should disable button when stripe is not initialized', async () => {
-    (useStripe as jest.Mock) = jest.fn().mockImplementation(() => null);
+    mockedUseStripe.mockReturnValue(null);
+    setupReadyPaymentElement();
     renderComponent(<PaymentForm />, initialState);
 
     await waitFor(() => {
@@ -97,8 +106,7 @@ describe('PaymentForm', () => {
   });
 
   test('should disable button when payment is processing', async () => {
-    (useStripe as jest.Mock) = jest.fn(() => mockUseStripe());
-
+    setupReadyPaymentElement();
     renderComponent(<PaymentForm />, {
       initialState: {
         payment: {
@@ -115,6 +123,7 @@ describe('PaymentForm', () => {
   });
 
   test('should show "Processing..." text when payment is processing', async () => {
+    setupReadyPaymentElement();
     renderComponent(<PaymentForm />, {
       initialState: {
         payment: {
@@ -131,11 +140,7 @@ describe('PaymentForm', () => {
 
   test('should handle form submission successfully', async () => {
     const submitMock = jest.fn().mockResolvedValue({ error: null });
-    (useStripe as jest.Mock) = jest.fn(() => mockStripe);
-    (useElements as jest.Mock) = jest.fn(() => ({
-      getElement: jest.fn().mockReturnValue(mockPaymentElement),
-      submit: submitMock,
-    }));
+    setupReadyPaymentElement({ submit: submitMock });
 
     mockStripe.confirmPayment.mockResolvedValue({ error: null });
 
@@ -150,24 +155,20 @@ describe('PaymentForm', () => {
 
     await waitFor(() => {
       expect(submitMock).toHaveBeenCalled();
-      expect(mockStripe.confirmPayment).toHaveBeenCalledWith({
-        elements: expect.any(Object),
-        confirmParams: {
-          return_url: `${window.location.origin}/checkout/success`,
-        },
-      });
-      expect(toastErrorSpy).not.toHaveBeenCalled();
     });
+    expect(mockStripe.confirmPayment).toHaveBeenCalledWith({
+      elements: expect.any(Object),
+      confirmParams: {
+        return_url: `${window.location.origin}/checkout/success`,
+      },
+    });
+    expect(toastErrorSpy).not.toHaveBeenCalled();
   });
 
   test('should handle submit error and show toast', async () => {
     const submitError = { message: 'Please fill in your payment details' };
     const submitMock = jest.fn().mockResolvedValue({ error: submitError });
-    (useStripe as jest.Mock) = jest.fn(() => mockStripe);
-    (useElements as jest.Mock) = jest.fn(() => ({
-      getElement: jest.fn().mockReturnValue(mockPaymentElement),
-      submit: submitMock,
-    }));
+    setupReadyPaymentElement({ submit: submitMock });
 
     renderComponent(<PaymentForm />, initialState);
 
@@ -180,19 +181,15 @@ describe('PaymentForm', () => {
 
     await waitFor(() => {
       expect(submitMock).toHaveBeenCalled();
-      expect(toastErrorSpy).toHaveBeenCalledWith(submitError.message);
-      expect(mockStripe.confirmPayment).not.toHaveBeenCalled();
     });
+    expect(toastErrorSpy).toHaveBeenCalledWith(submitError.message);
+    expect(mockStripe.confirmPayment).not.toHaveBeenCalled();
   });
 
   test('should handle payment confirmation error and show toast', async () => {
     const paymentError = { message: 'Payment failed' };
     const submitMock = jest.fn().mockResolvedValue({ error: null });
-    (useStripe as jest.Mock) = jest.fn(() => mockStripe);
-    (useElements as jest.Mock) = jest.fn(() => ({
-      getElement: jest.fn().mockReturnValue(mockPaymentElement),
-      submit: submitMock,
-    }));
+    setupReadyPaymentElement({ submit: submitMock });
 
     mockStripe.confirmPayment.mockResolvedValue({ error: paymentError });
 
@@ -207,18 +204,15 @@ describe('PaymentForm', () => {
 
     await waitFor(() => {
       expect(submitMock).toHaveBeenCalled();
-      expect(mockStripe.confirmPayment).toHaveBeenCalled();
-      expect(toastErrorSpy).toHaveBeenCalledWith(paymentError.message);
     });
+    expect(mockStripe.confirmPayment).toHaveBeenCalled();
+    expect(toastErrorSpy).toHaveBeenCalledWith(paymentError.message);
   });
 
   test('should not call submit when stripe is null', async () => {
     const submitMock = jest.fn();
-    (useStripe as jest.Mock) = jest.fn(() => null);
-    (useElements as jest.Mock) = jest.fn(() => ({
-      getElement: jest.fn().mockReturnValue(mockPaymentElement),
-      submit: submitMock,
-    }));
+    mockedUseStripe.mockReturnValue(null);
+    setupReadyPaymentElement({ submit: submitMock });
 
     renderComponent(<PaymentForm />, initialState);
 
@@ -233,8 +227,8 @@ describe('PaymentForm', () => {
 
     await waitFor(() => {
       expect(submitMock).not.toHaveBeenCalled();
-      expect(mockStripe.confirmPayment).not.toHaveBeenCalled();
-      expect(toastErrorSpy).not.toHaveBeenCalled();
     });
+    expect(mockStripe.confirmPayment).not.toHaveBeenCalled();
+    expect(toastErrorSpy).not.toHaveBeenCalled();
   });
 });

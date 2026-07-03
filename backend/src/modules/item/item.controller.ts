@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
 import { CreateItemDto, UpdateItemDto } from './dto/item.dto';
@@ -11,7 +11,6 @@ export class ItemController {
     async (
       req: Request<{}, {}, CreateItemDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const item = await this.itemService.createItem(req.body);
 
@@ -26,7 +25,6 @@ export class ItemController {
     async (
       req: Request<{ itemId: string }, {}, UpdateItemDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const updatedItem = await this.itemService.updateItem(
         req.params.itemId,
@@ -41,7 +39,7 @@ export class ItemController {
   );
 
   deleteItem = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       await this.itemService.deleteItem(req.params.itemId);
 
       res.status(204).json({
@@ -52,7 +50,7 @@ export class ItemController {
   );
 
   getItems = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const items = await this.itemService.getItems();
 
       res.status(200).json({
@@ -63,7 +61,7 @@ export class ItemController {
   );
 
   getItemBySlug = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const item = await this.itemService.getItemBySlug(req.params.slug);
 
       res.status(200).json({
@@ -74,7 +72,7 @@ export class ItemController {
   );
 
   getItemById = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const item = await this.itemService.getItemBySlug(req.params.itemId);
 
       res.status(200).json({

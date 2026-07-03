@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { UserDocument } from '../../modules/user/model/user.model';
 import { catchAsync } from '../../utils/catchAsync';
@@ -22,9 +22,7 @@ export class AuthController {
   signup = catchAsync(
     async (
       req: Request<{}, {}, SignupDto>,
-      res: Response,
-      next: NextFunction
-    ) => {
+      res: Response) => {
       const user = await this.authService.signup(req.body);
 
       return this.createSendToken(user, 201, res);
@@ -34,9 +32,7 @@ export class AuthController {
   login = catchAsync(
     async (
       req: Request<{}, {}, LoginDto>,
-      res: Response,
-      next: NextFunction
-    ) => {
+      res: Response) => {
       const user = await this.authService.login(req.body);
 
       return this.createSendToken(user, 200, res);
@@ -47,7 +43,6 @@ export class AuthController {
     async (
       req: RequestWithUser<{ token: string }, {}, ResetPasswordDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const user = await this.authService.resetPassword(
         req.params.token,
@@ -62,7 +57,6 @@ export class AuthController {
     async (
       req: RequestWithUser<{}, {}, UpdatePasswordDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const user = await this.authService.updatePassword(
         req.user?.id,

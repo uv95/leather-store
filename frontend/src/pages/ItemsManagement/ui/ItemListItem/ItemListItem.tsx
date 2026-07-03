@@ -22,7 +22,7 @@ const ItemListItem = ({ item }: ItemListItemProps) => {
         <div className="itemListItem__field">
           <dt className="sr-only">Image cover</dt>
           <dd className="itemListItem__field-content">
-            <img src={imageCover.url} alt={`${name} product photo`} />
+            <img src={imageCover.url} alt={`${name} product`} />
           </dd>
         </div>
         <div className="itemListItem__field">

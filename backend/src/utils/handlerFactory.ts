@@ -35,28 +35,28 @@ export const updateOne = <T, P extends PopulatePath<T>>(
   Model: Model<T>,
   populateOptions?: PopulateOptions<T, P>
 ) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    let query = Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
+    catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      let query = Model.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (populateOptions) {
+        query = query.populate(populateOptions);
+      }
+
+      const doc = await query;
+
+      if (!doc) next(new AppError('No document found with that id!', 404));
+
+      res.status(200).json({
+        status: 'success',
+        data: doc,
+      });
     });
-
-    if (populateOptions) {
-      query = query.populate(populateOptions);
-    }
-
-    const doc = await query;
-
-    if (!doc) next(new AppError('No document found with that id!', 404));
-
-    res.status(200).json({
-      status: 'success',
-      data: doc,
-    });
-  });
 
 export const createOne = <T>(Model: Model<T>) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: Request, res: Response) => {
     const newDoc = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
@@ -68,44 +68,44 @@ export const getOne = <T, P extends PopulatePath<T>>(
   Model: Model<T>,
   populateOptions?: PopulateOptions<T, P>
 ) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    let query = Model.findById(req.params.id);
+    catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      let query = Model.findById(req.params.id);
 
-    if (populateOptions) {
-      query = query.populate(populateOptions);
-    }
+      if (populateOptions) {
+        query = query.populate(populateOptions);
+      }
 
-    const doc = await query;
+      const doc = await query;
 
-    if (!doc) {
-      return next(new AppError('No document found with that id!', 404));
-    }
+      if (!doc) {
+        return next(new AppError('No document found with that id!', 404));
+      }
 
-    res.status(200).json({
-      status: 'success',
-      data: doc,
+      res.status(200).json({
+        status: 'success',
+        data: doc,
+      });
     });
-  });
 
 export const getAll = <T, P extends PopulatePath<T>>(
   Model: Model<T>,
   populateOptions?: PopulateOptions<T, P>
 ) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    let query = Model.find();
+    catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      let query = Model.find();
 
-    if (populateOptions) {
-      query = query.populate(populateOptions);
-    }
+      if (populateOptions) {
+        query = query.populate(populateOptions);
+      }
 
-    const doc = await query;
+      const doc = await query;
 
-    if (!doc) {
-      return next(new AppError('No documents found!', 404));
-    }
+      if (!doc) {
+        return next(new AppError('No documents found!', 404));
+      }
 
-    res.status(200).json({
-      status: 'success',
-      data: doc,
+      res.status(200).json({
+        status: 'success',
+        data: doc,
+      });
     });
-  });

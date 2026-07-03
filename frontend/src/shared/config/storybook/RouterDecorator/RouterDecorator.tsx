@@ -1,10 +1,10 @@
-import { StoryContext } from '@storybook/react/*';
 import { MemoryRouter } from 'react-router-dom';
-import { PartialStoryFn } from 'storybook/internal/csf';
+import type { Decorator } from '@storybook/react';
 
-export const RouterDecorator = (
-  Story: PartialStoryFn,
-  context: StoryContext
+
+export const RouterDecorator: Decorator = (
+  Story,
+  context
 ) => {
   const path = context.args?.path || '/';
 

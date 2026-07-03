@@ -47,7 +47,7 @@ const sendErrorProd = (err: AppErrorType, res: Response) => {
       message: err.message,
     });
   } else {
-    console.error('ERROR 💥', err);
+    console.error('Error: ', err);
     res.status(500).json({
       status: 'error',
       message: 'Something went wrong!',
@@ -59,6 +59,7 @@ export const errorController = (
   err: KnownErrors,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
   let error = err;

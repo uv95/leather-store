@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
-import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/user.dto';
+import { UserService } from './user.service';
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   getUser = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.userService.getUser(req.user?.id);
 
       res.status(200).json({
@@ -19,7 +19,7 @@ export class UserController {
   );
 
   getUsers = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.userService.getUsers();
 
       res.status(200).json({
@@ -32,9 +32,7 @@ export class UserController {
   updateUser = catchAsync(
     async (
       req: RequestWithUser<{}, {}, UpdateUserDto>,
-      res: Response,
-      next: NextFunction
-    ) => {
+      res: Response) => {
       const data = await this.userService.updateUser(req.user?.id, req.body);
 
       res.status(200).json({
@@ -45,7 +43,7 @@ export class UserController {
   );
 
   deleteUser = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       await this.userService.deleteUser(req.user?.id);
 
       res.status(204).json({

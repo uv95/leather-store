@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { RequestWithUser } from '../../utils/types';
-import { OrderService } from './order.service';
 import { CreateOrderDto, UpdateOrderDto } from './dto/order.dto';
+import { OrderService } from './order.service';
 
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   getUserOrders = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.orderService.getUserOrders(req.user?.id);
 
       res.status(200).json({
@@ -19,7 +19,7 @@ export class OrderController {
   );
 
   getAllOrders = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.orderService.getAllOrders();
 
       res.status(200).json({
@@ -30,7 +30,7 @@ export class OrderController {
   );
 
   getOrder = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const data = await this.orderService.getOrder(req.params.orderId);
 
       res.status(200).json({
@@ -44,7 +44,6 @@ export class OrderController {
     async (
       req: RequestWithUser<{}, {}, CreateOrderDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const data = await this.orderService.createOrder(req.user?.id, req.body);
 
@@ -56,7 +55,7 @@ export class OrderController {
   );
 
   deleteOrder = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.orderService.deleteOrder(
         req.params.orderId,
         req.user?.id
@@ -73,7 +72,6 @@ export class OrderController {
     async (
       req: Request<{ orderId: string }, {}, UpdateOrderDto>,
       res: Response,
-      next: NextFunction
     ) => {
       const data = await this.orderService.updateOrder(
         req.params.orderId,
@@ -88,7 +86,7 @@ export class OrderController {
   );
 
   getUserActiveOrderCount = catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, res: Response) => {
       const data = await this.orderService.getUserActiveOrderCount(
         req.user?.id
       );
